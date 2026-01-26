@@ -182,7 +182,7 @@ export default function Hero() {
               {/* Image container */}
               <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-slate-800 shadow-2xl">
                 <Image
-                  src="/pfp.jpg"
+                  src="/pfp.png"
                   alt="Cyril Narvasa"
                   fill
                   className="object-cover"

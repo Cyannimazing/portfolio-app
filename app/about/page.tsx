@@ -1,13 +1,16 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { Spotlight } from "@/components/ui/spotlight";
+import ContactModal from "@/components/ContactModal";
 
 export default function AboutPage() {
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
   const skills = {
     frontend: ["HTML", "CSS", "JavaScript", "Next.js", "Nuxt.js"],
     backend: ["Laravel", "Python", "Java"],
@@ -75,7 +78,7 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-gradient-to-r from-sky-500 to-blue-600 rounded-2xl blur-3xl opacity-20 animate-pulse"></div>
                 <div className="relative w-full h-full rounded-2xl overflow-hidden border-4 border-slate-800 shadow-2xl">
                   <Image
-                    src="/pfp.jpg"
+                    src="/pfp.png"
                     alt="Cyril Narvasa"
                     fill
                     className="object-cover"
@@ -88,7 +91,7 @@ export default function AboutPage() {
             <div className="md:col-span-3 space-y-6">
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                  Hello! I'm Cyril Jian B. Narvasa
+                  Hello! I&apos;m Cyril Jian B. Narvasa
                 </h2>
                 <p className="text-lg text-neutral-300 leading-relaxed">
                   A passionate Full Stack Developer dedicated to creating beautiful, 
@@ -104,7 +107,7 @@ export default function AboutPage() {
                   interfaces.
                 </p>
                 <p>
-                  As a freelance developer, I've had the opportunity to work on diverse 
+                  As a freelance developer, I&apos;ve had the opportunity to work on diverse 
                   projects, continuously expanding my skills and staying current with 
                   industry best practices.
                 </p>
@@ -196,12 +199,12 @@ export default function AboutPage() {
               opportunities to be part of your vision.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link
-                href="/contact"
+              <button
+                onClick={() => setIsContactModalOpen(true)}
                 className="px-8 py-4 bg-sky-500 hover:bg-sky-600 text-white font-medium rounded-full transition-colors duration-300 cursor-pointer"
               >
                 Get In Touch
-              </Link>
+              </button>
               <Link
                 href="/"
                 className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-full border border-slate-700 hover:border-sky-500 transition-all duration-300 cursor-pointer"
@@ -209,6 +212,11 @@ export default function AboutPage() {
                 Back to Home
               </Link>
             </div>
+
+            <ContactModal
+              isOpen={isContactModalOpen}
+              onClose={() => setIsContactModalOpen(false)}
+            />
           </div>
         </motion.div>
       </div>
