@@ -14,26 +14,41 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus("idle");
 
-    // Create mailto link with form data
-    const subject = `Message from ${formData.name}`;
-    const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
-    const mailtoLink = `mailto:cyrilnarvasa589@gmail.com?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
+    try {
+      const response = await fetch("https://formspree.io/f/mlgbjney", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
 
-    window.location.href = mailtoLink;
-
-    // Reset form
-    setTimeout(() => {
-      setFormData({ name: "", email: "", message: "" });
+      if (response.ok) {
+        setSubmitStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+        setTimeout(() => {
+          onClose();
+          setSubmitStatus("idle");
+        }, 2000);
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch {
+      setSubmitStatus("error");
+    } finally {
       setIsSubmitting(false);
-      onClose();
-    }, 1000);
+    }
   };
 
   const handleChange = (
@@ -157,13 +172,29 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 />
               </div>
 
+              {/* Status Message */}
+              {submitStatus === "success" && (
+                <div className="p-3 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-sm text-center">
+                  Message sent successfully! I'll get back to you soon.
+                </div>
+              )}
+              {submitStatus === "error" && (
+                <div className="p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-sm text-center">
+                  Something went wrong. Please try again or email me directly.
+                </div>
+              )}
+
               {/* Submit Button */}
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className="w-full px-6 py-3 bg-sky-500 hover:bg-sky-600 disabled:bg-sky-500/50 text-white font-medium rounded-lg transition-colors duration-300 cursor-pointer disabled:cursor-not-allowed"
+                disabled={isSubmitting || submitStatus === "success"}
+                className={`w-full px-6 py-3 text-white font-medium rounded-lg transition-colors duration-300 cursor-pointer disabled:cursor-not-allowed ${
+                  submitStatus === "success"
+                    ? "bg-green-500"
+                    : "bg-sky-500 hover:bg-sky-600 disabled:bg-sky-500/50"
+                }`}
               >
-                {isSubmitting ? "Sending..." : "Send Message"}
+                {isSubmitting ? "Sending..." : submitStatus === "success" ? "Sent!" : "Send Message"}
               </button>
             </form>
           </motion.div>

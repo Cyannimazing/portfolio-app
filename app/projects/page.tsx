@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Navigation from "@/components/Navigation";
 import { Spotlight } from "@/components/ui/spotlight";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 
 // Project data structure
 interface Project {
@@ -84,20 +85,15 @@ const projects: Project[] = [
 
 export default function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [featuredIndex, setFeaturedIndex] = useState(0);
 
-  const nextProject = () => {
-    setCurrentIndex((prev) => (prev + 1) % projects.length);
-  };
-
-  const prevProject = () => {
-    setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
-  };
+  const featuredProject = projects[featuredIndex];
 
   return (
     <main className="relative bg-black/[0.96] antialiased bg-grid-white/[0.02] min-h-screen overflow-hidden">
       <Navigation />
       <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
+      <Spotlight className="top-40 right-0 md:right-60" fill="blue" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
         {/* Header */}
@@ -105,117 +101,219 @@ export default function ProjectsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="mb-20"
+          className="mb-16 text-center"
         >
-          <h1 className="text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 mb-4">
-            My Projects
+          <h1 className="text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 mb-6">
+            Featured Projects
           </h1>
-          <div className="h-1 w-20 bg-gradient-to-r from-sky-400 to-blue-600 rounded-full"></div>
+          <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
+            A showcase of my recent work in full-stack development, from SaaS platforms to desktop applications.
+          </p>
         </motion.div>
 
-        {/* Carousel */}
-        <div className="relative max-w-5xl mx-auto">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.5 }}
-              className="bg-slate-900/30 border border-slate-800 rounded-2xl overflow-hidden"
-            >
-              {/* Project Image */}
-              <div className="relative h-64 md:h-96 bg-slate-800">
-                <Image
-                  src={projects[currentIndex].mainImage}
-                  alt={projects[currentIndex].title}
-                  fill
-                  className="object-cover"
-                />
-                {/* Type Badge */}
-                <div className="absolute top-4 left-4 flex gap-2">
-                  <span className="px-3 py-1 bg-sky-500/90 backdrop-blur-sm text-white text-xs font-medium rounded-full">
-                    {projects[currentIndex].type}
-                  </span>
-                  <span className="px-3 py-1 bg-slate-900/90 backdrop-blur-sm text-white text-xs font-medium rounded-full">
-                    {projects[currentIndex].year}
-                  </span>
-                </div>
-              </div>
-
-              {/* Project Info */}
-              <div className="p-8">
-                <h2 className="text-3xl font-bold text-white mb-3">
-                  {projects[currentIndex].title}
-                </h2>
-                <p className="text-neutral-400 mb-4">
-                  {projects[currentIndex].description}
-                </p>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {projects[currentIndex].technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 bg-slate-800/50 border border-slate-700 rounded-full text-xs text-slate-300"
-                    >
-                      {tech}
+        {/* Featured Project - Large Hero Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mb-20"
+        >
+          <div className="relative group">
+            {/* Glow Effect */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-sky-500 to-blue-600 rounded-3xl blur-lg opacity-25 group-hover:opacity-40 transition duration-500" />
+            
+            <div className="relative bg-slate-900/90 backdrop-blur-sm border border-slate-800 rounded-3xl overflow-hidden">
+              <div className="grid md:grid-cols-2 gap-0">
+                {/* Image Section */}
+                <div className="relative h-72 md:h-[500px] overflow-hidden">
+                  <Image
+                    src={featuredProject.mainImage}
+                    alt={featuredProject.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-slate-900/80 md:block hidden" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent md:hidden" />
+                  
+                  {/* Floating Badges */}
+                  <div className="absolute top-6 left-6 flex flex-col gap-2">
+                    <span className="px-4 py-2 bg-sky-500 text-white text-sm font-bold rounded-full shadow-lg shadow-sky-500/25">
+                      Featured
                     </span>
-                  ))}
+                  </div>
                 </div>
 
-                {/* View Details Button */}
-                <button
-                  onClick={() => setSelectedProject(projects[currentIndex])}
-                  className="px-6 py-3 bg-sky-500 hover:bg-sky-600 text-white font-medium rounded-lg transition-colors duration-300 cursor-pointer"
-                >
-                  View Details
-                </button>
+                {/* Content Section */}
+                <div className="p-8 md:p-12 flex flex-col justify-center">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="px-3 py-1 bg-sky-500/20 text-sky-400 text-xs font-semibold rounded-full border border-sky-500/30">
+                      {featuredProject.type}
+                    </span>
+                    <span className="px-3 py-1 bg-slate-800 text-slate-300 text-xs font-semibold rounded-full">
+                      {featuredProject.year}
+                    </span>
+                  </div>
+
+                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                    {featuredProject.title}
+                  </h2>
+                  
+                  <p className="text-neutral-400 mb-6 leading-relaxed">
+                    {featuredProject.description}
+                  </p>
+
+                  {/* Tech Stack */}
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {featuredProject.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1.5 bg-slate-800/80 border border-slate-700 rounded-lg text-xs text-slate-300 hover:border-sky-500/50 transition-colors"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* CTA Button */}
+                  <div className="flex gap-4">
+                    <HoverBorderGradient
+                      containerClassName="rounded-full"
+                      className="flex items-center gap-2 px-6 py-2"
+                      onClick={() => setSelectedProject(featuredProject)}
+                    >
+                      <span>View Case Study</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </HoverBorderGradient>
+                  </div>
+                </div>
               </div>
-            </motion.div>
-          </AnimatePresence>
+            </div>
+          </div>
 
-          {/* Navigation Arrows */}
-          <button
-            onClick={prevProject}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 w-12 h-12 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-full flex items-center justify-center text-white transition-colors cursor-pointer"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
-          <button
-            onClick={nextProject}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 w-12 h-12 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-full flex items-center justify-center text-white transition-colors cursor-pointer"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
-          {/* Dots Indicator */}
-          <div className="flex justify-center gap-2 mt-8">
+          {/* Featured Project Selector */}
+          <div className="flex justify-center gap-3 mt-6">
             {projects.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full transition-all cursor-pointer ${
-                  index === currentIndex
-                    ? "bg-sky-500 w-8"
-                    : "bg-slate-700 hover:bg-slate-600"
+                onClick={() => setFeaturedIndex(index)}
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                  index === featuredIndex
+                    ? "bg-sky-500 w-12"
+                    : "bg-slate-700 hover:bg-slate-600 w-8"
                 }`}
               />
             ))}
           </div>
-        </div>
+        </motion.div>
+
+        {/* All Projects Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          <div className="flex items-center justify-between mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-white">
+              All Projects
+            </h2>
+            <div className="h-px flex-1 bg-gradient-to-r from-slate-800 via-slate-700 to-transparent ml-6" />
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 * index }}
+                className="group relative"
+              >
+                {/* Card Glow */}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-sky-500 to-blue-600 rounded-2xl opacity-0 group-hover:opacity-20 blur transition duration-500" />
+                
+                <div
+                  className="relative bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden cursor-pointer hover:border-slate-700 transition-all duration-300"
+                  onClick={() => setSelectedProject(project)}
+                >
+                  {/* Image */}
+                  <div className="relative h-56 overflow-hidden">
+                    <Image
+                      src={project.mainImage}
+                      alt={project.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent" />
+                    
+                    {/* Badges */}
+                    <div className="absolute top-4 left-4 flex gap-2">
+                      <span className="px-3 py-1 bg-sky-500/90 backdrop-blur-sm text-white text-xs font-semibold rounded-full">
+                        {project.type}
+                      </span>
+                    </div>
+
+                    {/* Year Badge */}
+                    <div className="absolute top-4 right-4">
+                      <span className="px-3 py-1 bg-black/50 backdrop-blur-sm text-white text-xs font-semibold rounded-full">
+                        {project.year}
+                      </span>
+                    </div>
+
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 bg-sky-500/0 group-hover:bg-sky-500/10 transition-colors duration-300 flex items-center justify-center">
+                      <div className="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-50 group-hover:scale-100">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-sky-400 transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-neutral-400 text-sm mb-4 line-clamp-2">
+                      {project.description}
+                    </p>
+
+                    {/* Tech Tags */}
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.technologies.slice(0, 4).map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2 py-1 bg-slate-800/80 text-slate-400 text-xs rounded-md"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {project.technologies.length > 4 && (
+                        <span className="px-2 py-1 bg-slate-700 text-slate-400 text-xs rounded-md">
+                          +{project.technologies.length - 4}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
 
       {/* Project Detail Modal */}
-      <ProjectDetailModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectDetailModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
+      </AnimatePresence>
     </main>
   );
 }
@@ -238,7 +336,6 @@ function ImageLightbox({
       className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95"
       onClick={onClose}
     >
-      {/* Close Button */}
       <button
         onClick={onClose}
         className="absolute top-4 right-4 z-10 w-12 h-12 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-full flex items-center justify-center text-neutral-400 hover:text-white transition-colors cursor-pointer"
@@ -248,7 +345,6 @@ function ImageLightbox({
         </svg>
       </button>
 
-      {/* Full Size Image */}
       <motion.div
         initial={{ scale: 0.9 }}
         animate={{ scale: 1 }}
@@ -265,7 +361,6 @@ function ImageLightbox({
         />
       </motion.div>
 
-      {/* Caption */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-slate-900/80 backdrop-blur-sm rounded-lg">
         <p className="text-sm text-neutral-300">{alt}</p>
       </div>
@@ -278,16 +373,13 @@ function ProjectDetailModal({
   project,
   onClose,
 }: {
-  project: Project | null;
+  project: Project;
   onClose: () => void;
 }) {
   const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null);
 
-  if (!project) return null;
-
   return (
     <>
-      {/* Image Lightbox */}
       <AnimatePresence>
         {lightboxImage && (
           <ImageLightbox
@@ -298,8 +390,12 @@ function ProjectDetailModal({
         )}
       </AnimatePresence>
 
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
-        {/* Backdrop */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto"
+      >
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -308,12 +404,11 @@ function ProjectDetailModal({
           className="fixed inset-0 bg-black/90 backdrop-blur-sm"
         />
 
-        {/* Modal Content */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto"
+          className="relative w-full max-w-5xl bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl max-h-[90vh] overflow-y-auto"
         >
           {/* Close Button */}
           <button
@@ -325,51 +420,61 @@ function ProjectDetailModal({
             </svg>
           </button>
 
-          <div className="p-8">
+          <div className="p-8 md:p-12">
             {/* Main Image */}
             <div
-              className="relative h-64 md:h-96 bg-slate-800 rounded-xl mb-8 overflow-hidden cursor-pointer group"
+              className="relative h-72 md:h-[400px] bg-slate-800 rounded-2xl mb-10 overflow-hidden cursor-pointer group"
               onClick={() => setLightboxImage({ src: project.mainImage, alt: project.title })}
             >
               <Image
                 src={project.mainImage}
                 alt={project.title}
                 fill
-                className="object-cover transition-transform group-hover:scale-105"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              {/* Hover overlay */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
-                <svg className="w-12 h-12 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                </svg>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                  </svg>
+                </div>
               </div>
-              {/* Type & Year Badges */}
-              <div className="absolute top-4 left-4 flex gap-2">
-                <span className="px-3 py-1 bg-sky-500/90 backdrop-blur-sm text-white text-xs font-medium rounded-full">
-                  {project.type}
-                </span>
-                <span className="px-3 py-1 bg-slate-900/90 backdrop-blur-sm text-white text-xs font-medium rounded-full">
-                  {project.year}
-                </span>
+
+              <div className="absolute bottom-6 left-6 right-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="px-4 py-1.5 bg-sky-500 text-white text-sm font-semibold rounded-full">
+                    {project.type}
+                  </span>
+                  <span className="px-4 py-1.5 bg-white/20 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
+                    {project.year}
+                  </span>
+                </div>
               </div>
             </div>
 
             {/* Project Title & Description */}
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
               {project.title}
             </h2>
-            <p className="text-neutral-300 text-lg mb-6 leading-relaxed">
+            <p className="text-neutral-300 text-lg mb-10 leading-relaxed">
               {project.fullDescription}
             </p>
 
             {/* Technologies */}
-            <div className="mb-8">
-              <h3 className="text-xl font-semibold text-sky-400 mb-3">Technologies Used</h3>
-              <div className="flex flex-wrap gap-2">
+            <div className="mb-10">
+              <h3 className="text-lg font-semibold text-sky-400 mb-4 flex items-center gap-2">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+                Tech Stack
+              </h3>
+              <div className="flex flex-wrap gap-3">
                 {project.technologies.map((tech) => (
                   <span
                     key={tech}
-                    className="px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-sm text-slate-300"
+                    className="px-4 py-2 bg-slate-800/80 border border-slate-700 rounded-xl text-sm text-slate-300 hover:border-sky-500/50 hover:text-sky-400 transition-all"
                   >
                     {tech}
                   </span>
@@ -378,46 +483,57 @@ function ProjectDetailModal({
             </div>
 
             {/* Features */}
-            <div className="mb-8">
-              <h3 className="text-xl font-semibold text-sky-400 mb-3">Key Features</h3>
-              <ul className="space-y-2">
+            <div className="mb-10">
+              <h3 className="text-lg font-semibold text-sky-400 mb-4 flex items-center gap-2">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                </svg>
+                Key Features
+              </h3>
+              <div className="grid md:grid-cols-2 gap-3">
                 {project.features.map((feature, index) => (
-                  <li key={index} className="flex items-start text-neutral-300">
-                    <span className="text-sky-500 mr-2">•</span>
-                    {feature}
-                  </li>
+                  <div key={index} className="flex items-start gap-3 p-4 bg-slate-800/50 rounded-xl border border-slate-700/50">
+                    <div className="w-6 h-6 rounded-full bg-sky-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg className="w-3.5 h-3.5 text-sky-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-neutral-300">{feature}</span>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
 
-            {/* Sub Images */}
+            {/* Screenshots */}
             {project.subImages && project.subImages.length > 0 && (
-              <div className="mb-8">
-                <h3 className="text-xl font-semibold text-sky-400 mb-4">Screenshots</h3>
-                <div className="grid md:grid-cols-2 gap-4">
+              <div className="mb-10">
+                <h3 className="text-lg font-semibold text-sky-400 mb-4 flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Screenshots
+                </h3>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {project.subImages.map((img, index) => (
                     <div
                       key={index}
-                      className="bg-slate-800 rounded-lg overflow-hidden cursor-pointer group"
+                      className="group cursor-pointer"
                       onClick={() => setLightboxImage({ src: img.url, alt: img.caption })}
                     >
-                      <div className="relative h-48">
+                      <div className="relative h-40 rounded-xl overflow-hidden mb-2">
                         <Image
                           src={img.url}
                           alt={img.caption}
                           fill
-                          className="object-cover transition-transform group-hover:scale-105"
+                          className="object-cover transition-transform duration-300 group-hover:scale-110"
                         />
-                        {/* Hover overlay */}
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
                           <svg className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                           </svg>
                         </div>
                       </div>
-                      <div className="p-3">
-                        <p className="text-sm text-neutral-400">{img.caption}</p>
-                      </div>
+                      <p className="text-xs text-neutral-500 group-hover:text-neutral-400 transition-colors">{img.caption}</p>
                     </div>
                   ))}
                 </div>
@@ -426,22 +542,32 @@ function ProjectDetailModal({
 
             {/* PDF Reports */}
             {project.pdfReports && project.pdfReports.length > 0 && (
-              <div className="mb-8">
-                <h3 className="text-xl font-semibold text-sky-400 mb-3">Reports & Documentation</h3>
-                <div className="space-y-2">
+              <div className="mb-10">
+                <h3 className="text-lg font-semibold text-sky-400 mb-4 flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Sample Documents
+                </h3>
+                <div className="grid md:grid-cols-2 gap-4">
                   {project.pdfReports.map((pdf, index) => (
                     <a
                       key={index}
                       href={pdf.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-4 bg-slate-800/50 border border-slate-700 rounded-lg hover:border-sky-500/50 transition-colors cursor-pointer"
+                      className="flex items-center gap-4 p-4 bg-slate-800/50 border border-slate-700 rounded-xl hover:border-red-500/50 hover:bg-slate-800 transition-all group cursor-pointer"
                     >
-                      <svg className="w-6 h-6 text-red-500" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
-                        <path d="M14 2v6h6M10 13h4M10 17h4M10 9h1" />
-                      </svg>
-                      <span className="text-neutral-300">{pdf.name}</span>
+                      <div className="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center group-hover:bg-red-500/30 transition-colors">
+                        <svg className="w-6 h-6 text-red-400" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
+                          <path d="M14 2v6h6M10 13h4M10 17h4M10 9h1" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-white font-medium group-hover:text-red-400 transition-colors">{pdf.name}</p>
+                        <p className="text-xs text-neutral-500">Click to view PDF</p>
+                      </div>
                     </a>
                   ))}
                 </div>
@@ -449,31 +575,39 @@ function ProjectDetailModal({
             )}
 
             {/* Links */}
-            <div className="flex flex-wrap gap-4">
-              {project.liveLink && (
-                <a
-                  href={project.liveLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 bg-sky-500 hover:bg-sky-600 text-white font-medium rounded-lg transition-colors cursor-pointer"
-                >
-                  View Live Site
-                </a>
-              )}
-              {project.githubLink && (
-                <a
-                  href={project.githubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-lg border border-slate-700 hover:border-sky-500 transition-all cursor-pointer"
-                >
-                  View on GitHub
-                </a>
-              )}
-            </div>
+            {(project.liveLink || project.githubLink) && (
+              <div className="flex flex-wrap gap-4 pt-6 border-t border-slate-800">
+                {project.liveLink && (
+                  <a
+                    href={project.liveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 bg-sky-500 hover:bg-sky-600 text-white font-medium rounded-xl transition-colors cursor-pointer flex items-center gap-2"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    View Live Site
+                  </a>
+                )}
+                {project.githubLink && (
+                  <a
+                    href={project.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-xl border border-slate-700 hover:border-slate-600 transition-all cursor-pointer flex items-center gap-2"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    View on GitHub
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </>
   );
 }

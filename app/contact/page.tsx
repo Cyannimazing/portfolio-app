@@ -26,8 +26,8 @@ export default function ContactPage() {
         </svg>
       ),
       label: "GitHub",
-      value: "github.com/yourprofile",
-      link: "https://github.com/yourprofile",
+      value: "github.com/Cyannimazing",
+      link: "https://github.com/Cyannimazing",
     },
     {
       icon: (
@@ -36,8 +36,8 @@ export default function ContactPage() {
         </svg>
       ),
       label: "LinkedIn",
-      value: "linkedin.com/in/yourprofile",
-      link: "https://linkedin.com/in/yourprofile",
+      value: "linkedin.com/in/cyril-narvasa-28620b293",
+      link: "https://www.linkedin.com/in/cyril-narvasa-28620b293",
     },
     {
       icon: (
@@ -131,7 +131,7 @@ export default function ContactPage() {
               <h3 className="text-xl font-semibold text-white mb-4">Follow Me</h3>
               <div className="flex gap-4">
                 <a
-                  href="https://github.com"
+                  href="https://github.com/Cyannimazing"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-sky-500 rounded-full flex items-center justify-center text-neutral-400 hover:text-sky-400 transition-all cursor-pointer"
@@ -141,7 +141,7 @@ export default function ContactPage() {
                   </svg>
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/cyril-narvasa-28620b293"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-sky-500 rounded-full flex items-center justify-center text-neutral-400 hover:text-sky-400 transition-all cursor-pointer"
