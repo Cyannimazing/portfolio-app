@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 
 const navItems = [
@@ -25,9 +26,17 @@ export default function Navigation() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-2xl font-bold text-white cursor-pointer"
+                className="flex items-center gap-0 text-white cursor-pointer"
               >
-                Portfolio
+                <Image
+                  src="/LOGO.png"
+                  alt="Portfolio logo"
+                  width={56}
+                  height={56}
+                  className="w-12 h-12 md:w-14 md:h-14 rounded-full"
+                  priority
+                />
+                <span className="text-xl md:text-2xl font-bold">Portfolio</span>
               </motion.div>
             </Link>
 
