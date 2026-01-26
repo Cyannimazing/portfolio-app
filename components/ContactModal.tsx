@@ -75,10 +75,10 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
           <div
             className="relative w-full h-full md:h-auto md:max-w-md bg-slate-900 md:border md:border-slate-800 md:rounded-2xl shadow-2xl overflow-y-auto"
           >
-            {/* Desktop Close Button */}
+            {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors cursor-pointer z-10 hidden md:block"
+              className="absolute top-4 right-4 w-10 h-10 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-full flex items-center justify-center text-neutral-400 hover:text-white transition-colors cursor-pointer z-10"
             >
               <svg
                 className="w-6 h-6"
@@ -96,7 +96,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             </button>
 
             {/* Content */}
-            <div className="p-6 pt-20 md:p-8">
+            <div className="p-6 pt-16 md:p-8">
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
                 Let&apos;s Discuss
               </h2>
@@ -189,15 +189,6 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 }`}
               >
                 {isSubmitting ? "Sending..." : submitStatus === "success" ? "Sent!" : "Send Message"}
-              </button>
-
-              {/* Cancel Button - Mobile only */}
-              <button
-                type="button"
-                onClick={onClose}
-                className="w-full px-6 py-3 text-neutral-400 font-medium rounded-lg border border-slate-700 hover:bg-slate-800 hover:text-white transition-colors cursor-pointer md:hidden"
-              >
-                Cancel
               </button>
             </form>
             </div>

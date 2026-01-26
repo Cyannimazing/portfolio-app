@@ -399,17 +399,17 @@ function ProjectDetailModal({
         <div
           className="relative w-full h-full md:h-auto md:max-w-5xl md:max-h-[90vh] bg-slate-900 md:border md:border-slate-800 md:rounded-3xl shadow-2xl overflow-y-auto"
         >
-          {/* Desktop Close Button */}
+          {/* Close Button */}
           <button
             onClick={onClose}
-            className="sticky top-4 right-4 float-right z-10 w-10 h-10 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-full items-center justify-center text-neutral-400 hover:text-white transition-colors cursor-pointer hidden md:flex"
+            className="absolute top-4 right-4 z-10 w-10 h-10 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-full flex items-center justify-center text-neutral-400 hover:text-white transition-colors cursor-pointer"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
 
-          <div className="p-6 pt-12 md:p-12">
+          <div className="p-6 pt-16 md:p-12">
             {/* Main Image */}
             <div
               className="relative h-72 md:h-[400px] bg-slate-800 rounded-2xl mb-10 overflow-hidden cursor-pointer group"
@@ -594,14 +594,6 @@ function ProjectDetailModal({
                 )}
               </div>
             )}
-
-            {/* Mobile Close Button */}
-            <button
-              onClick={onClose}
-              className="w-full mt-6 px-6 py-3 text-neutral-400 font-medium rounded-lg border border-slate-700 hover:bg-slate-800 hover:text-white transition-colors cursor-pointer md:hidden"
-            >
-              Close
-            </button>
           </div>
         </div>
       </motion.div>
