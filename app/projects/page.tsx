@@ -102,7 +102,7 @@ const projects: Project[] = [
     mainImage: "/projects/aidpoint_main.png",
     technologies: ["Laravel (API)", "MySQL", "React", "Next.js", "Tailwind CSS"],
     fullDescription:
-      "AidPoint is a SaaS web-based platform designed to streamline end-to-end financial aid operations for institutions. It features role-based portals including Admin, Director, Caseworker, Finance Officer, and Beneficiary, enabling secure and structured workflows. The system enforces multi-level approvals before case disbursement, manages allocations and liquidations, and maintains audit logs for full transaction traceability. Directors can subscribe to activate and manage the institution’s access to the system. Built with Laravel (API) + MySQL, React/Next.js, and Tailwind CSS, with secure authentication and real-time dashboards.",
+      "AidPoint is a SaaS web-based platform designed to streamline end-to-end financial aid operations for institutions. It features role-based portals including Admin, Director, Caseworker, Finance Officer, and Beneficiary, enabling secure and structured workflows. The system enforces multi-level approvals before case disbursement, manages allocations and liquidations, and maintains audit logs for full transaction traceability. Directors can subscribe to activate and manage the institution's access to the system. Built with Laravel (API) + MySQL, React/Next.js, and Tailwind CSS, with secure authentication and real-time dashboards.",
     features: [
       "Role-based portals (Admin, Director, Caseworker, Finance Officer, Beneficiary)",
       "Director subscription onboarding to activate institution access",
@@ -123,6 +123,40 @@ const projects: Project[] = [
       { url: "/projects/aidpoint_finance_officer_portal.png", caption: "Finance Officer Portal - Disbursement and liquidation" },
       { url: "/projects/aidpoint_beneficiary_portal.png", caption: "Beneficiary Portal - Requests and status tracking" },
     ],
+  },
+  {
+    id: 4,
+    title: "CacaoCare",
+    type: "Mobile Application and Web Application",
+    year: "2024 - 2025",
+    description: "Cacao disease image classifier with mobile detection and web-based farm management system — Student Thesis Project",
+    mainImage: "/projects/cacao_main_image.png",
+    technologies: ["Nuxt.js", "Laravel", "MySQL", "Android Studio", "Java"],
+    fullDescription:
+      "CacaoCare is a comprehensive agricultural technology solution combining mobile-based cacao pod disease detection with a web platform for farm management. The system uses a custom-trained YOLO11s model to analyze cacao pod conditions through image-based detection, supporting data-driven farm monitoring. The web application built with Nuxt.js and Laravel provides a complete management platform for farmer profiles, farm records, harvest data, and transaction history. The mobile app, developed in Android Studio (Java), enables real-time pod detection and analysis in the field. Both platforms share backend services through Laravel RESTful APIs, ensuring synchronized records and consistent data flow across all systems.",
+    features: [
+      "Custom YOLO11s model for cacao pod disease detection",
+      "Mobile application for real-time pod condition analysis",
+      "Structured relational database for farmer profiles and farm records",
+      "Harvest data tracking and transaction history management",
+      "RESTful API architecture for web-mobile integration",
+      "Role-based access control and secure authentication",
+      "Data validation and structured error handling",
+      "Synchronized records across web and mobile platforms",
+    ],
+    contribution: {
+      role: "Full Stack Developer (Web Only)",
+      team: "5-person team",
+    },
+    subImages: [
+      { url: "/projects/cacao_admin_portal_image.png", caption: "Admin Portal - Farm management dashboard" },
+      { url: "/projects/cacao_user_portal_image.png", caption: "User Portal - Farmer interface" },
+      { url: "/projects/cacao_mobile_image1.jpg", caption: "Mobile App - Pod detection interface" },
+      { url: "/projects/cacao_mobile_image2.jpg", caption: "Mobile App - Disease analysis results" },
+      { url: "/projects/cacao_mobile_image3.jpg", caption: "Mobile App - Farm records" },
+      { url: "/projects/cacao_mobile_image4.jpg", caption: "Mobile App - Harvest data tracking" },
+    ],
+    liveLink: "https://cacao-care.nuxt.dev/",
   },
 ];
 
