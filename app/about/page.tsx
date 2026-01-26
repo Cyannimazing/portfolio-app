@@ -1,16 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { Spotlight } from "@/components/ui/spotlight";
-import ContactModal from "@/components/ContactModal";
 
 export default function AboutPage() {
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-
   const skills = {
     frontend: ["HTML", "CSS", "JavaScript", "Next.js", "Nuxt.js"],
     backend: ["Laravel", "Python", "Java"],
@@ -199,12 +196,12 @@ export default function AboutPage() {
               opportunities to be part of your vision.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <button
-                onClick={() => setIsContactModalOpen(true)}
+              <Link
+                href="/contact"
                 className="px-8 py-4 bg-sky-500 hover:bg-sky-600 text-white font-medium rounded-full transition-colors duration-300 cursor-pointer"
               >
                 Get In Touch
-              </button>
+              </Link>
               <Link
                 href="/"
                 className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-full border border-slate-700 hover:border-sky-500 transition-all duration-300 cursor-pointer"
@@ -212,11 +209,6 @@ export default function AboutPage() {
                 Back to Home
               </Link>
             </div>
-
-            <ContactModal
-              isOpen={isContactModalOpen}
-              onClose={() => setIsContactModalOpen(false)}
-            />
           </div>
         </motion.div>
       </div>
