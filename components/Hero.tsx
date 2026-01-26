@@ -2,12 +2,18 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Spotlight } from "./ui/spotlight";
 import { Button as MovingBorderButton } from "./ui/moving-border";
 import ContactModal from "./ContactModal";
 
 export default function Hero() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const router = useRouter();
+
+  const handleLetsTalk = () => {
+    router.push("/contact");
+  };
 
   const handleDownloadCV = () => {
     const link = document.createElement("a");
@@ -91,7 +97,7 @@ export default function Hero() {
             <MovingBorderButton
               borderRadius="1.75rem"
               className="bg-slate-800 hover:bg-slate-700 text-white border-slate-700 font-medium"
-              onClick={() => setIsContactModalOpen(true)}
+              onClick={handleLetsTalk}
               containerClassName="h-14 w-full sm:w-48"
             >
               Let&apos;s Discuss
