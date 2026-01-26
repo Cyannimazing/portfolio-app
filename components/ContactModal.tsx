@@ -65,30 +65,30 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-0 md:p-4">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm hidden md:block"
           />
 
-          {/* Modal */}
+          {/* Modal - Fullscreen on mobile, centered modal on desktop */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl"
+            className="relative w-full h-full md:h-auto md:max-w-md bg-slate-900 md:border md:border-slate-800 md:rounded-2xl p-6 md:p-8 shadow-2xl overflow-y-auto"
           >
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors cursor-pointer"
+              className="absolute top-6 right-6 md:top-4 md:right-4 text-neutral-400 hover:text-white transition-colors cursor-pointer z-10"
             >
               <svg
-                className="w-6 h-6"
+                className="w-8 h-8 md:w-6 md:h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -103,12 +103,14 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             </button>
 
             {/* Title */}
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-              Let's Discuss
-            </h2>
-            <p className="text-neutral-400 mb-6">
-              Fill in your details and I'll get back to you soon!
-            </p>
+            <div className="pt-8 md:pt-0">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                Let&apos;s Discuss
+              </h2>
+              <p className="text-neutral-400 mb-6">
+                Fill in your details and I&apos;ll get back to you soon!
+              </p>
+            </div>
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
