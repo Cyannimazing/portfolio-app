@@ -1,0 +1,9 @@
+This is a placeholder for your CV.
+
+Please replace this file with your actual CV PDF:
+1. Save your CV as 'cv.pdf'
+2. Place it in the 'public' folder
+3. The Download CV button will automatically work
+
+The CV should be located at:
+portfolio-app/public/cv.pdf
