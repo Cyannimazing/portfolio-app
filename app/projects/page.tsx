@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Navigation from "@/components/Navigation";
@@ -17,6 +17,10 @@ interface Project {
   technologies: string[];
   fullDescription: string;
   features: string[];
+  contribution?: {
+    role: string;
+    team: string;
+  };
   subImages?: { url: string; caption: string }[];
   pdfReports?: { name: string; url: string }[];
   liveLink?: string;
@@ -27,7 +31,7 @@ const projects: Project[] = [
   {
     id: 1,
     title: "FaithSeeker",
-    type: "SaaS Web Application",
+    type: "Web Application",
     year: "2025",
     description: "Multi-tenant SaaS platform for church services booking and management — Capstone Project",
     mainImage: "/projects/main_image.png",
@@ -43,6 +47,10 @@ const projects: Project[] = [
       "User portal for booking history and status",
       "RESTful API architecture (GET, POST, PUT, DELETE)",
     ],
+    contribution: {
+      role: "Full Stack Developer",
+      team: "Solo",
+    },
     subImages: [
       { url: "/projects/sub_owner_image1.png", caption: "Admin Dashboard - Service and booking overview" },
       { url: "/projects/sub_owner_image2.png", caption: "My Churches - Multi-church management portal" },
@@ -60,8 +68,8 @@ const projects: Project[] = [
     year: "2025",
     description: "Automated timetable generation and faculty workload management — Freelance Project",
     mainImage: "/projects/main_image1.png",
-    technologies: ["React", "Laravel API", "Inertia.js", "MySQL", "Electron", "Tailwind CSS", "DomPDF"],
-    fullDescription: "A desktop application developed for a technical college to automate the creation of conflict-free class timetables and manage faculty workloads. The system intelligently assigns subjects to instructors while preventing scheduling conflicts, and generates printable reports for administration. Built as a cross-platform desktop app using Electron with a React + Inertia.js frontend, Laravel API backend, and MySQL database. Report generation is handled through Laravel DomPDF.",
+    technologies: ["React", "Laravel", "Inertia.js", "MySQL", "Electron", "Tailwind CSS", "DomPDF"],
+    fullDescription: "A desktop application developed for a technical college to automate the creation of conflict-free class timetables and manage faculty workloads. The system intelligently assigns subjects to instructors while preventing scheduling conflicts, and generates printable reports for administration. Built as a cross-platform desktop app using Electron with a React + Inertia.js frontend, Laravel backend, and MySQL database. Report generation is handled through Laravel DomPDF.",
     features: [
       "Automated conflict-free timetable generation",
       "Intelligent subject-to-faculty assignment",
@@ -70,6 +78,10 @@ const projects: Project[] = [
       "PDF report generation (class & faculty schedules)",
       "Cross-platform desktop application",
     ],
+    contribution: {
+      role: "Full Stack Developer",
+      team: "2-person team (me + a friend)",
+    },
     subImages: [
       { url: "/projects/sub_image_assigning_subject_to_program.png", caption: "Subject assignment to programs" },
       { url: "/projects/sub_image_subject_allocation.png", caption: "Faculty subject allocation" },
@@ -81,13 +93,71 @@ const projects: Project[] = [
       { name: "Sample Faculty Schedule", url: "/reports/Sample-CBT-Faculty-Schedule.pdf" },
     ],
   },
+  {
+    id: 3,
+    title: "AidPoint",
+    type: "Web Application",
+    year: "2025",
+    description: "SaaS financial aid management system with role-based portals, multi-level approvals, and subscription onboarding (Director) — Freelance Project",
+    mainImage: "/projects/aidpoint_main.png",
+    technologies: ["Laravel (API)", "MySQL", "React", "Next.js", "Tailwind CSS"],
+    fullDescription:
+      "AidPoint is a SaaS web-based platform designed to streamline end-to-end financial aid operations for institutions. It features role-based portals including Admin, Director, Caseworker, Finance Officer, and Beneficiary, enabling secure and structured workflows. The system enforces multi-level approvals before case disbursement, manages allocations and liquidations, and maintains audit logs for full transaction traceability. Directors can subscribe to activate and manage the institution’s access to the system. Built with Laravel (API) + MySQL, React/Next.js, and Tailwind CSS, with secure authentication and real-time dashboards.",
+    features: [
+      "Role-based portals (Admin, Director, Caseworker, Finance Officer, Beneficiary)",
+      "Director subscription onboarding to activate institution access",
+      "Multi-level approvals before case disbursement",
+      "Allocation and liquidation management",
+      "Audit logs for full transaction traceability",
+      "Secure authentication and access control",
+      "Real-time dashboards for operational monitoring",
+    ],
+    contribution: {
+      role: "Backend Stack Developer",
+      team: "4-person team",
+    },
+    subImages: [
+      { url: "/projects/aidpoint_admin_portal.png", caption: "Admin Portal - System administration" },
+      { url: "/projects/aidpoint_director_portal.png", caption: "Director Portal - Review and approvals" },
+      { url: "/projects/aidpoint_caseworker_portal.png", caption: "Caseworker Portal - Case management workflow" },
+      { url: "/projects/aidpoint_finance_officer_portal.png", caption: "Finance Officer Portal - Disbursement and liquidation" },
+      { url: "/projects/aidpoint_beneficiary_portal.png", caption: "Beneficiary Portal - Requests and status tracking" },
+    ],
+  },
 ];
 
 export default function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [featuredIndex, setFeaturedIndex] = useState(0);
+  const [typeFilter, setTypeFilter] = useState<
+    "All" | "Web Development" | "Desktop Application" | "Mobile Application"
+  >("All");
 
   const featuredProject = projects[featuredIndex];
+
+  // Auto-scroll featured projects every 10 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFeaturedIndex((prev) => (prev + 1) % projects.length);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const getProjectCategory = (
+    project: Project
+  ): "Web Development" | "Desktop Application" | "Mobile Application" => {
+    const t = project.type.toLowerCase();
+    if (t.includes("desktop")) return "Desktop Application";
+    if (t.includes("mobile")) return "Mobile Application";
+    // treat SaaS / web / anything else as web
+    return "Web Development";
+  };
+
+  const filteredProjects =
+    typeFilter === "All"
+      ? projects
+      : projects.filter((p) => getProjectCategory(p) === typeFilter);
 
   return (
     <main className="relative bg-black/[0.96] antialiased bg-grid-white/[0.02] min-h-screen overflow-hidden">
@@ -107,7 +177,7 @@ export default function ProjectsPage() {
             Featured Projects
           </h1>
           <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
-            A showcase of my recent work in full-stack development, from SaaS platforms to desktop applications.
+            A showcase of my recent work in full-stack development.
           </p>
         </motion.div>
 
@@ -123,72 +193,81 @@ export default function ProjectsPage() {
             <div className="absolute -inset-1 bg-gradient-to-r from-sky-500 to-blue-600 rounded-3xl blur-lg opacity-25 group-hover:opacity-40 transition duration-500" />
             
             <div className="relative bg-slate-900/90 backdrop-blur-sm border border-slate-800 rounded-3xl overflow-hidden">
-              <div className="grid md:grid-cols-2 gap-0">
-                {/* Image Section */}
-                <div className="relative h-72 md:h-[500px] overflow-hidden">
-                  <Image
-                    src={featuredProject.mainImage}
-                    alt={featuredProject.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-slate-900/80 md:block hidden" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent md:hidden" />
-                  
-                  {/* Floating Badges */}
-                  <div className="absolute top-6 left-6 flex flex-col gap-2">
-                    <span className="px-4 py-2 bg-sky-500 text-white text-sm font-bold rounded-full shadow-lg shadow-sky-500/25">
-                      Featured
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content Section */}
-                <div className="p-8 md:p-12 flex flex-col justify-center">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="px-3 py-1 bg-sky-500/20 text-sky-400 text-xs font-semibold rounded-full border border-sky-500/30">
-                      {featuredProject.type}
-                    </span>
-                    <span className="px-3 py-1 bg-slate-800 text-slate-300 text-xs font-semibold rounded-full">
-                      {featuredProject.year}
-                    </span>
-                  </div>
-
-                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                    {featuredProject.title}
-                  </h2>
-                  
-                  <p className="text-neutral-400 mb-6 leading-relaxed">
-                    {featuredProject.description}
-                  </p>
-
-                  {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {featuredProject.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1.5 bg-slate-800/80 border border-slate-700 rounded-lg text-xs text-slate-300 hover:border-sky-500/50 transition-colors"
-                      >
-                        {tech}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={featuredIndex}
+                  initial={{ opacity: 0, x: 100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -100 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="grid md:grid-cols-2 gap-0"
+                >
+                  {/* Image Section */}
+                  <div className="relative h-72 md:h-[500px] overflow-hidden">
+                    <Image
+                      src={featuredProject.mainImage}
+                      alt={featuredProject.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-slate-900/80 md:block hidden" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent md:hidden" />
+                    
+                    {/* Floating Badges */}
+                    <div className="absolute top-6 left-6 flex flex-col gap-2">
+                      <span className="px-4 py-2 bg-sky-500 text-white text-sm font-bold rounded-full shadow-lg shadow-sky-500/25">
+                        Featured
                       </span>
-                    ))}
+                    </div>
                   </div>
 
-                  {/* CTA Button */}
-                  <div className="flex gap-4">
-                    <HoverBorderGradient
-                      containerClassName="rounded-full"
-                      className="flex items-center gap-2 px-6 py-2"
-                      onClick={() => setSelectedProject(featuredProject)}
-                    >
-                      <span>View Case Study</span>
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </HoverBorderGradient>
+                  {/* Content Section */}
+                  <div className="p-8 md:p-12 flex flex-col justify-center">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="px-3 py-1 bg-sky-500/20 text-sky-400 text-xs font-semibold rounded-full border border-sky-500/30">
+                        {featuredProject.type}
+                      </span>
+                      <span className="px-3 py-1 bg-slate-800 text-slate-300 text-xs font-semibold rounded-full">
+                        {featuredProject.year}
+                      </span>
+                    </div>
+
+                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                      {featuredProject.title}
+                    </h2>
+                    
+                    <p className="text-neutral-400 mb-6 leading-relaxed">
+                      {featuredProject.description}
+                    </p>
+
+                    {/* Tech Stack */}
+                    <div className="flex flex-wrap gap-2 mb-8">
+                      {featuredProject.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-1.5 bg-slate-800/80 border border-slate-700 rounded-lg text-xs text-slate-300 hover:border-sky-500/50 transition-colors"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* CTA Button */}
+                    <div className="flex gap-4">
+                      <HoverBorderGradient
+                        containerClassName="rounded-full"
+                        className="flex items-center gap-2 px-6 py-2"
+                        onClick={() => setSelectedProject(featuredProject)}
+                      >
+                        <span>View Case Study</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </HoverBorderGradient>
+                    </div>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
           </div>
 
@@ -214,15 +293,41 @@ export default function ProjectsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <div className="flex items-center justify-between mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-white">
-              All Projects
-            </h2>
-            <div className="h-px flex-1 bg-gradient-to-r from-slate-800 via-slate-700 to-transparent ml-6" />
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
+            <div className="flex items-center gap-6">
+              <h2 className="text-2xl md:text-3xl font-bold text-white">
+                All Projects
+              </h2>
+              <div className="hidden md:block h-px flex-1 w-24 bg-gradient-to-r from-slate-800 via-slate-700 to-transparent" />
+            </div>
+
+            {/* Type Filter */}
+            <div className="flex flex-wrap gap-2 md:justify-end">
+              {([
+                "All",
+                "Web Development",
+                "Desktop Application",
+                "Mobile Application",
+              ] as const).map((filter) => (
+                <button
+                  key={filter}
+                  type="button"
+                  onClick={() => setTypeFilter(filter)}
+                  aria-pressed={typeFilter === filter}
+                  className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors cursor-pointer ${
+                    typeFilter === filter
+                      ? "bg-sky-500/20 text-sky-300 border-sky-500/40"
+                      : "bg-slate-900/40 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white"
+                  }`}
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
+            {filteredProjects.map((project, index) => (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -470,6 +575,29 @@ function ProjectDetailModal({
                 ))}
               </div>
             </div>
+
+            {/* Contribution */}
+            {project.contribution && (
+              <div className="mb-10">
+                <h3 className="text-lg font-semibold text-sky-400 mb-4 flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  Contribution
+                </h3>
+
+                <div className="flex flex-wrap gap-3">
+                  <div className="px-4 py-2 bg-slate-800/80 border border-slate-700 rounded-xl">
+                    <p className="text-xs text-neutral-500 mb-1">Role</p>
+                    <p className="text-sm text-white font-medium">{project.contribution.role}</p>
+                  </div>
+                  <div className="px-4 py-2 bg-slate-800/80 border border-slate-700 rounded-xl">
+                    <p className="text-xs text-neutral-500 mb-1">Team</p>
+                    <p className="text-sm text-white font-medium">{project.contribution.team}</p>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Features */}
             <div className="mb-10">
