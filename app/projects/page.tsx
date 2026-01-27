@@ -146,7 +146,7 @@ const projects: Project[] = [
     ],
     contribution: {
       role: "Full Stack Developer (Web Only)",
-      team: "5-person team",
+      team: "2-person team",
     },
     subImages: [
       { url: "/projects/cacao_admin_portal_image.png", caption: "Admin Portal - Farm management dashboard" },
