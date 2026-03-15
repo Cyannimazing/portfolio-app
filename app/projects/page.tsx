@@ -60,6 +60,7 @@ const projects: Project[] = [
       { name: "Sample Baptism Certificate", url: "/reports/Certificate of Baptism.pdf" },
       { name: "Sample Marriage Certificate", url: "/reports/Certificate of Marriage.pdf" },
     ],
+    liveLink: "https://churchms-frontend.vercel.app/",
   },
   {
     id: 2,
