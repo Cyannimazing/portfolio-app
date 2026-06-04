@@ -72,8 +72,8 @@ export default function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.025)_1px,transparent_1px)] bg-size-[36px_36px] pointer-events-none" />
       <div className="absolute inset-0 [background:radial-gradient(ellipse_60%_50%_at_50%_-10%,rgba(14,165,233,0.07),transparent)] pointer-events-none" />
 
-      {/* Breadcrumb — hidden on mobile to avoid overlap */}
-      <div className="hidden md:block absolute z-10 top-24 left-8 md:left-14">
+      {/* Breadcrumb */}
+      <div className="absolute z-10 top-24 left-8 md:left-14">
         <p className="text-neutral-600 text-xs font-semibold uppercase tracking-[0.3em]">Home</p>
       </div>
 
@@ -84,7 +84,7 @@ export default function Hero() {
         <div className="flex-1 max-w-xl space-y-8">
 
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-md border border-sky-500/20 bg-sky-500/6 text-sky-400 text-[11px] font-semibold tracking-widest uppercase">
+            <span className="hidden md:inline-flex items-center gap-2 px-4 py-1.5 rounded-md border border-sky-500/20 bg-sky-500/6 text-sky-400 text-[11px] font-semibold tracking-widest uppercase">
               <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
               Available for work
             </span>
