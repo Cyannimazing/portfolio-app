@@ -44,10 +44,8 @@ export default function Services() {
           transition={{ duration: 0.6 }}
           className="mb-14"
         >
-          <p className="text-sky-400 text-xs font-bold uppercase tracking-[0.3em] mb-3">What I Do</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight leading-none">
-            Services
-          </h2>
+          <p className="text-sky-400 text-xs font-bold uppercase tracking-[0.3em] mb-2">What I Do</p>
+          <h2 className="text-3xl font-black text-white">Services</h2>
         </motion.div>
 
         {/* Cards */}

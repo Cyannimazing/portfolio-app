@@ -149,7 +149,7 @@ export default function PracticePage() {
         <p className="text-neutral-600 text-xs font-semibold uppercase tracking-[0.3em]">About Me / Practice</p>
       </div>
 
-      <section className="grid md:grid-cols-2 max-w-7xl mx-auto px-6 md:px-12">
+      <section className="grid md:grid-cols-2 max-w-7xl mx-auto px-0">
         {manifesto.map((item, i) => (
           <motion.div
             key={item.tag}
@@ -160,7 +160,7 @@ export default function PracticePage() {
               i === 0 ? "border-b md:border-b-0 md:border-r border-white/6" : ""
             }`}
           >
-            <div className="absolute inset-0 flex items-center justify-center px-10 md:px-14">
+            <div className="absolute inset-0 flex items-center justify-center px-6 md:px-12">
             <div className="relative z-10 w-full max-w-md space-y-5">
               <span className="text-sky-400 text-xs font-bold uppercase tracking-[0.3em]">{item.tag}</span>
 
@@ -189,32 +189,31 @@ export default function PracticePage() {
           <h2 className="text-3xl font-black text-white">Core Values</h2>
         </motion.div>
 
-        <div className="grid grid-cols-3 grid-rows-3 gap-4 flex-1">
+        {/* Mobile: single column stack | Desktop: bento grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-3 gap-4 md:flex-1">
 
-          {/* 01 — large, top-left, 2 cols 2 rows */}
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 }}
-            className="col-span-2 row-span-2">
+            className="md:col-span-2 md:row-span-2 min-h-52 md:min-h-0">
             <BentoCard value={coreValues[0]} large />
           </motion.div>
 
-          {/* 02 — top-right, 1 col 1 row */}
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
+            className="min-h-44 md:min-h-0">
             <BentoCard value={coreValues[1]} />
           </motion.div>
 
-          {/* 03 — mid-right, 1 col 1 row */}
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }}
+            className="min-h-44 md:min-h-0">
             <BentoCard value={coreValues[2]} />
           </motion.div>
 
-          {/* 04 — bottom-left, 1 col 1 row */}
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
+            className="min-h-44 md:min-h-0">
             <BentoCard value={coreValues[3]} />
           </motion.div>
 
-          {/* 05 — bottom-right, 2 cols 1 row */}
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.25 }}
-            className="col-span-2">
+            className="md:col-span-2 min-h-44 md:min-h-0">
             <BentoCard value={coreValues[4]} />
           </motion.div>
 

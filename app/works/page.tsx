@@ -235,17 +235,43 @@ export default function WorksPage() {
 }
 
 function ImageLightbox({ src, alt, onClose }: { src: string; alt: string; onClose: () => void }) {
+  const [zoomed, setZoomed] = useState(false);
+
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      className="fixed inset-0 z-10000 flex items-center justify-center p-4 bg-black/95" onClick={onClose}>
-      <button onClick={onClose} className="absolute top-4 right-4 w-10 h-10 bg-white/5 border border-white/10 rounded-md flex items-center justify-center text-neutral-400 hover:text-white cursor-pointer transition-colors">
+    <motion.div
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      className="fixed inset-0 z-10000 flex items-center justify-center bg-black/95 cursor-zoom-in"
+      onClick={onClose}
+    >
+      {/* Close button */}
+      <button
+        onClick={e => { e.stopPropagation(); onClose(); }}
+        className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/5 border border-white/10 rounded-md flex items-center justify-center text-neutral-400 hover:text-white cursor-pointer transition-colors"
+      >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
       </button>
-      <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }} className="relative w-full h-full max-w-6xl max-h-[90vh]" onClick={e => e.stopPropagation()}>
-        <Image src={src} alt={alt} fill className="object-contain" sizes="100vw" />
+
+      {/* Image — zoomable */}
+      <motion.div
+        initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }}
+        onClick={e => { e.stopPropagation(); setZoomed(z => !z); }}
+        className={`relative overflow-auto transition-all duration-300 ${zoomed ? "cursor-zoom-out w-full h-full" : "cursor-zoom-in max-w-5xl max-h-[90vh] w-full h-full"}`}
+        style={{ touchAction: "pinch-zoom" }}
+      >
+        <img
+          src={src}
+          alt={alt}
+          className={`transition-transform duration-300 select-none ${zoomed ? "w-auto h-auto min-w-full min-h-full object-contain scale-150 origin-center" : "w-full h-full object-contain"}`}
+          draggable={false}
+        />
       </motion.div>
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-[#111]/80 backdrop-blur-sm rounded-md">
-        <p className="text-sm text-neutral-300">{alt}</p>
+
+      {/* Caption + hint */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
+        <p className="text-xs text-neutral-600">{zoomed ? "Click to zoom out" : "Click to zoom in"}</p>
+        <div className="px-4 py-2 bg-[#111]/80 backdrop-blur-sm rounded-md">
+          <p className="text-sm text-neutral-300">{alt}</p>
+        </div>
       </div>
     </motion.div>
   );
@@ -263,14 +289,14 @@ function ProjectDetailModal({ project, onClose }: { project: Project; onClose: (
       <motion.div
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
         onClick={onClose}
-        className="fixed inset-0 z-9999 flex items-end md:items-center justify-center md:p-6 bg-black/70 backdrop-blur-sm cursor-pointer"
+        className="fixed inset-0 z-9999 flex items-center justify-center bg-black/70 backdrop-blur-sm cursor-pointer"
       >
-        {/* Modal panel — stop propagation so clicking inside doesn't close */}
+        {/* Modal panel — full screen */}
         <motion.div
-          initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 60 }}
+          initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.97 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
           onClick={e => e.stopPropagation()}
-          className="cursor-default relative w-full md:max-w-4xl max-h-[92vh] bg-[#0f0f0f] border border-white/10 rounded-t-md md:rounded-md shadow-2xl overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          className="cursor-default relative w-full h-full bg-[#0f0f0f] shadow-2xl overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
           {/* Modal header */}
           <div className="sticky top-0 z-10 flex items-center justify-between px-6 md:px-10 py-4 border-b border-white/6 bg-[#0f0f0f]">
@@ -283,7 +309,7 @@ function ProjectDetailModal({ project, onClose }: { project: Project; onClose: (
             </button>
           </div>
 
-          <div className="p-6 md:p-10">
+          <div className="p-6 md:p-12 max-w-5xl mx-auto">
             <div className="relative h-72 md:h-96 rounded-md mb-10 overflow-hidden cursor-pointer group" onClick={() => setLightboxImage({ src: project.mainImage, alt: project.title })}>
               <Image src={project.mainImage} alt={project.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
               <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />

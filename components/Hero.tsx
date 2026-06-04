@@ -72,13 +72,13 @@ export default function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.025)_1px,transparent_1px)] bg-size-[36px_36px] pointer-events-none" />
       <div className="absolute inset-0 [background:radial-gradient(ellipse_60%_50%_at_50%_-10%,rgba(14,165,233,0.07),transparent)] pointer-events-none" />
 
-      {/* Breadcrumb — absolute top-left */}
-      <div className="absolute z-10 top-24 left-8 md:left-14">
+      {/* Breadcrumb — hidden on mobile to avoid overlap */}
+      <div className="hidden md:block absolute z-10 top-24 left-8 md:left-14">
         <p className="text-neutral-600 text-xs font-semibold uppercase tracking-[0.3em]">Home</p>
       </div>
 
-      {/* Main layout — truly centered */}
-      <div className="relative z-10 min-h-screen max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-16">
+      {/* Main layout */}
+      <div className="relative z-10 min-h-screen max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16 pt-24 pb-16 md:pt-0 md:pb-0">
 
         {/* ── Left — Content ── */}
         <div className="flex-1 max-w-xl space-y-8">
@@ -136,7 +136,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-          className="shrink-0"
+          className="shrink-0 w-full md:w-auto flex flex-col items-center"
         >
           {/* Flip hint */}
           <motion.p
@@ -170,7 +170,7 @@ export default function Hero() {
               animate={{ rotateY: flipped ? 180 : 0 }}
               transition={{ duration: 0.75, ease: [0.23, 1, 0.32, 1] }}
               style={{ transformStyle: "preserve-3d" }}
-              className="cursor-pointer relative w-72 h-96 md:w-80 md:h-110"
+              className="cursor-pointer relative w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-110"
             >
 
               {/* FRONT — Designed photo card */}
