@@ -1,0 +1,42 @@
+Full-Stack Developer with hands-on
+internship experience building and
+integrating enterprise-grade
+features within a multi-app SaaS
+platform. Proficient in OAuth 2.0,
+RESTful APIs, Graph API, real-time
+systems, analytics, and accessibility
+compliance. Comfortable working
+across the full stack from database
+layer to polished user interfaces in a
+professional agile environment.
+
+
+EXperience
+
+January 2026 – June 26 | Philippines
+Implemented OAuth 2.0 authentication for Facebook and Instagram
+agency-level integrations, enabling secure client workspace access.
+Developed Facebook Graph API integrations for post management
+(CRUD), mention tracking, engagement analytics, and tag reporting.
+Resolved large-file upload issues in Facebook integrations and
+standardized backend responses with frontend contracts.
+Built the Password Manager module end-to-end, including licensing,
+user assignment, APIs, services, and database integration.
+Refactored the SEO Ranking module by integrating SerpAPI and
+Google Ads API, reducing dependency on Google Search Console.
+Fixed Microsoft OAuth authentication issues and improved survey
+analytics data processing for dashboards and reports.
+Developed the Timesheet module with approval workflows, project
+hour tracking, monthly reporting, and superadmin override
+capabilities.
+Built the Quotation module end-to-end, including template
+management, pricing calculations, PDF/web generation, digital
+approvals, comments, and reporting.
+Enhanced the DocFlow module with bulk template management,
+role-based visibility controls, and WCAG 2.1 AA accessibility
+compliance.
+Designed and implemented a chat ownership system enabling
+agent assignment, transfers, and prevention of concurrent
+responses.
+Contributed to the WorkFlow module and implemented Danish and
+English localization across the platform.
