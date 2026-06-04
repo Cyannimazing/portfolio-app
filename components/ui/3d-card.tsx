@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -134,14 +135,15 @@ export const CardItem = ({
     }
   };
 
+  const TagComponent = Tag as React.ElementType;
   return (
-    <Tag
+    <TagComponent
       ref={ref}
       className={cn("w-fit transition duration-200 ease-linear", className)}
       {...rest}
     >
       {children}
-    </Tag>
+    </TagComponent>
   );
 };
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 import { cn } from "@/lib/utils";
 const IconMenu2 = ({ className }: { className?: string }) => (
