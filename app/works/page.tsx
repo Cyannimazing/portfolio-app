@@ -61,7 +61,7 @@ const projects: Project[] = [
   {
     id: 2,
     title: "FaithSeeker",
-    type: "Web Application",
+    type: "Web Development",
     year: "2025",
     description: "Multi-tenant SaaS for church services booking and management. Capstone Project.",
     mainImage: "/projects/main_image.png",
@@ -83,7 +83,7 @@ const projects: Project[] = [
   {
     id: 3,
     title: "AidPoint",
-    type: "Web Application",
+    type: "Web Development",
     year: "2025",
     description: "SaaS financial aid management with role-based portals and multi-level approvals. Freelance Project.",
     mainImage: "/projects/aidpoint_main.png",
@@ -142,8 +142,20 @@ const projects: Project[] = [
   },
 ];
 
+const getCategory = (p: Project): "Web Development" | "Desktop Application" | "Mobile Application" => {
+  const t = p.type.toLowerCase();
+  if (t.includes("desktop")) return "Desktop Application";
+  if (t.includes("mobile")) return "Mobile Application";
+  return "Web Development";
+};
+
 export default function WorksPage() {
   const [selected, setSelected] = useState<Project | null>(null);
+  const [filter, setFilter] = useState<"All" | "Web Development" | "Desktop Application" | "Mobile Application">("All");
+
+  const filteredProjects = filter === "All" ? projects : projects.filter(p => getCategory(p) === filter);
+  const featuredProject = filteredProjects[0] ?? null;
+  const gridProjects = filteredProjects.slice(1);
 
   return (
     <main className="relative bg-[#080808] min-h-screen">
@@ -163,45 +175,62 @@ export default function WorksPage() {
         </motion.div>
       </div>
 
-      {/* Featured — Obiyen (full width) */}
+      {/* Filter pills */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 pb-4">
+        <div className="flex flex-wrap gap-2">
+          {(["All", "Web Development", "Desktop Application", "Mobile Application"] as const).map(f => (
+            <button key={f} onClick={() => setFilter(f)}
+              className={`cursor-pointer px-4 py-2 rounded-md text-xs font-semibold border transition-colors ${
+                filter === f
+                  ? "bg-sky-500/15 text-sky-400 border-sky-500/40"
+                  : "bg-white/4 text-neutral-500 border-white/8 hover:text-white hover:border-white/20"
+              }`}>
+              {f}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Featured — first filtered project */}
+      {featuredProject && <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 pb-4">
+        <AnimatePresence mode="wait">
         <motion.div
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          onClick={() => setSelected(projects[0])}
+          key={featuredProject.id}
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.98 }}
+          transition={{ duration: 0.35, ease: "easeInOut" }}
+          onClick={() => setSelected(featuredProject)}
           className="cursor-pointer group relative h-96 md:h-125 rounded-md overflow-hidden border border-white/8 hover:border-sky-500/30 transition-all duration-300"
         >
-          <Image src={projects[0].mainImage} alt={projects[0].title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-          <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/40 to-transparent" />
-          <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
-
-          {/* Badge */}
+          <Image src={featuredProject.mainImage} alt={featuredProject.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent" />
           <div className="absolute top-6 left-6">
             <span className="px-3 py-1 bg-sky-500 text-white text-xs font-bold rounded-md uppercase tracking-widest">Featured</span>
           </div>
-
-          {/* Content */}
           <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
-            <p className="text-sky-400 text-xs font-bold uppercase tracking-widest mb-2">{projects[0].type} · {projects[0].year}</p>
-            <h2 className="text-3xl md:text-5xl font-black text-white mb-3">{projects[0].title}</h2>
-            <p className="text-neutral-400 text-sm md:text-base max-w-2xl mb-4">{projects[0].description}</p>
+            <p className="text-sky-400 text-xs font-bold uppercase tracking-widest mb-2">{featuredProject.type}</p>
+            <p className="text-neutral-400 text-xs mb-2">{featuredProject.year}</p>
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-3">{featuredProject.title}</h2>
+            <p className="text-neutral-400 text-sm md:text-base max-w-2xl mb-4">{featuredProject.description}</p>
             <div className="flex flex-wrap gap-2">
-              {projects[0].technologies.slice(0, 5).map(t => (
+              {featuredProject.technologies.slice(0, 5).map(t => (
                 <span key={t} className="text-xs px-2.5 py-1 rounded-md bg-white/10 border border-white/15 text-neutral-200">{t}</span>
               ))}
             </div>
           </div>
-
-          {/* Hover CTA */}
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <span className="px-6 py-3 bg-sky-500 text-white font-semibold text-sm rounded-md">View Case Study</span>
           </div>
         </motion.div>
-      </div>
+        </AnimatePresence>
+      </div>}
 
-      {/* Grid — remaining 4 projects */}
+      {/* Grid */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 pb-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-          {projects.slice(1).map((project, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {gridProjects.map((project, i) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
@@ -210,7 +239,8 @@ export default function WorksPage() {
               className="cursor-pointer group relative h-64 rounded-md overflow-hidden border border-white/8 hover:border-sky-500/30 transition-all duration-300"
             >
               <Image src={project.mainImage} alt={project.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
+              <div className="absolute inset-0 bg-black/40" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent" />
 
               <div className="absolute bottom-0 left-0 right-0 p-5">
                 <p className="text-sky-400 text-xs font-bold uppercase tracking-widest mb-1">{project.type}</p>
