@@ -179,7 +179,7 @@ export default function Hero() {
                 style={{ backfaceVisibility: "hidden" }}
               >
                 {/* Photo */}
-                <Image src="/profile.jpg" alt="Cyril Narvasa" fill className="object-cover object-top" priority />
+                <Image src="/profile.jpg" alt="Cyril Narvasa" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover object-top" priority />
 
                 {/* Vignette */}
                 <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/10 to-black/20 pointer-events-none" />
@@ -233,8 +233,8 @@ export default function Hero() {
                         <p className="text-white font-bold text-base tracking-tight uppercase leading-tight">Cyril Jian Narvasa</p>
                         <p className="text-sky-400 text-xs font-medium mt-1">Full Stack Developer</p>
                       </div>
-                      <div className="relative w-9 h-9 opacity-80 shrink-0">
-                        <Image src="/LOGO.png" alt="Logo" fill className="object-contain" />
+                      <div className="relative w-6 h-6 opacity-80 shrink-0">
+                        <Image src="/LOGO.png" alt="Logo" fill sizes="24px" className="object-contain" />
                       </div>
                     </div>
 

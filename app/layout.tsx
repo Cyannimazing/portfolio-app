@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-import { ChatWidgetScript } from "../components/ChatWidgetScript";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 
@@ -34,7 +33,6 @@ export default function RootLayout({
         <Navigation />
         {children}
         <Footer />
-        <ChatWidgetScript />
       </body>
     </html>
   );

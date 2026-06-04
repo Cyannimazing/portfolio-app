@@ -203,7 +203,7 @@ export default function WorksPage() {
           onClick={() => setSelected(featuredProject)}
           className="cursor-pointer group relative h-96 md:h-125 rounded-md overflow-hidden border border-white/8 hover:border-sky-500/30 transition-all duration-300"
         >
-          <Image src={featuredProject.mainImage} alt={featuredProject.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+          <Image src={featuredProject.mainImage} alt={featuredProject.title} fill sizes="100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
           <div className="absolute inset-0 bg-black/50" />
           <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent" />
           <div className="absolute top-6 left-6">
@@ -238,7 +238,7 @@ export default function WorksPage() {
               onClick={() => setSelected(project)}
               className="cursor-pointer group relative h-64 rounded-md overflow-hidden border border-white/8 hover:border-sky-500/30 transition-all duration-300"
             >
-              <Image src={project.mainImage} alt={project.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+              <Image src={project.mainImage} alt={project.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
               <div className="absolute inset-0 bg-black/40" />
               <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent" />
 
@@ -341,7 +341,7 @@ function ProjectDetailModal({ project, onClose }: { project: Project; onClose: (
 
           <div className="p-6 md:p-12 max-w-5xl mx-auto">
             <div className="relative h-72 md:h-96 rounded-md mb-10 overflow-hidden cursor-pointer group" onClick={() => setLightboxImage({ src: project.mainImage, alt: project.title })}>
-              <Image src={project.mainImage} alt={project.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+              <Image src={project.mainImage} alt={project.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
               <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
             </div>
             <h2 className="text-3xl md:text-5xl font-black text-white mb-5">{project.title}</h2>
@@ -387,7 +387,7 @@ function ProjectDetailModal({ project, onClose }: { project: Project; onClose: (
                   {project.subImages.map((img, i) => (
                     <div key={i} className="group cursor-pointer" onClick={() => setLightboxImage({ src: img.url, alt: img.caption })}>
                       <div className="relative h-40 rounded-md overflow-hidden mb-2">
-                        <Image src={img.url} alt={img.caption} fill className="object-cover transition-transform duration-300 group-hover:scale-105" />
+                        <Image src={img.url} alt={img.caption} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-300 group-hover:scale-105" />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
                           <svg className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" /></svg>
                         </div>

@@ -49,18 +49,18 @@ export default function Navigation() {
           >
           <Link
             href="/"
-            className="cursor-pointer flex items-center shrink-0"
+            className="cursor-pointer flex items-center gap-2 shrink-0"
             onMouseEnter={() => setLogoHovered(true)}
             onMouseLeave={() => setLogoHovered(false)}
           >
             <motion.div
               animate={logoHovered ? { rotate: 15, scale: 1.1 } : { rotate: 0, scale: 1 }}
               transition={{ type: "spring", stiffness: 300, damping: 15 }}
-              className="relative w-14 h-14"
+              className="relative w-7 h-7"
             >
-              <Image src="/LOGO.png" alt="Logo" fill className="object-contain" priority />
+              <Image src="/LOGO.png" alt="Logo" fill sizes="28px" className="object-contain" priority />
             </motion.div>
-            <span className={`font-semibold text-xl tracking-wide -ml-1 transition-colors duration-200 ${logoHovered ? "text-sky-400" : "text-white"}`}>
+            <span className={`font-semibold text-xl tracking-wide transition-colors duration-200 ${logoHovered ? "text-sky-400" : "text-white"}`}>
               <EncryptedText
                 text="Portfolio"
                 revealDelayMs={30}

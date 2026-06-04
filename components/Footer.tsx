@@ -10,9 +10,9 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-8 md:flex-row md:items-center md:justify-between">
 
           {/* Logo */}
-          <Link href="/" className="cursor-pointer flex items-center gap-1 group shrink-0">
-            <div className="relative w-8 h-8">
-              <Image src="/LOGO.png" alt="Logo" fill className="object-contain" />
+          <Link href="/" className="cursor-pointer flex items-center gap-2 group shrink-0">
+            <div className="relative w-6 h-6">
+              <Image src="/LOGO.png" alt="Logo" fill sizes="24px" className="object-contain" />
             </div>
             <span className="text-white font-semibold text-sm tracking-wide group-hover:text-sky-400 transition-colors">
               Portfolio
