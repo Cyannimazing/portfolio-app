@@ -129,25 +129,6 @@ export default function Hero() {
             </MagneticButton>
           </motion.div>
 
-          {/* Stat strip — concrete proof */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.62 }}
-            className="flex items-center gap-6"
-          >
-            {[
-              { value: "9", label: "Production modules" },
-              { value: "6", label: "Projects built" },
-              { value: "12+", label: "Technologies" },
-            ].map((s, i) => (
-              <div key={s.label} className={`flex flex-col ${i > 0 ? "pl-6 border-l border-white/8" : ""}`}>
-                <span className="text-2xl font-black text-white leading-none">{s.value}</span>
-                <span className="text-[11px] text-neutral-500 mt-1.5">{s.label}</span>
-              </div>
-            ))}
-          </motion.div>
-
         </div>
 
         {/* ── Right — Flippable business card ── */}
