@@ -84,7 +84,7 @@ export default function Hero() {
         <div className="flex-1 max-w-xl space-y-8">
 
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
-            <span className="hidden md:inline-flex items-center gap-2 px-4 py-1.5 rounded-md border border-sky-500/20 bg-sky-500/6 text-sky-400 text-[11px] font-semibold tracking-widest uppercase">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-md border border-sky-500/20 bg-sky-500/6 text-sky-400 text-[11px] font-semibold tracking-widest uppercase">
               <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
               Available for work
             </span>
@@ -104,7 +104,7 @@ export default function Hero() {
 
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.32 }} className="text-xl md:text-2xl font-medium text-neutral-500">
             <FlipWords
-              words={["Full Stack Developer", "Software Engineer", "Web Application Developer", "Mobile App Developer", "API Integrations Engineer", "UI/UX Implementer"]}
+              words={["Full Stack Developer", "Software Engineer", "Web Application Developer", "Mobile App Developer", "API Integrations Engineer", "UI/UX Developer"]}
               className="text-sky-400 font-semibold"
             />
           </motion.div>
@@ -118,15 +118,34 @@ export default function Hero() {
 
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.52 }} className="flex flex-col sm:flex-row gap-3 w-full">
             <MagneticButton strength={0.5}>
-              <button onClick={handleDownloadCV} className="cursor-pointer w-full sm:w-auto px-8 py-3.5 rounded-md bg-sky-500 hover:bg-sky-400 text-white font-semibold text-sm transition-colors shadow-lg shadow-sky-500/20">
-                Download CV
-              </button>
-            </MagneticButton>
-            <MagneticButton strength={0.5}>
-              <button onClick={() => router.push("/contact")} className="cursor-pointer w-full sm:w-auto px-8 py-3.5 rounded-md border border-white/12 hover:border-sky-500/40 hover:bg-sky-500/6 text-white font-semibold text-sm transition-all">
+              <button onClick={() => router.push("/contact")} className="cursor-pointer w-full sm:w-auto px-8 py-3.5 rounded-md bg-linear-to-r from-sky-500 to-cyan-400 hover:from-sky-400 hover:to-cyan-300 text-white font-semibold text-sm transition-all shadow-lg shadow-sky-500/20">
                 Let&apos;s Discuss
               </button>
             </MagneticButton>
+            <MagneticButton strength={0.5}>
+              <button onClick={handleDownloadCV} className="cursor-pointer w-full sm:w-auto px-8 py-3.5 rounded-md border border-white/12 hover:border-sky-500/40 hover:bg-sky-500/6 text-white font-semibold text-sm transition-all">
+                Download CV
+              </button>
+            </MagneticButton>
+          </motion.div>
+
+          {/* Stat strip — concrete proof */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.62 }}
+            className="flex items-center gap-6"
+          >
+            {[
+              { value: "9", label: "Production modules" },
+              { value: "6", label: "Projects built" },
+              { value: "12+", label: "Technologies" },
+            ].map((s, i) => (
+              <div key={s.label} className={`flex flex-col ${i > 0 ? "pl-6 border-l border-white/8" : ""}`}>
+                <span className="text-2xl font-black text-white leading-none">{s.value}</span>
+                <span className="text-[11px] text-neutral-500 mt-1.5">{s.label}</span>
+              </div>
+            ))}
           </motion.div>
 
         </div>

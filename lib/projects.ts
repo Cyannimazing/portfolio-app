@@ -7,6 +7,10 @@ export interface Project {
   mainImage: string;
   technologies: string[];
   fullDescription: string;
+  challenge?: string;
+  solution?: string;
+  services?: string[];
+  industry?: string;
   features: string[];
   contribution?: { role: string; team: string };
   subImages?: { url: string; caption: string }[];
@@ -29,10 +33,13 @@ export const projects: Project[] = [
     description: "Full-stack SaaS platform at awork.dk. Shipped timesheet, quoting, chat, and helpdesk modules in production.",
     mainImage: "/projects/obiyen_dashboard_main.png",
     technologies: ["Nuxt.js", "Vue 3", "Laravel", "PostgreSQL", "TypeScript", "Pusher"],
-    fullDescription: "Contributed across 9 production modules on a custom multi-tenant B2B SaaS platform (Nuxt 3, Vue 3, Laravel 12, MySQL, Pusher), taking full-stack ownership from database schema and REST API design to Nuxt 3 frontend. Platform uses a custom tenancy architecture (Client - Agency - Workspace) with RBAC (Superadmin / Admin / Editor / Viewer) and real-time features via Laravel Echo and Pusher.",
+    fullDescription: "Contributed across 9 production modules on a custom multi-tenant B2B SaaS platform (Nuxt 3, Vue 3, Laravel 12, MySQL, Pusher), taking full-stack ownership from database schema and REST API design to Nuxt 3 frontend. Platform uses a custom tenancy architecture (Client - Agency) with RBAC (Admin / Editor / Viewer) and real-time features via Laravel Echo and Pusher.",
+    challenge: "awork.dk runs Obiyen, a multi-app B2B SaaS platform where agencies subscribe to the business apps they need (social management, quoting, timesheets, helpdesk, and more). Each module had to be built and hardened in production with strict per-agency data isolation, role-based access, and real-time collaboration across every app.",
+    solution: "I contributed across 9 production modules (now live and used by agencies) on Obiyen's custom Nuxt 3 and Laravel 12 multi-tenant architecture (Client to Agency, with Admin/Editor/Viewer roles). I shipped the full quotation lifecycle with PDF rendering and digital approval, resolving 11 post-QA issues around multi-currency, VAT inheritance, and Danish characters; delivered a four-eyes timesheet approval workflow; integrated Facebook and Instagram for agency-scoped social management; and brought DocFlow document management to 100% WCAG accessibility compliance. I also wired transactional email across quotes, invoices, and signatures, and restored Microsoft SSO and accurate per-agency analytics after critical production bug fixes, all with multi-tenant isolation and EN/DA localization.",
+    services: ["Custom Business Software", "Integrations & Automation"],
+    industry: "SaaS & Agencies",
     features: [
       "Integrated Facebook and Instagram APIs via OAuth 2.0, delivering agency-scoped post management, comment moderation, brand mention tracking, and engagement analytics with proper multi-tenant data isolation per agency.",
-      "Architected the Password Manager module from scratch - personal and company vaults, Azure Active Directory (Entra) directory sync, seat-based licensing, user assignment, master password, breach monitoring, and credential import/export (17 models, 28 migrations, repository pattern).",
       "Built the Quotation module end-to-end: full lifecycle (draft - sent - viewed - accepted/declined/expired), PDF and web rendering via Snappy, digital approval with audit log, template system, pricing engine, and automated email notifications. Resolved 11 post-QA issues including UTF-8 Danish characters, multi-currency (DKK/EUR/USD), VAT inheritance, decimal precision, and dynamic sender branding per template.",
       "Delivered the Timesheet module with a 4-eyes approval workflow and addressed post-launch feedback by fixing a raw JSON display bug, implementing dual Admin+Manager role support (company-level vs. app-level roles), designing a Superadmin bypass to prevent self-approval deadlocks, and adding full EN/DA translation for international teams.",
       "Redesigned the SEO rank tracking pipeline to eliminate Google Search Console dependency by rerouting SERP data through SerpAPI and keyword volume through Google Ads API, decoupling the module from GSC availability and increasing pipeline resilience.",
@@ -61,6 +68,10 @@ export const projects: Project[] = [
     mainImage: "/projects/main_image.png",
     technologies: ["Next.js", "React", "Laravel API", "MySQL", "Tailwind CSS"],
     fullDescription: "A multi-tenant SaaS platform enabling church owners to subscribe and manage their operations. Multiple churches operate independently with admin portals for service bookings, appointments, and document generation.",
+    challenge: "Churches needed an affordable way to run service bookings, appointments, and official records online, but each church had to stay completely independent, with its own members, data, and configuration, rather than sharing one common system.",
+    solution: "I designed a multi-tenant SaaS platform where every subscribed church gets its own independent admin portal with fully isolated data, service configurations, and private member records. I replaced manual scheduling with self-service online booking tied to church-specific availability and confirmation flows, and automated baptism and marriage certificates as ready-to-print PDF documents generated straight from stored records.",
+    services: ["Custom Business Software", "Business Websites"],
+    industry: "Religious Organizations",
     features: [
       "Designed and built a multi-tenant SaaS platform where each subscribed church operates independently with its own isolated admin portal, service configurations, and member data.",
       "Implemented online service booking and appointment scheduling with church-specific availability, session management, and booking confirmation flows.",
@@ -87,6 +98,10 @@ export const projects: Project[] = [
     mainImage: "/projects/aidpoint_main.png",
     technologies: ["Laravel API", "MySQL", "React", "Next.js", "Tailwind CSS"],
     fullDescription: "AidPoint is a SaaS platform streamlining financial aid operations for institutions. Features role-based portals for Admin, Director, Caseworker, Finance Officer, and Beneficiary with multi-level approval workflows.",
+    challenge: "A financial aid institution needed to move disbursements off spreadsheets and manual sign-offs, with clear accountability across five different roles and a complete audit trail for every amount that moved.",
+    solution: "I built the backend powering role-based portals for five roles (Admin, Director, Caseworker, Finance Officer, Beneficiary), replacing spreadsheet-based aid tracking with multi-level approval workflows that govern every disbursement. I engineered allocation and liquidation tracking with full audit logs for end-to-end traceability, and exposed secure real-time data that gives all five stakeholder roles a clear, live view of application status, approvals, and fund movement.",
+    services: ["Custom Business Software"],
+    industry: "Finance & Social Services",
     features: [
       "Developed role-based portals for 5 distinct roles (Admin, Director, Caseworker, Finance Officer, Beneficiary) with multi-level approval workflows governing each financial aid disbursement.",
       "Engineered allocation and liquidation management with full audit logs ensuring complete traceability across every stage of the disbursement cycle.",
@@ -110,6 +125,10 @@ export const projects: Project[] = [
     mainImage: "/projects/cacao_main_image.png",
     technologies: ["Nuxt.js", "Laravel", "MySQL", "Android Studio", "Java"],
     fullDescription: "CacaoCare combines mobile cacao pod disease detection with a web platform for farm management. Uses a custom-trained YOLO11s model for image-based detection.",
+    challenge: "Cacao farmers needed to catch pod diseases early without sending samples to a lab or depending on a network connection in the field, while farm owners still needed a way to track harvests and review detection history.",
+    solution: "I built the web side of a two-part system. A custom-trained YOLO11s model runs on-device in the mobile app for real-time, offline pod disease detection with no lab required, and I built the synchronized Laravel web platform and REST API behind it, syncing every detection to a dashboard for harvest tracking and farm analytics and centralizing detection history across mobile and web.",
+    services: ["Mobile Apps", "Custom Business Software"],
+    industry: "Agriculture",
     features: [
       "Integrated a custom-trained YOLO11s deep learning model into a mobile app, enabling real-time cacao pod disease detection via on-device camera without requiring server round-trips.",
       "Built a synchronized web platform for farm management connecting to the mobile app via RESTful API, enabling harvest data tracking, farm analytics, and detection history review.",
@@ -133,6 +152,10 @@ export const projects: Project[] = [
     mainImage: "/projects/main_image1.png",
     technologies: ["React", "Laravel", "Inertia.js", "MySQL", "Electron"],
     fullDescription: "A desktop application for a technical college automating conflict-free class timetables and faculty workload management.",
+    challenge: "A technical college was building class timetables and faculty workloads entirely by hand, a slow, error-prone process that frequently produced scheduling conflicts and uneven teaching loads.",
+    solution: "I built a desktop application that replaced a fully manual process with automatic, conflict-free timetable generation, balancing faculty workloads against subject expertise, load limits, and room constraints. I packaged it as a cross-platform desktop app with Electron and added print-ready PDF reports for class schedules and faculty workload summaries.",
+    services: ["Custom Business Software"],
+    industry: "Education",
     features: [
       "Automated conflict-free class timetable generation and faculty workload balancing for a technical college, replacing a fully manual scheduling process.",
       "Built a faculty assignment and workload distribution engine that respects subject expertise, load limits, and room constraints to produce valid schedules without conflicts.",
@@ -154,11 +177,15 @@ export const projects: Project[] = [
     id: 6,
     title: "Cynergy",
     type: "Web Development",
-    year: "Apr 2026 to Present",
+    year: "Apr 2026",
     description: "SaaS platform for managing multiple business apps. Currently features a POS system, with more apps to be added. Includes licensing, team invitations, and role-based access.",
     mainImage: "/projects/persona_main.png",
-    technologies: ["Nuxt.js", "Vue 3", "TypeScript", "Pinia", "Tailwind CSS", "Zod", "Laravel", "PHP", "SQLite", "Sanctum", "Spatie Permission"],
+    technologies: ["Nuxt.js", "Vue 3", "TypeScript", "Pinia", "Tailwind CSS", "Zod", "Laravel", "PHP", "MySQL", "Sanctum", "Spatie Permission"],
     fullDescription: "Cynergy is a multi-module enterprise SaaS platform built solo using Nuxt 4 (Vue 3 + TypeScript) and Laravel 12 REST API, following Repository, Service, and Interface design patterns. The first module is a full-featured POS system supporting restaurants, retail shops, and repair service centers - with 80+ Eloquent models, 39 frontend pages, and real-time features via Laravel Reverb and Pusher. The platform uses a dual-tier role system: company-level app licensing controls which employees access which apps, while each app has its own custom role and permission management.",
+    challenge: "Small businesses (restaurants, retail shops, repair centers) juggle separate apps for sales, inventory, scheduling, and staff permissions. They needed one platform where a company licenses only the apps it actually uses and controls exactly who can access what.",
+    solution: "I built Cynergy solo on Nuxt 4 and Laravel 12, unifying sales, inventory, scheduling, and permissions into one licensable platform, starting with a full-featured POS (80+ models, 40+ modules) spanning bookings, job scheduling, kitchen, and procurement. I prevented financial inconsistencies with idempotent, immutable transaction handling (separate refund, void, and reversal flows), added a dual-tier role system (company-level app licensing plus per-app permissions), and delivered real-time cashier, kitchen, and stock updates across connected clients via Laravel Reverb and Pusher.",
+    services: ["Custom Business Software", "Integrations & Automation"],
+    industry: "Retail & Hospitality",
     features: [
       "Architected a multi-module enterprise SaaS platform supporting restaurants, retail shops, and repair service centers - 80+ Eloquent models and 40+ feature modules spanning POS, inventory, bookings, job scheduling, kitchen management, and procurement.",
       "Designed dual-tier role-based access control: company-level app licensing linked to granular module-specific permissions, with custom role creation and toggleable permissions per tenant.",

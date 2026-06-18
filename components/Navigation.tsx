@@ -122,6 +122,24 @@ export default function Navigation() {
                 </motion.div>
               );
             })}
+
+            {/* Book a Call CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 + navItems.length * 0.08, duration: 0.4, ease: "easeOut" }}
+              className="ml-3"
+            >
+              <Link
+                href="/contact"
+                className="cursor-pointer inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-semibold text-white bg-linear-to-r from-sky-500 to-cyan-400 hover:from-sky-400 hover:to-cyan-300 transition-all shadow-lg shadow-sky-500/20"
+              >
+                Let&apos;s Discuss
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </motion.div>
           </nav>
 
           {/* Mobile toggle */}
@@ -167,6 +185,21 @@ export default function Navigation() {
                 </Link>
               </motion.div>
             ))}
+
+            {/* Book a Call CTA — mobile */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ delay: navItems.length * 0.06 }}
+            >
+              <Link
+                href="/contact"
+                className="cursor-pointer inline-flex items-center gap-2 px-8 py-3.5 rounded-md text-xl font-bold text-white bg-linear-to-r from-sky-500 to-cyan-400 shadow-lg shadow-sky-500/20"
+              >
+                Let&apos;s Discuss
+              </Link>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
