@@ -59,21 +59,22 @@ export default function WorksClient() {
     [ordered, industry],
   );
 
+  const total = filtered.length;
+  const safeIndex = total > 0 ? Math.min(active, total - 1) : 0;
+  const current = filtered[safeIndex];
+
   // Reset to the first slide whenever the filter changes.
   useEffect(() => {
     setActive(0);
   }, [industry]);
 
-  // Auto-advance every 5s; pause on hover; never run with 0/1 slides.
+  // Auto-advance: re-armed on every slide change (manual or auto) so the
+  // progress bar and the real timer stay in sync. Pause on hover.
   useEffect(() => {
-    if (paused || filtered.length <= 1) return;
-    const id = setInterval(() => setActive((i) => (i + 1) % filtered.length), SWAP_MS);
-    return () => clearInterval(id);
-  }, [paused, filtered.length]);
-
-  const total = filtered.length;
-  const safeIndex = total > 0 ? Math.min(active, total - 1) : 0;
-  const current = filtered[safeIndex];
+    if (paused || total <= 1) return;
+    const id = setTimeout(() => setActive((i) => (i + 1) % total), SWAP_MS);
+    return () => clearTimeout(id);
+  }, [paused, total, safeIndex]);
 
   const go = (dir: 1 | -1) => setActive((i) => (i + dir + total) % total);
 
