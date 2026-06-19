@@ -120,7 +120,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
                 <p className="text-neutral-400 text-sm md:text-base leading-relaxed">{project.challenge}</p>
               </div>
               <div>
-                <h2 className="text-xs font-bold text-violet-400 uppercase tracking-widest mb-4">My Solution</h2>
+                <h2 className="text-xs font-bold text-violet-400 uppercase tracking-widest mb-4">The Solution</h2>
                 <p className="text-neutral-400 text-sm md:text-base leading-relaxed">{project.solution}</p>
               </div>
             </div>

@@ -78,7 +78,7 @@ export default function Hero() {
       </div>
 
       {/* Main layout */}
-      <div className="relative z-10 min-h-screen max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16 pt-24 pb-16 md:pt-0 md:pb-0">
+      <div className="relative z-10 min-h-screen max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-10 md:gap-16 pt-36 pb-16 md:pt-0 md:pb-0">
 
         {/* ── Left — Content ── */}
         <div className="flex-1 max-w-xl space-y-8">
@@ -110,10 +110,9 @@ export default function Hero() {
           </motion.div>
 
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.42 }} className="text-neutral-500 text-base leading-relaxed">
-            A Full-Stack Developer with production experience shipping end-to-end
-            modules across a multi-app SaaS platform. From OAuth 2.0 and Graph API
-            integrations to real-time systems and WCAG 2.1 compliant interfaces,
-            I build and own features at every layer of the stack.
+            Full-stack developer who ships. From database to polished interface,
+            I build fast, reliable web and mobile apps, custom software, and the
+            integrations that tie them together, built for real users, not demos.
           </motion.p>
 
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.52 }} className="flex flex-col sm:flex-row gap-3 w-full">

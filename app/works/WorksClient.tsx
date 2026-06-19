@@ -42,7 +42,6 @@ function FilterRow({
 
 export default function WorksClient() {
   const [service, setService] = useState("All");
-  const [industry, setIndustry] = useState("All");
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -52,33 +51,18 @@ export default function WorksClient() {
     return ["All", ...Array.from(set)];
   }, []);
 
-  const industries = useMemo(() => {
-    const set = new Set<string>();
-    projects.forEach((p) => p.industry && set.add(p.industry));
-    return ["All", ...Array.from(set)];
-  }, []);
-
-  // Latest upload (Cynergy) leads; the rest keep their original order.
-  const ordered = useMemo(() => {
-    const i = projects.findIndex((p) => p.title === "Cynergy");
-    if (i <= 0) return projects;
-    return [projects[i], ...projects.slice(0, i), ...projects.slice(i + 1)];
-  }, []);
+  // Newest first: sort by id descending. A new project gets the next id and auto-leads.
+  const ordered = useMemo(() => [...projects].sort((a, b) => b.id - a.id), []);
 
   const filtered = useMemo(
-    () =>
-      ordered.filter(
-        (p) =>
-          (service === "All" || p.services?.includes(service)) &&
-          (industry === "All" || p.industry === industry),
-      ),
-    [ordered, service, industry],
+    () => ordered.filter((p) => service === "All" || p.services?.includes(service)),
+    [ordered, service],
   );
 
-  // Reset to the first slide whenever the filter set changes.
+  // Reset to the first slide whenever the filter changes.
   useEffect(() => {
     setActive(0);
-  }, [service, industry]);
+  }, [service]);
 
   // Auto-advance every 5s; pause on hover; never run with 0/1 slides.
   useEffect(() => {
@@ -102,111 +86,111 @@ export default function WorksClient() {
         <p className="text-neutral-600 text-xs font-semibold uppercase tracking-[0.3em]">Works</p>
       </div>
 
-      {/* Header + filters */}
+      {/* Header + filter */}
       <div className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-12 pb-5">
         <p className="text-sky-400 text-xs font-bold uppercase tracking-[0.3em] mb-2">Projects & Case Studies</p>
         <h1 className="text-2xl md:text-3xl font-black text-white mb-5">Works</h1>
-        <div className="space-y-3">
-          <FilterRow label="Service" options={services} value={service} onChange={setService} />
-          <FilterRow label="Industry" options={industries} value={industry} onChange={setIndustry} />
-        </div>
+        <FilterRow label="Service" options={services} value={service} onChange={setService} />
       </div>
 
       {/* One-screen auto-rotating showcase */}
       <div className="relative z-10 flex-1 max-w-7xl mx-auto w-full px-6 md:px-12 pb-10">
         {current ? (
-          <div
-            className="relative h-[58vh] md:h-[64vh] rounded-2xl overflow-hidden border border-white/8"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-          >
-            {/* Progress timer */}
-            {total > 1 && !paused && (
-              <motion.div
-                key={safeIndex}
-                className="absolute top-0 left-0 h-0.5 bg-sky-400 z-30"
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: SWAP_MS / 1000, ease: "linear" }}
-              />
-            )}
+          <>
+            <div
+              className="relative h-[56vh] md:h-[62vh] rounded-2xl overflow-hidden border border-white/8"
+              onMouseEnter={() => setPaused(true)}
+              onMouseLeave={() => setPaused(false)}
+            >
+              {/* Progress timer */}
+              {total > 1 && !paused && (
+                <motion.div
+                  key={safeIndex}
+                  className="absolute top-0 left-0 h-0.5 bg-sky-400 z-30"
+                  initial={{ width: 0 }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: SWAP_MS / 1000, ease: "linear" }}
+                />
+              )}
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current.id}
-                initial={{ opacity: 0, scale: 1.03 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
-                className="absolute inset-0"
-              >
-                <Link href={`/works/${toSlug(current.title)}`} className="group absolute inset-0 block cursor-pointer">
-                  <Image src={current.mainImage} alt={current.title} fill priority sizes="100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-black/45 group-hover:bg-black/30 transition-colors duration-300" />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/40 to-transparent" />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={current.id}
+                  initial={{ opacity: 0, scale: 1.03 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className="absolute inset-0"
+                >
+                  <Link href={`/works/${toSlug(current.title)}`} className="group absolute inset-0 block cursor-pointer">
+                    <Image src={current.mainImage} alt={current.title} fill priority sizes="100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-black/45 group-hover:bg-black/30 transition-colors duration-300" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/40 to-transparent" />
 
-                  {/* clickable affordance: inset ring + corner hint on hover */}
-                  <div className="absolute inset-0 rounded-2xl ring-inset ring-0 group-hover:ring-2 group-hover:ring-sky-400/50 transition-all duration-300 pointer-events-none" />
-                  <div className="absolute top-5 left-5 md:top-6 md:left-6 flex items-center gap-2 px-3 py-1.5 rounded-md bg-sky-500/90 text-white text-xs font-bold uppercase tracking-widest opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                    Open Case Study
-                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                  </div>
-
-                  <div className="absolute bottom-0 left-0 right-0 p-7 md:p-12 max-w-3xl">
-                    <p className="text-sky-400 text-xs font-bold uppercase tracking-[0.3em] mb-2">{current.industry ?? current.type}</p>
-                    <h2 className="text-4xl md:text-6xl font-black text-white mb-3 text-balance">{current.title}</h2>
-                    <p className="text-neutral-300 text-sm md:text-base mb-4 max-w-xl">{current.description}</p>
-                    <div className="flex flex-wrap gap-2 mb-5">
-                      {current.technologies.slice(0, 5).map((t) => (
-                        <span key={t} className="text-xs px-2.5 py-1 rounded-md bg-white/10 border border-white/15 text-neutral-200 backdrop-blur-sm">{t}</span>
-                      ))}
+                    {/* clickable affordance: inset ring + corner hint on hover */}
+                    <div className="absolute inset-0 rounded-2xl ring-inset ring-0 group-hover:ring-2 group-hover:ring-sky-400/50 transition-all duration-300 pointer-events-none" />
+                    <div className="absolute top-5 left-5 md:top-6 md:left-6 flex items-center gap-2 px-3 py-1.5 rounded-md bg-sky-500/90 text-white text-xs font-bold uppercase tracking-widest opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                      Open Case Study
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                     </div>
-                    <span className="inline-flex items-center gap-2 text-sky-400 text-sm font-bold uppercase tracking-widest">
-                      View Case Study
-                      <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                    </span>
-                  </div>
-                </Link>
-              </motion.div>
-            </AnimatePresence>
 
-            {/* Controls */}
+                    <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-12 max-w-3xl">
+                      <p className="text-sky-400 text-[0.65rem] sm:text-xs font-bold uppercase tracking-[0.3em] mb-2">{current.industry ?? current.type}</p>
+                      <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-3 text-balance">{current.title}</h2>
+                      <p className="text-neutral-300 text-sm md:text-base mb-5 max-w-xl line-clamp-3">{current.description}</p>
+                      <span className="inline-flex items-center gap-2 text-sky-400 text-sm font-bold uppercase tracking-widest">
+                        View Case Study
+                        <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                      </span>
+                    </div>
+                  </Link>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Control strip — below the card, never over the image */}
             {total > 1 && (
-              <>
-                <button
-                  onClick={() => go(-1)}
-                  aria-label="Previous project"
-                  className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-black/40 border border-white/15 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-white hover:bg-black/60 transition-colors cursor-pointer"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-                </button>
-                <button
-                  onClick={() => go(1)}
-                  aria-label="Next project"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-black/40 border border-white/15 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-white hover:bg-black/60 transition-colors cursor-pointer"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                </button>
-
-                {/* Dots + counter */}
-                <div className="absolute bottom-5 right-6 z-30 flex items-center gap-3">
-                  <span className="text-xs font-semibold text-white/70 tabular-nums">{String(safeIndex + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}</span>
-                  <div className="flex items-center gap-1.5">
-                    {filtered.map((p, i) => (
-                      <button
-                        key={p.id}
-                        onClick={() => setActive(i)}
-                        aria-label={`Go to ${p.title}`}
-                        className={`h-1.5 rounded-full transition-all cursor-pointer ${i === safeIndex ? "w-6 bg-sky-400" : "w-1.5 bg-white/30 hover:bg-white/60"}`}
-                      />
-                    ))}
-                  </div>
+              <div className="mt-6 flex items-center justify-between gap-4">
+                {/* Editorial counter */}
+                <div className="flex items-baseline gap-1.5 tabular-nums">
+                  <span className="text-3xl md:text-4xl font-black text-white leading-none">{String(safeIndex + 1).padStart(2, "0")}</span>
+                  <span className="text-sm font-semibold text-neutral-600 leading-none">/ {String(total).padStart(2, "0")}</span>
                 </div>
-              </>
+
+                {/* Dot scrubber */}
+                <div className="hidden sm:flex items-center gap-1.5">
+                  {filtered.map((p, i) => (
+                    <button
+                      key={p.id}
+                      onClick={() => setActive(i)}
+                      aria-label={`Go to ${p.title}`}
+                      className={`h-1.5 rounded-full transition-all cursor-pointer ${i === safeIndex ? "w-7 bg-sky-400" : "w-1.5 bg-white/25 hover:bg-white/50"}`}
+                    />
+                  ))}
+                </div>
+
+                {/* Prev / next */}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => go(-1)}
+                    aria-label="Previous project"
+                    className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:border-white/25 hover:bg-white/10 transition-colors cursor-pointer"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                  </button>
+                  <button
+                    onClick={() => go(1)}
+                    aria-label="Next project"
+                    className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:border-white/25 hover:bg-white/10 transition-colors cursor-pointer"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                  </button>
+                </div>
+              </div>
             )}
-          </div>
+          </>
         ) : (
-          <p className="py-20 text-neutral-500 text-sm">No projects match this combination yet. Try a different filter.</p>
+          <p className="py-20 text-neutral-500 text-sm">No projects match this filter yet. Try a different service.</p>
         )}
       </div>
     </main>
