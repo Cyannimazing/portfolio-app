@@ -41,13 +41,13 @@ function FilterRow({
 }
 
 export default function WorksClient() {
-  const [service, setService] = useState("All");
+  const [industry, setIndustry] = useState("All");
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 
-  const services = useMemo(() => {
+  const industries = useMemo(() => {
     const set = new Set<string>();
-    projects.forEach((p) => p.services?.forEach((s) => set.add(s)));
+    projects.forEach((p) => p.industry && set.add(p.industry));
     return ["All", ...Array.from(set)];
   }, []);
 
@@ -55,14 +55,14 @@ export default function WorksClient() {
   const ordered = useMemo(() => [...projects].sort((a, b) => b.id - a.id), []);
 
   const filtered = useMemo(
-    () => ordered.filter((p) => service === "All" || p.services?.includes(service)),
-    [ordered, service],
+    () => ordered.filter((p) => industry === "All" || p.industry === industry),
+    [ordered, industry],
   );
 
   // Reset to the first slide whenever the filter changes.
   useEffect(() => {
     setActive(0);
-  }, [service]);
+  }, [industry]);
 
   // Auto-advance every 5s; pause on hover; never run with 0/1 slides.
   useEffect(() => {
@@ -90,7 +90,7 @@ export default function WorksClient() {
       <div className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-12 pb-5">
         <p className="text-sky-400 text-xs font-bold uppercase tracking-[0.3em] mb-2">Projects & Case Studies</p>
         <h1 className="text-2xl md:text-3xl font-black text-white mb-5">Works</h1>
-        <FilterRow label="Service" options={services} value={service} onChange={setService} />
+        <FilterRow label="Industry" options={industries} value={industry} onChange={setIndustry} />
       </div>
 
       {/* One-screen auto-rotating showcase */}
@@ -190,7 +190,7 @@ export default function WorksClient() {
             )}
           </>
         ) : (
-          <p className="py-20 text-neutral-500 text-sm">No projects match this filter yet. Try a different service.</p>
+          <p className="py-20 text-neutral-500 text-sm">No projects match this filter yet. Try a different industry.</p>
         )}
       </div>
     </main>
