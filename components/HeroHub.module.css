@@ -293,7 +293,7 @@
 .headingFinish { animation-delay: .39s; }
 .eyebrow { animation: var(--studio-text-reveal-name) .6s var(--studio-ease) .18s backwards; }
 .intro { animation: var(--studio-text-reveal-name) .65s var(--studio-ease) .58s backwards; }
-.headerCta { animation: var(--studio-reveal-name) .65s var(--studio-ease) .68s backwards; }
+.headerActions { animation: var(--studio-reveal-name) .65s var(--studio-ease) .68s backwards; }
 .tile { transform-origin: center bottom; animation: var(--studio-reveal-name) .72s var(--studio-ease) var(--studio-card-delay) backwards; }
 .tile[data-entered="false"] { animation: none; opacity: 0; transform: translateY(18px) scale(.97); filter: blur(3px); }
 .tile[data-entered="false"] * { animation-play-state: paused !important; }
