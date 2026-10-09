@@ -33,9 +33,11 @@ function GalleryCarousel<T>({ slides, current, renderSlide, getSlideKey, paused,
     if (!element) return;
     const observer = new ResizeObserver(([entry]) => {
       const mobile = window.innerWidth < 1024;
-      const frameWidth = mobile ? entry.contentRect.width - 44 : Math.min(entry.contentRect.width - 112, (entry.contentRect.height - 34) * 16 / 9);
+      const gutter = parseFloat(getComputedStyle(element).getPropertyValue("--studio-page-gutter-start")) || 16;
+      const frameWidth = mobile ? entry.contentRect.width - gutter * 2 : Math.min(entry.contentRect.width - 112, (entry.contentRect.height - 34) * 16 / 9);
       setWidth(Math.max(0, frameWidth));
-      setGap(parseFloat(getComputedStyle(element).getPropertyValue("--studio-grid-gap")) || 16);
+      const slideGap = parseFloat(getComputedStyle(element).getPropertyValue("--studio-grid-gap")) || 16;
+      setGap(mobile ? Math.min(slideGap, 6) : slideGap);
       element.closest<HTMLElement>("[data-project-browser]")?.style.setProperty("--project-frame-width", Math.max(0, frameWidth) + "px");
     });
     observer.observe(element);

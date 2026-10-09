@@ -52,6 +52,7 @@
 .staticPrinciples { display: grid; gap: 20px; padding-top: 20px; }
 .staticPrinciples h3 { font-size: 16px; }
 .staticPrinciples p { margin-top: 6px; font-size: 13px; line-height: 1.6; color: var(--studio-muted); }
+.mobilePrinciples { display: none; }
 .experienceList { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: center; flex: 1; gap: 40px; margin: 0; padding: 18px 0; list-style: none; }
 .experienceList li { position: relative; padding-left: 16px; border-left: 1px solid #577b8b; }
 .experienceList li::before { content: ""; position: absolute; left: -3px; top: 5px; width: 5px; height: 5px; border-radius: 50%; background: #8bd4e8; }
@@ -160,26 +161,41 @@
   .directionStatement { margin-block: 0; padding-block: 26px; font-size: clamp(32px, 5vw, 44px); }
   .directionGrid { padding-top: 0; }
   .directionGrid section > p { font-size: 14px; }
-  .principles { padding-top: 22px; grid-template-rows: auto auto; }
-  .principleContent { min-height: 185px; }
-  .principleDetail { min-height: 185px; padding: 22px; }
-  .principleDetail h3 { font-size: 29px; }
-  .principleDescription { font-size: 14px; }
+  .principles { display: none; }
+  .mobilePrinciples { display: grid; gap: 6px; padding-top: 20px; }
+  .principleItem { min-width: 0; border: 1px solid transparent; border-bottom-color: #385564; border-radius: 6px; transition: background .3s, border-color .3s; }
+  .principleItem:last-child { border-bottom-color: transparent; }
+  .principleItem[data-expanded="true"] { border-color: #567f90; background: linear-gradient(120deg, #294957, #203540); }
+  .principleTrigger { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 52px; padding: 8px 12px; color: #c5d7e0; font-size: 14px; font-weight: 500; line-height: 1.4; text-align: left; cursor: pointer; }
+  .principleTrigger:focus-visible { outline: 2px solid var(--studio-accent); outline-offset: 3px; border-radius: 5px; }
+  .principleStep { display: grid; place-items: center; flex: 0 0 28px; height: 28px; border: 1px solid #4b6b7b; border-radius: 50%; color: #9bcedd; font: 10px var(--font-mono), monospace; transition: background .3s, color .3s, border-color .3s; }
+  .principleTrigger > svg { flex-shrink: 0; margin-left: auto; color: #8ec6d6; transition: transform .3s var(--studio-ease); }
+  .principleItem[data-expanded="true"] .principleTrigger { color: #ecf8fc; }
+  .principleItem[data-expanded="true"] .principleStep { background: var(--studio-accent); border-color: var(--studio-accent); color: #10303b; }
+  .principleItem[data-expanded="true"] .principleTrigger > svg { transform: rotate(45deg); color: var(--studio-accent); }
+  .principleAnswer { display: grid; grid-template-rows: 0fr; visibility: hidden; opacity: 0; transition: grid-template-rows .4s var(--studio-ease), opacity .25s, visibility .4s; }
+  .principleItem[data-expanded="true"] .principleAnswer { grid-template-rows: 1fr; visibility: visible; opacity: 1; }
+  .principleAnswer > div { min-height: 0; overflow: hidden; }
+  .principleAnswerCopy { padding: 4px 16px 20px; }
+  .principleStatement { color: var(--studio-text); font-size: clamp(23px, 6vw, 28px); font-weight: 600; line-height: 1.15; letter-spacing: -.045em; text-wrap: balance; }
+  .principleAnswerCopy > p:last-child { margin-top: 10px; color: var(--studio-muted); font-size: 14px; line-height: 1.65; }
   .experienceList { gap: 22px; padding-block: 24px; }
   .jobHeading { align-items: flex-start; flex-direction: column; gap: 5px; }
   .jobDescription { font-size: 13px; }
 }
 @media (max-width: 639px) {
   .directionGrid { grid-template-columns: minmax(0, 1fr); gap: 26px; }
-  .principleTabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .principleTab { font-size: 12px; }
-  .principleContent, .principleDetail { min-height: 225px; }
   .experienceList { grid-template-columns: minmax(0, 1fr); }
   .jobHeading h3 { font-size: 19px; }
   .role { font-size: 13px; }
   .detailContent { padding: 20px 18px; }
   .detailActions { align-items: stretch; flex-direction: column; gap: 10px; }
   .detailActions a:first-child { justify-content: center; order: 2; }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  .mobilePrinciples { display: none; }
+  .principles { display: grid; padding-top: 20px; }
+  .principles[data-vertical="true"] .principleDetail h3 { font-size: 28px; }
 }
 @media (max-width: 360px) { .cardHeading { font-size: 19px; } .eyebrow { font-size: 8px; } .principleTab { font-size: 11px; } .principleChoice svg { display: none; } .principleDetail h3 { font-size: 26px; } }
 @media (prefers-reduced-motion: reduce) { .page *, .detailModal * { animation: none !important; transition: none !important; } .card[data-entered="false"] { opacity: 1; } }

@@ -16,7 +16,7 @@ export default function ProjectWebsitePreview({ project, active = true, compact 
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
   const [activated, setActivated] = useState(false);
-  const [scale, setScale] = useState(1);
+  const [viewport, setViewport] = useState({ width: 1440, height: wide ? 810 : 900, scale: 1 });
   const display = active || (retainLive && activated);
   const moving = !!preview.url && activated && (active || retainLive) && !failed;
   const fallback = !preview.url || failed;
@@ -33,11 +33,17 @@ export default function ProjectWebsitePreview({ project, active = true, compact 
     const element = body.current;
     if (!element) return;
     const observer = new ResizeObserver(([entry]) => {
-      setScale(entry.contentRect.width / 1440);
+      // Show the site's actual phone layout rather than shrinking its desktop
+      // viewport to unreadable text. Keep small cards at a readable phone width.
+      // Resizing never remounts the live iframe.
+      const phone = wide && window.innerWidth < 1024;
+      const width = phone ? Math.max(360, entry.contentRect.width) : 1440;
+      const scale = entry.contentRect.width / width;
+      setViewport({ width, height: wide ? entry.contentRect.height / Math.max(scale, .01) : 900, scale });
     });
     observer.observe(element);
     return () => observer.disconnect();
-  }, []);
+  }, [wide]);
 
   useEffect(() => {
     if (!moving || ready) return;
@@ -50,7 +56,7 @@ export default function ProjectWebsitePreview({ project, active = true, compact 
     <div className={styles.browser}>
     <div className={styles.browserBar}><IconBrowser size={15} stroke={1.5} aria-hidden="true" /><span className={styles.address}>{preview.label}</span><span className={styles.previewState}><i aria-hidden="true" />{status}</span></div>
     <div ref={body} className={styles.browserBody} inert aria-hidden="true">
-      {moving && <iframe title={`${project.name} live website`} src={preview.url} tabIndex={-1} onLoad={() => setReady(true)} onError={() => setFailed(true)} allow="autoplay" referrerPolicy="no-referrer" sandbox="allow-scripts allow-same-origin" style={{ height: wide ? 810 : 900, transform: `scale(${scale})` }} />}
+      {moving && <iframe title={`${project.name} live website`} src={preview.url} tabIndex={-1} onLoad={() => setReady(true)} onError={() => setFailed(true)} allow="autoplay" referrerPolicy="no-referrer" sandbox="allow-scripts allow-same-origin" style={{ width: viewport.width, height: viewport.height, transform: `scale(${viewport.scale})` }} />}
       {fallback && display && screenshot && <Image src={screenshot} alt={`${project.name} actual interface screenshot`} fill sizes={compact ? "(min-width: 1280px) 24vw, (min-width: 600px) 45vw, 94vw" : "(min-width: 1024px) 65vw, 94vw"} className={styles.screenshot} priority={!compact && active} />}
       {!fallback && display && screenshot && <noscript><Image src={screenshot} alt={`${project.name} actual interface screenshot`} fill sizes={compact ? "(min-width: 1280px) 24vw, (min-width: 600px) 45vw, 94vw" : "(min-width: 1024px) 65vw, 94vw"} className={styles.screenshot} /></noscript>}
       {fallback && !screenshot && <div className={styles.empty}><IconBrowser size={28} stroke={1.3} /><span>{project.name}</span><small>Explore the product features and project details.</small></div>}
@@ -60,8 +66,8 @@ export default function ProjectWebsitePreview({ project, active = true, compact 
         <small>{preview.label}</small>
       </div>}
     </div>
-    {navigation && <div className={styles.navigation}>{navigation}</div>}
     {children && <div className={styles.overlay}>{children}</div>}
+    {navigation && <div className={styles.navigation} data-preview-navigation>{navigation}</div>}
     </div>
   </div>;
 }

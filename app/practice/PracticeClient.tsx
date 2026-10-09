@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSyncExternalStore } from "react";
+import { useId, useState, useSyncExternalStore } from "react";
 import {
   IconArrowRight, IconArrowUpRight, IconBriefcase, IconCompass, IconHeartHandshake, IconPlus,
 } from "@tabler/icons-react";
@@ -21,7 +21,7 @@ const values = [
   { title: "Leave it better", statement: "Think beyond the launch.", description: "I make thoughtful improvements that help your team keep using and developing the software over time." },
 ];
 
-const principleLayoutQuery = "(min-width: 1440px) and (min-height: 900px)";
+const principleLayoutQuery = "(min-width: 640px) and (max-width: 1023px), (min-width: 1440px) and (min-height: 900px)";
 function subscribeToLayout(onChange: () => void) {
   const query = window.matchMedia(principleLayoutQuery);
   query.addEventListener("change", onChange);
@@ -29,16 +29,28 @@ function subscribeToLayout(onChange: () => void) {
 }
 
 function Principles() {
+  const [selected, setSelected] = useState(0);
+  const id = useId();
   const vertical = useSyncExternalStore(subscribeToLayout, () => window.matchMedia(principleLayoutQuery).matches, () => false);
   const tabs = values.map((value, index) => ({
     value: `principle-${index + 1}`,
     title: <span className={styles.principleChoice}><span className={styles.valueNumber}>0{index + 1}</span><span>{value.title}</span><IconArrowRight size={15} aria-hidden="true" /></span>,
     content: <section className={styles.principleDetail}><span className={styles.principleNumber} aria-hidden="true">0{index + 1}</span><p className={styles.label}>My principles / 0{index + 1}</p><h3>{value.statement}</h3><p className={styles.principleDescription}>{value.description}</p></section>,
   }));
-  return <><div className={styles.principles} data-principle-tabs data-vertical={vertical}>
+  return <><div className={styles.mobilePrinciples} data-mobile-principles>
+    {values.map((value, index) => <section key={value.title} className={styles.principleItem} data-expanded={selected === index}>
+      <h3><button type="button" className={styles.principleTrigger} id={`${id}-trigger-${index}`} aria-expanded={selected === index} aria-controls={`${id}-answer-${index}`} onClick={() => setSelected(index)}>
+        <span className={styles.principleStep} aria-hidden="true">0{index + 1}</span>
+        <span>{value.title}</span><IconPlus size={17} aria-hidden="true" />
+      </button></h3>
+      <div className={styles.principleAnswer} id={`${id}-answer-${index}`} role="region" aria-labelledby={`${id}-trigger-${index}`} aria-hidden={selected !== index} inert={selected !== index}>
+        <div><div className={styles.principleAnswerCopy}><p className={styles.principleStatement}>{value.statement}</p><p>{value.description}</p></div></div>
+      </div>
+    </section>)}
+  </div><div className={styles.principles} data-principle-tabs data-vertical={vertical}>
     <Tabs tabs={tabs} ariaLabel="How I work" activationMode="hover" orientation={vertical ? "vertical" : "horizontal"}
       containerClassName={styles.principleTabs} tabClassName={styles.principleTab} activeTabClassName={styles.activePrinciple} contentClassName={styles.principleContent} />
-  </div><noscript><style>{'[data-principle-tabs] { display: none !important; } [data-practice] { height: auto !important; } [data-practice] > div { flex: none !important; grid-template-rows: auto auto !important; }'}</style><div className={styles.staticPrinciples}>{values.map(value => <section key={value.title}><h3>{value.title}</h3><p>{value.description}</p></section>)}</div></noscript></>;
+  </div><noscript><style>{'[data-principle-tabs], [data-mobile-principles] { display: none !important; } [data-practice] { height: auto !important; } [data-practice] > div { flex: none !important; grid-template-rows: auto auto !important; }'}</style><div className={styles.staticPrinciples}>{values.map(value => <section key={value.title}><h3>{value.title}</h3><p>{value.description}</p></section>)}</div></noscript></>;
 }
 
 // Roles and dates come from public/cyril-profile.md.

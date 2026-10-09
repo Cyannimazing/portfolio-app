@@ -39,6 +39,7 @@
 .nextButton { right: 16px; }
 .navigationBody { display: flex; align-items: center; justify-content: center; width: 44px; min-height: 44px; padding: 9px; color: #edf7fb; background: #101d25; border-radius: inherit; transition: color .2s, background .2s; }
 .navigationBody svg { transition: transform .25s var(--studio-ease); }
+.carouselPosition { display: none; }
 .backButton:hover:not(:disabled) .navigationBody, .nextButton:hover:not(:disabled) .navigationBody { color: var(--studio-accent); background: #1b303b; }
 .backButton:hover:not(:disabled) svg { transform: translateX(-3px); }
 .nextButton:hover:not(:disabled) svg { transform: translateX(3px); }
@@ -84,23 +85,44 @@
   .shell { margin-left: 0; }
   .page, .page[data-view="single"] { height: auto; }
   .canvas { height: auto; gap: var(--studio-heading-gap); }
-  .heading { flex-direction: column; align-items: flex-start; gap: 18px; margin: 0; }
-  .headingCopy { width: 100%; }
+  .heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; margin: 0; }
+  .headingCopy { display: contents; }
+  .meta { grid-column: 1 / -1; }
+  .heading h1 { grid-column: 1; grid-row: 2; margin: 0; }
+  .heading p { grid-column: 1 / -1; grid-row: 3; margin: 0; }
+  .headerActions { grid-column: 2; grid-row: 2; }
+  .tabBody { width: 44px; padding: 9px; }
+  .tabBody > span { display: none; }
+  .page[data-view="single"] .count { display: none; }
   .meta { justify-content: space-between; }
   .caption { align-items: flex-start; flex-direction: column; gap: 16px; }
-  .caption h2 { font-size: 32px; }
-  .projectActions { gap: 24px; }
+  .caption h2 { margin-top: 6px; font-size: clamp(24px, 6.8vw, 30px); }
+  .projectActions { width: 100%; gap: 16px; }
+  .detailsButton { flex: 1; }
+  .detailsBody { width: 100%; }
+  .visit { justify-content: center; padding-inline: 10px; }
   .detailsBody { gap: 24px; padding-inline: 14px; }
   .viewContent { flex: none; height: auto; }
-  .deck { height: auto; padding: 0; }
+  .deck { height: auto; width: calc(100% + var(--studio-page-gutter-start) + var(--studio-page-gutter-end)); margin-inline: calc(-1 * var(--studio-page-gutter-start)) calc(-1 * var(--studio-page-gutter-end)); padding: 0; touch-action: pan-y pinch-zoom; }
   .projectCarousel, .projectCarousel > div, .showcaseCard { height: auto; }
   .projectGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .backButton, .nextButton { position: relative; inset: auto; transform: none; width: 44px; height: 44px; box-shadow: none; }
+  .navigationBody { width: 40px; min-height: 40px; padding: 8px; }
+  .carouselPosition { display: flex; align-items: center; justify-content: center; gap: 14px; color: var(--studio-accent); font: 12px var(--font-geist-mono), monospace; }
+  .carouselPosition > span:first-child > span { color: #8eafc1; font-size: 10px; }
+  .positionTrack { display: block; width: clamp(40px, 16vw, 80px); height: 2px; overflow: hidden; border-radius: 2px; background: #385564; }
+  .positionTrack > span { display: block; height: 100%; background: var(--studio-accent); }
 }
 @media (max-width: 599px) {
   .projectGrid { grid-template-columns: 1fr; }
   .gridCopy p { font-size: 14px; } .gridCaption h2 { font-size: 24px; }
   .filters { gap: 4px; margin-bottom: 20px; }
   .filterBody { padding-inline: 10px; gap: 8px; }
+}
+@media (min-width: 600px) and (max-width: 1023px) {
+  .caption { flex-direction: row; align-items: center; }
+  .projectActions { width: auto; }
+  .detailsButton { flex: none; }
 }
 .page[data-motion="paused"] .meta, .page[data-motion="paused"] .heading h1, .page[data-motion="paused"] .heading p, .page[data-motion="paused"] .headerActions, .page[data-motion="paused"] .captionText, .page[data-motion="paused"] .projectActions, .page[data-motion="paused"] .viewContent, .page[data-motion="paused"] .gridCard { animation: none; opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .page *, .page *::before { animation: none !important; } .gridCard[data-entered="false"] { opacity: 1; transform: none; } }

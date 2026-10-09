@@ -4,6 +4,9 @@
 .gallery { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); position: relative; min-width: 0; overflow: clip; isolation: isolate; mask-image: linear-gradient(to right, transparent 0, rgb(0 0 0 / .16) calc(var(--studio-page-gutter-start) * .25), rgb(0 0 0 / .5) calc(var(--studio-page-gutter-start) * .5), rgb(0 0 0 / .84) calc(var(--studio-page-gutter-start) * .75), #000 var(--studio-page-gutter-start), #000 calc(100% - var(--studio-page-gutter-start)), rgb(0 0 0 / .84) calc(100% - var(--studio-page-gutter-start) * .75), rgb(0 0 0 / .5) calc(100% - var(--studio-page-gutter-start) * .5), rgb(0 0 0 / .16) calc(100% - var(--studio-page-gutter-start) * .25), transparent 100%); }
 .gallerySlide { grid-area: 1 / 1; justify-self: center; min-width: 0; height: 100%; }
 @media (max-width: 1023px) { .gallery { grid-template-rows: auto; } .gallerySlide { height: auto; } }
+@media (max-width: 1023px) {
+  .gallerySlide[data-active="false"] { position: absolute; inset: 0; margin-inline: auto; }
+}
 .window { flex: 1; min-height: 0; overflow: hidden; border-radius: 5px; }
 .track { display: flex; width: 100%; height: 100%; }
 .page { display: flex; flex: 0 0 100%; width: 100%; min-width: 0; height: 100%; padding: 5px; box-sizing: border-box; overflow: hidden; }

@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type TouchEvent } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { IconArrowRight, IconArrowUpRight, IconBrowser, IconChevronLeft, IconChevronRight, IconLayoutGrid } from "@tabler/icons-react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
@@ -46,6 +46,7 @@ export default function WorksClient() {
   const [direction, setDirection] = useState<1 | -1>(1);
   const main = useRef<HTMLElement>(null);
   const navigationFocus = useRef<string | null>(null);
+  const swipeStart = useRef<{ x: number; y: number } | null>(null);
   const paused = reducedMotion;
   useEffect(() => { rememberProjectCollection("/works" + search); }, [search]);
   useEffect(() => {
@@ -53,11 +54,19 @@ export default function WorksClient() {
     main.current?.querySelector<HTMLButtonElement>('[data-active="true"] [aria-label="' + navigationFocus.current + '"]')?.focus({ preventScroll: true });
     navigationFocus.current = null;
   }, [selectedId]);
-  const browse = (index: number, step: 1 | -1) => {
+  const browse = (index: number, step: 1 | -1, focus = true) => {
     const target = (index + step + filtered.length) % filtered.length;
-    navigationFocus.current = step === 1 ? "Next project" : "Previous project";
+    navigationFocus.current = focus ? step === 1 ? "Next project" : "Previous project" : null;
     setDirection(step);
     selectProject(filtered[target].id);
+  };
+  const finishSwipe = (event: TouchEvent) => {
+    const start = swipeStart.current;
+    swipeStart.current = null;
+    if (!start || !event.changedTouches[0]) return;
+    const x = event.changedTouches[0].clientX - start.x;
+    const y = event.changedTouches[0].clientY - start.y;
+    if (Math.abs(x) > 48 && Math.abs(x) > Math.abs(y) * 1.5) browse(current, x < 0 ? 1 : -1, false);
   };
   const updateCollection = (change: { view?: View; service?: ServiceId | null }) => {
     const next = new URLSearchParams(search);
@@ -82,14 +91,15 @@ export default function WorksClient() {
           <p>Websites, applications, and systems we helped build.</p>
         </div>
         <div className={styles.headerActions}><div className={styles.viewTabs} role="group" aria-label="Project layout">
-          <HoverBorderGradient type="button" paused={paused} onClick={() => updateCollection({ view: "single" })} aria-pressed={view === "single"} containerClassName={styles.viewTab} className={styles.tabBody}><IconBrowser size={16} aria-hidden="true" />Carousel</HoverBorderGradient>
-          <HoverBorderGradient type="button" paused={paused} onClick={() => updateCollection({ view: "grid" })} aria-pressed={view === "grid"} containerClassName={styles.viewTab} className={styles.tabBody}><IconLayoutGrid size={16} aria-hidden="true" />Grid</HoverBorderGradient>
+          <HoverBorderGradient type="button" paused={paused} onClick={() => updateCollection({ view: "single" })} aria-label="Carousel view" aria-pressed={view === "single"} containerClassName={styles.viewTab} className={styles.tabBody}><IconBrowser size={16} aria-hidden="true" /><span>Carousel</span></HoverBorderGradient>
+          <HoverBorderGradient type="button" paused={paused} onClick={() => updateCollection({ view: "grid" })} aria-label="Grid view" aria-pressed={view === "grid"} containerClassName={styles.viewTab} className={styles.tabBody}><IconLayoutGrid size={16} aria-hidden="true" /><span>Grid</span></HoverBorderGradient>
         </div></div>
       </header>
       <AnimatePresence mode="wait" initial={false}><motion.div key={view} initial={paused ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: paused ? 0 : .18 }} className={styles.viewContent}>
-        {view === "single" ? <div className={styles.deck}>
+        {view === "single" ? <div className={styles.deck} onTouchStart={event => { swipeStart.current = event.touches.length === 1 && !(event.target as HTMLElement).closest("a, button") ? { x: event.touches[0].clientX, y: event.touches[0].clientY } : null; }} onTouchEnd={finishSwipe} onTouchCancel={() => { swipeStart.current = null; }}>
           <Carousel slides={filtered} selectedIndex={current} direction={direction} autoPlay={false} presentation="gallery" getSlideKey={item => item.slug} paused={paused} className={styles.projectCarousel} ariaLabel="Project showcase" renderSlide={(item, index, active) => <BentoGridItem className={styles.showcaseCard} header={<ProjectWebsitePreview project={item} paused={paused} active={active} retainLive wide navigation={<>
             <HoverBorderGradient type="button" paused={paused} disabled={filtered.length < 2} onClick={() => browse(index, -1)} aria-label="Previous project" data-project-navigation={item.id} containerClassName={styles.backButton} className={styles.navigationBody}><IconChevronLeft size={22} stroke={1.8} aria-hidden="true" /></HoverBorderGradient>
+            <span className={styles.carouselPosition} aria-hidden="true"><span>{String(index + 1).padStart(2, "0")}<span> / {String(filtered.length).padStart(2, "0")}</span></span><span className={styles.positionTrack}><span style={{ width: `${(index + 1) / filtered.length * 100}%` }} /></span></span>
             <HoverBorderGradient type="button" paused={paused} disabled={filtered.length < 2} onClick={() => browse(index, 1)} aria-label="Next project" data-project-navigation={item.id} containerClassName={styles.nextButton} className={styles.navigationBody}><IconChevronRight size={22} stroke={1.8} aria-hidden="true" /></HoverBorderGradient>
           </>}><ProjectCaption project={item} paused={paused} /></ProjectWebsitePreview>} />} />
         </div> : <>

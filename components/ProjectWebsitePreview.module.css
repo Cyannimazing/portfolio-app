@@ -13,7 +13,7 @@
 .overlay button, .overlay a { pointer-events: auto; }
 .navigation { position: absolute; z-index: 3; top: 32px; left: 0; right: 0; aspect-ratio: var(--preview-ratio, 1.6); pointer-events: none; }
 .navigation button { pointer-events: auto; }
-.empty { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 16px; color: var(--studio-muted); background: #16252e; text-align: center; }
+.empty { position: absolute; z-index: 2; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 16px; color: var(--studio-muted); background: #16252e; text-align: center; }
 .empty > svg { color: #86bfd1; flex-shrink: 0; }
 .empty > span { color: var(--studio-text); font-size: 14px; }
 .empty small { max-width: 300px; font-size: 11px; line-height: 1.6; }
@@ -27,6 +27,17 @@
 .compact .empty > svg { width: 22px; }
 .compact .empty > span { font-size: 12px; }
 .compact .empty small { font-size: 10px; }
+@media (min-width: 1024px) {
+  .wide .browser { height: 100%; }
+  .wide .browserBody { flex: 1; min-height: 0; aspect-ratio: auto; }
+  .wide .navigation { bottom: 0; aspect-ratio: auto; }
+}
 @media (max-width: 1023px) { .stage { height: auto; container-type: normal; } .browser { width: 100%; } .overlay { position: static; padding: var(--studio-panel-padding); background: #1b2d37; pointer-events: auto; } }
+@media (max-width: 1023px) {
+  .wide .browserBody { height: clamp(280px, 42svh, 420px); aspect-ratio: auto; }
+  .wide .screenshot { object-fit: cover; object-position: center top; }
+  .wide .navigation { position: static; display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 16px; padding: 12px var(--studio-panel-padding); border-top: 1px solid #355361; background: #172b35; aspect-ratio: auto; }
+}
+@media (min-width: 600px) and (max-width: 1023px) { .wide .browserBody { height: clamp(320px, 50svh, 540px); } }
 @media (min-width: 1024px) and (max-height: 650px) { .overlay { padding-top: 40px; } }
 @media (max-width: 420px) { .browserBar { gap: 6px; padding-inline: 8px; } .address { font-size: 8px; } .previewState { font-size: 8px; } }
