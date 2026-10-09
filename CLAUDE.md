@@ -43,6 +43,8 @@ These instructions record the user's final direction from the portfolio redesign
 
 ### Current direction, October 9 (supersedes older presentation notes below)
 
+- Izee, Inc. employment ended in October 2026: display June–October 2026 in the portfolio and CV, overriding the saved profile's earlier “present” date. Keep the saved profile Markdown unchanged. Describe responsibilities and client benefits (custom CMS/admin, optimized media/CDN delivery, CRM lead capture, payments/tracking, and AI automation), rather than listing project names or claiming ownership of a reusable/injectable platform. Keep the CV's five Izee bullets in strong verb, responsibility, result order.
+
 - SEO uses `lib/site.ts` and `lib/seo.ts` as shared configuration. The domain candidate is `https://cyril.ai`, overridable with `NEXT_PUBLIC_SITE_URL` at build time. Keep canonical/social metadata, truthful JSON-LD, the canonical sitemap, robots rules, optional AI-readable content routes and readable no-JavaScript fallbacks. Preview deployments remain noindex. Preserve every existing project UUID and the saved profile Markdown. See README for domain and webmaster verification steps requiring the owner's accounts.
 - Cleanup removed abandoned hero designs, unused UI components/dependencies, an unused font and duplicate case-study records. Only FaithSeeker, AidPoint and F.A Babila Architects use additional legacy data; earlier names of current projects redirect to UUID pages. Keep generation metadata for assets still used, and source evidence supporting published services and contributions.
 

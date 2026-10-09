@@ -53,9 +53,9 @@ function Principles() {
   </div><noscript><style>{'[data-principle-tabs], [data-mobile-principles] { display: none !important; } [data-practice] { height: auto !important; } [data-practice] > div { flex: none !important; grid-template-rows: auto auto !important; }'}</style><div className={styles.staticPrinciples}>{values.map(value => <section key={value.title}><h3>{value.title}</h3><p>{value.description}</p></section>)}</div></noscript></>;
 }
 
-// Roles and dates come from public/cyril-profile.md.
+// Roles come from the saved profile; dates include the user's later corrections.
 const experience = [
-  { company: "Izee, Inc.", role: "Full Stack Developer", period: "June 2026 to present", compactPeriod: "Jun 2026 / present", location: "Remote", summary: "Client websites, CMS, business tools and integrations.", description: "Work across client business websites and internal company products, including content management, lead capture, databases, payments and third party integrations." },
+  { company: "Izee, Inc.", role: "Full Stack Developer", period: "June 2026 to October 2026", compactPeriod: "Jun / Oct 2026", location: "Remote", summary: "Custom CMS, image optimization, CRM integrations and AI automation.", description: "Built custom CMS and admin tools so clients could update content independently. Optimized media delivery through CDN caching and connected CRM lead capture, payments, conversion tracking, instant estimates and AI bookkeeping workflows." },
   { company: "Obiyen / awork.dk", role: "Software Developer Intern", period: "January to June 2026", compactPeriod: "Jan / Jun 2026", location: "Remote, Denmark", summary: "SaaS workflows, account integrations and accessibility.", description: "Contributed to an enterprise SaaS platform through quotation, timesheet approval, helpdesk and password management workflows. Work also included account integrations, accessibility improvements and English/Danish localization." },
 ];
 
