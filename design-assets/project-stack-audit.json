@@ -1,0 +1,457 @@
+{
+  "checkedAt": "2026-10-08T11:16:17.626Z",
+  "note": "Local dependency and integration-code evidence. Presence does not establish production configuration or personal authorship; contribution answers remain authoritative.",
+  "projects": [
+    {
+      "folder": "vivours",
+      "manifest": "C:\\Users\\Admin\\Desktop\\Izee\\vivours\\package.json",
+      "dependencies": {
+        "next": "16.2.12",
+        "react": "^19.2.0",
+        "tailwindcss": "^3.4.0",
+        "framer-motion": "^11.15.0",
+        "@supabase/supabase-js": "^2.98.0",
+        "@supabase/ssr": "^0.9.0",
+        "pg": "^8.20.0",
+        "stripe": "^22.2.1",
+        "@stripe/react-stripe-js": "^6.8.0",
+        "zod": "^4.3.6"
+      },
+      "integrationCode": {
+        "Backblaze": [
+          "src/app/api/admin/upload-url/route.js",
+          "src/lib/b2-upload.js"
+        ],
+        "Stripe": [
+          "src/components/checkout/CheckoutClient.jsx",
+          "src/components/commerce/BnplMessaging.jsx",
+          "src/lib/stripe.js"
+        ],
+        "Google Analytics": [
+          "src/components/GoogleAnalytics.jsx"
+        ],
+        "Meta Pixel": [
+          "src/components/MetaPixel.jsx"
+        ],
+        "Supabase": [
+          "src/lib/supabase/admin.js",
+          "src/lib/supabase/client.js",
+          "src/lib/supabase/server.js",
+          "src/middleware.js"
+        ]
+      }
+    },
+    {
+      "folder": "martich-studios",
+      "manifest": "C:\\Users\\Admin\\Desktop\\Izee\\martich-studios\\package.json",
+      "dependencies": {
+        "next": "14.2.21",
+        "react": "^18.3.1",
+        "tailwindcss": "^3.4.0",
+        "framer-motion": "^11.15.0",
+        "@supabase/supabase-js": "^2.98.0",
+        "@supabase/ssr": "^0.9.0",
+        "pg": "^8.20.0",
+        "stripe": "^22.0.1",
+        "@stripe/react-stripe-js": "^6.1.0",
+        "pdf-lib": "^1.17.1",
+        "zod": "^4.3.6"
+      },
+      "integrationCode": {
+        "Backblaze": [
+          "src/app/api/admin/upload-url/route.js",
+          "src/lib/b2-upload.js"
+        ],
+        "Stripe": [
+          "src/app/api/booking/confirm/route.js",
+          "src/app/api/booking/create-payment-intent/route.js",
+          "src/app/api/booking/stripe-webhook/route.js",
+          "src/app/api/cron/collect-balances/route.js",
+          "src/components/booking/DepositPayment.jsx"
+        ],
+        "Supabase": [
+          "src/lib/supabase/admin.js",
+          "src/lib/supabase/client.js",
+          "src/lib/supabase/server.js",
+          "src/middleware.js"
+        ]
+      }
+    },
+    {
+      "folder": "fermacoffeeco",
+      "manifest": "C:\\Users\\Admin\\Desktop\\Izee\\fermacoffeeco\\package.json",
+      "dependencies": {
+        "next": "14.2.21",
+        "react": "^18.3.1",
+        "tailwindcss": "^3.4.0",
+        "framer-motion": "^11.15.0",
+        "@supabase/supabase-js": "^2.98.0",
+        "@supabase/ssr": "^0.9.0",
+        "pg": "^8.20.0",
+        "stripe": "^22.3.2",
+        "zod": "^4.3.6"
+      },
+      "integrationCode": {
+        "Backblaze": [
+          "src/app/api/admin/upload-url/route.js",
+          "src/lib/b2-upload.js"
+        ],
+        "Google Analytics": [
+          "src/app/layout.js",
+          "src/components/GoogleAnalytics.jsx"
+        ],
+        "Meta Pixel": [
+          "src/components/MetaPixel.jsx"
+        ],
+        "Stripe": [
+          "src/lib/shop/stripe.js"
+        ],
+        "Supabase": [
+          "src/lib/supabase/admin.js",
+          "src/lib/supabase/client.js",
+          "src/lib/supabase/server.js",
+          "src/middleware.js"
+        ]
+      }
+    },
+    {
+      "folder": "rivertaxes",
+      "manifest": "C:\\Users\\Admin\\Desktop\\Izee\\rivertaxes\\package.json",
+      "dependencies": {
+        "next": "16.2.6",
+        "react": "^19.2.0",
+        "tailwindcss": "^3.4.0",
+        "framer-motion": "^11.15.0",
+        "@supabase/supabase-js": "^2.98.0",
+        "@supabase/ssr": "^0.9.0",
+        "pg": "^8.20.0",
+        "stripe": "^22.2.0",
+        "@stripe/react-stripe-js": "^6.6.0",
+        "plaid": "^42.2.0",
+        "twilio": "^6.0.2",
+        "@cloudflare/realtimekit-react": "^2.0.0",
+        "pdf-lib": "^1.17.1",
+        "zod": "^4.3.6"
+      },
+      "integrationCode": {
+        "Backblaze": [
+          "src/app/api/admin/upload-url/route.js",
+          "src/lib/b2-upload.js",
+          "src/lib/mobile-message-storage-config.mjs"
+        ],
+        "Supabase": [
+          "src/app/api/mobile/v1/auth/sign-in/route.js",
+          "src/lib/client-send.js",
+          "src/lib/supabase/admin.js",
+          "src/lib/supabase/client.js",
+          "src/lib/supabase/server.js",
+          "src/middleware.js"
+        ],
+        "Stripe": [
+          "src/components/bookkeeping/EmbeddedPay.jsx",
+          "src/lib/stripe.js"
+        ],
+        "Google Analytics": [
+          "src/components/GoogleAnalytics.jsx"
+        ],
+        "Cloudflare RealtimeKit": [
+          "src/components/meetings/MeetClient.jsx",
+          "src/components/team-chat/TeamCallRoom.jsx"
+        ],
+        "Meta Pixel": [
+          "src/components/MetaPixel.jsx"
+        ],
+        "OpenAI": [
+          "src/lib/ai-classify.js",
+          "src/lib/bill-document-parse.js",
+          "src/lib/contracts/uploaded-pdf.mjs",
+          "src/lib/invoice-document-parse.js",
+          "src/lib/statement-detection.js",
+          "src/lib/statement-parse.js",
+          "src/lib/tax-return-extract.js",
+          "src/lib/tax-return-import-extract.mjs"
+        ],
+        "Plaid": [
+          "src/lib/plaid.js"
+        ],
+        "Twilio": [
+          "src/lib/twilio.js"
+        ]
+      }
+    },
+    {
+      "folder": "lowrieroofing",
+      "manifest": "C:\\Users\\Admin\\Desktop\\Izee\\lowrieroofing\\package.json",
+      "dependencies": {
+        "next": "14.2.21",
+        "react": "^18.3.1",
+        "tailwindcss": "^3.4.0",
+        "framer-motion": "^11.15.0",
+        "@supabase/supabase-js": "^2.98.0",
+        "@supabase/ssr": "^0.9.0",
+        "pg": "^8.20.0",
+        "leaflet": "^1.9.4",
+        "zod": "^4.3.6"
+      },
+      "integrationCode": {
+        "Backblaze": [
+          "src/app/api/admin/upload-url/route.js",
+          "src/lib/b2-upload.js"
+        ],
+        "Google Analytics": [
+          "src/components/GoogleAnalytics.jsx"
+        ],
+        "Meta Pixel": [
+          "src/components/MetaPixel.jsx"
+        ],
+        "Supabase": [
+          "src/lib/supabase/admin.js",
+          "src/lib/supabase/client.js",
+          "src/lib/supabase/server.js",
+          "src/middleware.js"
+        ]
+      }
+    },
+    {
+      "folder": "masterbuiltroofing",
+      "manifest": "C:\\Users\\Admin\\Desktop\\Izee\\masterbuiltroofing\\package.json",
+      "dependencies": {
+        "next": "14.2.21",
+        "react": "^18.3.1",
+        "tailwindcss": "^3.4.0",
+        "gsap": "^3.15.0",
+        "framer-motion": "^11.15.0",
+        "@supabase/supabase-js": "^2.98.0",
+        "@supabase/ssr": "^0.9.0",
+        "pg": "^8.20.0",
+        "@react-pdf/renderer": "^4.5.1",
+        "zod": "^4.3.6"
+      },
+      "integrationCode": {
+        "Backblaze": [
+          "src/app/api/admin/upload-url/route.js",
+          "src/lib/b2-upload.js"
+        ],
+        "Google Maps": [
+          "src/app/api/solar/estimate/route.js",
+          "src/app/api/solar/static-map/route.js"
+        ],
+        "Google Solar API": [
+          "src/app/api/solar/estimate/route.js",
+          "src/lib/solar/building-polygon.js"
+        ],
+        "Google Analytics": [
+          "src/components/GoogleAnalytics.jsx"
+        ],
+        "Meta Pixel": [
+          "src/components/MetaPixel.jsx"
+        ],
+        "Supabase": [
+          "src/lib/supabase/admin.js",
+          "src/lib/supabase/client.js",
+          "src/lib/supabase/server.js",
+          "src/middleware.js"
+        ]
+      }
+    },
+    {
+      "folder": "northforgeexteriors",
+      "manifest": "C:\\Users\\Admin\\Desktop\\Izee\\northforgeexteriors\\package.json",
+      "dependencies": {
+        "next": "14.2.21",
+        "react": "^18.3.1",
+        "tailwindcss": "^3.4.0",
+        "framer-motion": "^11.15.0",
+        "@supabase/supabase-js": "^2.98.0",
+        "@supabase/ssr": "^0.9.0",
+        "pg": "^8.20.0",
+        "zod": "^4.3.6"
+      },
+      "integrationCode": {
+        "Backblaze": [
+          "src/app/api/admin/upload-url/route.js",
+          "src/lib/b2-upload.js"
+        ],
+        "Google Analytics": [
+          "src/app/layout.js"
+        ],
+        "Supabase": [
+          "src/lib/supabase/admin.js",
+          "src/lib/supabase/client.js",
+          "src/lib/supabase/server.js",
+          "src/middleware.js"
+        ]
+      }
+    },
+    {
+      "folder": "luxury-leather-restoration",
+      "manifest": "C:\\Users\\Admin\\Desktop\\Izee\\luxury-leather-restoration\\package.json",
+      "dependencies": {
+        "next": "16.2.6",
+        "react": "^19.2.0",
+        "typescript": "^5.9.3",
+        "tailwindcss": "^3.4.0",
+        "framer-motion": "^11.15.0",
+        "@supabase/supabase-js": "^2.98.0",
+        "@supabase/ssr": "^0.9.0",
+        "pg": "^8.20.0",
+        "stripe": "^22.3.2",
+        "zod": "^4.3.6"
+      },
+      "integrationCode": {
+        "Google Analytics": [
+          "src/components/GoogleAnalytics.jsx"
+        ],
+        "Meta Pixel": [
+          "src/components/MetaPixel.jsx"
+        ],
+        "Backblaze": [
+          "src/lib/b2-upload.js"
+        ],
+        "Stripe": [
+          "src/lib/shop/stripe.js"
+        ],
+        "Supabase": [
+          "src/lib/supabase/admin.js",
+          "src/lib/supabase/client.js",
+          "src/lib/supabase/public.js",
+          "src/lib/supabase/server.js",
+          "src/middleware.js"
+        ]
+      }
+    },
+    {
+      "folder": "kevintravishomes",
+      "manifest": "C:\\Users\\Admin\\Desktop\\Izee\\kevintravishomes\\package.json",
+      "dependencies": {
+        "next": "14.2.21",
+        "react": "^18.3.1",
+        "tailwindcss": "^3.4.0",
+        "framer-motion": "^11.15.0"
+      },
+      "integrationCode": {
+        "Google Maps": [
+          "src/app/api/google-reviews/route.js",
+          "src/lib/google-reviews.js"
+        ],
+        "Google Analytics": [
+          "src/components/GoogleAnalytics.jsx"
+        ],
+        "Meta Pixel": [
+          "src/components/MetaPixel.jsx"
+        ]
+      }
+    },
+    {
+      "folder": "sergio-garcia",
+      "manifest": "C:\\Users\\Admin\\Desktop\\Izee\\sergio-garcia\\package.json",
+      "dependencies": {
+        "next": "16.2.6",
+        "react": "^19.2.0",
+        "tailwindcss": "^3.4.0",
+        "framer-motion": "^11.15.0",
+        "@supabase/supabase-js": "^2.98.0",
+        "@supabase/ssr": "^0.9.0",
+        "pg": "^8.20.0",
+        "lenis": "^1.3.26",
+        "zod": "^4.3.6"
+      },
+      "integrationCode": {
+        "Backblaze": [
+          "src/app/api/admin/upload-url/route.js",
+          "src/lib/b2-upload.js"
+        ],
+        "Google Analytics": [
+          "src/components/GoogleAnalytics.jsx"
+        ],
+        "Meta Pixel": [
+          "src/components/MetaPixel.jsx"
+        ],
+        "Supabase": [
+          "src/lib/supabase/admin.js",
+          "src/lib/supabase/client.js",
+          "src/lib/supabase/server.js",
+          "src/middleware.js"
+        ]
+      }
+    },
+    {
+      "folder": "tmbtx",
+      "manifest": "C:\\Users\\Admin\\Desktop\\Izee\\tmbtx\\package.json",
+      "dependencies": {
+        "next": "14.2.21",
+        "react": "^18.3.1",
+        "tailwindcss": "^3.4.0",
+        "framer-motion": "^11.15.0"
+      },
+      "integrationCode": {
+        "Google Maps": [
+          "src/app/api/google-reviews/route.js",
+          "src/lib/google-reviews.js"
+        ],
+        "Google Analytics": [
+          "src/components/GoogleAnalytics.jsx"
+        ],
+        "Meta Pixel": [
+          "src/components/MetaPixel.jsx"
+        ]
+      }
+    },
+    {
+      "folder": "wudr",
+      "manifest": "C:\\Users\\Admin\\Desktop\\Izee\\wudr\\package.json",
+      "dependencies": {
+        "next": "16.3.1",
+        "react": "19.2.8",
+        "tailwindcss": "^4",
+        "three": "^0.185.1",
+        "gsap": "^3.15.0",
+        "motion": "^13.1.1"
+      },
+      "integrationCode": {}
+    },
+    {
+      "folder": "zenergy.solar",
+      "manifest": "C:\\Users\\Admin\\Desktop\\Izee\\zenergy.solar\\package.json",
+      "dependencies": {
+        "next": "14.2.21",
+        "react": "^18.3.1",
+        "tailwindcss": "^3.4.0",
+        "framer-motion": "^11.15.0",
+        "@supabase/supabase-js": "^2.98.0",
+        "@supabase/ssr": "^0.9.0",
+        "pg": "^8.20.0",
+        "@react-pdf/renderer": "^4.5.1",
+        "react-google-recaptcha": "^3.1.0",
+        "zod": "^4.3.6"
+      },
+      "integrationCode": {
+        "Backblaze": [
+          "src/app/api/admin/upload-url/route.js",
+          "src/app/api/uploads/utility-bill/route.js",
+          "src/lib/b2-upload.js"
+        ],
+        "Google Maps": [
+          "src/app/api/solar/estimate/route.js",
+          "src/app/api/solar/static-map/route.js"
+        ],
+        "Google Solar API": [
+          "src/app/api/solar/estimate/route.js",
+          "src/lib/solar/building-polygon.js"
+        ],
+        "Google Analytics": [
+          "src/components/GoogleAnalytics.jsx"
+        ],
+        "Meta Pixel": [
+          "src/components/MetaPixel.jsx"
+        ],
+        "Supabase": [
+          "src/lib/supabase/admin.js",
+          "src/lib/supabase/client.js",
+          "src/lib/supabase/server.js",
+          "src/middleware.js"
+        ]
+      }
+    }
+  ]
+}

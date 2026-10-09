@@ -1,0 +1,23 @@
+// Categories follow the saved profile. Preview assets live in project-previews.
+export const projectPresentations: Record<number, { category: string }> = {
+  21: { category: "Esthetics & appointments" },
+  1: { category: "Business software" },
+  2: { category: "Enterprise SaaS" },
+  3: { category: "Point of sale" },
+  4: { category: "Developer portfolio" },
+  5: { category: "Jewelry commerce" },
+  6: { category: "Studio booking" },
+  7: { category: "Coffee storefront" },
+  8: { category: "Bookkeeping platform" },
+  9: { category: "Roofing website" },
+  10: { category: "Roofing & estimates" },
+  11: { category: "Exterior services" },
+  12: { category: "Restoration & commerce" },
+  13: { category: "Custom home builder" },
+  14: { category: "Professional golfer" },
+  15: { category: "Construction website" },
+  16: { category: "Water treatment" },
+  17: { category: "Solar & home energy" },
+  19: { category: "Web & mobile" },
+  20: { category: "Desktop scheduling" },
+};

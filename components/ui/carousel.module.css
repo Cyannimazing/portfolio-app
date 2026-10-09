@@ -1,0 +1,31 @@
+.carousel { display: flex; flex-direction: column; flex: 1; min-height: 0; margin-top: 15px; }
+.showcase { position: relative; min-width: 0; overflow: clip; isolation: isolate; }
+.showcaseSlide { position: relative; min-width: 0; }
+.gallery { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); position: relative; min-width: 0; overflow: clip; isolation: isolate; mask-image: linear-gradient(to right, transparent 0, rgb(0 0 0 / .16) calc(var(--studio-page-gutter-start) * .25), rgb(0 0 0 / .5) calc(var(--studio-page-gutter-start) * .5), rgb(0 0 0 / .84) calc(var(--studio-page-gutter-start) * .75), #000 var(--studio-page-gutter-start), #000 calc(100% - var(--studio-page-gutter-start)), rgb(0 0 0 / .84) calc(100% - var(--studio-page-gutter-start) * .75), rgb(0 0 0 / .5) calc(100% - var(--studio-page-gutter-start) * .5), rgb(0 0 0 / .16) calc(100% - var(--studio-page-gutter-start) * .25), transparent 100%); }
+.gallerySlide { grid-area: 1 / 1; justify-self: center; min-width: 0; height: 100%; }
+@media (max-width: 1023px) { .gallery { grid-template-rows: auto; } .gallerySlide { height: auto; } }
+.window { flex: 1; min-height: 0; overflow: hidden; border-radius: 5px; }
+.track { display: flex; width: 100%; height: 100%; }
+.page { display: flex; flex: 0 0 100%; width: 100%; min-width: 0; height: 100%; padding: 5px; box-sizing: border-box; overflow: hidden; }
+.slide { display: flex; width: 100%; min-width: 0; min-height: 0; }
+.controls { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 8px; margin-top: 11px; }
+.controls > div { display: flex; align-items: center; gap: 9px; }
+.controls button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 36px; color: #a4e1ee; font-size: 10px; cursor: pointer; }
+.controls > div > button { width: 36px; border: 1px solid #456b7d; border-radius: 5px; background: #284250; }
+.controls > div > button:hover { border-color: #87d9e9; background: #325665; }
+.controls span { color: #a7c5d4; font-family: var(--font-geist-mono), monospace; font-size: 9px; white-space: nowrap; }
+.controls > .indicators { gap: 0; width: auto; }
+.controls > .indicators > button { width: 28px; height: 32px; min-height: 32px; border: 0; background: transparent; }
+.indicators button > span { display: block; width: 5px; height: 5px; border-radius: 50%; background: #547987; transition: width .2s, background .2s; }
+.indicators button[aria-pressed="true"] > span { width: 17px; border-radius: 3px; background: #7adef1; }
+@media (max-width: 1099px) { .page { gap: 8px; } .controls > div { gap: 5px; } .controls span { font-size: 8px; } }
+@media (max-width: 1023px) { .carousel { margin-top: 10px; } .controls { margin-top: 6px; gap: 3px; } .controls button { min-height: 30px; font-size: 8px; } .controls > .indicators > button { width: 18px; } .indicators button > span { width: 4px; height: 4px; } .indicators button[aria-pressed="true"] > span { width: 11px; } }
+@media (max-height: 740px) { .carousel { margin-top: 8px; } .controls { margin-top: 6px; } .controls button { min-height: 30px; } .controls > div > button { width: 30px; } }
+@media (max-height: 500px) { .carousel { margin-top: 6px; } .controls { flex-wrap: nowrap; margin-top: 5px; } .controls > div { width: auto; gap: 5px; } .controls > button { width: auto; } .controls button { min-height: 25px; font-size: 8px; } .controls > div > button { width: 25px; } .controls span { font-size: 7px; } .controls svg { width: 13px; height: 13px; } }
+@media (max-width: 1023px) { .controls { display: none; } .page { padding: 4px; } }
+@media (max-height: 650px) { .controls { display: none; } }
+@media (max-width: 1023px) {
+  .carousel { flex: none; margin-top: 18px; }
+  .window, .track, .page { height: auto; }
+  .page { padding: 4px; }
+}

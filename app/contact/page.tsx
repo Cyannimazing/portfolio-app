@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
 import ContactClient from "./ContactClient";
+import { serviceCategories } from "@/lib/service-categories";
+import StructuredData from "@/components/StructuredData";
+import { pageMetadata, publicPages } from "@/lib/seo";
+import { contactStructuredData } from "@/lib/structured-data";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Get in touch with Cyril Jian Narvasa. Have a project in mind or want to book a call? Let's build something together.",
-  alternates: { canonical: "/contact" },
-};
+export const metadata = pageMetadata(publicPages[4]);
 
-export default function Page() {
-  return <ContactClient />;
+export default async function Page({ searchParams }: { searchParams: Promise<{ service?: string | string[] }> }) {
+  const { service: selected } = await searchParams;
+  const service = serviceCategories.find(item => item.id === selected);
+  return <><StructuredData id="page-identity" data={contactStructuredData(publicPages[4].description)} /><ContactClient key={service?.id ?? "general"} initialService={service?.name ?? ""} /></>;
 }

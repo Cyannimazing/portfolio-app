@@ -1,0 +1,32 @@
+.stage { display: grid; place-items: center; width: 100%; height: 100%; min-width: 0; min-height: 0; container-type: size; }
+.browser { position: relative; display: flex; flex-direction: column; width: min(100cqw, calc((100cqh - 34px) * var(--preview-ratio, 1.6))); min-width: 0; border: 1px solid #3b5663; border-radius: var(--studio-panel-radius); overflow: hidden; background: #111b20; }
+.wide { --preview-ratio: 1.7777777778; align-items: end; }
+.browserBar { display: flex; align-items: center; flex-shrink: 0; gap: 10px; height: 32px; padding: 0 12px; color: #b8cbd5; background: #1d2d36; font-size: 10px; }
+.browserBar > svg { flex-shrink: 0; color: #91b6c6; }
+.address { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-geist-mono), monospace; }
+.previewState { display: flex; align-items: center; gap: 6px; flex-shrink: 0; margin-left: auto; color: #a5dccd; font-size: 9px; }
+.previewState i { width: 5px; height: 5px; border-radius: 50%; background: #80d8ba; }
+.browserBody { position: relative; width: 100%; aspect-ratio: var(--preview-ratio, 1.6); overflow: hidden; pointer-events: none; user-select: none; }
+.browserBody iframe { position: absolute; z-index: 1; left: 0; top: 0; display: block; width: 1440px; height: 900px; border: 0; transform-origin: top left; pointer-events: none; background: #10191e; }
+.screenshot { object-fit: contain; object-position: center; pointer-events: none; }
+.overlay { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; padding: 70px var(--studio-panel-padding) var(--studio-panel-padding); background: linear-gradient(transparent, rgb(10 20 27 / .91) 50%, #0e1c25); pointer-events: none; }
+.overlay button, .overlay a { pointer-events: auto; }
+.navigation { position: absolute; z-index: 3; top: 32px; left: 0; right: 0; aspect-ratio: var(--preview-ratio, 1.6); pointer-events: none; }
+.navigation button { pointer-events: auto; }
+.empty { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 16px; color: var(--studio-muted); background: #16252e; text-align: center; }
+.empty > svg { color: #86bfd1; flex-shrink: 0; }
+.empty > span { color: var(--studio-text); font-size: 14px; }
+.empty small { max-width: 300px; font-size: 11px; line-height: 1.6; }
+.compact { height: auto; container-type: normal; }
+.compact .browser { width: 100%; border: 0; border-radius: 0; }
+.compact .browserBar { height: 24px; padding-inline: 8px; gap: 7px; font-size: 8px; }
+.compact .previewState { font-size: 8px; }
+.compact .previewState i { display: none; }
+.compact .browserBody { aspect-ratio: 1.6; }
+.compact .empty { gap: 6px; }
+.compact .empty > svg { width: 22px; }
+.compact .empty > span { font-size: 12px; }
+.compact .empty small { font-size: 10px; }
+@media (max-width: 1023px) { .stage { height: auto; container-type: normal; } .browser { width: 100%; } .overlay { position: static; padding: var(--studio-panel-padding); background: #1b2d37; pointer-events: auto; } }
+@media (min-width: 1024px) and (max-height: 650px) { .overlay { padding-top: 40px; } }
+@media (max-width: 420px) { .browserBar { gap: 6px; padding-inline: 8px; } .address { font-size: 8px; } .previewState { font-size: 8px; } }

@@ -1,9 +1,10 @@
 import Link from "next/link";
-import Image from "next/image";
+import BrandMark from "./BrandMark";
 
 const NAV = [
   { name: "Home", href: "/" },
-  { name: "Practice", href: "/practice" },
+  { name: "Services", href: "/services" },
+  { name: "My approach", href: "/practice" },
   { name: "Works", href: "/works" },
   { name: "Contact", href: "/contact" },
 ];
@@ -33,11 +34,9 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="max-w-sm">
-            <Link href="/" className="cursor-pointer inline-flex items-center gap-2 group mb-4">
-              <div className="relative w-6 h-6">
-                <Image src="/LOGO.png" alt="Logo" fill sizes="24px" className="object-contain" />
-              </div>
-              <span className="text-white font-semibold text-sm tracking-wide group-hover:text-sky-400 transition-colors">Portfolio</span>
+            <Link href="/" aria-label="Cyril AI home" className="cursor-pointer inline-flex items-center gap-2 group mb-4">
+              <BrandMark theme="dark" size={24} className="h-6 w-6" />
+              <span className="text-white font-semibold text-sm tracking-wide group-hover:text-sky-400 transition-colors">Cyril AI</span>
             </Link>
             <p className="text-neutral-500 text-sm leading-relaxed mb-5">
               Full Stack Developer building custom business software, websites, and mobile apps that move businesses forward.
@@ -46,7 +45,7 @@ export default function Footer() {
               href="/contact"
               className="cursor-pointer inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-xs font-semibold text-white bg-linear-to-r from-sky-500 to-cyan-400 hover:from-sky-400 hover:to-cyan-300 transition-all"
             >
-              Let&apos;s Discuss
+              Book a discovery call
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
             </Link>
           </div>

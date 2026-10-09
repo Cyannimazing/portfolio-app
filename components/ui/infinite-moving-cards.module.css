@@ -1,0 +1,34 @@
+.scroller { width: 100%; height: 100%; min-height: 0; overflow: hidden; container-type: size; mask-image: linear-gradient(to right, transparent, white 5%, white 95%, transparent); }
+.track { display: flex; width: max-content; height: 100%; animation: scroll 105s linear infinite; animation-direction: var(--direction, normal); }
+.scroller:hover .track, .scroller:focus-within .track { animation-play-state: paused !important; }
+.group { display: flex; align-items: stretch; gap: 9px; padding-right: 9px; flex-shrink: 0; height: 100%; }
+.group > li { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; width: 94px; min-height: 88px; padding: 11px 7px; border: 1px solid #45697a; border-radius: 5px; background: linear-gradient(140deg, #2b4759, #1d3442); box-shadow: 0 6px 12px rgb(0 0 0 / .12), 0 1px 0 rgb(142 219 237 / .08) inset; }
+.group > li > span { display: grid; place-items: center; width: 34px; height: 34px; color: #92dff1; }
+.group svg { width: 30px; height: 30px; stroke-width: 1.5; }
+.group strong { max-width: 100%; color: #c9e1ee; font-size: 9px; font-weight: 500; text-align: center; line-height: 1.3; }
+@keyframes scroll { to { transform: translateX(-50%); } }
+@media (max-width: 1099px), (max-height: 740px) { .group { gap: 7px; padding-right: 7px; } .group > li { width: 75px; min-height: 62px; padding: 7px; gap: 5px; border-radius: 5px; } .group > li > span { width: 24px; height: 24px; } .group svg { width: 23px; height: 23px; } .group strong { font-size: 7px; } }
+@media (max-width: 1023px) { .group > li { min-height: 40px; width: 86px; flex-direction: row; gap: 6px; padding: 6px; } .group > li > span { width: 18px; height: 18px; flex-shrink: 0; } .group svg { width: 18px; height: 18px; } .group strong { font-size: 7px; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } }
+@media (max-height: 500px) { .group > li { min-height: 25px; width: 64px; padding: 4px; gap: 4px; flex-direction: row; } .group strong { font-size: 6px; } .group > li > span, .group svg { width: 14px; height: 14px; flex-shrink: 0; } }
+.group > li { min-height: 0; height: 100%; }
+@media (prefers-reduced-motion: reduce) { .track { animation-play-state: paused !important; } }
+@container (max-height: 70px) {
+  .group > li { flex-direction: row; width: 105px; gap: 6px; padding: 4px 7px; }
+  .group > li > span, .group svg { width: 20px; height: 20px; flex-shrink: 0; }
+  .group strong { font-size: 8px; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+}
+@container (max-height: 30px) {
+  .group > li { width: 85px; gap: 4px; padding: 2px 4px; }
+  .group > li > span, .group svg { width: 13px; height: 13px; }
+  .group strong { font-size: 7px; }
+}
+@container (max-height: 20px) {
+  .group > li { width: 64px; gap: 3px; padding: 0 3px; border-radius: 3px; }
+  .group > li > span, .group svg { width: 10px; height: 10px; }
+  .group strong { font-size: 6px; }
+}
+@media (max-width: 1023px) {
+  .group > li { width: 148px; gap: 10px; padding: 10px; border-radius: var(--studio-control-radius); }
+  .group > li > span, .group svg { width: 24px; height: 24px; flex-shrink: 0; }
+  .group strong { font-size: 11px; white-space: normal; overflow: visible; line-height: 1.4; }
+}

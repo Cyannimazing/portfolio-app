@@ -1,0 +1,153 @@
+{
+  "reference": "https://izee.ai/#work",
+  "results": [
+    {
+      "id": 1,
+      "name": "Cynergy",
+      "url": "https://cynergy.cloud/",
+      "status": 200,
+      "frameOptions": "DENY",
+      "contentSecurityPolicy": "upgrade-insecure-requests"
+    },
+    {
+      "id": 8,
+      "name": "River Taxes",
+      "url": "https://www.rivertaxes.com/",
+      "status": 200,
+      "frameOptions": null,
+      "contentSecurityPolicy": null
+    },
+    {
+      "id": 3,
+      "name": "SPOS",
+      "url": "https://navajowhite-hornet-706376.hostingersite.com/login",
+      "status": 200,
+      "frameOptions": "DENY",
+      "contentSecurityPolicy": "upgrade-insecure-requests"
+    },
+    {
+      "id": 4,
+      "name": "Developer Portfolio",
+      "url": "https://portfolio-cyannimazing.vercel.app/",
+      "status": 200,
+      "frameOptions": null,
+      "contentSecurityPolicy": null
+    },
+    {
+      "id": 5,
+      "name": "Viviour",
+      "url": "https://viviour.com/",
+      "status": 200,
+      "frameOptions": "SAMEORIGIN",
+      "contentSecurityPolicy": null
+    },
+    {
+      "id": 6,
+      "name": "Martich Studios",
+      "url": "https://www.martichstudios.com/",
+      "status": 200,
+      "frameOptions": null,
+      "contentSecurityPolicy": null
+    },
+    {
+      "id": 7,
+      "name": "Ferma Coffee Co",
+      "url": "https://www.fermacoffeeco.com/",
+      "status": 200,
+      "frameOptions": null,
+      "contentSecurityPolicy": null
+    },
+    {
+      "id": 9,
+      "name": "Lowrie Roofing",
+      "url": "https://www.lowrieroofing.com/",
+      "status": 200,
+      "frameOptions": null,
+      "contentSecurityPolicy": null
+    },
+    {
+      "id": 10,
+      "name": "Masterbuilt Roofing",
+      "url": "https://www.masterbuiltroofing.com/",
+      "status": 200,
+      "frameOptions": null,
+      "contentSecurityPolicy": null
+    },
+    {
+      "id": 11,
+      "name": "Northforge Exteriors",
+      "url": "https://www.northforgexteriors.com/",
+      "status": 200,
+      "frameOptions": null,
+      "contentSecurityPolicy": null
+    },
+    {
+      "id": 12,
+      "name": "Luxury Leather Restoration",
+      "url": "https://www.luxuryleatherrestoration.com/",
+      "status": 200,
+      "frameOptions": null,
+      "contentSecurityPolicy": null
+    },
+    {
+      "id": 13,
+      "name": "Kevin Travis Homes",
+      "url": "https://www.kevintravishomes.com/",
+      "status": 200,
+      "frameOptions": null,
+      "contentSecurityPolicy": null
+    },
+    {
+      "id": 14,
+      "name": "Sergio Garcia",
+      "url": "https://sergio-garcia-zeta.vercel.app/",
+      "status": 200,
+      "frameOptions": null,
+      "contentSecurityPolicy": null
+    },
+    {
+      "id": 15,
+      "name": "TMBTX",
+      "url": "https://www.tmbtx.com/",
+      "status": 200,
+      "frameOptions": null,
+      "contentSecurityPolicy": null
+    },
+    {
+      "id": 16,
+      "name": "WUDR",
+      "url": "https://wudr.vercel.app/",
+      "status": 200,
+      "frameOptions": null,
+      "contentSecurityPolicy": null
+    },
+    {
+      "id": 17,
+      "name": "Zenergy Solar",
+      "url": "https://www.zenergy.solar/",
+      "status": 200,
+      "frameOptions": null,
+      "contentSecurityPolicy": null
+    },
+    {
+      "id": 2,
+      "name": "Obiyen",
+      "url": "https://app.obiyen.com/",
+      "status": 200,
+      "frameOptions": null,
+      "contentSecurityPolicy": null
+    },
+    {
+      "id": 19,
+      "name": "CacaoCare",
+      "url": "/works/cacaocare",
+      "mode": "local"
+    },
+    {
+      "id": 20,
+      "name": "Faculty Scheduling",
+      "url": "/works/faculty-scheduling",
+      "mode": "local"
+    }
+  ]
+}

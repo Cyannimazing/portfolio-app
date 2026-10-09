@@ -1,154 +1,83 @@
 "use client";
-import { motion } from "framer-motion";
+
+import { useState } from "react";
 import Link from "next/link";
-import { CardSpotlight } from "./ui/card-spotlight";
 import {
-  MdDashboardCustomize,
-  MdLanguage,
-  MdPhoneIphone,
-  MdSync,
-  MdSupportAgent,
-} from "react-icons/md";
+  IconArrowUpRight, IconCalendarEvent, IconCheck, IconDatabase, IconDeviceMobile,
+  IconPencil, IconPlus, IconPlugConnected, IconSettings, IconWorld,
+} from "@tabler/icons-react";
+import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import { Modal, ModalBody, useModal } from "@/components/ui/animated-modal";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
+import PortfolioActions from "@/components/PortfolioActions";
+import { useMotionPreference } from "@/hooks/use-motion-preference";
+import { serviceCategories, type ServiceId } from "@/lib/service-categories";
+import { serviceOfferings } from "@/lib/service-offerings";
+import styles from "./Services.module.css";
 
-const services = [
-  {
-    icon: <MdDashboardCustomize className="w-9 h-9" />,
-    title: "Custom Business Software",
-    tagline: "Software built around how your business runs.",
-    desc: "Dashboards, booking systems, POS, and internal tools tailored to your operations, instead of a rigid off-the-shelf product you have to bend your business around.",
-    gets: ["Roles & permissions", "Real-time updates", "Reports & exports", "Multi-branch support", "Secure data isolation"],
-    tech: ["Laravel", "Nuxt.js", "Next.js", "PostgreSQL"],
-  },
-  {
-    icon: <MdLanguage className="w-9 h-9" />,
-    title: "Business Websites",
-    tagline: "Sites that turn visitors into customers.",
-    desc: "Fast, modern, mobile-ready websites built to load quickly, look great on every screen, and guide visitors toward booking, buying, or contacting you.",
-    gets: ["Responsive design", "SEO foundations", "Contact & booking forms", "Fast page loads", "Analytics setup"],
-    tech: ["Next.js", "React", "Tailwind CSS"],
-  },
-  {
-    icon: <MdPhoneIphone className="w-9 h-9" />,
-    title: "Mobile Apps",
-    tagline: "Your business, in your customers' pocket.",
-    desc: "Cross-platform iOS and Android apps connected to your live business data, with the device features your users expect.",
-    gets: ["iOS & Android, one codebase", "Camera & scanning", "Push notifications", "Offline support", "Syncs with your web platform"],
-    tech: ["React Native", "Expo", "Android Studio"],
-  },
-  {
-    icon: <MdSync className="w-9 h-9" />,
-    title: "Integrations & Automation",
-    tagline: "Connect your tools. Kill the busywork.",
-    desc: "Link the services you already use (payments, social, email, accounting) and automate the manual steps that eat your team's time.",
-    gets: ["Payment gateways", "Social & email integration", "Automated notifications", "Data sync between tools", "Scheduled reports"],
-    tech: ["OAuth 2.0", "Graph API", "Webhooks", "REST APIs"],
-  },
-  {
-    icon: <MdSupportAgent className="w-9 h-9" />,
-    title: "Ongoing Support & Maintenance",
-    tagline: "Launch is the start, not the finish.",
-    desc: "Keep your software fast, secure, and improving after launch, with updates, monitoring, bug fixes, and new features as your business grows.",
-    gets: ["Security updates", "Bug fixes", "Performance monitoring", "Feature improvements", "Priority support"],
-    tech: ["Monitoring", "Backups", "CI/CD"],
-  },
-];
+const serviceIcons = {
+  "business-software": IconDatabase, websites: IconWorld, cms: IconPencil,
+  booking: IconCalendarEvent, "mobile-apps": IconDeviceMobile,
+  automation: IconPlugConnected, support: IconSettings,
+};
 
-export default function Services() {
-  return (
-    <section className="relative bg-[#080808] px-6 md:px-12 py-24">
-      <div className="max-w-7xl mx-auto">
+function ServicesContent() {
+  const reduced = useMotionPreference();
+  const [selected, setSelected] = useState<ServiceId>("cms");
+  const { setOpen } = useModal();
+  const offering = serviceOfferings.find(item => item.id === selected)!;
+  const selectedCategory = serviceCategories.find(item => item.id === selected)!;
+  const showScope = (id: ServiceId) => { setSelected(id); setOpen(true); };
 
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-20 max-w-2xl"
-        >
-          <p className="text-sky-400 text-xs font-bold uppercase tracking-[0.3em] mb-3">What I Can Build For You</p>
-          <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Services</h2>
-          <p className="text-neutral-500 text-sm md:text-base leading-relaxed">
-            No jargon, just outcomes. Here is what I can deliver for your business, from the first idea to long after launch.
-          </p>
-        </motion.div>
-
-        {/* Service blocks */}
-        <div className="space-y-24 md:space-y-32">
-          {services.map((s, i) => {
-            const visualLeft = i % 2 === 1;
-            return (
-              <div
-                key={s.title}
-                className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start lg:min-h-[58vh]"
-              >
-                {/* Text column */}
-                <motion.div
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.5 }}
-                  className={visualLeft ? "lg:order-2" : ""}
-                >
-                  <p className="text-sky-400 text-xs font-bold uppercase tracking-[0.3em] mb-3">{s.tagline}</p>
-                  <h3 className="text-2xl md:text-3xl font-black text-white mb-4">{s.title}</h3>
-                  <p className="text-neutral-400 text-sm md:text-base leading-relaxed mb-8">{s.desc}</p>
-
-                  {/* What You Get */}
-                  <p className="text-xs font-bold text-neutral-500 uppercase tracking-widest mb-4">What You Get</p>
-                  <ul className="space-y-2.5 mb-8">
-                    {s.gets.map((g) => (
-                      <li key={g} className="flex items-center gap-3 text-neutral-300 text-sm">
-                        <span className="w-5 h-5 rounded-sm bg-sky-500/15 flex items-center justify-center shrink-0">
-                          <svg className="w-3 h-3 text-sky-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                        </span>
-                        {g}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Tech Stack */}
-                  <p className="text-xs font-bold text-neutral-500 uppercase tracking-widest mb-3">Tech Stack</p>
-                  <div className="flex flex-wrap gap-2">
-                    {s.tech.map((t) => (
-                      <span key={t} className="text-xs font-medium text-neutral-400 bg-white/4 border border-white/8 px-3 py-1.5 rounded-md">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-
-                {/* Sticky visual column */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.5 }}
-                  className={`lg:sticky lg:top-28 ${visualLeft ? "lg:order-1" : ""}`}
-                >
-                  <Link href="/contact" className="group block" aria-label={`Discuss ${s.title}`}>
-                    <CardSpotlight className="rounded-xl bg-[#0f0f0f] border-white/8 group-hover:border-sky-500/40 transition-colors p-0 h-72 lg:h-80" radius={320} color="#071a26">
-                      <div className="relative z-10 h-full flex flex-col items-center justify-center gap-4 text-center px-8">
-                        <div className="w-16 h-16 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 group-hover:scale-110 transition-transform">
-                          {s.icon}
-                        </div>
-                        <p className="text-white font-black text-xl">{s.title}</p>
-                        <span className="text-neutral-600 text-xs font-bold uppercase tracking-[0.3em]">{`0${i + 1}`}</span>
-                        <span className="inline-flex items-center gap-1.5 text-sky-400 text-xs font-bold uppercase tracking-widest opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                          Let&apos;s Discuss
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                        </span>
-                      </div>
-                    </CardSpotlight>
-                  </Link>
-                </motion.div>
-              </div>
-            );
-          })}
-        </div>
+  return <><main className={styles.page} data-services>
+    <header className={styles.heading}>
+      <div className={styles.headingCopy}>
+        <p className={styles.eyebrow}>From the first idea to everyday use / 07 services</p>
+        <h1>How we can help.</h1>
+        <p className={styles.intro}>Choose what your business needs. We’ll help you build it.</p>
       </div>
-    </section>
-  );
+      <div className={styles.headerActions}><PortfolioActions paused={reduced} /></div>
+    </header>
+
+    <BentoGrid className={styles.serviceGrid}>
+      {serviceCategories.map((service, index) => {
+        const scope = serviceOfferings.find(item => item.id === service.id)!;
+        const Icon = serviceIcons[service.id];
+        return <BentoGridItem reveal key={service.id} className={`${styles.serviceCard} ${styles[service.id]}`}
+          header={<article id={service.id} className={styles.cardBody} data-service-card={service.id}>
+            <GlowingEffect disabled={reduced} spread={35} proximity={0} inactiveZone={.2} borderWidth={1} />
+            <h2 className={styles.cardHeading}><button type="button" onClick={() => showScope(service.id)} aria-haspopup="dialog" aria-label={`View scope for ${service.name}`}>
+              <span className={styles.serviceIcon} aria-hidden="true"><Icon size={23} stroke={1.5} /></span>
+              <span className={styles.title}>{service.name}</span>
+              <span className={styles.expand} aria-hidden="true"><span>0{index + 1}</span><IconPlus size={15} /></span>
+            </button></h2>
+            <p className={styles.summary}>{scope.summary}</p>
+            <div className={styles.included}>
+              {service.id === "business-software" && <p className={styles.includedLabel}>What we can build</p>}
+              {service.id === "automation" && <p className={styles.includedLabel}>Custom automation</p>}
+              <ul>{scope.inclusions.map((item, itemIndex) => <li key={item}><IconCheck size={13} stroke={1.8} aria-hidden="true" /><span className={styles.fullInclusion}>{item}</span><span className={styles.compactInclusion}>{scope.compactInclusions[itemIndex]}</span></li>)}</ul>
+            </div>
+            <noscript><details className={styles.noScriptScope}><summary>Full service scope</summary>{scope.details.map(detail => <section key={detail.title}><h3>{detail.title}</h3><p>{detail.description}</p></section>)}</details></noscript>
+            <HoverBorderGradient as={Link} href={`/contact?service=${service.id}`} paused={reduced}
+              aria-label={`Book a discovery call for ${service.name}`} containerClassName={styles.book} className={styles.bookBody}>
+              Book a discovery call<IconArrowUpRight size={16} aria-hidden="true" />
+            </HoverBorderGradient>
+          </article>} />;
+      })}
+    </BentoGrid>
+  </main>
+  <noscript><style>{'[data-services] { height: auto !important; } [data-services] > div { grid-template-rows: auto auto auto !important; }'}</style></noscript>
+
+  <ModalBody ariaLabel={`${selectedCategory.name} scope`} className={styles.scopeModal} motionDisabled={reduced}
+    header={<span className={styles.modalEyebrow}>Service scope / {selectedCategory.short}</span>}>
+    <div className={styles.scopeContent}>
+      <h2>{selectedCategory.name}</h2><p className={styles.scopeIntro}>{offering.summary}</p>
+      <div className={styles.detailGrid}>{offering.details.map(detail => <section key={detail.title}><h3>{detail.title}</h3><p>{detail.description}</p></section>)}</div>
+      <div className={styles.scopeExamples}><h3>Example uses</h3><ul>{offering.examples.map(example => <li key={example}>{example}</li>)}</ul></div>
+      <div className={styles.scopeActions}><Link href={`/works?view=grid&service=${selected}`} onClick={() => setOpen(false)}>Related projects<IconArrowUpRight size={16} aria-hidden="true" /></Link><HoverBorderGradient as={Link} href={`/contact?service=${selected}`} onClick={() => setOpen(false)} paused={reduced} containerClassName={styles.book} className={styles.bookBody}>Book a discovery call<IconArrowUpRight size={16} aria-hidden="true" /></HoverBorderGradient></div>
+    </div>
+  </ModalBody></>;
 }
+
+export default function Services() { return <Modal><ServicesContent /></Modal>; }

@@ -1,208 +1,120 @@
 "use client";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { EncryptedText } from "./ui/encrypted-text";
+import { IconArrowUpRight } from "@tabler/icons-react";
+import BrandMark from "./BrandMark";
+import PortfolioSidebar from "./PortfolioSidebar";
+import {
+  Navbar, NavBody, NavItems, NavbarButton,
+  MobileNav, MobileNavHeader, MobileNavMenu, MobileNavToggle,
+} from "./ui/resizable-navbar";
+import styles from "./Navigation.module.css";
 
 const navItems = [
-  { name: "Home",     href: "/" },
-  { name: "Practice", href: "/practice" },
-  { name: "Works",    href: "/works" },
-  { name: "Contact",  href: "/contact" },
+  { name: "Home", link: "/" },
+  { name: "Work", link: "/works" },
+  { name: "Services", link: "/services" },
+  { name: "Contact", link: "/contact" },
 ];
+
+function Wordmark({ onClick }: { onClick?: () => void }) {
+  return (
+    <Link href="/" aria-label="Cyril AI home" className={styles.wordmark} onClick={onClick}>
+      <BrandMark theme="dark" size={32} className={styles.brandMark} />
+      <span>Cyril <span className={styles.brandAccent}>AI</span></span>
+    </Link>
+  );
+}
+
+function DiscussLink({ onClick }: { onClick?: () => void }) {
+  return (
+    <NavbarButton as={Link} href="/contact" variant="secondary" className={styles.discussLink} onClick={onClick}>
+      Book a discovery call <IconArrowUpRight size={17} stroke={1.7} aria-hidden="true" />
+    </NavbarButton>
+  );
+}
+
+function NavigationContent({ pathname }: { pathname: string }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+
+  const closeMenu = useCallback((restoreFocus = false) => {
+    setMobileOpen(false);
+    if (restoreFocus) toggleRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const onDesktop = () => { if (desktop.matches) closeMenu(); };
+    desktop.addEventListener("change", onDesktop);
+    return () => desktop.removeEventListener("change", onDesktop);
+  }, [closeMenu]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeMenu(true);
+      }
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      if (event.target instanceof Node && !headerRef.current?.contains(event.target)) closeMenu();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [mobileOpen, closeMenu]);
+
+  return (
+    <header ref={headerRef} className={`studio-navigation ${styles.header}`}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) closeMenu();
+      }}>
+      <Navbar className={styles.navbar}>
+        <NavBody compact={false} integrated className={styles.desktopBar}>
+          <Wordmark />
+          <nav aria-label="Main navigation" className={styles.desktopLinks}>
+            <NavItems items={navItems} activePath={pathname} className={styles.navItems} />
+          </nav>
+          <DiscussLink />
+        </NavBody>
+
+        <MobileNav compact={false} integrated className={styles.mobileBar}>
+          <MobileNavHeader className={styles.mobileHeader}>
+            <Wordmark onClick={() => closeMenu()} />
+            <MobileNavToggle ref={toggleRef} isOpen={mobileOpen} aria-controls="portfolio-mobile-menu"
+              className={styles.toggle} onClick={() => setMobileOpen((open) => !open)} />
+          </MobileNavHeader>
+          <MobileNavMenu id="portfolio-mobile-menu" isOpen={mobileOpen}
+            onClose={() => closeMenu(true)} className={styles.mobileMenu}>
+            <nav aria-label="Mobile navigation" className={styles.mobileLinks}>
+              {navItems.map((item) => {
+                const active = pathname === item.link || (item.link !== "/" && pathname.startsWith(`${item.link}/`));
+                return (
+                  <Link key={item.link} href={item.link} aria-current={active ? "page" : undefined}
+                    className={styles.mobileLink} onClick={() => closeMenu()}>
+                    {item.name}
+                  </Link>
+                );
+              })}
+              <DiscussLink onClick={() => closeMenu()} />
+            </nav>
+          </MobileNavMenu>
+        </MobileNav>
+      </Navbar>
+    </header>
+  );
+}
 
 export default function Navigation() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-  const [logoHovered, setLogoHovered] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  if (!mounted) return null;
-
-  return (
-    <>
-      <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        scrolled ? "bg-[#080808]/85 backdrop-blur-lg" : ""
-      }`}>
-
-        {/* Bottom gradient accent line */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-sky-500/40 to-transparent" />
-
-        <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
-
-          {/* Logo */}
-          <motion.div
-            initial={{ opacity: 0, x: -16 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          >
-          <Link
-            href="/"
-            className="cursor-pointer flex items-center gap-2 shrink-0"
-            onMouseEnter={() => setLogoHovered(true)}
-            onMouseLeave={() => setLogoHovered(false)}
-          >
-            <motion.div
-              animate={logoHovered ? { rotate: 15, scale: 1.1 } : { rotate: 0, scale: 1 }}
-              transition={{ type: "spring", stiffness: 300, damping: 15 }}
-              className="relative w-7 h-7"
-            >
-              <Image src="/LOGO.png" alt="Logo" fill sizes="28px" className="object-contain" priority />
-            </motion.div>
-            <span className={`font-semibold text-xl tracking-wide transition-colors duration-200 ${logoHovered ? "text-sky-400" : "text-white"}`}>
-              <EncryptedText
-                text="Portfolio"
-                revealDelayMs={30}
-                flipDelayMs={25}
-              />
-            </span>
-          </Link>
-          </motion.div>
-
-          {/* Desktop nav */}
-          <nav
-            className="hidden md:flex items-center gap-1 relative"
-            onMouseLeave={() => setHoveredIdx(null)}
-          >
-            {navItems.map((item, idx) => {
-              const active = pathname === item.href;
-              return (
-                <motion.div
-                  key={item.name}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + idx * 0.08, duration: 0.4, ease: "easeOut" }}
-                >
-                <Link
-                  href={item.href}
-                  onMouseEnter={() => setHoveredIdx(idx)}
-                  className={`relative px-4 py-2 text-sm font-semibold transition-colors duration-200 cursor-pointer rounded-md z-10 block ${
-                    active ? "text-sky-400" : "text-neutral-500 hover:text-white"
-                  }`}
-                >
-                  {/* Hover — radial sky glow */}
-                  {hoveredIdx === idx && !active && (
-                    <motion.span
-                      layoutId="nav-hover"
-                      className="absolute inset-0 rounded-md"
-                      style={{
-                        background: "radial-gradient(ellipse at 50% 100%, rgba(14,165,233,0.18) 0%, transparent 70%)",
-                        boxShadow: "inset 0 -1px 0 rgba(56,189,248,0.3)",
-                      }}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    />
-                  )}
-
-                  {/* Active — neon underline glow */}
-                  {active && (
-                    <motion.span
-                      layoutId="nav-active"
-                      className="absolute bottom-0.5 left-3 right-3 h-px bg-sky-400 rounded-full"
-                      style={{ boxShadow: "0 0 10px 2px rgba(56,189,248,0.7), 0 0 4px 1px rgba(56,189,248,0.5)" }}
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-
-                  <span className="relative z-10">{item.name}</span>
-                </Link>
-                </motion.div>
-              );
-            })}
-
-            {/* Book a Call CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + navItems.length * 0.08, duration: 0.4, ease: "easeOut" }}
-              className="ml-3"
-            >
-              <Link
-                href="/contact"
-                className="cursor-pointer inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-semibold text-white bg-linear-to-r from-sky-500 to-cyan-400 hover:from-sky-400 hover:to-cyan-300 transition-all shadow-lg shadow-sky-500/20"
-              >
-                Let&apos;s Discuss
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </motion.div>
-          </nav>
-
-          {/* Mobile toggle */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden cursor-pointer p-1 text-neutral-400 hover:text-white transition-colors"
-            aria-label="Menu"
-          >
-            <div className="w-5 flex flex-col gap-1.5">
-              <motion.span animate={mobileOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }} className="block h-px bg-current w-full origin-center" />
-              <motion.span animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }} className="block h-px bg-current w-full" />
-              <motion.span animate={mobileOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }} className="block h-px bg-current w-full origin-center" />
-            </div>
-          </button>
-        </div>
-      </header>
-
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 md:hidden bg-[#080808]/98 backdrop-blur-md flex flex-col items-center justify-center gap-10"
-            onClick={() => setMobileOpen(false)}
-          >
-            {navItems.map((item, i) => (
-              <motion.div
-                key={item.name}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 8 }}
-                transition={{ delay: i * 0.06 }}
-              >
-                <Link
-                  href={item.href}
-                  className={`text-4xl font-bold tracking-tight cursor-pointer ${
-                    pathname === item.href ? "text-sky-400" : "text-white hover:text-sky-400 transition-colors"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              </motion.div>
-            ))}
-
-            {/* Book a Call CTA — mobile */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 8 }}
-              transition={{ delay: navItems.length * 0.06 }}
-            >
-              <Link
-                href="/contact"
-                className="cursor-pointer inline-flex items-center gap-2 px-8 py-3.5 rounded-md text-xl font-bold text-white bg-linear-to-r from-sky-500 to-cyan-400 shadow-lg shadow-sky-500/20"
-              >
-                Let&apos;s Discuss
-              </Link>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
-  );
+  if (pathname === "/" || pathname === "/works" || pathname.startsWith("/works/") || pathname === "/services" || pathname === "/practice" || pathname === "/contact") return <PortfolioSidebar />;
+  return <NavigationContent key={pathname} pathname={pathname} />;
 }

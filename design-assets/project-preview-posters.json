@@ -1,0 +1,94 @@
+{
+  "results": [
+    {
+      "id": 1,
+      "source": "design-assets\\project-presentation\\site-captures\\cynergy.webp",
+      "poster": "/projects/previews/cynergy-poster.webp",
+      "bytes": 33308
+    },
+    {
+      "id": 8,
+      "source": "design-assets\\project-presentation\\site-captures\\river-taxes.webp",
+      "poster": "/projects/previews/river-taxes-poster.webp",
+      "bytes": 28820
+    },
+    {
+      "id": 4,
+      "source": "design-assets\\project-presentation\\site-captures\\developer-portfolio.webp",
+      "poster": "/projects/previews/developer-portfolio-poster.webp",
+      "bytes": 23592
+    },
+    {
+      "id": 5,
+      "source": "design-assets\\project-presentation\\site-captures\\viviour.webp",
+      "poster": "/projects/previews/viviour-poster.webp",
+      "bytes": 41188
+    },
+    {
+      "id": 6,
+      "source": "design-assets\\project-presentation\\site-captures\\martich-studios.webp",
+      "poster": "/projects/previews/martich-studios-poster.webp",
+      "bytes": 22912
+    },
+    {
+      "id": 7,
+      "source": "design-assets\\project-presentation\\site-captures\\ferma-coffee-co.webp",
+      "poster": "/projects/previews/ferma-coffee-co-poster.webp",
+      "bytes": 23882
+    },
+    {
+      "id": 9,
+      "source": "design-assets\\project-presentation\\site-captures\\lowrie-roofing.webp",
+      "poster": "/projects/previews/lowrie-roofing-poster.webp",
+      "bytes": 41616
+    },
+    {
+      "id": 10,
+      "source": "design-assets\\project-presentation\\site-captures\\masterbuilt-roofing.webp",
+      "poster": "/projects/previews/masterbuilt-roofing-poster.webp",
+      "bytes": 112280
+    },
+    {
+      "id": 11,
+      "source": "design-assets\\project-presentation\\site-captures\\northforge-exteriors.webp",
+      "poster": "/projects/previews/northforge-exteriors-poster.webp",
+      "bytes": 45040
+    },
+    {
+      "id": 12,
+      "source": "design-assets\\project-presentation\\site-captures\\luxury-leather-restoration.webp",
+      "poster": "/projects/previews/luxury-leather-restoration-poster.webp",
+      "bytes": 46324
+    },
+    {
+      "id": 13,
+      "source": "design-assets\\project-presentation\\site-captures\\kevin-travis-homes.webp",
+      "poster": "/projects/previews/kevin-travis-homes-poster.webp",
+      "bytes": 48256
+    },
+    {
+      "id": 14,
+      "source": "design-assets\\project-presentation\\site-captures\\sergio-garcia.webp",
+      "poster": "/projects/previews/sergio-garcia-poster.webp",
+      "bytes": 15796
+    },
+    {
+      "id": 15,
+      "source": "design-assets\\project-presentation\\site-captures\\tmbtx.webp",
+      "poster": "/projects/previews/tmbtx-poster.webp",
+      "bytes": 39638
+    },
+    {
+      "id": 16,
+      "source": "design-assets\\project-presentation\\site-captures\\wudr.webp",
+      "poster": "/projects/previews/wudr-poster.webp",
+      "bytes": 27736
+    },
+    {
+      "id": 17,
+      "source": "design-assets\\project-presentation\\site-captures\\zenergy-solar.webp",
+      "poster": "/projects/previews/zenergy-solar-poster.webp",
+      "bytes": 75072
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "source": "design-assets/project-presentation/site-captures/spos-local.webp",
+  "target": "public/projects/previews/spos-local-poster.webp",
+  "transformation": "Resize and WebP optimization only; actual local dashboard capture",
+  "bytes": 26348
+}

@@ -1,257 +1,119 @@
 "use client";
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { MagneticButton } from "@/components/ui/magnetic-button";
+
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { IconArrowUpRight, IconBrandGithub, IconBrandLinkedin, IconCheck, IconCopy, IconLoader2, IconMessage, IconSend } from "@tabler/icons-react";
+import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { SelectMenu } from "@/components/ui/select-menu";
+import PortfolioActions from "@/components/PortfolioActions";
+import { useMotionPreference } from "@/hooks/use-motion-preference";
+import styles from "./Contact.module.css";
 
-const PROJECT_TYPES = [
-  "Custom Business Software",
-  "Business Website",
-  "Mobile App",
-  "Integrations & Automation",
-  "Ongoing Support & Maintenance",
-  "Other / Not sure yet",
-];
-
-const BUDGETS: Record<"USD" | "PHP", string[]> = {
+const email = "cyrilnarvasa589@gmail.com";
+const projectTypes = ["Custom Business Software", "Business Website", "Mobile App", "Integrations & Automation", "Ongoing Support & Maintenance", "Content Management Systems", "Booking Systems", "Other / Not sure yet"];
+const projectTypeForService = (service: string) => service === "Business Websites" ? "Business Website" : service === "Mobile Apps" ? "Mobile App" : service;
+const budgets = {
   USD: ["< $1k", "$1k – $5k", "$5k – $10k", "$10k+", "Not sure yet"],
-  PHP: ["< ₱50k", "₱50k – ₱150k", "₱150k – ₱300k", "₱300k+", "Not sure yet"],
+  PHP: ["₱5k – ₱10k", "₱10k – ₱25k", "₱25k – ₱50k", "₱50k+", "Not sure yet"],
 };
+type Fields = { firstName: string; lastName: string; email: string; projectType: string; budget: string; message: string };
+type Errors = Partial<Record<keyof Fields, string>>;
 
-const infoCards = [
-  {
-    title: "New Projects",
-    sub: "Discuss your project, get a quote.",
-    value: "cyrilnarvasa589@gmail.com",
-    href: "mailto:cyrilnarvasa589@gmail.com",
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Let's Connect",
-    sub: "Find me on LinkedIn.",
-    value: "linkedin.com/in/cyril-jian-narvasa",
-    href: "https://www.linkedin.com/in/cyril-jian-narvasa",
-    icon: (
-      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-      </svg>
-    ),
-  },
-];
-
-export default function ContactClient() {
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    projectType: "",
-    budget: "",
-    message: "",
-  });
-  const [currency, setCurrency] = useState<"USD" | "PHP">("USD");
+export default function ContactClient({ initialService = "" }: { initialService?: string }) {
+  const reduced = useMotionPreference();
+  const emptyForm = (): Fields => ({ firstName: "", lastName: "", email: "", projectType: projectTypeForService(initialService), budget: "", message: "" });
+  const [form, setForm] = useState<Fields>(emptyForm);
+  const [currency, setCurrency] = useState<"USD" | "PHP">("PHP");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [attempted, setAttempted] = useState(false);
+  const [errors, setErrors] = useState<Errors>({});
+  const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
+  const copyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const successRef = useRef<HTMLHeadingElement>(null);
+  const submitting = useRef(false);
+  const sending = status === "sending";
+  useEffect(() => () => { if (copyTimer.current) clearTimeout(copyTimer.current); }, []);
+  useEffect(() => { if (status === "sent") successRef.current?.focus({ preventScroll: true }); }, [status]);
 
-  const set = (k: keyof typeof form, v: string) => setForm((f) => ({ ...f, [k]: v }));
-
-  const switchCurrency = (c: "USD" | "PHP") => {
-    setCurrency(c);
-    set("budget", ""); // reset so a value from the other currency can't linger
+  const set = (key: keyof Fields, value: string) => {
+    setForm(current => ({ ...current, [key]: value }));
+    setErrors(current => ({ ...current, [key]: undefined }));
   };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!form.projectType) {
-      setAttempted(true);
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true); setCopyError(false);
+      if (copyTimer.current) clearTimeout(copyTimer.current);
+      copyTimer.current = setTimeout(() => setCopied(false), 2000);
+    } catch { setCopyError(true); }
+  };
+  const startAnotherEnquiry = () => {
+    setStatus("idle");
+    setForm(emptyForm());
+    setErrors({});
+    requestAnimationFrame(() => formRef.current?.querySelector<HTMLInputElement>("input")?.focus({ preventScroll: true }));
+  };
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (submitting.current) return;
+    const nextErrors: Errors = {};
+    if (!form.firstName.trim()) nextErrors.firstName = "Enter your first name.";
+    if (!form.lastName.trim()) nextErrors.lastName = "Enter your last name.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) nextErrors.email = "Enter a valid email address.";
+    if (!projectTypes.includes(form.projectType)) nextErrors.projectType = "Choose a service.";
+    if (!form.message.trim()) nextErrors.message = "Tell me a little about your project.";
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length) {
+      requestAnimationFrame(() => formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus());
       return;
     }
+    submitting.current = true;
     setStatus("sending");
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
     try {
-      const res = await fetch("https://formspree.io/f/mlgbjney", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          name: `${form.firstName} ${form.lastName}`.trim(),
-          email: form.email,
-          projectType: form.projectType,
-          budget: form.budget ? `${form.budget} (${currency})` : "",
-          message: form.message,
-        }),
+      const response = await fetch("https://formspree.io/f/mlgbjney", {
+        method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, signal: controller.signal,
+        body: JSON.stringify({ name: `${form.firstName.trim()} ${form.lastName.trim()}`, email: form.email.trim(), projectType: form.projectType, budget: form.budget ? `${form.budget} (${currency})` : "", message: form.message.trim() }),
       });
-      setStatus(res.ok ? "sent" : "error");
-    } catch {
-      setStatus("error");
-    }
+      setStatus(response.ok ? "sent" : "error");
+    } catch { setStatus("error"); }
+    finally { clearTimeout(timeout); submitting.current = false; }
   };
+  const glow = <GlowingEffect disabled={reduced} spread={35} proximity={0} inactiveZone={.2} borderWidth={1} />;
+  const errorFor = (key: keyof Fields) => errors[key] ? <p id={`contact-${key}-error`} className={styles.fieldError}>{errors[key]}</p> : null;
 
-  const fieldClass =
-    "w-full px-4 py-3 rounded-md bg-white/4 border border-white/8 text-white text-sm placeholder-neutral-600 focus:outline-none focus:border-sky-500/50 transition-colors";
-
-  return (
-    <main className="relative bg-[#080808] min-h-screen overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.025)_1px,transparent_1px)] bg-size-[36px_36px] pointer-events-none" />
-
-      {/* Breadcrumb */}
-      <div className="relative z-10 px-8 md:px-14 pt-24 pb-6">
-        <p className="text-neutral-600 text-xs font-semibold uppercase tracking-[0.3em]">Contact</p>
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-12 pb-24">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-
-          {/* Left — pitch + info cards */}
-          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
-            <p className="text-sky-400 text-xs font-bold uppercase tracking-[0.3em] mb-5">Get In Touch</p>
-            <h1 className="text-5xl md:text-7xl font-black text-white leading-[0.95] tracking-tight mb-8">
-              Let&apos;s build something together.
-            </h1>
-            <p className="text-neutral-400 text-base leading-relaxed max-w-md mb-10">
-              Whether you need custom business software, a new website, a mobile app, or help connecting your tools, tell me about it and I will craft the right plan.
-            </p>
-
-            <div className="space-y-4 max-w-md">
-              {infoCards.map((c) => (
-                <a
-                  key={c.title}
-                  href={c.href}
-                  target={c.href.startsWith("http") ? "_blank" : undefined}
-                  rel="noopener noreferrer"
-                  className="group flex items-start gap-4 p-5 rounded-xl bg-white/4 border border-white/8 hover:border-sky-500/30 hover:bg-sky-500/5 transition-all"
-                >
-                  <span className="w-11 h-11 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 shrink-0">
-                    {c.icon}
-                  </span>
-                  <div>
-                    <p className="text-white font-bold text-sm mb-0.5">{c.title}</p>
-                    <p className="text-neutral-500 text-xs mb-1">{c.sub}</p>
-                    <p className="text-sky-400 text-sm font-medium group-hover:text-sky-300 transition-colors">{c.value}</p>
-                  </div>
-                </a>
-              ))}
-            </div>
-
-            <p className="text-neutral-600 text-xs mt-6 flex items-center gap-2">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              Based in Davao City, Philippines · Available worldwide
-            </p>
-          </motion.div>
-
-          {/* Right — form card */}
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.15 }}>
-            <div className="rounded-2xl bg-[#0f0f0f] border border-white/8 p-6 md:p-8">
-              {status === "sent" ? (
-                <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="py-10 text-center space-y-3">
-                  <div className="w-12 h-12 bg-sky-500/20 rounded-md flex items-center justify-center mx-auto">
-                    <svg className="w-6 h-6 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                  </div>
-                  <p className="text-white font-black text-xl">Message sent.</p>
-                  <p className="text-neutral-500 text-sm">I will get back to you within 24 hours.</p>
-                  <button
-                    onClick={() => { setStatus("idle"); setForm({ firstName: "", lastName: "", email: "", projectType: "", budget: "", message: "" }); }}
-                    className="cursor-pointer mt-2 text-xs text-sky-400 hover:text-sky-300 transition-colors"
-                  >
-                    Send another
-                  </button>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div>
-                    <h2 className="text-white font-black text-2xl mb-1">Tell me about your project</h2>
-                    <p className="text-neutral-500 text-sm">I will get back to you within 24 hours.</p>
-                  </div>
-
-                  {/* Name */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-xs font-semibold text-neutral-500 uppercase tracking-widest block mb-2">First Name</label>
-                      <input type="text" required value={form.firstName} onChange={(e) => set("firstName", e.target.value)} placeholder="Jane" className={fieldClass} />
-                    </div>
-                    <div>
-                      <label className="text-xs font-semibold text-neutral-500 uppercase tracking-widest block mb-2">Last Name</label>
-                      <input type="text" required value={form.lastName} onChange={(e) => set("lastName", e.target.value)} placeholder="Doe" className={fieldClass} />
-                    </div>
-                  </div>
-
-                  {/* Email */}
-                  <div>
-                    <label className="text-xs font-semibold text-neutral-500 uppercase tracking-widest block mb-2">Email</label>
-                    <input type="email" required value={form.email} onChange={(e) => set("email", e.target.value)} placeholder="jane@company.com" className={fieldClass} />
-                  </div>
-
-                  {/* Project Type */}
-                  <div>
-                    <label className="text-xs font-semibold text-neutral-500 uppercase tracking-widest block mb-2">Project Type</label>
-                    <SelectMenu
-                      value={form.projectType}
-                      onChange={(v) => set("projectType", v)}
-                      options={PROJECT_TYPES}
-                      placeholder="Select a project type"
-                      invalid={attempted && !form.projectType}
-                    />
-                    {attempted && !form.projectType && (
-                      <p className="text-red-400 text-xs mt-1.5">Please choose a project type.</p>
-                    )}
-                  </div>
-
-                  {/* Budget + currency toggle */}
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <label className="text-xs font-semibold text-neutral-500 uppercase tracking-widest">Budget Range</label>
-                      <div className="flex items-center gap-1 bg-white/4 border border-white/8 rounded-md p-0.5">
-                        {(["USD", "PHP"] as const).map((c) => (
-                          <button
-                            key={c}
-                            type="button"
-                            onClick={() => switchCurrency(c)}
-                            className={`cursor-pointer px-2.5 py-1 rounded text-xs font-bold transition-colors ${
-                              currency === c ? "bg-sky-500 text-white" : "text-neutral-500 hover:text-white"
-                            }`}
-                          >
-                            {c}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                    <SelectMenu
-                      value={form.budget}
-                      onChange={(v) => set("budget", v)}
-                      options={BUDGETS[currency]}
-                      placeholder="Select a range"
-                    />
-                  </div>
-
-                  {/* Message */}
-                  <div>
-                    <label className="text-xs font-semibold text-neutral-500 uppercase tracking-widest block mb-2">Message</label>
-                    <textarea required value={form.message} onChange={(e) => set("message", e.target.value)} rows={5} placeholder="Tell me about your project..." className={`${fieldClass} resize-none`} />
-                  </div>
-
-                  {status === "error" && <p className="text-red-400 text-xs">Something went wrong. Please try again.</p>}
-
-                  <MagneticButton strength={0.4}>
-                    <button
-                      type="submit"
-                      disabled={status === "sending"}
-                      className="cursor-pointer w-full py-3.5 rounded-md bg-linear-to-r from-sky-500 to-cyan-400 hover:from-sky-400 hover:to-cyan-300 disabled:opacity-50 text-white font-semibold text-sm transition-all shadow-lg shadow-sky-500/20"
-                    >
-                      {status === "sending" ? "Sending..." : "Send Message"}
-                    </button>
-                  </MagneticButton>
-
-                  <p className="text-neutral-600 text-xs text-center">I typically respond within 24 hours.</p>
-                </form>
-              )}
-            </div>
-          </motion.div>
-
-        </div>
-      </div>
-    </main>
-  );
+  return <main className={styles.page} data-contact>
+    <header className={styles.heading}><div className={styles.headingCopy}><p className={styles.eyebrow}>Your next idea / Let’s talk</p><h1>Let’s build something.</h1><p className={styles.intro}>Tell me what you need, where things stand, and what you’d like to build.</p></div><div className={styles.headerActions}><PortfolioActions paused={reduced} contactHref="#project-form" /></div></header>
+    <BentoGrid className={styles.grid}>
+      <BentoGridItem reveal className={`${styles.card} ${styles.conversation}`} header={<section className={styles.cardBody} data-contact-card="conversation">
+        {glow}<h2 className={styles.cardHeading}><span className={styles.icon}><IconMessage size={21} stroke={1.5} aria-hidden="true" /></span>Start a conversation<span className={styles.ordinal}>01</span></h2>
+        <div className={styles.conversationCopy}><p className={styles.statement}>A new idea.<br /><span>A clear next step.</span></p><p>You don’t need a finished brief. Share what you have, and I’ll help work out the next step.</p></div>
+        <div className={styles.emailBlock}><p className={styles.label}>Prefer email?</p><a href={`mailto:${email}`} className={styles.emailLink}>{email}<IconArrowUpRight size={16} aria-hidden="true" /></a><div className={styles.directActions}><HoverBorderGradient as="button" type="button" onClick={copyEmail} paused={reduced} containerClassName={styles.smallAction} className={styles.smallActionBody} aria-label={copied ? "Email address copied" : "Copy email address"}>{copied ? <IconCheck size={16} aria-hidden="true" /> : <IconCopy size={16} aria-hidden="true" />}{copied ? "Copied" : "Copy email"}</HoverBorderGradient><a href="https://github.com/Cyannimazing" target="_blank" rel="noopener noreferrer" className={styles.social} aria-label="GitHub, opens in a new tab" data-studio-action><IconBrandGithub size={19} aria-hidden="true" /></a><a href="https://www.linkedin.com/in/cyril-jian-narvasa" target="_blank" rel="noopener noreferrer" className={styles.social} aria-label="LinkedIn, opens in a new tab" data-studio-action><IconBrandLinkedin size={19} aria-hidden="true" /></a></div><p className={styles.copyStatus} role="status">{copyError ? "Select the email address above to copy it." : copied ? "Email address copied." : ""}</p></div>
+      </section>} />
+      <BentoGridItem reveal className={`${styles.card} ${styles.formCard}`} header={<section className={styles.cardBody} data-contact-card="form">
+        {glow}{status === "sent" ? <div id="project-form" tabIndex={-1} className={styles.success}><span className={styles.successIcon}><IconCheck size={30} aria-hidden="true" /></span><p className={styles.label}>Enquiry received</p><h2 ref={successRef} tabIndex={-1}>Message sent.</h2><p>Thanks for sharing your project. I’ll get back to you by email.</p><HoverBorderGradient as="button" type="button" paused={reduced} onClick={startAnotherEnquiry} containerClassName={styles.submit} className={styles.submitBody}>Send another enquiry<IconArrowUpRight size={16} aria-hidden="true" /></HoverBorderGradient></div> : <form id="project-form" tabIndex={-1} ref={formRef} noValidate onSubmit={handleSubmit} className={styles.form} aria-label="Project enquiry" aria-busy={sending}>
+          <div className={styles.formHeading}><div className={styles.formTitleRow}><span className={styles.label}>Project enquiry</span><span className={styles.ordinal} aria-hidden="true">02</span></div><h2>What do you have in mind?</h2><p>A few details will help me understand where to start.</p></div>
+          <noscript><p className={styles.formNote}>Please <a href={`mailto:${email}`}>email me directly</a> to discuss your project.</p><style>{'#project-form fieldset, #project-form button { display: none !important; }'}</style></noscript>
+          <fieldset disabled={sending} className={styles.fields}><legend className="sr-only">Your details and project</legend>
+            <div className={styles.field}><label htmlFor="contact-firstName">First name</label><input id="contact-firstName" name="firstName" autoComplete="given-name" required value={form.firstName} onChange={event => set("firstName", event.target.value)} placeholder="Jane" aria-invalid={!!errors.firstName} aria-describedby={errors.firstName ? "contact-firstName-error" : undefined} />{errorFor("firstName")}</div>
+            <div className={styles.field}><label htmlFor="contact-lastName">Last name</label><input id="contact-lastName" name="lastName" autoComplete="family-name" required value={form.lastName} onChange={event => set("lastName", event.target.value)} placeholder="Doe" aria-invalid={!!errors.lastName} aria-describedby={errors.lastName ? "contact-lastName-error" : undefined} />{errorFor("lastName")}</div>
+            <div className={styles.field}><label htmlFor="contact-email">Email</label><input id="contact-email" name="email" type="email" autoComplete="email" required value={form.email} onChange={event => set("email", event.target.value)} placeholder="jane@company.com" aria-invalid={!!errors.email} aria-describedby={errors.email ? "contact-email-error" : undefined} />{errorFor("email")}</div>
+            <div className={styles.field}><label htmlFor="contact-service">Project type</label><SelectMenu id="contact-service" name="projectType" value={form.projectType} onChange={value => set("projectType", value)} options={projectTypes} placeholder="Select a project type" invalid={!!errors.projectType} describedBy={errors.projectType ? "contact-projectType-error" : undefined} disabled={sending} className={styles.selectTrigger} />{errorFor("projectType")}</div>
+            <div className={`${styles.field} ${styles.budgetField}`}><label htmlFor="contact-budget">Budget range <span>(optional)</span></label><div className={styles.budgetControls}><div className={styles.selectWrap}><SelectMenu id="contact-budget" name="budget" value={form.budget} onChange={value => set("budget", value)} options={budgets[currency]} placeholder="Select a range" disabled={sending} className={styles.selectTrigger} /></div><div className={styles.currency} role="group" aria-label="Budget currency">{(["USD", "PHP"] as const).map(item => <button key={item} type="button" aria-pressed={currency === item} onClick={() => { setCurrency(item); set("budget", ""); }} data-studio-action>{item}</button>)}</div></div></div>
+            <div className={`${styles.field} ${styles.messageField}`}><label htmlFor="contact-message">About your project</label><textarea id="contact-message" name="message" required value={form.message} onChange={event => set("message", event.target.value)} placeholder="What would you like to build or improve? Add any goals, references or timing you have in mind." aria-invalid={!!errors.message} aria-describedby={errors.message ? "contact-message-error" : undefined} />{errorFor("message")}</div>
+          </fieldset>
+          {Object.values(errors).some(Boolean) && <p role="alert" className={styles.formError}>Please check the highlighted fields.</p>}
+          {status === "error" && <p role="alert" className={styles.formError}>Your message couldn’t be sent. Please try again, or <a href={`mailto:${email}`}>email me directly</a>.</p>}
+          <HoverBorderGradient as="button" type="submit" disabled={sending} paused={reduced || sending} containerClassName={styles.submit} className={styles.submitBody}>{sending ? <>Sending your enquiry<IconLoader2 size={17} className={styles.spinner} aria-hidden="true" /></> : <>Send enquiry<IconArrowUpRight size={17} aria-hidden="true" /></>}</HoverBorderGradient>
+          <p className={styles.formNote}>I’ll use these details to reply about your enquiry.</p>
+        </form>}
+      </section>} />
+      <BentoGridItem reveal className={`${styles.card} ${styles.nextSteps}`} header={<section className={styles.cardBody} data-contact-card="next-steps">
+        {glow}<h2 className={styles.cardHeading}><span className={styles.icon}><IconSend size={21} stroke={1.5} aria-hidden="true" /></span>What happens next<span className={styles.ordinal}>03</span></h2><ol className={styles.steps}><li><span>01</span><div><h3>Share what you need</h3><p>Your goals, the current situation, and any references.</p></div></li><li><span>02</span><div><h3>Talk through the scope</h3><p>I’ll reply by email to discuss the work and arrange a call if useful.</p></div></li><li><span>03</span><div><h3>Agree on the next step</h3><p>A clear scope, priorities and a plan before development starts.</p></div></li></ol>
+      </section>} />
+    </BentoGrid>
+  </main>;
 }

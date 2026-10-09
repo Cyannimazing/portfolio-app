@@ -1,5 +1,12 @@
 "use client";
+
+import { useRef } from "react";
+import { useInView } from "motion/react";
+import { useMotionPreference } from "@/hooks/use-motion-preference";
 import { cn } from "@/lib/utils";
+
+// Installed with: npx shadcn@latest add @aceternity/bento-grid
+// Keep optional content absent when a complete custom header fills a bento card.
 
 export const BentoGrid = ({
   className,
@@ -11,8 +18,8 @@ export const BentoGrid = ({
   return (
     <div
       className={cn(
-        "grid md:auto-rows-[18rem] grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto",
-        className
+        "mx-auto grid max-w-7xl grid-cols-1 gap-4 md:auto-rows-[18rem] md:grid-cols-3",
+        className,
       )}
     >
       {children}
@@ -26,30 +33,38 @@ export const BentoGridItem = ({
   description,
   header,
   icon,
+  reveal = false,
 }: {
   className?: string;
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
   header?: React.ReactNode;
   icon?: React.ReactNode;
+  reveal?: boolean;
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.12 });
+  const reducedMotion = useMotionPreference();
   return (
     <div
+      ref={ref}
+      data-entered={!reveal || reducedMotion || inView}
       className={cn(
-        "row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-white border border-transparent justify-between flex flex-col space-y-4",
-        className
+        "group/bento shadow-input row-span-1 flex flex-col justify-between rounded-lg border border-neutral-200 bg-white p-4 transition duration-200 hover:shadow-xl dark:border-white/[0.2] dark:bg-black dark:shadow-none",
+        (title || description || icon) && "space-y-4",
+        className,
       )}
     >
       {header}
-      <div className="group-hover/bento:translate-x-2 transition duration-200">
+      {(title || description || icon) && <div className="transition duration-200 group-hover/bento:translate-x-2">
         {icon}
-        <div className="font-sans font-bold text-neutral-600 dark:text-neutral-200 mb-2 mt-2">
+        <div className="mt-2 mb-2 font-sans font-bold text-neutral-600 dark:text-neutral-200">
           {title}
         </div>
-        <div className="font-sans font-normal text-neutral-600 text-xs dark:text-neutral-300">
+        <div className="font-sans text-xs font-normal text-neutral-600 dark:text-neutral-300">
           {description}
         </div>
-      </div>
+      </div>}
     </div>
   );
 };

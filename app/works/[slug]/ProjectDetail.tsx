@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
+import ProjectPlaceholder from "@/components/ProjectPlaceholder";
 import Link from "next/link";
 import type { Project } from "@/lib/projects";
 
@@ -49,16 +50,16 @@ export default function ProjectDetail({ project }: { project: Project }) {
         >
           {/* Hero - full bleed with title overlaid */}
           <div
-            className="relative h-[55vh] md:h-[65vh] rounded-xl mb-12 overflow-hidden cursor-pointer group"
-            onClick={() => setLightbox({ images: [{ src: project.mainImage, alt: project.description }, ...galleryImages], index: 0 })}
+            className={`relative h-[55vh] md:h-[65vh] rounded-xl mb-12 overflow-hidden group ${project.mainImage ? "cursor-pointer" : ""}`}
+            onClick={() => { if (project.mainImage) setLightbox({ images: [{ src: project.mainImage, alt: project.description }, ...galleryImages], index: 0 }); }}
           >
-            <Image
+            {project.mainImage ? <Image
               src={project.mainImage}
               alt={project.title}
               fill
               sizes="100vw"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
-            />
+            /> : <ProjectPlaceholder name={project.title} />}
             {/* layered gradients */}
             <div className="absolute inset-0 bg-black/30" />
             <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/30 to-transparent" />
@@ -147,11 +148,12 @@ export default function ProjectDetail({ project }: { project: Project }) {
                   <p className="text-xs text-neutral-600 mb-1 uppercase tracking-wide">Role</p>
                   <p className="text-sm text-white font-semibold">{project.contribution.role}</p>
                 </div>
-                <div className="px-4 py-3 bg-white/4 border border-white/8 rounded-md">
+                {project.contribution.team && <div className="px-4 py-3 bg-white/4 border border-white/8 rounded-md">
                   <p className="text-xs text-neutral-600 mb-1 uppercase tracking-wide">Team</p>
                   <p className="text-sm text-white font-semibold">{project.contribution.team}</p>
-                </div>
+                </div>}
               </div>
+              {project.contribution.scope && <p className="mt-4 text-sm leading-relaxed text-neutral-300">{project.contribution.scope}</p>}
             </div>
           )}
 
@@ -239,7 +241,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
               href="/contact"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-md text-sm font-semibold text-white bg-linear-to-r from-sky-500 to-cyan-400 hover:from-sky-400 hover:to-cyan-300 transition-all shadow-lg shadow-sky-500/20"
             >
-              Let&apos;s Discuss
+              Book a discovery call
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
@@ -283,7 +285,10 @@ function ImageLightbox({
   };
   const handleTouchEnd = (e: React.TouchEvent) => {
     const delta = touchStartX.current - e.changedTouches[0].clientX;
-    if (Math.abs(delta) > 50) delta > 0 ? next() : prev();
+    if (Math.abs(delta) > 50) {
+      if (delta > 0) next();
+      else prev();
+    }
   };
 
   return (

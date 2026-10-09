@@ -1,0 +1,9 @@
+.actions { display: flex; align-items: stretch; flex-shrink: 0; gap: 10px; }
+.call { border: 1px solid #456778; border-radius: var(--studio-control-radius); background: #233d49; }
+.callBody { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 46px; padding: 11px 15px; border-radius: inherit; color: #e4f6fc; background: #233d49; font-size: var(--studio-control-text); font-weight: 550; white-space: nowrap; transition: background .2s; }
+.cv { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 11px 13px; border: 1px solid #456778; border-radius: var(--studio-control-radius); color: #d3e4ed; font-size: var(--studio-control-text); white-space: nowrap; transition: background .2s, border-color .2s; }
+.call:hover .callBody { background: #2c4b59; }
+.cv:hover { border-color: var(--studio-accent); background: #1d333f; }
+.actions a:focus-visible { outline: 2px solid var(--studio-accent); outline-offset: 4px; }
+@media (max-width: 1023px) { .actions { width: 100%; max-width: 430px; gap: 8px; } .call { flex: 1; } .callBody { padding-inline: 10px; gap: 8px; } .cv { padding-inline: 10px; } }
+@media (max-width: 360px) { .callBody, .cv { font-size: 10px; gap: 6px; padding-inline: 8px; } }

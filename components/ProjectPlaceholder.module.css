@@ -1,0 +1,19 @@
+.placeholder { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; width: 100%; height: 100%; min-height: 0; overflow: hidden; container-type: size; color: #e6f8ff; background: radial-gradient(ellipse at 75% 80%, #23576a, transparent 65%), linear-gradient(145deg, #15242d, #1b3847); }
+.orbit { position: absolute; width: 85%; aspect-ratio: 1; border: 1px solid rgb(113 206 225 / .17); border-radius: 50%; transform: rotate(-25deg) scaleY(.6); box-shadow: 0 0 0 35px rgb(114 211 231 / .025), 0 0 0 70px rgb(114 211 231 / .015); }
+.identity { position: relative; display: flex; flex-direction: column; align-items: center; gap: 9px; }
+.mark { display: grid; place-items: center; width: 64px; height: 64px; border: 1px solid #6098ad; border-radius: 8px; color: #96edff; background: linear-gradient(135deg, #2c6076, #1c3d4d); box-shadow: 0 8px 25px #10222c, 0 1px 0 #7faebf inset; }
+.identity strong { font-size: clamp(20px, 2.8vw, 42px); font-weight: 600; letter-spacing: -.06em; }
+.identity > span:last-child { color: #7dbdce; font-family: var(--font-geist-mono), monospace; font-size: 8px; letter-spacing: .18em; }
+.modules { position: relative; display: flex; gap: 8px; }
+.modules > span { display: flex; align-items: center; gap: 5px; padding: 7px 9px; border: 1px solid #3b667a; border-radius: 5px; color: #a7d7e8; background: rgb(24 46 59 / .85); font-size: 9px; }
+.placeholder > small { position: relative; color: #80a9bc; font-size: 9px; }
+@media (max-width: 1099px), (max-height: 740px) { .placeholder { gap: 14px; } .mark { width: 46px; height: 46px; border-radius: 8px; } .mark svg { width: 27px; height: 27px; } .identity { gap: 6px; } .identity > span:last-child { font-size: 6px; } .modules { gap: 5px; } .modules > span { font-size: 7px; padding: 5px; } .modules svg { width: 12px; } .placeholder > small { font-size: 7px; } }
+@media (max-width: 1023px) { .placeholder { gap: 8px; } .identity > span:last-child, .modules { display: none; } .identity strong { font-size: 20px; } .mark { width: 32px; height: 32px; border-radius: 5px; } .mark svg { width: 22px; height: 22px; } }
+@media (max-height: 500px) { .mark, .identity > span:last-child, .modules, .placeholder > small { display: none; } }
+@container (max-height: 210px) { .mark, .modules, .placeholder > small { display: none; } }
+@container (max-height: 110px) { .identity > span:last-child { display: none; } .identity strong { font-size: 28px; } }
+@container (max-width: 180px) { .identity strong { font-size: 20px; } }
+@media (max-width: 1023px) {
+  .identity strong { font-size: 34px; }
+  .identity > span:last-child { display: block; font-size: 8px; }
+}

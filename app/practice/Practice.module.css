@@ -1,0 +1,185 @@
+.page { display: flex; flex-direction: column; gap: var(--studio-heading-gap); margin-left: var(--studio-sidebar-width); height: 100svh; min-height: 0; padding: var(--studio-page-top) var(--studio-page-gutter-end) var(--studio-page-bottom) var(--studio-page-gutter-start); background: var(--studio-bg); color: var(--studio-text); }
+.heading { display: flex; align-items: center; justify-content: space-between; gap: 28px; flex: 0 0 auto; }
+.headingCopy { display: flex; flex-direction: column; gap: var(--studio-heading-copy-gap); min-width: 0; }
+.eyebrow, .label { color: #8bd4e8; font-family: var(--font-mono), monospace; font-size: var(--studio-eyebrow-size); line-height: 1.5; letter-spacing: .1em; text-transform: uppercase; }
+.heading h1 { margin: 0; font-size: var(--studio-display-size); font-weight: var(--studio-display-weight); line-height: var(--studio-display-leading); letter-spacing: var(--studio-display-tracking); }
+.intro { margin: 0; color: var(--studio-muted); font-size: var(--studio-intro-size); line-height: var(--studio-intro-leading); }
+.headerActions { flex-shrink: 0; }
+.grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-rows: minmax(0, 1.25fr) minmax(0, 1fr); grid-auto-rows: auto; gap: var(--studio-grid-gap); width: 100%; max-width: none; min-height: 0; flex: 1; margin: 0; }
+.card { position: relative; min-height: 0; min-width: 0; padding: 0; border: 1px solid #3d5b6b; border-radius: var(--studio-panel-radius); background: linear-gradient(145deg, #213742, #1a2b34); box-shadow: none; transition: border-color .25s; }
+.card:hover, .card:focus-within { box-shadow: none; border-color: #648b9c; }
+.purpose { background: linear-gradient(135deg, #294654, #203540); border-color: #548197; }
+.experience { grid-column: 1 / -1; }
+.cardBody { position: relative; display: flex; flex-direction: column; flex: 1; min-height: 0; padding: var(--studio-panel-padding); border-radius: inherit; }
+.cardHeading { display: flex; align-items: center; gap: 11px; flex-shrink: 0; margin: 0; font-size: clamp(15px, 1.2vw, 22px); font-weight: 600; line-height: 1.3; letter-spacing: -.035em; }
+.cardHeading button { display: flex; align-items: center; width: 100%; min-height: 44px; gap: 11px; padding: 0; border-radius: 4px; text-align: left; cursor: pointer; }
+.cardHeading button:hover { color: #a5edfa; }
+.icon { display: grid; place-items: center; flex-shrink: 0; width: 36px; height: 36px; color: #8fdaea; background: #294551; border: 1px solid #4f788b; border-radius: var(--studio-control-radius); }
+.index, .valueNumber { color: #93b5c6; font-family: var(--font-mono), monospace; font-size: 9px; font-weight: 400; letter-spacing: 0; }
+.index, .expand { margin-left: auto; }
+.expand { color: #93b5c6; display: flex; }
+.expand svg { transition: transform .25s var(--studio-ease), color .2s; }
+.cardHeading button:hover .expand svg { transform: rotate(90deg); color: var(--studio-accent); }
+.directionStatement { margin-block: auto; padding-block: 20px; font-size: clamp(28px, 2.5vw, 48px); line-height: 1.06; letter-spacing: -.065em; font-weight: 600; }
+.directionStatement span { color: #98deeb; }
+.directionGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 25px; padding-top: 14px; }
+.directionGrid section { min-width: 0; }
+.directionGrid section > p { margin-top: 8px; color: var(--studio-muted); font-size: 12px; line-height: 1.65; }
+.principles { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); gap: 12px; flex: 1; min-height: 0; padding-top: 16px; }
+.principleTabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.principleTab { min-height: 44px; min-width: 0; padding: 8px 10px; border: 1px solid #3f5d6c; border-radius: 4px; text-align: left; color: #c1ced7; font-size: 12px; line-height: 1.3; transition: border-color .2s, color .2s; }
+.principleTab:hover, .principleTab[aria-selected="true"] { border-color: #658d9e; color: #e4f8fc; }
+.principleTab:focus-visible { outline: 2px solid var(--studio-accent); outline-offset: 3px; }
+.activePrinciple { border-radius: 3px; background: #315464; }
+.principleChoice { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.principleChoice > span:nth-child(2) { min-width: 0; }
+.valueNumber { flex-shrink: 0; color: #8ed5e3; }
+.principleChoice svg { flex-shrink: 0; margin-left: auto; color: #8fbacb; transition: transform .2s var(--studio-ease), color .2s; }
+.principleTab[aria-selected="true"] .principleChoice svg { transform: translateX(2px); color: var(--studio-accent); }
+.principleContent { display: flex; align-items: center; min-height: 0; border: 1px solid #3a5868; border-radius: 6px; background: linear-gradient(135deg, #1c313d, #1a2b34); overflow: hidden; }
+.principleContent > [role="tabpanel"] { height: 100%; }
+.principleDetail { position: relative; display: flex; flex-direction: column; justify-content: center; height: 100%; padding: 14px 18px; }
+.principleNumber { position: absolute; top: 8px; right: 14px; pointer-events: none; font-size: 90px; font-weight: 600; line-height: 1; letter-spacing: -.08em; color: #a0e8f5; opacity: .045; }
+.principleDetail h3 { position: relative; margin-top: 8px; max-width: 12em; font-size: clamp(21px, 1.8vw, 32px); font-weight: 600; line-height: 1.1; letter-spacing: -.055em; text-wrap: balance; }
+.principleDescription { position: relative; margin-top: 10px; max-width: 42em; font-size: 12px; line-height: 1.65; color: var(--studio-muted); }
+.principles[data-vertical="true"] { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); grid-template-rows: minmax(0, 1fr); align-items: stretch; gap: 18px; }
+.principles[data-vertical="true"] .principleTabs { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: repeat(5, minmax(44px, 1fr)); }
+.principles[data-vertical="true"] .principleTab { font-size: 13px; padding: 12px; }
+.principles[data-vertical="true"] .principleContent { align-self: stretch; }
+.principles[data-vertical="true"] .principleDetail { padding: 22px; }
+.principles[data-vertical="true"] .principleDetail h3 { font-size: clamp(28px, 2.2vw, 40px); }
+.principles[data-vertical="true"] .principleDescription { font-size: 14px; }
+.staticPrinciples { display: grid; gap: 20px; padding-top: 20px; }
+.staticPrinciples h3 { font-size: 16px; }
+.staticPrinciples p { margin-top: 6px; font-size: 13px; line-height: 1.6; color: var(--studio-muted); }
+.experienceList { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: center; flex: 1; gap: 40px; margin: 0; padding: 18px 0; list-style: none; }
+.experienceList li { position: relative; padding-left: 16px; border-left: 1px solid #577b8b; }
+.experienceList li::before { content: ""; position: absolute; left: -3px; top: 5px; width: 5px; height: 5px; border-radius: 50%; background: #8bd4e8; }
+.jobHeading { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.jobHeading h3 { font-size: 18px; font-weight: 550; letter-spacing: -.025em; }
+.jobHeading span { color: #a7c3d0; font-family: var(--font-mono), monospace; font-size: 9px; white-space: nowrap; }
+.role { margin-top: 3px; font-size: 12px; color: #a8dbe8; }
+.jobDescription { margin-top: 9px; font-size: 12px; line-height: 1.65; color: var(--studio-muted); }
+.cardHeading button:focus-visible, .detailActions a:focus-visible { outline: 2px solid var(--studio-accent); outline-offset: 4px; }
+
+.eyebrow, .heading h1, .intro, .headerActions { animation: var(--studio-text-reveal-name) .65s var(--studio-ease) both; }
+.eyebrow { animation-delay: .1s; }
+.heading h1 { animation-delay: .2s; }
+.intro { animation-delay: .3s; }
+.headerActions { animation-delay: .4s; }
+.card { transform-origin: center bottom; animation: var(--studio-reveal-name) .72s var(--studio-ease) var(--card-delay) backwards; }
+.card:nth-child(1) { --card-delay: .45s; }
+.card:nth-child(2) { --card-delay: .63s; }
+.card:nth-child(3) { --card-delay: .81s; }
+.card[data-entered="false"] { opacity: 0; animation: none; }
+
+.detailModal { max-width: 900px; border: 1px solid #456575; background: #16262f; color: var(--studio-text); }
+.detailModal [data-modal-header] { border-bottom: 1px solid var(--studio-line); background: #1d303b; }
+.detailModal [data-modal-header] button:focus-visible { outline: 2px solid var(--studio-accent); outline-offset: 2px; }
+.detailContent { min-height: 0; overflow-y: auto; padding: 26px 28px 28px; scrollbar-color: #517489 #16262f; scrollbar-width: thin; }
+.detailContent > h2 { font-size: clamp(25px, 3vw, 36px); line-height: 1.15; letter-spacing: -.045em; font-weight: 650; }
+.fullExperience { display: flex; flex-direction: column; gap: 25px; margin-top: 26px; }
+.fullExperience h3 { margin-top: 8px; font-size: 18px; font-weight: 550; letter-spacing: -.035em; }
+.fullExperience p:last-child { margin-top: 8px; font-size: 13px; line-height: 1.7; color: var(--studio-muted); }
+.fullExperience .company { margin-top: 3px; font-size: 13px; color: #a8dbe8; }
+.detailActions { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--studio-line); }
+.detailActions a { display: inline-flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; font-size: 12px; color: #b6d7e4; }
+.detailActions a:last-child { padding: 10px 14px; border: 1px solid #4a7285; border-radius: 4px; background: #274451; color: #e5f5fc; }
+.detailActions a:hover { color: var(--studio-accent); }
+
+@media (min-width: 1600px) and (min-height: 900px) {
+  .directionGrid { gap: 32px; }
+  .directionGrid section > p { font-size: 14px; }
+  .experienceList { gap: 48px; }
+  .jobHeading h3 { font-size: 24px; }
+  .role, .jobDescription { font-size: 14px; }
+  .jobHeading span { font-size: 10px; }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .cardHeading { font-size: 14px; gap: 8px; }
+  .cardHeading button { gap: 8px; }
+  .icon { width: 28px; height: 32px; }
+  .icon svg { width: 18px; }
+  .index { display: none; }
+  .directionGrid { gap: 14px; }
+  .directionGrid section > p { font-size: 11px; }
+  .principleTab { font-size: 11px; padding: 8px; }
+  .principleChoice { gap: 5px; }
+  .principleChoice svg { display: none; }
+  .jobHeading h3 { font-size: 16px; }
+  .role, .jobDescription { font-size: 11px; }
+}
+@media (min-width: 1024px) and (max-height: 850px) {
+  .cardBody { padding-block: 13px; }
+  .directionStatement { padding-block: 14px; font-size: 32px; }
+  .directionGrid { gap: 18px; padding-top: 8px; }
+  .directionGrid section > p { font-size: 11px; line-height: 1.55; }
+  .principles { padding-top: 10px; gap: 10px; }
+  .principleDetail { padding: 12px 15px; }
+  .principleDetail > .label { display: none; }
+  .principleDetail h3 { margin-top: 0; font-size: 23px; max-width: none; }
+  .principleDescription { margin-top: 7px; font-size: 11px; line-height: 1.5; }
+  .experienceList { padding-block: 12px; }
+}
+@media (min-width: 1024px) and (max-height: 740px) {
+  .principleTabs { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .principleTab { font-size: 11px; padding: 7px; }
+  .principleChoice > .valueNumber, .principleChoice svg { display: none; }
+  .principleChoice { justify-content: center; text-align: center; }
+}
+@media (min-width: 1024px) and (max-height: 660px) {
+  .cardHeading { font-size: 15px; }
+  .jobDescription { display: none; }
+  .jobHeading h3 { font-size: 18px; }
+}
+@media (min-width: 1024px) and (max-height: 580px) {
+  .grid { grid-template-rows: minmax(0, 1.55fr) minmax(0, 1fr); }
+  .cardBody { padding-block: 8px; }
+  .cardHeading { font-size: 13px; }
+  .icon { width: 26px; height: 28px; }
+  .icon svg { width: 17px; }
+  .directionStatement { padding-block: 8px; font-size: 25px; }
+  .directionGrid { padding-top: 3px; gap: 12px; }
+  .directionGrid section > p { font-size: 10px; line-height: 1.4; margin-top: 6px; }
+  .principles { padding-top: 6px; gap: 6px; }
+  .principleTab { padding: 5px; font-size: 10px; }
+  .principleDetail { padding: 9px 12px; }
+  .principleDetail h3 { font-size: 19px; }
+  .principleDescription { font-size: 10px; line-height: 1.4; margin-top: 5px; }
+  .experienceList { gap: 20px; padding-block: 5px; }
+  .jobHeading h3 { font-size: 15px; }
+  .jobHeading span { font-size: 8px; }
+  .role { font-size: 10px; }
+}
+@media (max-width: 1023px) {
+  .page { margin-left: 0; height: auto; min-height: 100svh; }
+  .heading { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .headerActions { width: 100%; }
+  .grid { flex: none; grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-auto-rows: auto; }
+  .cardHeading { font-size: 20px; }
+  .directionStatement { margin-block: 0; padding-block: 26px; font-size: clamp(32px, 5vw, 44px); }
+  .directionGrid { padding-top: 0; }
+  .directionGrid section > p { font-size: 14px; }
+  .principles { padding-top: 22px; grid-template-rows: auto auto; }
+  .principleContent { min-height: 185px; }
+  .principleDetail { min-height: 185px; padding: 22px; }
+  .principleDetail h3 { font-size: 29px; }
+  .principleDescription { font-size: 14px; }
+  .experienceList { gap: 22px; padding-block: 24px; }
+  .jobHeading { align-items: flex-start; flex-direction: column; gap: 5px; }
+  .jobDescription { font-size: 13px; }
+}
+@media (max-width: 639px) {
+  .directionGrid { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .principleTabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .principleTab { font-size: 12px; }
+  .principleContent, .principleDetail { min-height: 225px; }
+  .experienceList { grid-template-columns: minmax(0, 1fr); }
+  .jobHeading h3 { font-size: 19px; }
+  .role { font-size: 13px; }
+  .detailContent { padding: 20px 18px; }
+  .detailActions { align-items: stretch; flex-direction: column; gap: 10px; }
+  .detailActions a:first-child { justify-content: center; order: 2; }
+}
+@media (max-width: 360px) { .cardHeading { font-size: 19px; } .eyebrow { font-size: 8px; } .principleTab { font-size: 11px; } .principleChoice svg { display: none; } .principleDetail h3 { font-size: 26px; } }
+@media (prefers-reduced-motion: reduce) { .page *, .detailModal * { animation: none !important; transition: none !important; } .card[data-entered="false"] { opacity: 1; } }

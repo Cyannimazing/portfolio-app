@@ -1,0 +1,39 @@
+{
+  "brand": "Cyril AI",
+  "status": "Finalized, user-approved fluid C symbol",
+  "tool": "Built-in image_gen",
+  "use_case": "logo-brand",
+  "assets": {
+    "dark": {
+      "logo_webp": "public/brand/cyril-ai-logo-dark.webp",
+      "logo_png": "public/brand/cyril-ai-logo-dark.webp",
+      "icon_png": "public/brand/cyril-ai-icon-dark.webp"
+    },
+    "light": {
+      "logo_webp": "public/brand/cyril-ai-logo-light.webp",
+      "logo_png": "public/brand/cyril-ai-logo-light.webp",
+      "icon_png": "public/brand/cyril-ai-icon-light.webp"
+    }
+  },
+  "palette": {
+    "dark_surface": "#11181c",
+    "light_surface": "#ffffff",
+    "accent": "#46d5f1",
+    "light_mark": "#f3f5f6",
+    "dark_mark": "#11181c"
+  },
+  "sources": {
+    "dark": "C:/Users/Admin/.codex/generated_images/01a10fe3-f8cc-78c0-890f-ffce600f6266/exec-6bb5ede3-3aa1-4ed3-a3ed-5136e7e6f241.png",
+    "light": "C:/Users/Admin/.codex/generated_images/01a10fe3-f8cc-78c0-890f-ffce600f6266/exec-de20dfa3-cb88-49b5-aed2-6bb3958bcb1b.png"
+  },
+  "prompts": {
+    "dark": "Use case: logo-brand.\nAsset type: a completely NEW original Cyril AI studio symbol, transparent logo asset.\nPrimary request: a fresh abstract C-inspired symbol in a radically different visual language from an angular block C. Do NOT design a typographic C with decorations. Build a symbol from fluid curved geometry and meaningful negative space.\nSubject: Three broad smoothly curved ribbon forms interweave into one compact asymmetric flow. Together their outside silhouette suggests an open C, while their internal negative space has a distinctive soft triangular aperture. The top curve curls inward, the left curve wraps around it, and a small cyan lower curve sweeps outward into the open side. Create an elegant crafted relationship between the three forms with a consistent generous separation, no accidental overlaps or pinched gaps. A recognizable emblem for an independent software and automation studio, expressive, premium, slightly mysterious and calm. More like a memorable sculptural signature than a letter cut out of a square. All terminals are rounded, not spiky. Carefully balanced weight and rhythm.\nColor palette: two flat solid colors only, off-white #f3f5f6 and cyan #46d5f1. Use cyan for one smaller curved form, not a shadow or edge glow. Fits a dark charcoal editorial website with a real portrait and oversized typography.\nComposition: ONE centered mark only, square canvas with equal modest clear-space margins, robust silhouette readable at 40px and 24px. No wordmark or letter labels.\nStyle: expertly drawn vector-like brand mark, smooth exact curves, flat surfaces and crisp finished outlines. Genuinely transparent background and internal negative space.\nAvoid: block-letter C, straight chamfered architectural C, square ribbon C, nested double Cs, CJ or any other initials, four-quadrant copied motif, plain circular C ring, jagged/glitch slices, neon echoes, blades, shield, stock spiral, atom or orbit lines, circuit diagrams, robot, skull, gaming emblem, textures, gradients, bevels, 3D, lighting, shadow, glow, background panel, watermark, detached debris, mockup, multiple variants or extra text.",
+    "light": "Use case: precise-object-edit / logo-brand.\nAsset type: LIGHT-BACKGROUND colorway of the already approved Cyril AI logo.\nInput image 1 is the EDIT TARGET and strict identity anchor. This is NOT a new logo design.\nChange ONLY the color of the two pale off-white curved forms to solid deep charcoal #11181c so they read on a white background. Keep the cyan curved form #46d5f1 unchanged.\nPreserve EXACTLY the approved three-part curved C-inspired silhouette, each contour, component placement, relative size, rounded terminals, negative-space gaps, center aperture, orientation, overall scale, equal canvas padding, and transparent alpha. No resculpting, straightening, added letters, new cuts or changed geometry. Exact same symbol, color replacement only.\nStandalone logo on genuinely transparent background, including all negative spaces. No new shadow, glow, gradient, bevel, material, texture, background rectangle, text, wordmark, vignette, speckles, extra objects or mockup. Clean finished colorway ready for the same brand on a light surface."
+  },
+  "usage": {
+    "current_site": "The website stays dark. BrandMark defaults to the dark-background logo.",
+    "future_light_theme": "Use BrandMark theme=\"light\" on light surfaces. A website theme switch has not been implemented.",
+    "favicons": "Matching transparent 256px PNG icons selected with prefers-color-scheme light/dark metadata."
+  },
+  "notes": "Only the approved mark and its colorways are included. The old portfolio logo and rejected drafts were removed from the project. Image generation created the mark and light colorway; codec conversion and resizing preserve alpha. Not pushed or deployed."
+}
