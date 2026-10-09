@@ -1,10 +1,10 @@
-// Embedding policy checked against the actual responses on October 8, 2026.
-// Missing URLs represent apps that cannot be embedded. Their fallback is an
+// Live previews use embeddable public pages. Missing URLs represent apps that
+// cannot be embedded or have no public preview. Their fallback is an
 // actual captured interface, never a generated mockup or invented recording.
 export type ProjectPreview = { url?: string; label: string };
 export const projectPreviews: Record<number, ProjectPreview> = {
   21: { url: "https://www.beautifulblessedesthetics.com/", label: "beautifulblessedesthetics.com" },
-  1: { label: "Cynergy" },
+  1: { url: "https://cynergy.cloud/", label: "cynergy.cloud" },
   8: { url: "https://www.rivertaxes.com/", label: "rivertaxes.com" },
   3: { label: "SPOS local dashboard" },
   4: { url: "/", label: "Cyril AI portfolio" },
