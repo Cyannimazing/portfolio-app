@@ -19,8 +19,8 @@
 .desktop .links > a:nth-child(4) { --studio-link-delay: .545s; }
 .desktop .links > a:nth-child(5) { --studio-link-delay: .6s; }
 .desktop .sidebarBottom { animation: var(--studio-text-reveal-name) .6s var(--studio-ease) .68s backwards; }
-.wordmark img, .mobileLogo img { transition: transform .3s; }
-.wordmark:hover img, .mobileLogo:hover img { transform: rotate(-10deg) scale(1.06); }
+.wordmark [data-brand-mark], .mobileLogo [data-brand-mark] { transition: transform .3s; }
+.wordmark:hover [data-brand-mark], .mobileLogo:hover [data-brand-mark] { transform: rotate(-10deg) scale(1.06); }
 @keyframes revealSidebar { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
 .profile { display: flex; flex-direction: column; align-items: center; width: 100%; text-align: center; }
 .portraitWrap { position: relative; width: 148px; height: 169px; margin-bottom: 15px; }
@@ -53,14 +53,14 @@
 .mobileBrand > span:last-child > span { display: block; margin-top: 2px; color: #a9bac5; font-size: 9px; font-weight: 400; }
 @media (max-width: 1279px) { .sidebar, .desktop { width: 220px; } .desktop { padding: 35px 20px 23px; } }
 @media (max-width: 1099px) { .sidebar, .desktop { width: 210px; } .desktop { padding-inline: 17px; } .profileName { font-size: 13px; } }
-@media (min-width: 1024px) and (max-height: 760px) { .desktop { padding-top: 20px; padding-bottom: 17px; } .wordmark { margin-bottom: 12px; min-height: 32px; font-size: 17px; } .wordmark img { width: 30px; height: 30px; } .portraitWrap, .portrait { width: 112px; height: 128px; } .portraitWrap { margin-bottom: 8px; } .divider { margin-block: 19px 12px; } .sidebarBottom { padding-top: 20px; } }
+@media (min-width: 1024px) and (max-height: 760px) { .desktop { padding-top: 20px; padding-bottom: 17px; } .wordmark { margin-bottom: 12px; min-height: 32px; font-size: 17px; } .wordmark [data-brand-mark] { width: 30px; height: 30px; } .portraitWrap, .portrait { width: 112px; height: 128px; } .portraitWrap { margin-bottom: 8px; } .divider { margin-block: 19px 12px; } .sidebarBottom { padding-top: 20px; } }
 @media (min-width: 1024px) and (max-height: 650px) { .portraitWrap, .portrait { width: 85px; height: 95px; } .desktop { padding-top: 17px; overflow: hidden; } .handle { display: none; } .socials { margin-top: 11px; } .divider { margin-block: 13px 9px; } .navLink { min-height: 38px; padding-block: 8px; } .links { gap: 3px; } .sidebarBottom { gap: 2px; padding-top: 10px; } .sidebarBottom > span { display: none; } }
-@media (min-width: 1024px) and (max-height: 450px) { .wordmark { justify-content: flex-start; min-height: 26px; margin-bottom: 8px; font-size: 15px; } .wordmark img { width: 26px; height: 26px; } .profile { position: relative; align-items: flex-start; min-height: 45px; padding-left: 49px; text-align: left; } .portraitWrap { position: absolute; left: 0; top: 0; display: block; width: 40px; height: 40px; margin: 0; } .portrait { width: 40px; height: 40px; border-radius: 5px; mask-image: none; } .profileName { font-size: 11px; } .socials, .sidebarBottom > p { display: none; } .role { margin-top: 3px; font-size: 8px; } .navLink { min-height: 36px; } }
+@media (min-width: 1024px) and (max-height: 450px) { .wordmark { justify-content: flex-start; min-height: 26px; margin-bottom: 8px; font-size: 15px; } .wordmark [data-brand-mark] { width: 26px; height: 26px; } .profile { position: relative; align-items: flex-start; min-height: 45px; padding-left: 49px; text-align: left; } .portraitWrap { position: absolute; left: 0; top: 0; display: block; width: 40px; height: 40px; margin: 0; } .portrait { width: 40px; height: 40px; border-radius: 5px; mask-image: none; } .profileName { font-size: 11px; } .socials, .sidebarBottom > p { display: none; } .role { margin-top: 3px; font-size: 8px; } .navLink { min-height: 36px; } }
 @media (max-width: 1023px) {
   .sidebar { inset: 0 0 auto; width: 100%; padding: 14px 20px; border-bottom: 1px solid rgb(190 208 218 / .09); background: rgb(17 24 28 / .95); backdrop-filter: blur(18px); }
   .desktop { display: none; }
 }
-@media (max-width: 374px) { .sidebar { padding-inline: 14px; } .mobileIdentity { gap: 7px; } .mobileBrand { gap: 7px; } .mobileBrand > span:last-child { font-size: 11px; } .mobilePortrait { width: 32px; height: 32px; } .mobileLogo { width: 27px; } .mobileLogo img { width: 27px; height: 27px; } }
+@media (max-width: 374px) { .sidebar { padding-inline: 14px; } .mobileIdentity { gap: 7px; } .mobileBrand { gap: 7px; } .mobileBrand > span:last-child { font-size: 11px; } .mobilePortrait { width: 32px; height: 32px; } .mobileLogo { width: 27px; } .mobileLogo [data-brand-mark] { width: 27px; height: 27px; } }
 @media (max-width: 1023px) and (max-height: 500px) { .sidebar { padding-block: 7px; } .mobilePortrait { width: 32px; height: 32px; } }
 @media (prefers-reduced-motion: reduce) { .sidebar * { animation: none !important; transition: none !important; } }
 

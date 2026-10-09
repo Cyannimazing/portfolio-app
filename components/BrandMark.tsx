@@ -1,4 +1,4 @@
-import Image from "next/image";
+import type { CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 
 export type BrandMarkProps = {
@@ -7,7 +7,7 @@ export type BrandMarkProps = {
   className?: string;
 };
 
-// Decorative beside the Cyril AI wordmark or inside an already named brand link.
+// A decorative background beside the wordmark or inside an already named link.
 // The caller selects the surface theme; browser preference does not switch the site.
 export default function BrandMark({
   theme = "dark",
@@ -15,14 +15,11 @@ export default function BrandMark({
   className,
 }: BrandMarkProps) {
   return (
-    <Image
-      src={theme === "light" ? "/brand/cyril-ai-logo-light.webp" : "/brand/cyril-ai-logo-dark.webp"}
-      width={size}
-      height={size}
-      sizes={`${size}px`}
-      alt=""
+    <span
       aria-hidden="true"
-      className={cn("shrink-0 object-contain", className)}
+      data-brand-mark
+      style={{ "--brand-mark-size": `${size}px`, backgroundImage: `url("/brand/cyril-ai-logo-${theme}.webp")` } as CSSProperties}
+      className={cn("inline-block size-[var(--brand-mark-size)] shrink-0 bg-contain bg-center bg-no-repeat", className)}
     />
   );
 }

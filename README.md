@@ -2,6 +2,16 @@
 
 Next.js 16 / React 19 portfolio for Cyril Jian Narvasa, using Aceternity UI and shared service/project data.
 
+## Accessibility and HTTP security audits
+
+Icon links include screen-reader-only text as well as their accessible names. The logo beside the named wordmark is a decorative CSS background; portraits and project screenshots retain descriptive image alternatives. This follows [W3C decorative image guidance](https://www.w3.org/WAI/tutorials/images/decorative/) without adding redundant logo announcements.
+
+`next.config.ts` sets CSP, MIME-sniffing protection, same-origin framing, referrer and permissions policies, and opener isolation, and disables `X-Powered-By`. The CSP permits only the configured live-preview origins (and their www/apex redirects), same-origin assets, and the Formspree enquiry endpoint. Same-origin framing preserves the portfolio's own embedded preview. HTTPS/HSTS is managed by the production host.
+
+The CSP follows [Next.js's static-compatible, non-nonce configuration](https://nextjs.org/docs/app/guides/content-security-policy#without-nonces): inline framework hydration and styles are permitted, but eval is allowed only in development. This is a baseline policy, not a strict nonce/hash CSP. Do not add a fixed nonce; a per-request nonce would require dynamic rendering and a separate caching review.
+
+Header presence alone is not a pass/fail security assessment. `X-Powered-By` should stay absent; `Expect-CT` is obsolete; `Clear-Site-Data` belongs on explicit data-clearing/logout responses. Reporting headers require an actual reporting service. COEP/CORP are intentionally omitted because blanket isolation can prevent external project previews from loading. The host may retain a generic `Server: Vercel` header. See [OWASP's header recommendations](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html).
+
 ## Development
 
 Run `npm ci`, then `npm run dev`. Run `npm run build` for the production build. Public profile Markdown and permanent project UUIDs must be preserved; do not regenerate them during maintenance.
