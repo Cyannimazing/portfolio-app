@@ -39,7 +39,7 @@ function Principles() {
   }));
   return <><div className={styles.mobilePrinciples} data-mobile-principles>
     {values.map((value, index) => <section key={value.title} className={styles.principleItem} data-expanded={selected === index}>
-      <h3><button type="button" className={styles.principleTrigger} id={`${id}-trigger-${index}`} aria-expanded={selected === index} aria-controls={`${id}-answer-${index}`} onClick={() => setSelected(index)}>
+      <h3><button type="button" className={styles.principleTrigger} id={`${id}-trigger-${index}`} aria-expanded={selected === index} aria-controls={`${id}-answer-${index}`} onClick={() => setSelected(current => current === index ? -1 : index)}>
         <span className={styles.principleStep} aria-hidden="true">0{index + 1}</span>
         <span>{value.title}</span><IconPlus size={17} aria-hidden="true" />
       </button></h3>
