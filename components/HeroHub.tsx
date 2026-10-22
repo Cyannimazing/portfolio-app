@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
 import { MotionConfig } from "motion/react";
-import { IconArrowLeft, IconArrowRight, IconArrowUpRight, IconAward, IconCalendarEvent, IconCheck, IconCode, IconDatabase, IconDownload, IconFolder, IconPencil, IconPlugConnected, IconSettings, IconWorld } from "@tabler/icons-react";
+import { IconApi, IconArrowLeft, IconArrowRight, IconArrowUpRight, IconAward, IconBrain, IconCalendarEvent, IconCheck, IconCode, IconDatabase, IconDownload, IconFolder, IconGitBranch, IconPencil, IconSettings, IconSparkles, IconWebhook, IconWorld } from "@tabler/icons-react";
 import { Modal, ModalBody, useModal } from "@/components/ui/animated-modal";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
@@ -30,7 +30,7 @@ const services = [
   { name: "Business Websites", short: "Websites", icon: IconWorld, heading: "Your business, beautifully online.", description: "Responsive websites and storefronts with clear customer journeys, lead capture, and content tools.", features: ["Responsive interfaces", "Contact & booking flows", "Content management"], stack: "Next.js · React · Tailwind CSS" },
   { name: "Content Management Systems", short: "CMS", icon: IconPencil, heading: "Your content. Your control.", description: "Admin tools for managing pages, products, articles, and business information without routine code changes.", features: ["Content editing", "Staff access controls", "Publishing workflows"], stack: "React · Supabase · PostgreSQL" },
   { name: "Booking Systems", short: "Booking", icon: IconCalendarEvent, heading: "From availability to a confirmed booking.", description: "Booking flows for studio spaces and services, including improvements and fixes to Martich Studios' existing reservation system.", features: ["Space & date selection", "Booking agreements", "Deposits & payment flows"], stack: "Next.js · React · Supabase · Stripe" },
-  { name: "Integrations & Automation", short: "Integrations", icon: IconPlugConnected, heading: "Good tools. Better together.", description: "Connect payments, authentication, social platforms, and third-party services to your application.", features: ["Stripe payments", "OAuth & Azure AD", "Social & search APIs"], stack: "REST APIs · OAuth · Stripe · Webhooks" },
+  { name: "Integrations & Automation", short: "AI & automation", icon: IconBrain, heading: "AI assistance. Connected workflows.", description: "Connect your business systems, automate repetitive tasks, and build AI assistance into your application with permissions and human review.", features: ["AI-assisted tools & workflows", "Webhooks & event triggers", "API integrations & connected data"], stack: "REST APIs · Webhooks · OAuth · Next.js · Laravel" },
   { name: "Other Solutions", short: "Other solutions", icon: IconSettings, heading: "More ways to help your product.", description: "Android and connected web work, plus fixes, maintenance, and feature improvements for existing products. This includes CacaoCare's website and mobile fixes, alongside ongoing full-stack improvements across client projects.", features: ["Mobile app improvements", "Bug fixes & maintenance", "Ongoing feature development"], stack: "Java · Android Studio · Laravel · Next.js" },
 ];
 const specialties = ["business websites", "SaaS & internal tools", "mobile applications"];
@@ -113,9 +113,16 @@ function HubContent() {
 
           <BentoGridItem reveal className={`${styles.tile} ${styles.integrationTile}`} header={<div className={styles.tileContent}>
             <Glow enabled={motionEnabled} />
-            <Heading icon={<IconPlugConnected size={18} aria-hidden="true" />} onClick={() => showPanel(4)}>Connected tools</Heading>
-            <p className={styles.tileDescription}>APIs that bring your tools together.</p>
-            <button type="button" className={styles.integrationVisual} onClick={() => showPanel(4)} aria-label="Explore API integrations and automation"><span className={styles.integrationHub}><IconPlugConnected size={25} stroke={1.5} aria-hidden="true" /></span><span className={`${styles.integrationPill} ${styles.stripe}`}>Stripe<i /></span><span className={`${styles.integrationPill} ${styles.oauth}`}>OAuth<i /></span><span className={`${styles.integrationPill} ${styles.azure}`}>Azure AD<i /></span><span className={`${styles.integrationPill} ${styles.api}`}>REST APIs<i /></span><span className={styles.connections} aria-hidden="true" /></button>
+            <Heading icon={<IconBrain size={18} aria-hidden="true" />} onClick={() => showPanel(4)}>AI & automation</Heading>
+            <p className={styles.tileDescription}>AI workflows, webhooks, and API integrations.</p>
+            <button type="button" className={styles.integrationVisual} onClick={() => showPanel(4)} aria-label="Explore AI tools, webhooks, API integrations, and workflow automation">
+              <span className={styles.integrationHub} aria-hidden="true"><IconBrain size={25} stroke={1.5} /><span>AI</span></span>
+              <span className={`${styles.integrationPill} ${styles.aiTools}`}><IconSparkles size={12} aria-hidden="true" />AI tools<i aria-hidden="true" /></span>
+              <span className={`${styles.integrationPill} ${styles.webhooks}`}><IconWebhook size={12} aria-hidden="true" />Webhooks<i aria-hidden="true" /></span>
+              <span className={`${styles.integrationPill} ${styles.apis}`}><IconApi size={12} aria-hidden="true" />REST APIs<i aria-hidden="true" /></span>
+              <span className={`${styles.integrationPill} ${styles.workflows}`}><IconGitBranch size={12} aria-hidden="true" />Workflows<i aria-hidden="true" /></span>
+              <svg className={styles.connections} viewBox="0 0 320 160" preserveAspectRatio="none" fill="none" aria-hidden="true"><path d="M48 22H104Q120 22 120 38V64Q120 80 136 80H184Q200 80 200 64V38Q200 22 216 22H272M48 138H104Q120 138 120 122V96Q120 80 136 80M184 80Q200 80 200 96V122Q200 138 216 138H272" /></svg>
+            </button>
           </div>} />
         </BentoGrid>
 

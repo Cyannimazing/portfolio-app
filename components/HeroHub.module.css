@@ -48,15 +48,23 @@
 .educationBody strong { display: block; color: #bcf1f9; font-size: 13px; font-weight: 550; }
 .educationBody span > span { display: block; margin-top: 6px; color: #b4cbd8; font-size: 9px; }
 .educationBody small { display: block; margin-top: 4px; color: #94afc1; font-size: 8px; }
-.integrationVisual { display: block; position: relative; flex: 1; min-height: 0; width: 100%; margin-top: 8px; cursor: pointer; }
-.integrationHub { position: absolute; z-index: 2; top: 50%; left: 50%; display: grid; place-items: center; width: 51px; height: 51px; border: 1px solid #6694a4; border-radius: 8px; color: #91dce9; background: linear-gradient(135deg, #3a6172, #243e4d); box-shadow: 0 8px 18px rgb(0 0 0 / .18); transform: translate(-50%, -50%); }
-.integrationPill { position: absolute; z-index: 3; display: inline-flex; align-items: center; gap: 5px; padding: 7px 8px; border: 1px solid #4e6c7a; border-radius: 5px; color: #b9d4e4; background: #2b414f; font-size: 8px; animation: float 5s ease-in-out infinite; }
-.integrationPill > i { width: 3px; height: 3px; background: #8bc3af; border-radius: 50%; }
-.stripe { top: 9px; left: 0; }
-.oauth { top: 9px; right: 0; animation-delay: -1.2s; }
-.azure { bottom: 9px; left: 0; animation-delay: -2.5s; }
-.api { bottom: 9px; right: 0; animation-delay: -3.6s; }
-.connections { position: absolute; z-index: 1; inset: 22px 23px; border: 1px dashed #648da0; border-radius: 45%; }
+.integrationTile { container: ai-capabilities / inline-size; }
+.integrationVisual { display: block; position: relative; flex: 1; min-height: 44px; width: 100%; margin-top: 8px; cursor: pointer; }
+.integrationHub { position: absolute; z-index: 2; top: 50%; left: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; width: 56px; height: 56px; border: 1px solid #6694a4; border-radius: var(--studio-control-radius); color: var(--studio-accent); background: linear-gradient(135deg, #3a6172, #243e4d); box-shadow: 0 8px 18px rgb(0 0 0 / .18); transform: translate(-50%, -50%); transition: border-color .25s, box-shadow .25s; }
+.integrationHub > span { font-family: var(--font-geist-mono), monospace; font-size: 8px; letter-spacing: .12em; }
+.integrationPill { position: absolute; z-index: 3; display: inline-flex; align-items: center; justify-content: center; gap: 5px; max-width: calc(50% - 3px); padding: 7px 8px; border: 1px solid #4e6c7a; border-radius: var(--studio-tag-radius); color: var(--studio-muted); background: #2b414f; font-size: 8px; white-space: nowrap; animation: float 5s ease-in-out infinite; }
+.integrationPill > svg { flex-shrink: 0; color: var(--studio-accent); }
+.integrationPill > i { flex-shrink: 0; width: 3px; height: 3px; background: #8bc3af; border-radius: 50%; }
+.aiTools { top: 9px; left: 0; }
+.webhooks { top: 9px; right: 0; animation-delay: -1.2s; }
+.apis { bottom: 9px; left: 0; animation-delay: -2.5s; }
+.workflows { bottom: 9px; right: 0; animation-delay: -3.6s; }
+.connections { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; color: #648da0; pointer-events: none; }
+.connections > path { stroke: currentColor; stroke-width: 1; stroke-dasharray: 3 4; vector-effect: non-scaling-stroke; }
+@container ai-capabilities (max-width: 190px) {
+  .integrationPill > svg { display: none; }
+  .integrationPill { gap: 3px; }
+}
 .footer { display: flex; align-items: center; justify-content: flex-end; gap: 12px; flex-shrink: 0; min-height: 38px; margin-top: 12px; }
 .footerActions { display: flex; align-items: center; gap: 17px; }
 .footerActions > a, .footerActions > button { display: flex; align-items: center; gap: 5px; min-height: 36px; color: #abc4d3; font-size: 9px; cursor: pointer; }
@@ -116,7 +124,7 @@
 }
 
 @media (max-width: 1279px) { .content { padding-left: 248px; padding-right: 28px; } .header h1 { font-size: 42px; } .tile { padding: 16px; } .tileHeading { font-size: 10px; } .serviceGrid > button { padding: 10px; gap: 7px; font-size: 9px; } .serviceIcon { width: 25px; height: 25px; } .integrationPill { padding: 6px; font-size: 7px; } }
-@media (max-width: 1099px) { .content { padding-left: 236px; padding-right: 26px; } .header h1 { font-size: 38px; } .headingBreak { display: block; } .intro { font-size: 11px; } .introEnd { display: none; } .hubGrid { gap: 12px; } .tile { padding: 13px; border-radius: 8px; } .tileDescription { font-size: 10px; } .serviceGrid { gap: 6px; } .serviceGrid > button { padding: 8px; gap: 6px; } .serviceFull { display: none; } .serviceShort { display: inline; } .serviceGrid > button > svg { display: none; } .tileHeading > button, .tileHeading > span { gap: 6px; } .tileIcon { width: 25px; height: 25px; } .tileIcon svg { width: 16px; height: 16px; } .footerActions { gap: 11px; } .integrationHub { width: 39px; height: 39px; } .integrationPill { padding: 5px; font-size: 6px; } .connections { inset-inline: 8px; } }
+@media (max-width: 1099px) { .content { padding-left: 236px; padding-right: 26px; } .header h1 { font-size: 38px; } .headingBreak { display: block; } .intro { font-size: 11px; } .introEnd { display: none; } .hubGrid { gap: 12px; } .tile { padding: 13px; border-radius: 8px; } .tileDescription { font-size: 10px; } .serviceGrid { gap: 6px; } .serviceGrid > button { padding: 8px; gap: 6px; } .serviceFull { display: none; } .serviceShort { display: inline; } .serviceGrid > button > svg { display: none; } .tileHeading > button, .tileHeading > span { gap: 6px; } .tileIcon { width: 25px; height: 25px; } .tileIcon svg { width: 16px; height: 16px; } .footerActions { gap: 11px; } .integrationHub { width: 39px; height: 39px; } .integrationPill { padding: 5px; font-size: 6px; } }
 @media (max-width: 1023px) {
   .modalContent { padding: 25px 20px; }
   .modalContent h2 { font-size: 24px; }
@@ -311,7 +319,7 @@
 .tileHeading > button:hover > .tileIcon { transform: rotate(-7deg) scale(1.08); }
 .educationBody:hover .medallion { transform: rotate(-7deg) scale(1.06); }
 .medallion { transition: transform .3s; }
-.integrationVisual:hover .integrationHub { box-shadow: 0 0 28px rgb(70 213 241 / .2); }
+.integrationVisual:is(:hover, :focus-visible) .integrationHub { border-color: var(--studio-accent); box-shadow: 0 0 28px rgb(70 213 241 / .2); }
 .libraryGrid > button, .serviceProof > button { transition: transform .2s, border-color .2s, background .2s; }
 .libraryGrid > button:hover, .serviceProof > button:hover { transform: translateY(-2px); border-color: #7ed9e9; }
 .libraryGrid > button:active, .serviceProof > button:active { transform: translateY(1px); }
@@ -442,9 +450,8 @@
   .integrationVisual { min-height: 135px; margin-top: 12px; }
   .integrationHub { width: 38px; height: 38px; }
   .integrationPill { display: inline-flex; padding: 4px; font-size: 7px; }
-  .stripe, .oauth { top: 5px; }
-  .azure, .api { bottom: 5px; }
-  .connections { inset: 15px 6px; }
+  .aiTools, .webhooks { top: 5px; }
+  .apis, .workflows { bottom: 5px; }
   .footer { margin-top: 20px; min-height: 44px; }
   .footerActions { justify-content: flex-end; flex-wrap: wrap; gap: 8px 16px; }
   .footerActions > a, .footerActions > button { min-height: 44px; font-size: 11px; }

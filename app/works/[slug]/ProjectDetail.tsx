@@ -5,6 +5,7 @@ import Image from "next/image";
 import ProjectPlaceholder from "@/components/ProjectPlaceholder";
 import Link from "next/link";
 import type { Project } from "@/lib/projects";
+import caseStudyStyles from "@/components/ProjectCaseStudy.module.css";
 
 type LightboxState = { images: { src: string; alt: string }[]; index: number } | null;
 
@@ -25,28 +26,15 @@ export default function ProjectDetail({ project }: { project: Project }) {
         )}
       </AnimatePresence>
 
-      <main className="relative bg-[#080808] min-h-screen">
+      <main className={`${caseStudyStyles.page} relative bg-[#080808] min-h-screen`}>
         <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.025)_1px,transparent_1px)] bg-size-[36px_36px] pointer-events-none" />
-
-        {/* Breadcrumb row - matches works page */}
-        <div className="relative z-10 px-8 md:px-14 pt-24 pb-6">
-          <Link
-            href="/works"
-            className="flex items-center gap-2 text-xs text-neutral-600 font-semibold uppercase tracking-[0.3em] hover:text-white transition-colors w-fit"
-          >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Works
-          </Link>
-        </div>
 
         {/* Content */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 pb-24"
+          className="relative z-10"
         >
           {/* Hero - full bleed with title overlaid */}
           <div
@@ -64,6 +52,16 @@ export default function ProjectDetail({ project }: { project: Project }) {
             <div className="absolute inset-0 bg-black/30" />
             <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/30 to-transparent" />
 
+            <Link
+              href="/works"
+              onClick={(event) => event.stopPropagation()}
+              className={`${caseStudyStyles.back} absolute top-4 left-4 z-20 min-h-[44px] border border-white/15 bg-[#10191e]/90 px-3 text-[#f1f7fa] backdrop-blur-sm`}
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back to projects
+            </Link>
 
             {/* overlaid title block */}
             <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
