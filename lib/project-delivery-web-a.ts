@@ -20,7 +20,7 @@ export const projectDeliveryWebA: Record<string, ProjectDelivery> = {
   },
   "profile-6": {
     role: "Full Stack Developer",
-    summary: "We worked on Martich Studios' existing website in a two-person team. We helped repair the booking system, improved content and admin tools, and fixed page and function issues. This supported clients booking studio services and the team maintaining the website.",
+    summary: "We worked on Martich Studios' existing website. We helped repair the booking system, improved content and admin tools, and fixed page and function issues. This supported clients booking studio services and the team maintaining the website.",
     responsibilities: [
       { title: "Repair the booking process", description: "We helped fix the existing booking system. The work supported the steps that connect a studio package and time with customer details, agreements, and payment." },
       { title: "Help the studio manage content", description: "We worked on the website's content editing and admin tools. These help the studio team maintain the service information and offers that clients see when planning a booking." },
@@ -54,7 +54,7 @@ export const projectDeliveryWebA: Record<string, ProjectDelivery> = {
   },
   "profile-8": {
     role: "Full Stack Developer",
-    summary: "We worked on River Taxes in a two-person team. We added AI help for bookkeeping, designed admin pages, worked on content tools, and fixed application problems. The AI work used client-specific tools, recorded changes, and asked for human decisions when review was needed.",
+    summary: "We worked on River Taxes. We added AI help for bookkeeping, designed admin pages, worked on content tools, and fixed application problems. The AI work used client-specific tools, recorded changes, and asked for human decisions when review was needed.",
     responsibilities: [
       { title: "Add AI help for bookkeeping", description: "We worked on AI support for routine bookkeeping tasks. It uses the selected client's records, checks staff permissions, and keeps changes and review decisions recorded." },
       { title: "Design useful admin pages", description: "We designed admin pages around the staff's work with clients and business information. The pages connect the tools staff see with the application functions behind those tasks." },
@@ -72,7 +72,7 @@ export const projectDeliveryWebA: Record<string, ProjectDelivery> = {
   },
   "profile-9": {
     role: "Full Stack Developer",
-    summary: "We built Lowrie Roofing's lead, project, article, admin, and content editing features in a two-person team. This connected the public website with the tools behind it. The business can publish completed work, maintain useful information, and handle customer enquiries.",
+    summary: "We built Lowrie Roofing's lead, project, article, admin, and content editing features. This connected the public website with the tools behind it. The business can publish completed work, maintain useful information, and handle customer enquiries.",
     responsibilities: [
       { title: "Manage customer enquiries", description: "We built lead features that connect customer requests with admin tools. These give the business a place to review enquiries and support the team's follow-up work." },
       { title: "Publish completed projects", description: "We built project features for showing completed work and maintaining the details behind each page. These connect the public project gallery with the website's editing tools." },
@@ -90,7 +90,7 @@ export const projectDeliveryWebA: Record<string, ProjectDelivery> = {
   },
   "profile-10": {
     role: "Full Stack Developer",
-    summary: "We improved Masterbuilt Roofing's content tools, admin pages, design, and instant-estimate experience in a two-person team. The business can update website content and estimate prices. Adjustable rates and multipliers let the team change pricing inputs without editing code for every update.",
+    summary: "We improved Masterbuilt Roofing's content tools, admin pages, design, and instant-estimate experience. The business can update website content and estimate prices. Adjustable rates and multipliers let the team change pricing inputs without editing code for every update.",
     responsibilities: [
       { title: "Improve instant estimates and pricing controls", description: "We worked on the estimate experience and its admin pricing tools. The business can adjust rates and multipliers when pricing needs change, with those saved values used by the estimator." },
       { title: "Make website content editable", description: "We worked on content editing features for the roofing website. These connect staff editing tasks with the service and project information presented to homeowners." },

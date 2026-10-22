@@ -149,7 +149,7 @@ export const projectDeliveryBusiness: Record<string, ProjectDelivery> = {
   },
   "profile-19": {
     role: "Website Developer & Mobile Contributor",
-    summary: "We worked on CacaoCare in a two-person thesis team. Our main responsibility was the farm-management website, alongside bug fixes in the Android application. The wider project combines web tools for farm information with mobile cacao disease checks. Our contribution focused on the website and existing mobile experience.",
+    summary: "We worked on CacaoCare as a thesis project. Our main responsibility was the farm-management website, alongside bug fixes in the Android application. The wider project combines web tools for farm information with mobile cacao disease checks. Our contribution focused on the website and existing mobile experience.",
     responsibilities: [
       {
         title: "Farm-management website",
@@ -157,11 +157,11 @@ export const projectDeliveryBusiness: Record<string, ProjectDelivery> = {
       },
       {
         title: "Mobile application fixes",
-        description: "We fixed bugs in the existing Android application. This was our mobile contribution to the two-person project, alongside our main responsibility for the website.",
+        description: "We fixed bugs in the existing Android application alongside our main work on the farm-management website.",
       },
       {
-        title: "Work within the thesis team",
-        description: "We contributed website development and mobile fixes within the two-person team. Our work supported farm-management tasks on the web and the existing mobile experience in the field.",
+        title: "Web development and mobile fixes",
+        description: "We contributed website development and mobile fixes. Our work supported farm-management tasks on the web and the existing mobile experience in the field.",
       },
     ],
     capabilities: [
@@ -221,7 +221,7 @@ export const projectDeliveryBusiness: Record<string, ProjectDelivery> = {
   },
   "legacy-faithseeker": {
     role: "Full Stack Developer",
-    summary: "We designed and built FaithSeeker as a solo capstone project. It brings church administration, online service bookings and certificate preparation into one platform. Each subscribed church manages its own settings and member records. Bookings and document outputs use the information held by that church.",
+    summary: "We designed and built FaithSeeker as a capstone project. It brings church administration, online service bookings and certificate preparation into one platform. Each subscribed church manages its own settings and member records. Bookings and document outputs use the information held by that church.",
     responsibilities: [
       {
         title: "Independent church administration",
@@ -253,7 +253,7 @@ export const projectDeliveryBusiness: Record<string, ProjectDelivery> = {
   },
   "legacy-aidpoint": {
     role: "Backend Developer",
-    summary: "We developed AidPoint's backend within a four-person team. It supports five role-based portals used to manage financial aid. Our work covers access, application status, approval steps and fund records. Audit logs help staff follow the decisions and fund movements linked to an aid application.",
+    summary: "We developed AidPoint's backend. It supports five role-based portals used to manage financial aid. Our work covers access, application status, approval steps and fund records. Audit logs help staff follow the decisions and fund movements linked to an aid application.",
     responsibilities: [
       {
         title: "Backend for five user roles",
@@ -289,7 +289,7 @@ export const projectDeliveryBusiness: Record<string, ProjectDelivery> = {
   },
   "legacy-fa-babila-architects": {
     role: "Full Stack Developer",
-    summary: "We are building the practice's portfolio website and content management system as a solo full-stack project. The work brings projects, services, journal content and enquiries into one site. We are also building publishing tools and SEO settings so the practice can manage its public information.",
+    summary: "We are building the practice's portfolio website and content management system. The work brings projects, services, journal content and enquiries into one site. We are also building publishing tools and SEO settings so the practice can manage its public information.",
     responsibilities: [
       {
         title: "Architecture portfolio website",

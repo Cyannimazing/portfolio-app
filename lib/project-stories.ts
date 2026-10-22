@@ -198,7 +198,7 @@ export const projectStories: Record<number, ProductStory> = {
   },
   19: {
     summary: "A mobile app for cacao disease checks and a website for managing farm records.",
-    overview: "CacaoCare connects a cacao disease-detection mobile application with a web platform for farm management. Farmers use the mobile and web experiences as parts of the same project, with website functionality for farm records and management workflows. The product was developed as a two-person thesis project.",
+    overview: "CacaoCare connects a cacao disease-detection mobile application with a web platform for farm management. Farmers use the mobile and web experiences as parts of the same project, with website functionality for farm records and management workflows. We developed the website and fixed bugs in the Android app as part of the thesis project.",
     audience: "Cacao farmers and farm administrators",
     liveUrl: "https://cacao-care.nuxt.dev/",
     features: [

@@ -6,7 +6,7 @@ export const profileProjects = [
     "name": "Cynergy",
     "contribution": {
       "role": "Full Stack Developer",
-      "scope": "Built all modules and functions."
+      "scope": "We built all modules and functions."
     },
     "services": [
       "business-software",
@@ -34,7 +34,7 @@ export const profileProjects = [
     "name": "River Taxes",
     "contribution": {
       "role": "Full Stack Developer",
-      "scope": "Added functionality and fixed bugs in a two-person team, with work on an AI employee for automation, admin UI design, and CMS."
+      "scope": "We added functionality and fixed bugs, with work on an AI employee for automation, admin UI design, and CMS."
     },
     "services": [
       "business-software",
@@ -43,7 +43,7 @@ export const profileProjects = [
       "automation",
       "support"
     ],
-    "description": "Contributed to a tax and bookkeeping platform in a two-person team, adding functionality, fixing bugs, designing admin interfaces, working on CMS features, and developing AI employee automation. The codebase includes Stripe, Plaid, and Twilio integrations.",
+    "description": "We contributed to a tax and bookkeeping platform by adding functionality, fixing bugs, designing admin interfaces, working on CMS features, and developing AI employee automation. The codebase includes Stripe, Plaid, and Twilio integrations.",
     "technologies": [
       "Next.js",
       "React",
@@ -63,7 +63,7 @@ export const profileProjects = [
     "name": "SPOS",
     "contribution": {
       "role": "Full Stack Developer",
-      "scope": "Built the entire application and all its functions."
+      "scope": "We built the entire application and all its functions."
     },
     "services": [
       "business-software"
@@ -88,7 +88,7 @@ export const profileProjects = [
     "name": "Viviour",
     "contribution": {
       "role": "Full Stack Developer",
-      "scope": "Enhanced an existing design, fixed bugs, integrated conversion features and payments, and checked that the site worked throughout."
+      "scope": "We improved an existing design, fixed bugs, integrated conversion features and payments, and checked that the site worked throughout."
     },
     "services": [
       "websites",
@@ -114,7 +114,7 @@ export const profileProjects = [
     "name": "Martich Studios",
     "contribution": {
       "role": "Full Stack Developer",
-      "scope": "Helped fix the studio booking system, worked on CMS and admin features, and resolved UI and functional bugs in an existing site as part of a two-person team."
+      "scope": "We helped fix the studio booking system, worked on CMS and admin features, and resolved UI and functional bugs in an existing site."
     },
     "services": [
       "websites",
@@ -122,7 +122,7 @@ export const profileProjects = [
       "booking",
       "support"
     ],
-    "description": "Contributed to an existing studio services website in a two-person team, helping fix its booking system and working on CMS, admin functionality, UI fixes, and functional bugs. The platform includes studio booking, packages, memberships, events, and portfolio pages.",
+    "description": "We contributed to an existing studio services website by helping fix its booking system and working on CMS, admin functionality, UI fixes, and functional bugs. The platform includes studio booking, packages, memberships, events, and portfolio pages.",
     "technologies": [
       "Next.js",
       "React",
@@ -140,7 +140,7 @@ export const profileProjects = [
     "name": "Ferma Coffee Co",
     "contribution": {
       "role": "Full Stack Developer",
-      "scope": "Added admin and shop functionality, CMS work, Stripe payments and promotions, UI enhancements, and bug fixes."
+      "scope": "We added admin and shop functionality, CMS work, Stripe payments and promotions, UI enhancements, and bug fixes."
     },
     "services": [
       "websites",
@@ -166,7 +166,7 @@ export const profileProjects = [
     "name": "Lowrie Roofing",
     "contribution": {
       "role": "Full Stack Developer",
-      "scope": "Built the leads, projects, articles, admin, and CMS features in a two-person setup. Izee handled final touches and additional script injection."
+      "scope": "We built the leads, projects, articles, admin, and CMS features."
     },
     "services": [
       "websites",
@@ -190,7 +190,7 @@ export const profileProjects = [
     "name": "Masterbuilt Roofing",
     "contribution": {
       "role": "Full Stack Developer",
-      "scope": "Worked on CMS, admin features and UI design in a two-person setup, with Izee handling final cleanups."
+      "scope": "We worked on CMS, admin features and UI design."
     },
     "services": [
       "websites",
@@ -255,14 +255,14 @@ export const profileProjects = [
     "name": "Kevin Travis Homes",
     "contribution": {
       "role": "Full Stack Developer",
-      "scope": "Improved an existing site in a two-person team, focusing on UI design, bug fixes, CMS fixes, and other functionality."
+      "scope": "We improved an existing site, focusing on UI design, bug fixes, CMS fixes, and other functionality."
     },
     "services": [
       "websites",
       "cms",
       "support"
     ],
-    "description": "Improved an existing custom home builder website in a two-person team, focusing on UI design enhancements, bug fixes, CMS fixes, and other functionality. The site presents projects, locations, building process information, resources, and contact pages.",
+    "description": "We improved an existing custom home builder website, focusing on UI design enhancements, bug fixes, CMS fixes, and other functionality. The site presents projects, locations, building process information, resources, and contact pages.",
     "technologies": [
       "Next.js",
       "React",
@@ -278,7 +278,7 @@ export const profileProjects = [
     "name": "Sergio Garcia",
     "contribution": {
       "role": "Designer & Full Stack Developer",
-      "scope": "Designed the complete redesign, including CMS and metadata work. Worked in a two-person team, with a friend handling final cleanup."
+      "scope": "We redesigned the website, including CMS and metadata work."
     },
     "services": [
       "websites",
@@ -318,7 +318,7 @@ export const profileProjects = [
     "name": "WUDR",
     "contribution": {
       "role": "Designer & Full Stack Developer",
-      "scope": "Built the 3D flow, CMS, admin, UI design, and lead features. In the two-person team, a friend handled cleanup and deployment setup."
+      "scope": "We built the 3D flow, CMS, admin, UI design, and lead features."
     },
     "services": [
       "websites",
@@ -340,7 +340,7 @@ export const profileProjects = [
     "name": "Zenergy Solar",
     "contribution": {
       "role": "Full Stack Developer",
-      "scope": "Added instant estimates, editable pricing, CMS tools and AI-assisted enquiry checks with CAPTCHA. Fixed UI issues and minor bugs and made requested changes within a two-person team. A friend built the original website."
+      "scope": "We added instant estimates, editable pricing, CMS tools and AI-assisted enquiry checks with CAPTCHA. We fixed UI issues and minor bugs and made requested changes to the existing website."
     },
     "services": [
       "business-software",
@@ -348,7 +348,7 @@ export const profileProjects = [
       "cms",
       "automation"
     ],
-    "description": "Improved an existing solar and home-energy website in a two-person team with instant estimates, admin pricing controls, CMS updates and AI-assisted enquiry checks. Also fixed UI issues and bugs and made client-requested changes. A friend built the original site.",
+    "description": "We improved an existing solar and home-energy website with instant estimates, admin pricing controls, CMS updates and AI-assisted enquiry checks. We also fixed UI issues and bugs and made client-requested changes.",
     "technologies": [
       "Next.js",
       "React",
@@ -367,7 +367,7 @@ export const profileProjects = [
     "name": "Obiyen",
     "contribution": {
       "role": "Full Stack Developer Intern",
-      "scope": "Contributed across the frontend and backend of the enterprise platform."
+      "scope": "We contributed across the frontend and backend of the enterprise platform."
     },
     "services": [
       "business-software",
@@ -394,13 +394,13 @@ export const profileProjects = [
     "name": "CacaoCare",
     "contribution": {
       "role": "Website Developer & Mobile Contributor",
-      "scope": "Mainly built the website and fixed bugs in the mobile app, working in a two-person thesis team."
+      "scope": "We mainly built the website and fixed bugs in the mobile app for the thesis project."
     },
     "services": [
       "business-software",
       "mobile-apps"
     ],
-    "description": "Worked mainly on the website and mobile bug fixes for a two-person thesis project combining cacao disease detection with web farm management.",
+    "description": "We worked mainly on the website and mobile bug fixes for a thesis project combining cacao disease detection with web farm management.",
     "technologies": [
       "Nuxt.js",
       "Laravel",
@@ -416,7 +416,7 @@ export const profileProjects = [
     "name": "Faculty Scheduling",
     "contribution": {
       "role": "Full Stack Developer",
-      "scope": "Built all application functions across the full stack."
+      "scope": "We built all application functions across the full stack."
     },
     "services": [
       "business-software",
@@ -438,7 +438,7 @@ export const profileProjects = [
     "name": "Beautiful & Blessed Esthetics",
     "contribution": {
       "role": "Web Developer",
-      "scope": "Updated favicons and Open Graph imagery and metadata for browser identity and shared-link previews."
+      "scope": "We updated favicons and Open Graph imagery and metadata for browser identity and shared-link previews."
     },
     "services": ["websites"],
     "description": "A spa website with treatment pages, Boulevard appointment booking, editable CMS content, and local business search metadata. Confirmed work covers favicons and Open Graph preview imagery and metadata.",

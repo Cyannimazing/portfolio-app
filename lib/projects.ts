@@ -13,7 +13,7 @@ export interface Project {
   services?: string[];
   industry?: string;
   features?: string[];
-  contribution?: { role: string; team?: string; scope?: string };
+  contribution?: { role: string; scope?: string };
   subImages?: { url: string; caption: string }[];
   pdfReports?: { name: string; url: string }[];
   liveLink?: string;
@@ -47,7 +47,7 @@ export const projects: Project[] = [
       "Implemented online service booking and appointment scheduling with church-specific availability, session management, and booking confirmation flows.",
       "Built automated official document generation for baptism and marriage certificates, producing accurate PDF outputs from stored records.",
     ],
-    contribution: { role: "Full Stack Developer", team: "Solo" },
+    contribution: { role: "Full Stack Developer" },
     subImages: [
       { url: "/projects/optimized/sub_owner_image1.webp", caption: "Admin Dashboard showing service and booking overview" },
       { url: "/projects/optimized/sub_owner_image2.webp", caption: "My Churches multi-church management portal" },
@@ -69,7 +69,7 @@ export const projects: Project[] = [
     technologies: ["Laravel API", "MySQL", "React", "Next.js", "Tailwind CSS"],
     fullDescription: "AidPoint is a SaaS platform streamlining financial aid operations for institutions. Features role-based portals for Admin, Director, Caseworker, Finance Officer, and Beneficiary with multi-level approval workflows.",
     challenge: "The financial aid institution needed a clear process for managing applications and releasing funds across five user roles. Staff needed to follow approval decisions, assigned funds and records of how the aid was used. Beneficiaries also needed to see the status of their requests.",
-    solution: "We developed the backend within a four-person team. It supports portals for Admin, Director, Caseworker, Finance Officer and Beneficiary. Staff permissions and several approval steps control the aid process. Fund allocation, usage records and audit logs keep each financial action linked to the relevant case.",
+    solution: "We developed the backend. It supports portals for Admin, Director, Caseworker, Finance Officer and Beneficiary. Staff permissions and several approval steps control the aid process. Fund allocation, usage records and audit logs keep each financial action linked to the relevant case.",
     rationale: "Each role has different responsibilities, so access and approval steps need to reflect those duties. Audit logs let staff follow an application's progress. Keeping fund allocation and usage records together also gives staff one place to review the aid assigned to a case and how it was used.",
     services: ["Custom Business Software"],
     industry: "Business & SaaS",
@@ -78,7 +78,7 @@ export const projects: Project[] = [
       "Engineered allocation and liquidation management with full audit logs ensuring complete traceability across every stage of the disbursement cycle.",
       "Built real-time dashboards and secure authentication enabling each stakeholder role to track aid application status, approvals, and fund movement at a glance.",
     ],
-    contribution: { role: "Backend Stack Developer", team: "4-person team" },
+    contribution: { role: "Backend Stack Developer" },
     subImages: [
       { url: "/projects/optimized/aidpoint_admin_portal.webp", caption: "Admin Portal for system administration" },
       { url: "/projects/optimized/aidpoint_director_portal.webp", caption: "Director Portal for review and approvals" },
@@ -107,7 +107,7 @@ export const projects: Project[] = [
       "Added a contact enquiry flow that lets prospective clients reach the studio directly from the site, turning portfolio visits into qualified leads.",
       "Designed a custom design system with brand color tokens, light and dark theming, and swappable typography pairings to give the practice a distinctive, high-end presence online.",
     ],
-    contribution: { role: "Full Stack Developer", team: "Solo" },
+    contribution: { role: "Full Stack Developer" },
     liveLink: "https://archi-client.vercel.app/",
   },
 ];

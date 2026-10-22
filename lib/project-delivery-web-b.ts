@@ -69,7 +69,7 @@ export const projectDeliveryWebB: Record<string, ProjectDelivery> = {
   "profile-13": {
     role: "Full Stack Developer",
     summary:
-      "We improved an existing custom home builder website as part of a two-person team. The work covered page design, CMS fixes and other bugs. It helped present completed homes, building locations and the construction process more clearly, while keeping the site's existing content tools in use.",
+      "We improved an existing custom home builder website. The work covered page design, CMS fixes and other bugs. It helped present completed homes, building locations and the construction process more clearly, while keeping the site's existing content tools in use.",
     responsibilities: [
       {
         title: "Make the website easier to explore",
@@ -84,7 +84,7 @@ export const projectDeliveryWebB: Record<string, ProjectDelivery> = {
       {
         title: "Fix website functions",
         description:
-          "We addressed bugs and other website functions within the existing site. The changes worked with its established pages and content structure as part of the two-person team.",
+          "We addressed bugs and other website functions within the existing site. The changes worked with its established pages and content structure.",
       },
     ],
     capabilities: [
@@ -296,7 +296,7 @@ export const projectDeliveryWebB: Record<string, ProjectDelivery> = {
       {
         title: "Improve the existing website",
         description:
-          "We fixed page design issues and minor bugs, and made changes requested by the client. The work extended the website that a teammate had originally built.",
+          "We fixed page design issues and minor bugs, and made changes requested by the client. The work extended the existing website.",
       },
       {
         title: "Help staff spot suspicious enquiries",

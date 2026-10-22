@@ -20,7 +20,7 @@ export const projectCaseStudies: Record<number, ProjectCaseStudyContent> = {
   },
   8: {
     challenge: "River Taxes needed AI help with routine bookkeeping, better admin screens and tools for updating website content. The AI needed to use the right client's records and the firm's instructions. Staff also needed a record of its changes and a way to review accounting decisions.",
-    solution: "Working in a two-person team, we added AI assistance and improved admin and content tools in the existing platform. The AI uses bookkeeping tools for a specific client's records. It can follow saved instructions, record changes and ask staff for decisions when reviewing transactions or differences in the accounts.",
+    solution: "We added AI assistance and improved admin and content tools in the existing platform. The AI uses bookkeeping tools for a specific client's records. It can follow saved instructions, record changes and ask staff for decisions when reviewing transactions or differences in the accounts.",
     rationale: "Bookkeeping work needs the right records and a clear explanation of what changed. Keeping the AI's tools tied to a client helps it work with the intended information. Recorded changes and staff review let the team check its work and stay involved in accounting decisions.",
   },
   3: {
@@ -40,7 +40,7 @@ export const projectCaseStudies: Record<number, ProjectCaseStudyContent> = {
   },
   6: {
     challenge: "Martich Studios needed repairs to its existing booking system and improvements to its content and admin tools. The studio needed customers to move through the reservation steps, while staff maintained service information and packages. The work also included problems in the design and website behavior.",
-    solution: "In a two-person team, we helped repair the booking system and improve the CMS and admin features. We also fixed design and functional problems across the existing site. The work covered the reservation steps and the tools staff use to update the studio's public information.",
+    solution: "We helped repair the booking system and improve the CMS and admin features. We also fixed design and functional problems across the existing site. The work covered the reservation steps and the tools staff use to update the studio's public information.",
     rationale: "Booking details, packages, agreements and payment steps need to work together. Staff also need the published service information to match what customers can book. Improving both the booking process and content tools supports these related tasks within the studio's existing website.",
   },
   7: {
@@ -50,7 +50,7 @@ export const projectCaseStudies: Record<number, ProjectCaseStudyContent> = {
   },
   9: {
     challenge: "Lowrie Roofing needed a professional website to show its services and completed projects. The team also needed tools to publish projects and articles, update business information and manage enquiries. Customer messages had to reach the admin tools so the business could review them and follow up.",
-    solution: "We built the lead, project, article, admin and CMS features in a two-person team. Published projects and articles connect to editing tools, while customer enquiries connect to lead management. This gives the business ways to update its website and handle the requests it receives.",
+    solution: "We built the lead, project, article, admin and CMS features. Published projects and articles connect to editing tools, while customer enquiries connect to lead management. This gives the business ways to update its website and handle the requests it receives.",
     rationale: "Completed projects and useful articles help customers learn about the business before getting in touch. The team then needs to keep that information current and respond to enquiries. Connecting publishing and lead management supports both the public website and the work behind it.",
   },
   10: {
@@ -70,7 +70,7 @@ export const projectCaseStudies: Record<number, ProjectCaseStudyContent> = {
   },
   13: {
     challenge: "Kevin Travis Homes needed improvements to its existing website's design, features and CMS. The business needed to present completed homes, explain its building process and show the areas it serves. The team also needed working content tools and a clear way for visitors to ask about a project.",
-    solution: "In a two-person team, we improved the design and fixed website and CMS problems. The work supported the pages used to explore completed homes and plan a building project. We also worked on the tools the business uses to maintain those pages.",
+    solution: "We improved the design and fixed website and CMS problems. The work supported the pages used to explore completed homes and plan a building project. We also worked on the tools the business uses to maintain those pages.",
     rationale: "People planning a home need examples of past work, information about the building process and a way to contact the builder. Improving these pages and their editing tools helps the business maintain a useful website while keeping its existing content and site structure.",
   },
   14: {
@@ -99,8 +99,8 @@ export const projectCaseStudies: Record<number, ProjectCaseStudyContent> = {
     rationale: "Quotes, approvals and connected accounts belong to specific agencies and users. Workspace and access checks help keep actions tied to the right records. Working on both the screens and server features connects what staff do in the interface with the permissions and information behind it.",
   },
   19: {
-    challenge: "The CacaoCare thesis project needed a farm-management website to work alongside its Android disease-checking app. The two-person team also needed fixes in the mobile app. The website work focused on giving farmers and administrators tools for farm records and management.",
-    solution: "In our two-person thesis team, we mainly developed the farm-management website and fixed bugs in the Android app. The website provides tools for organizing farm records and management tasks. The mobile work addressed problems in the existing app.",
+    challenge: "The CacaoCare thesis project needed a farm-management website to work alongside its Android disease-checking app. The work also included fixes in the mobile app. The website work focused on giving farmers and administrators tools for farm records and management.",
+    solution: "We mainly developed the farm-management website and fixed bugs in the Android app. The website provides tools for organizing farm records and management tasks. The mobile work addressed problems in the existing app.",
     rationale: "A mobile app can support disease checks in the field. A website gives farmers and administrators more space to organize farm information. Supporting both parts lets the project cover the immediate check and the ongoing work of managing farm records.",
   },
   20: {
