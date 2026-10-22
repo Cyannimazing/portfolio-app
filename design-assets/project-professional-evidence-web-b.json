@@ -1,0 +1,246 @@
+{
+  "reviewedOn": "2026-10-22",
+  "method": "Read-only inspection of implementation files and saved contribution answers. No environment files, credentials, private records, dependency-only capability claims, production analytics, ranking claims or external writes were used.",
+  "sharedOwnershipEvidence": [
+    "lib/profile-projects.ts",
+    "design-assets/project-questionnaire.md",
+    "design-assets/project-capability-evidence.md"
+  ],
+  "projects": [
+    {
+      "id": 12,
+      "name": "Luxury Leather Restoration",
+      "sourceRoot": "C:/Users/Admin/Desktop/Izee/luxury-leather-restoration",
+      "ownership": "Personal contribution is unconfirmed. These are product implementation facts, not personal authorship claims.",
+      "facts": [
+        {
+          "fact": "The custom Supabase CMS reads and saves page sections by page slug, section key and tenant. The page-content save implementation includes an edit-conflict message for content changed by another editor.",
+          "sources": ["src/lib/supabase/queries.js:104", "src/app/api/admin/page-content/route.js:6", "src/components/admin/AdminProvider.jsx:152", "src/app/page.js:37"]
+        },
+        {
+          "fact": "The storefront has product, customer, order, promotion and Stripe payment administration. Order UI distinguishes payment and fulfillment states; payment administration reads Stripe payment/balance reporting.",
+          "sources": ["src/app/admin/products/ProductsAdmin.jsx", "src/app/admin/customers/CustomersAdmin.jsx", "src/app/admin/orders/OrdersAdmin.jsx:20", "src/app/admin/promos/PromosAdmin.jsx:24", "src/app/admin/payments/PaymentsAdmin.jsx:22", "src/app/api/shop/confirm/route.js"]
+        },
+        {
+          "fact": "The public home page renders a GoogleReviews component. Its server route supports Google Places search/details, an existing review-provider fallback and saved fallback content. Source support does not establish current API provisioning or review provenance beyond the implemented data sources.",
+          "sources": ["src/components/luxury/LuxuryHomePage.tsx:1689", "src/components/GoogleReviews.jsx", "src/app/api/reviews/route.js:74", "src/app/api/reviews/route.js:114", "src/data/luxury-reviews.js"]
+        },
+        {
+          "fact": "The layout mounts an optional GA4/gtag component. The component loads the Google tag and sends route page views only when a measurement ID is configured. Analytics helpers and a Meta Conversions server route are also present.",
+          "sources": ["src/app/layout.js:143", "src/components/GoogleAnalytics.jsx:8", "src/components/GoogleAnalytics.jsx:67", "src/lib/analytics.js", "src/app/api/meta-conversions/route.js"]
+        },
+        {
+          "fact": "Public metadata includes a canonical home URL and Open Graph information. The layout renders local-business structured data and the home page renders FAQ structured data.",
+          "sources": ["src/app/page.js:15", "src/app/page.js:48", "src/app/layout.js:142", "src/components/SchemaJsonLd.jsx"]
+        },
+        {
+          "fact": "Media code supports direct browser-to-Backblaze B2 uploads and returns a configured CDN URL, falling back to the B2 URL. The media library lists objects with configured CDN delivery URLs.",
+          "sources": ["src/lib/b2-upload.js:15", "src/lib/b2-upload.js:75", "src/app/api/admin/upload-url/route.js:14", "src/app/api/admin/upload-url/route.js:48", "src/app/api/admin/images/route.js:40"]
+        }
+      ],
+      "limits": ["No confirmed personal ownership.", "No Payload CMS evidence identified; implementation is a custom Supabase-backed CMS.", "No measured rankings, traffic, conversion lift or universal image-CDN guarantee."]
+    },
+    {
+      "id": 13,
+      "name": "Kevin Travis Homes",
+      "sourceRoot": "C:/Users/Admin/Desktop/Izee/kevintravishomes",
+      "ownership": "Confirmed: improvements to an existing site in a two-person team, including UI design, bug fixes, CMS fixes and other functionality. Do not claim complete original authorship.",
+      "facts": [
+        {
+          "fact": "The custom CMS fetches page metadata and ordered sections from the Supabase cms_page_content table. Builder-location, project-gallery and process pages use the saved metaTitle and metaDescription in generateMetadata.",
+          "sources": ["src/lib/cms.js:14", "src/lib/cms.js:24", "src/lib/cms.js:46", "src/app/blanco-texas-custom-home-builder/page.jsx:5", "src/app/copy-of-portfolio/page.jsx:5", "src/app/our-process/page.jsx:5"]
+        },
+        {
+          "fact": "The site provides home-building project galleries, process information, cost/resources information and geographic service pages. Its root layout defines Open Graph metadata, the home page defines a canonical URL, and robots points to the sitemap.",
+          "sources": ["src/app/layout.js:23", "src/app/layout.js:76", "src/app/page.jsx:7", "src/app/sitemap.js", "src/app/robots.js", "src/app/cost/page.jsx", "src/app/where-we-build/page.jsx"]
+        },
+        {
+          "fact": "Public images are served from assets.izee.ai; the contact hero has an explicit asset-CDN URL and uses the SmartImage component. This does not establish a local upload-to-CDN pipeline.",
+          "sources": ["src/app/contact/contact-client.jsx:2", "src/app/contact/contact-client.jsx:13", "src/app/layout.js:138", "next.config.mjs"]
+        }
+      ],
+      "limits": [
+        "The public homepage uses STATIC_REVIEWS with an explicit TODO awaiting Kevin's Place ID and API key. Do not claim live Google review synchronization.",
+        "The existing /api/google-reviews route searches for TMB Construction, not Kevin Travis Homes. This route is not evidence of correct Kevin review integration.",
+        "GoogleAnalytics and Meta conversion source files exist, but the root layout does not mount GoogleAnalytics. Do not claim active GA4 tracking from component presence alone.",
+        "The contact form currently sets local submitted state; no delivery integration was established by this review.",
+        "No Payload CMS evidence identified. No search rankings, AI citations, measured performance or conversion results."
+      ],
+      "limitSources": ["src/app/page-content.jsx:836", "src/app/page-content.jsx:874", "src/app/api/google-reviews/route.js:13", "src/app/layout.js", "src/app/contact/contact-client.jsx:20"]
+    },
+    {
+      "id": 14,
+      "name": "Sergio Garcia",
+      "sourceRoot": "C:/Users/Admin/Desktop/Izee/sergio-garcia",
+      "ownership": "Confirmed: designed the complete redesign, CMS and metadata work in a two-person team; a friend handled final cleanup.",
+      "facts": [
+        {
+          "fact": "Player, foundation, family, ambassador and course-designer pages use managed page content. The custom Supabase CMS reads sections by tenant/page and provides a save route for section updates and inserts.",
+          "sources": ["src/app/the-player/page.js:53", "src/app/the-foundation/page.js:79", "src/lib/supabase/queries.js:64", "src/lib/supabase/queries.js:147", "src/app/api/admin/page-content/route.js:17", "src/components/admin/cms-section-config.js:89"]
+        },
+        {
+          "fact": "The player page defines canonical and Open Graph metadata plus ProfilePage and Person structured data. Foundation and other profile sections define their own canonical/social metadata and structured page information.",
+          "sources": ["src/app/the-player/page.js:11", "src/app/the-player/page.js:33", "src/app/the-foundation/page.js:12", "src/app/the-foundation/page.js:41", "src/components/SchemaJsonLd.jsx:109"]
+        },
+        {
+          "fact": "The media implementation supports direct browser-to-Backblaze B2 uploads and returns configured CDN delivery URLs with a B2 fallback. Image-library routes are present.",
+          "sources": ["src/lib/b2-upload.js:57", "src/lib/b2-upload.js:81", "src/app/api/admin/upload-url/route.js:24", "src/app/api/admin/upload-url/route.js:64", "src/app/api/admin/images/route.js"]
+        },
+        {
+          "fact": "The root layout mounts an optional GA4/gtag component. The Google tag code is gated by a configured measurement ID. This establishes implementation support, not active production collection or personal ownership of inherited analytics code.",
+          "sources": ["src/app/layout.js:200", "src/components/GoogleAnalytics.jsx"]
+        }
+      ],
+      "limits": ["Use the user-supplied Vercel preview as the portfolio destination even though source canonical metadata names sergiogarcia.com.", "No Payload CMS evidence identified.", "Do not infer live Google Reviews, CMS platform ownership, search rankings, athlete endorsement or measured conversion improvements."]
+    },
+    {
+      "id": 15,
+      "name": "TMBTX",
+      "sourceRoot": "C:/Users/Admin/Desktop/Izee/tmbtx",
+      "ownership": "Personal contribution is unconfirmed. These are product implementation facts, not personal authorship claims.",
+      "facts": [
+        {
+          "fact": "The website organizes construction services including custom homes, metal buildings, roofing and concrete, with estimate, financing and project-information paths.",
+          "sources": ["src/app/custom-homes/page.jsx", "src/app/metal-buildings/page.jsx", "src/app/roofing/page.jsx", "src/app/concrete/page.jsx", "src/app/estimate/page.jsx", "src/app/financing/content.jsx"]
+        },
+        {
+          "fact": "Service-area pages fetch published content and use saved titles/descriptions for canonical and Open Graph metadata. Page-provided schema is rendered as JSON-LD. The sitemap is segmented into static pages, areas, articles, guides and FAQs; robots references the sitemap.",
+          "sources": ["src/app/areas/[slug]/page.jsx:13", "src/app/areas/[slug]/page.jsx:34", "src/app/sitemap.js:29", "src/app/robots.js"]
+        },
+        {
+          "fact": "The public home and estimate views use the Google reviews hook. The route/helper supports Google Places text lookup and details with a saved fallback. Production API provisioning and authenticity of fallback records were not verified.",
+          "sources": ["src/app/page-content.jsx:45", "src/app/estimate/content.jsx:8", "src/lib/use-google-reviews.js", "src/lib/google-reviews.js:55", "src/app/api/google-reviews/route.js"]
+        },
+        {
+          "fact": "The public interface uses CDN-hosted project WebP images and a hero video. Next image configuration includes AVIF/WebP formats. No local media upload pipeline was established.",
+          "sources": ["src/app/page-content.jsx:56", "src/app/estimate/content.jsx:34", "next.config.mjs:8"]
+        },
+        {
+          "fact": "Estimate interface code imports analytics event helpers and the source includes a Meta Conversions server route. This supports event-instrumentation source presence, not proof that production Google/Meta collection is provisioned.",
+          "sources": ["src/app/estimate/content.jsx:7", "src/lib/analytics.js:68", "src/app/api/meta-conversions/route.js:82"]
+        }
+      ],
+      "limits": ["No confirmed personal ownership or CMS authorship.", "GoogleAnalytics component exists but is not mounted in the inspected root layout.", "The estimate page is explicitly noindex/nofollow; do not describe all public pages as indexable.", "No Payload CMS evidence identified.", "No top-ranking, traffic, lead-volume or performance claims."],
+      "limitSources": ["src/app/layout.js", "src/app/estimate/page.jsx:14"]
+    },
+    {
+      "id": 16,
+      "name": "WUDR",
+      "sourceRoot": "C:/Users/Admin/Desktop/Izee/wudr",
+      "ownership": "Confirmed: 3D flow, CMS, admin, UI design and lead features. In the two-person team a friend handled cleanup/deployment. Current public source only independently establishes the presentation/planning interface; CMS/admin remain supported by the user's answer.",
+      "facts": [
+        {
+          "fact": "The public branch organizes water softening, whole-home filtration, reverse osmosis, well-water treatment and services into comparison/catalog/detail pages and interactive visual story sequences.",
+          "sources": ["src/app/solutions/page.js", "src/components/FiltrationCatalog.js", "src/components/SoftenerProductComparison.js", "src/components/ContinuousSceneStory.js", "src/components/SolutionScrollStory.js", "src/components/WaterStorySequence.js"]
+        },
+        {
+          "fact": "GSAP/ScrollTrigger storytelling and the cinematic sequence observe reduced-motion preferences. Some media/scene work is initialized or paused according to visibility and viewport policy.",
+          "sources": ["src/components/ContinuousSceneStory.js:37", "src/components/ContinuousSceneStory.js:45", "src/components/WaterStorySequence.js:45", "src/components/CinematicWaterStory.js:900", "src/components/CinematicWaterStory.js:1044"]
+        },
+        {
+          "fact": "A central CDN manifest serves product/editorial WebP images and viewport-specific videos from assets.izee.ai/wudr. SafeImage consumes CDN media. This is delivery evidence, not proof that every saved image always goes through a specific upload pipeline.",
+          "sources": ["src/lib/cdn.js:6", "src/lib/cdn.js:354", "src/components/SafeImage.js:15", "src/app/contact/page.js:58"]
+        },
+        {
+          "fact": "The current FreeWaterTest interface collects household/source/concern details in a multistep local planning form. It explicitly keeps the draft on the page and offers a download rather than sending an appointment request.",
+          "sources": ["src/components/FreeWaterTest.js:14", "src/components/FreeWaterTest.js:58", "src/components/FreeWaterTest.js:97"]
+        },
+        {
+          "fact": "Root, water-testing and product-detail pages define descriptive metadata; product-detail metadata includes Open Graph information.",
+          "sources": ["src/app/layout.js:18", "src/app/water-testing/page.js:14", "src/app/products/[category]/[slug]/page.js:18"]
+        }
+      ],
+      "limits": ["Do not claim current connected/live lead delivery or completed appointment booking from the local draft form.", "Current source does not independently establish deployed CMS/admin implementation, GA4, Google reviews, structured data, robots, sitemap, Payload, B2 uploads or active WebGL rendering.", "The confirmed 3D contribution can be attributed to the user's answer; current branch presents visual media/story sequences.", "No water-safety, model-accuracy, ranking, conversion or performance claims."]
+    },
+    {
+      "id": 17,
+      "name": "Zenergy Solar",
+      "sourceRoot": "C:/Users/Admin/Desktop/Izee/zenergy.solar",
+      "ownership": "Confirmed: added instant estimates and CMS work, fixed UI/minor bugs and implemented client changes to a friend's existing site in a two-person team. On 2026-10-22 the user additionally confirmed personally adding AI review/classification of suspicious enquiry submissions containing fake email details, CAPTCHA and instant estimation. Do not claim all original website, analytics or search architecture.",
+      "additionalOwnershipConfirmation": {
+        "confirmedOn": "2026-10-22",
+        "source": "Explicit user confirmation supplied in the active portfolio conversation; source inspection corroborates the implemented lead-quality, CAPTCHA and estimator paths.",
+        "scope": "AI-assisted classification of suspicious contact-form submissions, CAPTCHA verification and instant estimation.",
+        "clientPurpose": "Help the team distinguish suspicious or generated contact details before routine enquiry follow-up, while connecting property-based estimates and saved proposals with that same capture workflow."
+      },
+      "facts": [
+        {
+          "fact": "The instant-roof estimator combines property/roof information, material and pitch choices with CMS-editable pricing to display tiered initial estimates. The source includes Google geocoding and Solar API building-mask/property measurement integrations.",
+          "sources": ["src/app/instant-estimate/EstimatorContent.jsx:62", "src/app/instant-estimate/EstimatorContent.jsx:255", "src/app/instant-estimate/EstimatorContent.jsx:284", "src/lib/estimator.js:4", "src/lib/estimator.js:86", "src/app/api/solar/estimate/route.js:33", "src/app/api/solar/building-mask/route.js:9"]
+        },
+        {
+          "fact": "Estimator results can be saved as UUID snapshots, rendered into a proposal PDF and included with the lead handoff. The client flow also requests scheduling slots and posts booking confirmation.",
+          "sources": ["src/app/instant-estimate/EstimatorContent.jsx:512", "src/app/instant-estimate/EstimatorContent.jsx:587", "src/app/instant-estimate/EstimatorContent.jsx:626", "src/app/instant-estimate/EstimatorContent.jsx:691", "src/app/api/estimate/snapshot/route.js:38", "src/app/api/estimate/pdf/[id]/route.js:51", "src/lib/pdf/EstimateProposal.jsx"]
+        },
+        {
+          "fact": "The custom Supabase CMS reads/writes cms_page_content sections and resolves server-rendered page sections. Estimator pricing is editable through this content model.",
+          "sources": ["src/lib/supabase/queries.js:8", "src/app/api/admin/page-content/route.js:14", "src/lib/cms/content.js:15", "src/app/instant-estimate/page.js:29", "src/lib/estimator.js:4"]
+        },
+        {
+          "fact": "The site has server-side lead capture and an Enerflo forwarding integration. Contact/service forms submit through shared lead capture and mirror to Enerflo; production activation is not established by source inspection.",
+          "sources": ["src/lib/leadCapture.js:82", "src/app/api/leads/capture/route.js", "src/app/api/leads/enerflo/route.js:79", "src/app/contact-us/ContactClient.jsx:96", "src/app/contact-us/ContactClient.jsx:107", "src/components/forms/ServiceLeadForm.jsx:90"]
+        },
+        {
+          "fact": "Lead capture verifies CAPTCHA before assessing submitted contact details. Rules inspect phone/name/address patterns, disposable/generated email indicators and DNS MX availability. Scores of 5 or more reject by rules; scores from 2 to 4 consult an optional AI classifier; lower scores pass. Rejected entries receive a validation response and are not forwarded by this capture route. Flagged entries are forwarded with a custom_spam_check warning.",
+          "sources": ["src/app/api/leads/capture/route.js:21", "src/app/api/leads/capture/route.js:37", "src/app/api/leads/capture/route.js:48", "src/lib/server/leadQuality.js:24", "src/lib/server/leadQuality.js:98", "src/lib/server/leadQuality.js:245"]
+        },
+        {
+          "fact": "The AI implementation calls OpenRouter chat completions with a configurable model and strict JSON-schema response containing looks_fake, confidence and reasons. It sends submitted name, email, phone, address and ZIP fields. A high-confidence fake verdict rejects; other fake verdicts flag; a not-fake verdict passes. Missing configuration, request failure or invalid output falls back to the rule-derived warning for borderline submissions. The request has an eight-second abort timeout.",
+          "sources": ["src/lib/server/leadQuality.js:21", "src/lib/server/leadQuality.js:170", "src/lib/server/leadQuality.js:181", "src/lib/server/leadQuality.js:195", "src/lib/server/leadQuality.js:201", "src/lib/server/leadQuality.js:258"]
+        },
+        {
+          "fact": "The public verification UI is Google reCAPTCHA v2. The server posts fresh tokens to Google's siteverify endpoint, checks success and allowed hostname, and blocks missing or unavailable verification. Successfully verified users can receive an email-bound HMAC pass with a two-hour lifetime so the estimate wizard can reuse proof for later capture and booking steps without replaying a consumed CAPTCHA token.",
+          "sources": ["src/components/forms/RecaptchaField.jsx:4", "src/lib/server/captcha.js:17", "src/lib/server/captcha.js:18", "src/lib/server/captcha.js:30", "src/lib/server/captcha.js:65", "src/lib/server/captcha.js:75", "src/lib/leadCapture.js:82", "src/app/api/booking/confirm/route.js:23"]
+        },
+        {
+          "fact": "The roof estimator prepares a saved snapshot and proposal PDF link, adds the estimate/property fields to the lead payload and submits through the shared CAPTCHA and quality-screened capture path. On capture failure it resets CAPTCHA and shows the returned error. Enerflo forwarding and completion tracking follow a successful capture response. This screening concerns the submitted enquiry details, not the arithmetic used to produce the estimate.",
+          "sources": ["src/app/instant-estimate/EstimatorContent.jsx:481", "src/app/instant-estimate/EstimatorContent.jsx:512", "src/app/instant-estimate/EstimatorContent.jsx:559", "src/app/instant-estimate/EstimatorContent.jsx:590", "src/app/instant-estimate/EstimatorContent.jsx:603", "src/lib/leadCapture.js:64"]
+        },
+        {
+          "fact": "The layout mounts optional GA4/gtag and local-business JSON-LD. Public pages have descriptive/social metadata, while robots and sitemap support discovery. llms.txt and llms-full.txt supply a readable site index and expanded content for automated readers.",
+          "sources": ["src/app/layout.js:30", "src/app/layout.js:64", "src/app/layout.js:65", "src/components/GoogleAnalytics.jsx:67", "src/app/robots.js", "src/app/sitemap.js", "src/app/llms.txt/route.js", "src/app/llms-full.txt/route.js"]
+        },
+        {
+          "fact": "Google review components and a Google Places search/details route are implemented. Configuration and current production data were not inspected.",
+          "sources": ["src/app/api/reviews/route.js:20", "src/app/api/reviews/route.js:54", "src/components/GoogleReviews.jsx:66"]
+        },
+        {
+          "fact": "Media code supports direct browser-to-Backblaze B2 uploads with configurable CDN URLs and a media library. A separate utility-bill route also stores submitted files through B2.",
+          "sources": ["src/lib/b2-upload.js:57", "src/app/api/admin/upload-url/route.js:24", "src/app/api/admin/upload-url/route.js:64", "src/app/api/admin/images/route.js", "src/app/api/uploads/utility-bill/route.js:102"]
+        }
+      ],
+      "limits": ["Existing analytics/reviews/search implementations are product capabilities unless separately confirmed as personal work.", "AI screening evaluates submitted contact fields; it does not read an email inbox, classify message bodies, verify ownership of an email address or guarantee that a person is genuine.", "The model is consulted only for borderline rule scores and depends on runtime configuration. Missing AI configuration or provider failures leave rule-based borderline cases flagged; CAPTCHA verification failures instead block submission.", "DNS MX checks indicate mail-server availability, not mailbox existence or deliverability. DNS timeouts and unusual DNS errors fail open.", "No measured spam reduction, false-positive rate, classification accuracy or claim that all fake emails are blocked is established.", "The quality check is implemented on the shared lead-capture route; do not imply every standalone route applies the AI classifier.", "No Payload CMS evidence identified.", "llms.txt is an optional machine-readable content route, not proof of AI inclusion, ranking or an official ranking requirement.", "Do not claim guaranteed quote accuracy, realized energy savings, top visibility, traffic or conversion lift."]
+    },
+    {
+      "id": 21,
+      "name": "Beautiful & Blessed Esthetics",
+      "sourceRoot": "C:/Users/Admin/Desktop/Izee/beautifulbless",
+      "ownership": "Only confirmed personal work is favicon, Open Graph imagery and Open Graph metadata in three verified commits. Product-wide capability facts below must not be presented as personal responsibilities.",
+      "facts": [
+        {
+          "fact": "Confirmed commit scope changes browser favicon identity and shared-link Open Graph imagery/metadata.",
+          "sources": ["design-assets/project-capability-evidence.md:39", "lib/profile-projects.ts:461"],
+          "verifiedCommitIds": ["37c95030afca31203d27d985e2ea72a36e9a217f", "7598e7aa9ae72e64ad7f1b708ca955d5b69e0be6", "85a3b5ee17c5ef6c3173fd006fa16a7370f2b112"]
+        },
+        {
+          "fact": "The product integrates the Boulevard booking widget and provides a direct Boulevard URL fallback when the widget is unavailable.",
+          "sources": ["src/components/booking/BlvdScript.js:12", "src/components/ui/BookButton.js:4", "src/components/ui/BookButton.js:7", "src/components/ui/BookButton.js:15", "src/app/layout.js:170"]
+        },
+        {
+          "fact": "The custom Supabase CMS reads editable spa page content/settings. Saving business hours synchronizes the contact and policies page content.",
+          "sources": ["src/lib/supabase/queries.js:7", "src/lib/supabase/queries.js:35", "src/app/api/admin/page-content/route.js", "src/app/api/admin/site-settings/route.js:8", "src/app/api/admin/site-settings/route.js:18", "src/app/api/admin/site-settings/route.js:31"]
+        },
+        {
+          "fact": "The root layout has Open Graph/social metadata and DaySpa structured data. Indexing and robots permissions depend on an explicit NEXT_PUBLIC_SEO_INDEXING setting; sitemap generation is present.",
+          "sources": ["src/app/layout.js:24", "src/app/layout.js:38", "src/app/layout.js:65", "src/app/layout.js:118", "src/app/robots.js:2", "src/app/sitemap.js"]
+        },
+        {
+          "fact": "The product includes Backblaze B2 media upload code and a media-library listing that returns configured CDN URLs with a B2 fallback.",
+          "sources": ["src/lib/b2-upload.js:58", "src/lib/b2-upload.js:82", "src/app/api/admin/upload/route.js", "src/app/api/admin/images/route.js:35"]
+        }
+      ],
+      "limits": ["Do not expand personal contribution beyond favicon and Open Graph work.", "The homepage testimonial implementation uses saved/local testimonial content; no live Google Places synchronization was established.", "A business script is loaded from cdn.izee.ai, but its remote behavior was not inspected; do not infer GA4/gtag activation.", "No Payload CMS evidence identified.", "No indexing, rankings, top visibility, AI citations or measured performance claims."],
+      "limitSources": ["src/components/home/HomeTestimonialsEdge.js", "src/app/page.js:19", "src/app/layout.js:106"]
+    }
+  ]
+}

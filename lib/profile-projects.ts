@@ -84,29 +84,6 @@ export const profileProjects = [
     "slug": "fb8bf8e7-42ef-4362-978c-959abe1429d7"
   },
   {
-    "id": 4,
-    "name": "Developer Portfolio",
-    "contribution": {
-      "role": "Designer & Full Stack Developer",
-      "scope": "Personal portfolio built solo."
-    },
-    "services": [
-      "websites"
-    ],
-    "description": "Built my personal portfolio with project case studies, service information, work history, contact details, and interactive visual elements using Next.js, React, and Three.js.",
-    "technologies": [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Three.js",
-      "Framer Motion",
-      "Tailwind CSS",
-      "Portfolio"
-    ],
-    "href": "https://portfolio-cyannimazing.vercel.app",
-    "slug": "cee8638e-23df-40b7-b507-c1a328a83745"
-  },
-  {
     "id": 5,
     "name": "Viviour",
     "contribution": {
@@ -363,14 +340,15 @@ export const profileProjects = [
     "name": "Zenergy Solar",
     "contribution": {
       "role": "Full Stack Developer",
-      "scope": "Added instant estimates and CMS work, fixed UI and minor bugs, and made client-requested changes to an existing site. Two-person team; a friend built the original site."
+      "scope": "Added instant estimates, editable pricing, CMS tools and AI-assisted enquiry checks with CAPTCHA. Fixed UI issues and minor bugs and made requested changes within a two-person team. A friend built the original website."
     },
     "services": [
       "business-software",
       "websites",
-      "cms"
+      "cms",
+      "automation"
     ],
-    "description": "Improved an existing solar and home energy website in a two-person team by adding instant estimates and CMS work, fixing UI and minor bugs, and making client-requested changes. A friend built the original site.",
+    "description": "Improved an existing solar and home-energy website in a two-person team with instant estimates, admin pricing controls, CMS updates and AI-assisted enquiry checks. Also fixed UI issues and bugs and made client-requested changes. A friend built the original site.",
     "technologies": [
       "Next.js",
       "React",

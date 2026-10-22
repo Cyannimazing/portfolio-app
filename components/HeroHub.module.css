@@ -55,6 +55,7 @@
 .integrationPill { position: absolute; z-index: 3; display: inline-flex; align-items: center; justify-content: center; gap: 5px; max-width: calc(50% - 3px); padding: 7px 8px; border: 1px solid #4e6c7a; border-radius: var(--studio-tag-radius); color: var(--studio-muted); background: #2b414f; font-size: 8px; white-space: nowrap; animation: float 5s ease-in-out infinite; }
 .integrationPill > svg { flex-shrink: 0; color: var(--studio-accent); }
 .integrationPill > i { flex-shrink: 0; width: 3px; height: 3px; background: #8bc3af; border-radius: 50%; }
+.llmShortLabel { display: none; }
 .aiTools { top: 9px; left: 0; }
 .webhooks { top: 9px; right: 0; animation-delay: -1.2s; }
 .apis { bottom: 9px; left: 0; animation-delay: -2.5s; }
@@ -64,6 +65,10 @@
 @container ai-capabilities (max-width: 190px) {
   .integrationPill > svg { display: none; }
   .integrationPill { gap: 3px; }
+}
+@container ai-capabilities (max-width: 135px) {
+  .llmLabel { display: none; }
+  .llmShortLabel { display: inline; }
 }
 .footer { display: flex; align-items: center; justify-content: flex-end; gap: 12px; flex-shrink: 0; min-height: 38px; margin-top: 12px; }
 .footerActions { display: flex; align-items: center; gap: 17px; }

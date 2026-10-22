@@ -9,6 +9,7 @@ import { motion } from "motion/react";
 import { IconArrowUpRight, IconBrandGithub, IconCompass, IconFolder, IconHome, IconMail, IconMapPin, IconWorld } from "@tabler/icons-react";
 import { DesktopSidebar, MobileSidebar, Sidebar, SidebarLink, useSidebar } from "@/components/ui/sidebar";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import { FlipWords } from "@/components/ui/flip-words";
 import { useMotionPreference } from "@/hooks/use-motion-preference";
 import { studioEase, studioPanelStart, studioPanelVisible } from "@/lib/studio-motion";
 import styles from "./PortfolioSidebar.module.css";
@@ -22,6 +23,7 @@ const links = [
 ];
 
 const isCurrentPath = (pathname: string, href: string) => pathname === href || (href !== "/" && pathname.startsWith(href + "/"));
+const professionalTitles = ["Full Stack Developer", "AI Engineer", "AI Automation Specialist"];
 
 function MobileMenuContent() {
   const { setOpen } = useSidebar();
@@ -57,12 +59,18 @@ function MobileMenuContent() {
 
 function SidebarContent() {
   const pathname = usePathname();
+  const { open } = useSidebar();
+  const reducedMotion = useMotionPreference();
+  const [profileHovered, setProfileHovered] = useState(false);
+  const [profileFocused, setProfileFocused] = useState(false);
   return <>
     <Link href="/" className={styles.wordmark} aria-label="Cyril AI home"><BrandMark theme="dark" size={34} /><span>Cyril <span>AI</span></span></Link>
-    <Link href="/" className={styles.profile} aria-label="Cyril Jian B. Narvasa home">
+    <Link href="/" className={styles.profile} aria-label="Cyril Jian B. Narvasa, Full Stack Developer, AI Engineer and AI Automation Specialist. Home."
+      onMouseEnter={() => setProfileHovered(true)} onMouseLeave={() => setProfileHovered(false)}
+      onFocus={() => setProfileFocused(true)} onBlur={() => setProfileFocused(false)}>
       <div className={styles.portraitWrap}><Image src="/images/cyril-editorial-v2.webp" width={160} height={196} priority sizes="160px" className={styles.portrait} alt="Cyril Jian B. Narvasa" /></div>
       <span className={styles.profileName}>Cyril Jian B. Narvasa<span className={styles.profileDot} aria-hidden="true" /></span>
-      <span className={styles.role}>Full Stack Developer</span>
+      <span className={styles.role} aria-hidden="true" data-profile-role><FlipWords words={professionalTitles} duration={4500} variant="subtle" paused={reducedMotion || open || profileHovered || profileFocused} className={styles.roleWords} /></span>
       <span className={styles.handle}>@Cyannimazing</span>
     </Link>
     <div className={styles.socials}>

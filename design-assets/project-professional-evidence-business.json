@@ -1,0 +1,132 @@
+{
+  "checkedAt": "2026-10-22",
+  "purpose": "Evidence for project-delivery-business.ts professional contribution and technical capability copy.",
+  "method": "Read-only review of saved contributions, existing legacy records, manifests, and selected application implementations. No environment files, private records, credentials, external source writes, or runtime configuration checks were used.",
+  "limits": [
+    "Implementation presence does not prove production configuration, personal authorship beyond the recorded contribution, security certification, performance, or measured outcomes.",
+    "No Payload CMS implementation was found in the inspected application code or manifests for these projects.",
+    "No CDN image-upload implementation, Google Reviews integration, or Google Analytics/Meta tracking tags were verified for the assigned projects.",
+    "Awork contains FTP/local media handling and a Spatie Media Library dependency; these do not establish CDN work or a confirmed personal media-infrastructure contribution.",
+    "SEO copy describes rendering, metadata, canonical, sitemap, or indexing implementations only where supported, without ranking or traffic claims."
+  ],
+  "sharedRecords": [
+    "public/cyril-profile.md",
+    "design-assets/project-questionnaire.md",
+    "design-assets/project-capability-evidence.md",
+    "design-assets/project-stack-audit.json",
+    "design-assets/project-capability-audit.json"
+  ],
+  "projects": [
+    {
+      "key": "profile-1",
+      "name": "Cynergy",
+      "contributionScope": "Confirmed full-stack responsibility for all modules and functions.",
+      "sourceRoot": "C:/Users/Admin/Desktop/Personal Work/Personal-Saas",
+      "stack": ["Nuxt 4", "Vue 3", "TypeScript", "Pinia", "Laravel 12", "Sanctum", "Spatie permissions", "MySQL recorded in saved profile"],
+      "evidence": [
+        { "claim": "Company-scoped memberships, roles, invitations, licensing, seats, and application permissions", "paths": ["server/app/Services/TeamService.php", "server/app/Services/CompanyMembershipAuthorizationService.php", "server/app/Services/ApplicationAccessService.php", "server/app/Http/Middleware/EnsureAppPermission.php"] },
+        { "claim": "Connected sales, purchasing, stock, supplier, shift, and reporting workflows", "paths": ["server/app/Services/Pos/", "client/app/pages/(personal-app)/apps/wholesale-retail-pos/"] },
+        { "claim": "Transactional approval handlers and review notifications", "paths": ["server/app/Services/Pos/PosApprovalRequestService.php", "server/app/Jobs/Pos/SendPosApprovalSubmittedNotifications.php", "server/app/Jobs/Pos/SendPosApprovalReviewedNotification.php"] },
+        { "claim": "Gemini draft generation with profile/prospect context and structured response validation", "paths": ["server/app/Services/Outreach/OutreachAssistant.php", "server/app/Jobs/Outreach/"] },
+        { "claim": "Google Calendar/Gmail OAuth and encrypted integration credentials", "paths": ["server/app/Services/Outreach/OutreachCalendar.php", "server/app/Models/Outreach/OutreachProfile.php"] },
+        { "claim": "PayMongo payment-intent and refund implementation", "paths": ["server/app/Services/PayMongoApplicationBillingGateway.php"] },
+        { "claim": "Public metadata, canonical and social settings, Open Graph preview image, public page allowlist, sitemap, and robots routes", "paths": ["client/app/utils/publicSeo.ts", "client/app/composables/useSeo.ts", "client/server/routes/sitemap.xml.ts", "client/server/routes/robots.txt.ts"] },
+        { "claim": "Nuxt SSR enabled for allowlisted public pages; wildcard private/application routes retain client-side rendering", "paths": ["client/nuxt.config.ts", "client/app/utils/publicSeo.ts"] },
+        { "claim": "Current declared frontend/backend dependencies", "paths": ["client/package.json", "server/composer.json"] }
+      ],
+      "unverified": ["Production API/payment configuration", "Measured automation, conversion, traffic, or ranking outcomes", "Payload CMS", "CDN media uploads", "Analytics tags or Google Reviews"]
+    },
+    {
+      "key": "profile-2",
+      "name": "Obiyen",
+      "contributionScope": "Confirmed frontend/backend internship contribution within an existing enterprise platform; not entire-platform ownership.",
+      "sourceRoot": "C:/Users/Admin/Desktop/Personal Work/Awork",
+      "stack": ["Nuxt 3", "Vue", "Laravel 12", "Sanctum", "MySQL recorded in saved profile", "Pusher", "Laravel Echo"],
+      "evidence": [
+        { "claim": "Quotation roles, ownership, totals, PDF rendering, signatures, and status transitions", "paths": ["insight-server/app/Service/Quote/QuoteService.php", "insight-server/app/Service/PortableDocumentFormatService.php"] },
+        { "claim": "Facebook/Instagram OAuth and search-data provider implementations", "paths": ["insight-server/app/Service/FacebookAuthService.php", "insight-server/app/Service/InstagramAuthService.php", "insight-server/app/Service/GoogleAdsService.php", "insight-server/app/Service/GoogleSearchConsoleService.php"] },
+        { "claim": "Timesheet submission, four-eyes review rule, transactional state changes, and notifications", "paths": ["insight-server/app/Services/Timesheet/TimesheetService.php"] },
+        { "claim": "Laravel encryption and personal/company password-vault access controls", "paths": ["insight-server/app/Service/PasswordEncryptionService.php", "insight-server/app/Service/PasswordVaultAuthorizationService.php", "insight-server/app/Service/PasswordDirectorySyncRunService.php"] },
+        { "claim": "Tenant context check", "paths": ["insight-server/app/Http/Middleware/EnsureTenantContext.php"] },
+        { "claim": "Current dependencies including Azure provider and real-time libraries", "paths": ["insight-client/package.json", "insight-server/composer.json"] },
+        { "claim": "Personal scope for Azure AD, helpdesk configuration, tenancy/authentication fixes, document accessibility, and translations", "pathBase": "portfolio workspace", "paths": ["public/cyril-profile.md", "design-assets/project-questionnaire.md"] }
+      ],
+      "unverified": ["Ownership of the entire platform", "Specific encryption cipher in deployment", "Security certification or complete WCAG compliance", "CDN infrastructure contribution", "Payload CMS", "Personal analytics-tag or Google Reviews work", "Search rankings or measured operational results"]
+    },
+    {
+      "key": "profile-3",
+      "name": "SPOS",
+      "contributionScope": "Confirmed full-stack ownership of the complete application and all functions.",
+      "sourceRoot": "C:/Users/Admin/Desktop/Personal Work/SPOS",
+      "stack": ["Next.js 16", "React 19", "TypeScript", "Laravel ^13.8 in current manifest", "Sanctum", "Spatie permissions", "MySQL recorded in saved profile"],
+      "evidence": [
+        { "claim": "Sanctum authentication and API throttling", "paths": ["backend/routes/api.php"] },
+        { "claim": "Role permissions, token abilities, cashier-shift requirements, and invoice/receipt outputs", "paths": ["backend/routes/api/sales-order.php", "backend/routes/api/role.php", "backend/routes/api/approval-request.php"] },
+        { "claim": "Pending-state checks, record locking, transactions, and post-success approval notifications", "paths": ["backend/app/Services/ApprovalRequestService.php"] },
+        { "claim": "Purchase, stock, and shift/cash operations", "paths": ["backend/app/Services/PurchaseOrderService.php", "backend/app/Services/StockTransferService.php", "backend/app/Services/CashierShiftService.php", "frontend/src/app/(dashboard)/"] },
+        { "claim": "Current frontend/backend declarations", "paths": ["frontend/package.json", "backend/composer.json"] }
+      ],
+      "unverified": ["Measured store performance or financial outcomes", "Payload CMS", "CDN image uploads", "Marketing analytics or Google Reviews integrations"]
+    },
+    {
+      "key": "profile-19",
+      "name": "CacaoCare",
+      "contributionScope": "Confirmed mainly website development and mobile bug fixes in a two-person thesis team.",
+      "sourceRoot": null,
+      "stack": ["Nuxt", "Laravel", "MySQL", "Android Studio", "Java"],
+      "evidence": [
+        { "claim": "Contribution scope, saved stack, and combined web farm-management/Android disease-check product", "paths": ["public/cyril-profile.md", "lib/profile-projects.ts", "design-assets/project-questionnaire.md", "design-assets/project-capability-evidence.md"] }
+      ],
+      "unverified": ["No matching source located in enumerated Personal Work/Izee project roots", "Disease-model development, training, architecture, or accuracy", "Specific unrecorded farm-management modules", "Security architecture", "Payload CMS", "CDN uploads", "Analytics or reviews integrations"]
+    },
+    {
+      "key": "profile-20",
+      "name": "Faculty Scheduling",
+      "contributionScope": "Confirmed complete full-stack ownership of all application functions.",
+      "sourceRoot": "C:/Users/Admin/Desktop/Personal Work/facultyscheduling",
+      "stack": ["React 19", "Laravel 12", "Inertia 2", "Electron", "Tailwind CSS"],
+      "evidence": [
+        { "claim": "Academic records and lecturer/room/class availability with active/upcoming-batch conflict checks", "paths": ["app/Http/Controllers/LecturerScheduleController.php", "routes/lecturer-schedules.php"] },
+        { "claim": "Authentication/email-verification middleware on academic routes", "paths": ["routes/lecturer-schedules.php", "routes/academic-calendar.php", "routes/groups.php", "routes/lecturer-subjects.php"] },
+        { "claim": "Class/faculty timetable interfaces and printable report generation", "paths": ["resources/js/pages/application/faculty-schedule.jsx", "resources/js/pages/application/class-schedule.jsx"] },
+        { "claim": "Electron PHP process and desktop shell, packaging scripts", "paths": ["electron-main.cjs", "package.json"] },
+        { "claim": "Current frontend/backend dependencies", "paths": ["package.json", "composer.json"] }
+      ],
+      "unverified": ["Specific optimization or AI scheduling algorithm", "Runtime database: saved skill lists MySQL but source configuration defaults to SQLite; environment not read", "Complex RBAC beyond verified route authentication", "Measured scheduling outcomes", "Payload CMS", "CDN uploads", "Marketing analytics or reviews"]
+    },
+    {
+      "key": "legacy-faithseeker",
+      "name": "FaithSeeker",
+      "contributionScope": "Existing legacy records identify a solo full-stack capstone project.",
+      "sourceRoot": null,
+      "stack": ["Next.js", "React", "Laravel API", "MySQL", "Tailwind CSS"],
+      "evidence": [
+        { "claim": "Recorded contribution, stack, multi-tenant church administration, bookings, and certificate generation", "paths": ["lib/projects.ts"] },
+        { "claim": "Linked sample document artifacts", "paths": ["public/reports/Certificate of Baptism.pdf", "public/reports/Certificate of Marriage.pdf"] }
+      ],
+      "unverified": ["No matching source located in enumerated Personal Work/Izee project roots", "Specific isolation/security implementation beyond recorded capability", "Payload CMS", "CDN uploads", "Analytics, reviews, or SEO implementation beyond existing records"]
+    },
+    {
+      "key": "legacy-aidpoint",
+      "name": "AidPoint",
+      "contributionScope": "Existing legacy records identify backend responsibility within a four-person team; frontend ownership is not claimed.",
+      "sourceRoot": null,
+      "stack": ["Laravel API", "MySQL", "React", "Next.js", "Tailwind CSS"],
+      "evidence": [
+        { "claim": "Recorded backend contribution, role portals, approvals, allocation/liquidation, audit logs, and status data", "paths": ["lib/projects.ts"] }
+      ],
+      "unverified": ["No matching source located in enumerated Personal Work/Izee project roots", "Frontend or entire-application ownership", "Specific real-time transport or permission architecture", "Measured aid administration outcomes", "Payload CMS", "CDN uploads", "Analytics, reviews, or SEO implementation"]
+    },
+    {
+      "key": "legacy-fa-babila-architects",
+      "name": "F.A Babila Architects",
+      "contributionScope": "Existing legacy records identify a solo full-stack project still in active development.",
+      "sourceRoot": null,
+      "stack": ["Nuxt 4", "Vue 3", "TypeScript", "Tailwind CSS", "Nuxt UI", "Laravel", "PHP", "MySQL"],
+      "evidence": [
+        { "claim": "Recorded portfolio, custom CMS, enquiry flow, SSR/metadata, and theme/typography work in progress", "paths": ["lib/projects.ts"] }
+      ],
+      "unverified": ["No matching source located in enumerated Personal Work/Izee project roots", "Completed production delivery", "Search rankings, indexing, traffic, or conversion outcomes", "Payload CMS", "CDN uploads", "Analytics or Google Reviews implementation"]
+    }
+  ]
+}

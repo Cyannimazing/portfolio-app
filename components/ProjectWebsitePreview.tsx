@@ -8,7 +8,7 @@ import type { PortfolioProject } from "@/lib/project-stories";
 import styles from "./ProjectWebsitePreview.module.css";
 
 // A display-only website viewport. All navigation lives in surrounding buttons.
-export default function ProjectWebsitePreview({ project, active = true, compact = false, wide = false, retainLive = false, navigation, toolbar, children }: { project: PortfolioProject; paused: boolean; active?: boolean; compact?: boolean; wide?: boolean; retainLive?: boolean; navigation?: ReactNode; toolbar?: ReactNode; children?: ReactNode }) {
+export default function ProjectWebsitePreview({ project, active = true, compact = false, wide = false, fullWidth = false, retainLive = false, navigation, toolbar, children }: { project: PortfolioProject; paused: boolean; active?: boolean; compact?: boolean; wide?: boolean; fullWidth?: boolean; retainLive?: boolean; navigation?: ReactNode; toolbar?: ReactNode; children?: ReactNode }) {
   const preview = projectPreviews[project.id];
   const screenshot = projectPreviewPosters[project.id];
   const stage = useRef<HTMLDivElement>(null);
@@ -52,13 +52,13 @@ export default function ProjectWebsitePreview({ project, active = true, compact 
   }, [moving, ready]);
 
   const status = !preview.url || failed ? "Actual screenshot" : ready ? "Live website" : "Loading website";
-  return <div ref={stage} className={`${styles.stage} ${compact ? styles.compact : ""} ${wide ? styles.wide : ""} ${toolbar ? styles.withToolbar : ""}`} data-project-preview data-preview-mode={moving ? "live" : fallback ? "screenshot" : "idle"} data-preview-ready={ready}>
+  return <div ref={stage} className={`${styles.stage} ${compact ? styles.compact : ""} ${wide ? styles.wide : ""} ${fullWidth ? styles.fullWidth : ""} ${toolbar ? styles.withToolbar : ""}`} data-project-preview data-preview-mode={moving ? "live" : fallback ? "screenshot" : "idle"} data-preview-ready={ready}>
     <div className={styles.browser}>
     <div className={styles.browserBar}>{toolbar && <span className={styles.toolbar}>{toolbar}</span>}<IconBrowser size={15} stroke={1.5} aria-hidden="true" /><span className={styles.address}>{preview.label}</span><span className={styles.previewState}><i aria-hidden="true" />{status}</span></div>
     <div ref={body} className={styles.browserBody} inert aria-hidden="true">
       {moving && <iframe title={`${project.name} live website`} src={preview.url} tabIndex={-1} onLoad={() => setReady(true)} onError={() => setFailed(true)} allow="autoplay" referrerPolicy="no-referrer" sandbox="allow-scripts allow-same-origin" style={{ width: viewport.width, height: viewport.height, transform: `scale(${viewport.scale})` }} />}
-      {fallback && display && screenshot && <Image src={screenshot} alt={`${project.name} actual interface screenshot`} fill sizes={compact ? "(min-width: 1280px) 24vw, (min-width: 600px) 45vw, 94vw" : "(min-width: 1024px) 65vw, 94vw"} className={styles.screenshot} priority={!compact && active} />}
-      {!fallback && display && screenshot && <noscript><Image src={screenshot} alt={`${project.name} actual interface screenshot`} fill sizes={compact ? "(min-width: 1280px) 24vw, (min-width: 600px) 45vw, 94vw" : "(min-width: 1024px) 65vw, 94vw"} className={styles.screenshot} /></noscript>}
+      {fallback && display && screenshot && <Image src={screenshot} alt={`${project.name} actual interface screenshot`} fill sizes={fullWidth ? "100vw" : compact ? "(min-width: 1280px) 24vw, (min-width: 600px) 45vw, 94vw" : "(min-width: 1024px) 65vw, 94vw"} className={styles.screenshot} priority={!compact && active} />}
+      {!fallback && display && screenshot && <noscript><Image src={screenshot} alt={`${project.name} actual interface screenshot`} fill sizes={fullWidth ? "100vw" : compact ? "(min-width: 1280px) 24vw, (min-width: 600px) 45vw, 94vw" : "(min-width: 1024px) 65vw, 94vw"} className={styles.screenshot} /></noscript>}
       {fallback && !screenshot && <div className={styles.empty}><IconBrowser size={28} stroke={1.3} /><span>{project.name}</span><small>Explore the product features and project details.</small></div>}
       {moving && !ready && <div className={styles.empty}>
         <IconBrowser size={28} stroke={1.3} />

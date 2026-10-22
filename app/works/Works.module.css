@@ -1,4 +1,5 @@
 .shell { min-height: 100svh; margin-left: var(--studio-sidebar-width); background: var(--studio-bg); }
+.shell:has([data-project-detail]) { margin-left: 0; }
 .noScriptCollection { padding: 0 var(--studio-page-gutter-end) var(--studio-page-bottom) var(--studio-page-gutter-start); color: var(--studio-text); }
 .noScriptProject { padding: 20px; border-color: #3b5663; background: #192b35; box-shadow: none; }
 .noScriptProject h2 { font-size: 22px; line-height: 1.3; letter-spacing: -.035em; }

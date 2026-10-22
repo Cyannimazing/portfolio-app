@@ -9,6 +9,7 @@ export interface Project {
   fullDescription: string;
   challenge?: string;
   solution?: string;
+  rationale?: string;
   services?: string[];
   industry?: string;
   features?: string[];
@@ -36,8 +37,9 @@ export const projects: Project[] = [
     mainImage: "/projects/optimized/main_image-presentation.webp",
     technologies: ["Next.js", "React", "Laravel API", "MySQL", "Tailwind CSS"],
     fullDescription: "A multi-tenant SaaS platform enabling church owners to subscribe and manage their operations. Multiple churches operate independently with admin portals for service bookings, appointments, and document generation.",
-    challenge: "Churches needed an affordable way to run service bookings, appointments, and official records online, but each church had to stay completely independent, with its own members, data, and configuration, rather than sharing one common system.",
-    solution: "I designed a multi-tenant SaaS platform where every subscribed church gets its own independent admin portal with fully isolated data, service configurations, and private member records. I replaced manual scheduling with self-service online booking tied to church-specific availability and confirmation flows, and automated baptism and marriage certificates as ready-to-print PDF documents generated straight from stored records.",
+    challenge: "Church organizations needed one platform for service bookings, appointments and official records. Each church also needed control over its own schedules, services and member information. Online booking had to use the chosen church's availability so churchgoers could request the right service.",
+    solution: "We built a separate admin portal for each church. Staff can manage their service availability, booking confirmations, settings and member records. The platform also creates baptism and marriage certificate PDFs from stored information. Each subscribed church manages its own work within the shared system.",
+    rationale: "A shared platform lets churches use the same tools while keeping their work separate. Booking requests use each church's own availability. Certificates use information already stored in its records, so staff do not need to type the same details again for every document.",
     services: ["Custom Business Software", "Business Websites"],
     industry: "Education & Community",
     features: [
@@ -66,8 +68,9 @@ export const projects: Project[] = [
     mainImage: "/projects/optimized/aidpoint_main-presentation.webp",
     technologies: ["Laravel API", "MySQL", "React", "Next.js", "Tailwind CSS"],
     fullDescription: "AidPoint is a SaaS platform streamlining financial aid operations for institutions. Features role-based portals for Admin, Director, Caseworker, Finance Officer, and Beneficiary with multi-level approval workflows.",
-    challenge: "A financial aid institution needed to move disbursements off spreadsheets and manual sign-offs, with clear accountability across five different roles and a complete audit trail for every amount that moved.",
-    solution: "I built the backend powering role-based portals for five roles (Admin, Director, Caseworker, Finance Officer, Beneficiary), replacing spreadsheet-based aid tracking with multi-level approval workflows that govern every disbursement. I engineered allocation and liquidation tracking with full audit logs for end-to-end traceability, and exposed secure real-time data that gives all five stakeholder roles a clear, live view of application status, approvals, and fund movement.",
+    challenge: "The financial aid institution needed a clear process for managing applications and releasing funds across five user roles. Staff needed to follow approval decisions, assigned funds and records of how the aid was used. Beneficiaries also needed to see the status of their requests.",
+    solution: "We developed the backend within a four-person team. It supports portals for Admin, Director, Caseworker, Finance Officer and Beneficiary. Staff permissions and several approval steps control the aid process. Fund allocation, usage records and audit logs keep each financial action linked to the relevant case.",
+    rationale: "Each role has different responsibilities, so access and approval steps need to reflect those duties. Audit logs let staff follow an application's progress. Keeping fund allocation and usage records together also gives staff one place to review the aid assigned to a case and how it was used.",
     services: ["Custom Business Software"],
     industry: "Business & SaaS",
     features: [
@@ -93,8 +96,9 @@ export const projects: Project[] = [
     mainImage: "/projects/optimized/archi_main-presentation.webp",
     technologies: ["Nuxt.js", "Vue 3", "TypeScript", "Tailwind CSS", "Nuxt UI", "Laravel", "PHP", "MySQL"],
     fullDescription: "F.A Babila Architects is a marketing and portfolio website for a Davao City architecture and interior design practice, built on Nuxt 4 (Vue 3, TypeScript) with a Laravel and MySQL backend. It replaces the firm's habit of sharing work through cloud-drive links with a fast, SEO-friendly public site, and gives the team a content management system to publish projects, services, and journal entries without a developer. Currently in active development.",
-    challenge: "F.A Babila Architects shared their portfolio the traditional way, through cloud-drive links, which left the firm invisible on Google and hard to find next to competing practices. They needed a professional, SEO-friendly website that showcases their work, ranks in search, lets them manage their own content, and gives prospective clients an easy way to get in touch.",
-    solution: "I am building F.A Babila a fast, SEO-friendly marketing and portfolio website on Nuxt 4 (Vue 3, TypeScript) backed by a Laravel and MySQL API, replacing scattered drive links with a single, searchable home for their work. The site ships with a content management system so the firm can publish and edit projects, services, and journal entries themselves, plus a simple contact enquiry flow that turns visitors into leads. A custom typography and theming system (light/dark, swappable font pairings) sets the practice apart from competitors online.",
+    challenge: "F.A Babila Architects needs a public website instead of sharing its portfolio through cloud-drive links. The practice also needs to update projects, services and journal entries itself. The website should explain its work clearly and give prospective clients a direct way to contact the studio.",
+    solution: "We are building a Nuxt website with project, service and journal pages. A Laravel and MySQL content management system will let the practice make updates. We are also adding a contact enquiry form and clear page descriptions. Public pages will include their text when they first load so visitors and search tools can read it.",
+    rationale: "Project pages explain the work alongside its images, and content tools let the practice maintain those pages itself. Readable public pages help search engines and AI tools understand the website. The SEO goal is to compete for top positions in relevant architecture searches, helping people find the studio and send an enquiry.",
     services: ["Business Websites", "Custom Business Software"],
     industry: "Web & Branding",
     features: [

@@ -11,6 +11,8 @@ import StructuredData from "@/components/StructuredData";
 import ProjectDetail from "./ProjectDetail";
 import ProjectCaseStudy from "@/components/ProjectCaseStudy";
 
+const retiredPortfolioSlugs = new Set(["cee8638e-23df-40b7-b507-c1a328a83745", "developer-portfolio"]);
+
 // Pre-render one static page per project at build time (SSG).
 export function generateStaticParams() {
   return [...profileProjects.map(project => ({ slug: project.slug })), ...projects.map(project => ({ slug: toSlug(project.title) }))];
@@ -22,6 +24,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  if (retiredPortfolioSlugs.has(slug)) permanentRedirect("/");
   const saved = findPortfolioProject(slug);
   if (saved) {
     const path = getProjectPath(saved);
@@ -40,6 +43,7 @@ export default async function Page({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  if (retiredPortfolioSlugs.has(slug)) permanentRedirect("/");
   const saved = findPortfolioProject(slug);
   if (saved) {
     if (saved.slug !== slug) permanentRedirect(getProjectPath(saved));

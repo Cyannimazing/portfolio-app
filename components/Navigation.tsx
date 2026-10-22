@@ -115,6 +115,7 @@ function NavigationContent({ pathname }: { pathname: string }) {
 
 export default function Navigation() {
   const pathname = usePathname();
-  if (pathname === "/" || pathname === "/works" || pathname.startsWith("/works/") || pathname === "/services" || pathname === "/practice" || pathname === "/contact") return <PortfolioSidebar />;
+  if (pathname.startsWith("/works/")) return null;
+  if (pathname === "/" || pathname === "/works" || pathname === "/services" || pathname === "/practice" || pathname === "/contact") return <PortfolioSidebar />;
   return <NavigationContent key={pathname} pathname={pathname} />;
 }

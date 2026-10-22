@@ -1,0 +1,860 @@
+{
+  "checkedOn": "2026-10-22",
+  "scope": "Canonical portfolio projects 5, 6, 7, 8, 9, 10 and 11",
+  "method": "Read-only source inspection of targeted implementation files and public configuration code. No environment files, credentials, private records, external requests or project-source writes were used. Identical normalized source hashes were compared for shared B2, review and analytics implementations after inspecting a representative implementation.",
+  "publicCopyFile": "lib/project-delivery-web-a.ts",
+  "globalLimits": [
+    "Implementation presence supports platform capabilities, not personal ownership of every implementation. Confirmed contribution scopes remain authoritative.",
+    "No inspected evidence establishes Google rankings, Top 1 positions, indexing outcomes, AI citations, traffic gains, conversion gains or performance savings.",
+    "No explicit GPTBot/OAI-SearchBot/ChatGPT-User/PerplexityBot or llms.txt implementation was found in the searched source/public files. Ordinary page metadata, structured data and crawl rules must not be described as proven AI crawler results.",
+    "No Payload CMS configuration/imports or Cloudflare R2 storage implementation was found in the inspected project source. Verified media storage uses Backblaze B2; CDN delivery remains deployment-configurable.",
+    "Google Places retrieval, first-party verified reviews and placeholder/fallback testimonials must be described separately. No review text, stars or counts were copied into portfolio evidence."
+  ],
+  "projects": [
+    {
+      "id": 5,
+      "name": "Viviour",
+      "root": "C:/Users/Admin/Desktop/Izee/vivours",
+      "confirmedContribution": "Enhanced an existing design; full-stack bug fixes; conversion features and payment integration; site-wide functional checks.",
+      "ownershipLimits": [
+        "Existing commerce application; do not claim the full storefront, CMS, feeds, review system or tracking infrastructure was built from scratch."
+      ],
+      "potentialResponsibilityLabels": [
+        "Storefront improvements",
+        "Payment integration",
+        "Conversion features",
+        "Full-stack fixes and checks"
+      ],
+      "facts": [
+        {
+          "area": "custom_cms",
+          "fact": "Custom read and save endpoints maintain tenant-specific page sections in prefix-configurable page_content table (default cms_page_content). This is a custom Supabase-backed CMS implementation; no Payload CMS configuration or imports were found in the inspected source.",
+          "sources": [
+            {
+              "path": "src/lib/supabase/queries.js",
+              "anchor": "getPageContent/getTenantPageContent"
+            },
+            {
+              "path": "src/app/api/admin/page-content/route.js",
+              "anchor": "POST update/insert by tenant, page_slug and section_key"
+            }
+          ]
+        },
+        {
+          "area": "media_delivery",
+          "fact": "The admin upload handler uses Sharp to orient, resize and encode images as WebP before uploadToB2. The B2 utility returns a configurable CDN URL; source presence does not prove the deployment's CDN configuration or measured loading performance.",
+          "sources": [
+            {
+              "path": "src/app/api/admin/upload/route.js",
+              "anchor": "POST image processing and uploadToB2"
+            },
+            {
+              "path": "src/lib/b2-upload.js",
+              "anchor": "uploadToB2 and NEXT_PUBLIC_CDN_BASE"
+            }
+          ]
+        },
+        {
+          "area": "measurement",
+          "fact": "The mounted analytics component loads gtag for Google Ads and optional GA4, captures attribution and emits route page views. Add-to-cart, checkout and purchase callers are wired; browser Meta Purchase shares an event ID with a paid-order-checked server purchase event.",
+          "sources": [
+            {
+              "path": "src/components/GoogleAnalytics.jsx",
+              "anchor": "primaryId, RouteChangeTracker and captureAttributionFromBrowser"
+            },
+            {
+              "path": "src/lib/analytics.js",
+              "anchor": "trackPurchase"
+            },
+            {
+              "path": "src/components/cart/CartProvider.jsx",
+              "anchor": "trackAddToCart"
+            },
+            {
+              "path": "src/components/checkout/CheckoutClient.jsx",
+              "anchor": "trackBeginCheckout"
+            },
+            {
+              "path": "src/app/(site)/checkout/success/page.js",
+              "anchor": "trackPurchase"
+            },
+            {
+              "path": "src/app/api/order-summary/route.js",
+              "anchor": "payment status checks and Purchase server event"
+            }
+          ]
+        },
+        {
+          "area": "reviews",
+          "fact": "The current reviews API returns approved first-party reviews and restricts product review queries to verified purchases. The Merchant review badge example is commented out in the site layout; this does not support a live Google Places reviews claim.",
+          "sources": [
+            {
+              "path": "src/app/api/reviews/route.js",
+              "anchor": "GET status approved and verification_type purchase"
+            },
+            {
+              "path": "src/app/(site)/layout.js",
+              "anchor": "commented GoogleReviewsBadge example"
+            }
+          ]
+        },
+        {
+          "area": "seo_and_crawl",
+          "fact": "Product metadata uses the content overlay for title/description, canonical URL and social imagery; the page emits Product and Breadcrumb JSON-LD. Robots rules allow public crawling while excluding shopping/account/admin paths, and a sitemap implementation exists.",
+          "sources": [
+            {
+              "path": "src/app/(site)/products/[slug]/page.js",
+              "anchor": "generateMetadata and SchemaJsonLd"
+            },
+            {
+              "path": "src/lib/schema.js",
+              "anchor": "productSchema and breadcrumbSchema"
+            },
+            {
+              "path": "src/app/robots.js",
+              "anchor": "robots"
+            },
+            {
+              "path": "src/app/sitemap.js",
+              "anchor": "sitemap"
+            }
+          ]
+        },
+        {
+          "area": "payments",
+          "fact": "The Stripe webhook verifies signatures and handles successful payment events through order-completion logic. Paid-order checks in order-summary precede purchase measurement; this supports payment/order integration without claiming revenue results.",
+          "sources": [
+            {
+              "path": "src/app/api/webhooks/stripe/route.js",
+              "anchor": "constructEvent and payment_intent.succeeded"
+            },
+            {
+              "path": "src/app/api/order-summary/route.js",
+              "anchor": "succeeded/paid checks"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Martich Studios",
+      "root": "C:/Users/Admin/Desktop/Izee/martich-studios",
+      "confirmedContribution": "Helped fix the existing studio booking system; CMS/admin work; UI and functional bug fixes in a two-person team.",
+      "ownershipLimits": [
+        "Booking and studio platform already existed. Do not describe complete original booking, payment, contract or site ownership.",
+        "analytics.js contains only a trackPhoneClick stub; no GA/GTM/Meta initialization was found in the root layout."
+      ],
+      "potentialResponsibilityLabels": [
+        "Booking-system repairs",
+        "CMS and admin functionality",
+        "Interface and functional fixes"
+      ],
+      "facts": [
+        {
+          "area": "custom_cms",
+          "fact": "Custom read and save endpoints maintain tenant-specific page sections in cms_page_content. This is a custom Supabase-backed CMS implementation; no Payload CMS configuration or imports were found in the inspected source.",
+          "sources": [
+            {
+              "path": "src/lib/supabase/queries.js",
+              "anchor": "getPageContent/getTenantPageContent"
+            },
+            {
+              "path": "src/app/api/admin/page-content/route.js",
+              "anchor": "POST update/insert by tenant, page_slug and section_key"
+            }
+          ]
+        },
+        {
+          "area": "media_delivery",
+          "fact": "The admin upload handler uses Sharp to orient, resize and encode images as WebP before uploadToB2. The B2 utility returns a configurable CDN URL; source presence does not prove the deployment's CDN configuration or measured loading performance.",
+          "sources": [
+            {
+              "path": "src/app/api/admin/upload/route.js",
+              "anchor": "POST image processing and uploadToB2"
+            },
+            {
+              "path": "src/lib/b2-upload.js",
+              "anchor": "uploadToB2 and NEXT_PUBLIC_CDN_BASE"
+            }
+          ]
+        },
+        {
+          "area": "booking_payments",
+          "fact": "Booking confirmation retrieves the Stripe payment intent and requires succeeded status, derives deposit or full-payment information, generates a signed contract PDF and stores the agreement. The existing scheduling integration forms part of the wider booking flow.",
+          "sources": [
+            {
+              "path": "src/app/api/booking/confirm/route.js",
+              "anchor": "POST paymentIntents.retrieve, generateContractPdf and contracts insert"
+            },
+            {
+              "path": "src/app/book/page.js",
+              "anchor": "booking customer flow"
+            }
+          ]
+        },
+        {
+          "area": "booking_cms",
+          "fact": "Saving the booking/packages CMS section normalizes package content before storage. This connects administrator-editable offerings with the package data consumed by reservations.",
+          "sources": [
+            {
+              "path": "src/app/api/admin/page-content/route.js",
+              "anchor": "isBookingPackages and normalizeBookingPackagesContent"
+            },
+            {
+              "path": "src/lib/packages.js",
+              "anchor": "getPackages/getPackageById"
+            }
+          ]
+        },
+        {
+          "area": "seo_and_crawl",
+          "fact": "Location pages read page-specific metadata/canonical URLs and emit supplied or LocalBusiness fallback schema. Generated sitemaps cover studio routes and published location/blog/FAQ content; the root layout includes Open Graph metadata.",
+          "sources": [
+            {
+              "path": "src/app/areas/[slug]/page.jsx",
+              "anchor": "generateMetadata and jsonLd"
+            },
+            {
+              "path": "src/app/sitemap.js",
+              "anchor": "generateSitemaps and sitemap"
+            },
+            {
+              "path": "src/app/layout.js",
+              "anchor": "metadata"
+            }
+          ]
+        },
+        {
+          "area": "measurement_and_reviews_limits",
+          "fact": "The analytics helper is a phone-tracking stub, and no Google Places review route or GoogleReviews component was found in the inspected source paths. Do not convert generic CMS testimonials or stub code into active analytics/Google Reviews claims.",
+          "sources": [
+            {
+              "path": "src/lib/analytics.js",
+              "anchor": "trackPhoneClick stub"
+            },
+            {
+              "path": "src/app/layout.js",
+              "anchor": "RootLayout without analytics initialization"
+            },
+            {
+              "path": "src/lib/supabase/queries.js",
+              "anchor": "getTestimonials"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Ferma Coffee Co",
+      "root": "C:/Users/Admin/Desktop/Izee/fermacoffeeco",
+      "confirmedContribution": "Admin/shop functionality; CMS; Stripe payments and promotions; UI enhancements and bug fixes.",
+      "ownershipLimits": [
+        "Existing store enhancements; do not imply every original storefront or tracking/review implementation was personally authored.",
+        "Google Places API and component code exist, but no active GoogleReviews mount was established in current public pages; product reviews are a separate first-party workflow."
+      ],
+      "potentialResponsibilityLabels": [
+        "Shop and catalog functionality",
+        "CMS work",
+        "Payments and promotions",
+        "Interface improvements and fixes"
+      ],
+      "facts": [
+        {
+          "area": "custom_cms",
+          "fact": "Custom read and save endpoints maintain tenant-specific page sections in cms_page_content. This is a custom Supabase-backed CMS implementation; no Payload CMS configuration or imports were found in the inspected source.",
+          "sources": [
+            {
+              "path": "src/lib/supabase/queries.js",
+              "anchor": "getPageContent/getTenantPageContent"
+            },
+            {
+              "path": "src/app/api/admin/page-content/route.js",
+              "anchor": "POST update/insert by tenant, page_slug and section_key"
+            }
+          ]
+        },
+        {
+          "area": "media_delivery",
+          "fact": "The admin upload handler uses Sharp to orient, resize and encode images as WebP before uploadToB2. The B2 utility returns a configurable CDN URL; source presence does not prove the deployment's CDN configuration or measured loading performance.",
+          "sources": [
+            {
+              "path": "src/app/api/admin/upload/route.js",
+              "anchor": "POST image processing and uploadToB2"
+            },
+            {
+              "path": "src/lib/b2-upload.js",
+              "anchor": "uploadToB2 and NEXT_PUBLIC_CDN_BASE"
+            }
+          ]
+        },
+        {
+          "area": "measurement",
+          "fact": "The root layout mounts GoogleAnalytics and MetaPixel. GA route/scroll tracking and browser/server Meta lead/contact events are implemented, with common event IDs and hashed server user fields; runtime credentials and results were not inspected.",
+          "sources": [
+            {
+              "path": "src/app/layout.js",
+              "anchor": "GoogleAnalytics and MetaPixel mounts"
+            },
+            {
+              "path": "src/components/GoogleAnalytics.jsx",
+              "anchor": "RouteChangeTracker and ScrollDepthTracker"
+            },
+            {
+              "path": "src/lib/analytics.js",
+              "anchor": "trackFormSubmission/sendServerEvent"
+            },
+            {
+              "path": "src/app/api/meta-conversions/route.js",
+              "anchor": "POST serverEvent and hashValue"
+            }
+          ]
+        },
+        {
+          "area": "tag_manager",
+          "fact": "The root layout additionally loads a Google Tag Manager container. The underlying GA4 and Meta components are mounted, but container-side tag configuration and production event delivery were not inspected.",
+          "sources": [
+            {
+              "path": "src/app/layout.js",
+              "anchor": "GTM script/noscript plus GoogleAnalytics/MetaPixel mounts"
+            }
+          ]
+        },
+        {
+          "area": "catalog_and_payments",
+          "fact": "Product administration includes names, URL slugs, descriptions, prices, images, stock and availability. The checkout route uses Stripe checkout sessions; existing product/payment/promotional operations support the confirmed shop work.",
+          "sources": [
+            {
+              "path": "src/app/admin/products/ProductsAdmin.jsx",
+              "anchor": "EMPTY catalog fields and admin editor"
+            },
+            {
+              "path": "src/app/api/shop/checkout/route.js",
+              "anchor": "Stripe checkout session operations"
+            }
+          ]
+        },
+        {
+          "area": "seo_and_crawl",
+          "fact": "Product pages generate descriptive metadata and render Product JSON-LD with offer and published-review information. Robots allows public crawling and names the sitemap; the sitemap is generated in source.",
+          "sources": [
+            {
+              "path": "src/app/shop/[slug]/page.js",
+              "anchor": "generateMetadata and Product JSON-LD"
+            },
+            {
+              "path": "src/app/robots.js",
+              "anchor": "robots"
+            },
+            {
+              "path": "src/app/sitemap.js",
+              "anchor": "sitemap"
+            }
+          ]
+        },
+        {
+          "area": "reviews",
+          "fact": "A Google Places API implementation is present and identical to the inspected Lowrie implementation, but its public Google review display was not established. Product pages use getPublishedProductReviews and product-review components.",
+          "sources": [
+            {
+              "path": "src/app/api/reviews/route.js",
+              "anchor": "Google Places GET"
+            },
+            {
+              "path": "src/app/shop/[slug]/page.js",
+              "anchor": "getPublishedProductReviews"
+            },
+            {
+              "path": "src/lib/shop/reviews.js",
+              "anchor": "published product reviews"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "River Taxes",
+      "root": "C:/Users/Admin/Desktop/Izee/rivertaxes",
+      "confirmedContribution": "Added functionality and fixed bugs in a two-person team; AI employee automation; admin UI design; CMS.",
+      "ownershipLimits": [
+        "Contribution to an existing tax/bookkeeping platform, not complete ownership of every accounting, bank, payment or communications integration.",
+        "No claim to accounting accuracy, tax outcomes, autonomous decisions or a particular model/provider is established.",
+        "Private client files must not be described as public CDN assets."
+      ],
+      "potentialResponsibilityLabels": [
+        "AI employee automation",
+        "Admin interface design",
+        "CMS functionality",
+        "Application improvements and fixes"
+      ],
+      "facts": [
+        {
+          "area": "custom_cms",
+          "fact": "Custom read and save endpoints maintain tenant-specific page sections in prefix-configurable page_content table (default cms_page_content). This is a custom Supabase-backed CMS implementation; no Payload CMS configuration or imports were found in the inspected source.",
+          "sources": [
+            {
+              "path": "src/lib/supabase/queries.js",
+              "anchor": "getPageContent/getTenantPageContent"
+            },
+            {
+              "path": "src/app/api/admin/page-content/route.js",
+              "anchor": "POST update/insert by tenant, page_slug and section_key"
+            }
+          ]
+        },
+        {
+          "area": "measurement",
+          "fact": "The root layout mounts GoogleAnalytics and MetaPixel. GA route/scroll tracking and browser/server Meta lead/contact events are implemented, with common event IDs and hashed server user fields; runtime credentials and results were not inspected.",
+          "sources": [
+            {
+              "path": "src/app/layout.js",
+              "anchor": "GoogleAnalytics and MetaPixel mounts"
+            },
+            {
+              "path": "src/components/GoogleAnalytics.jsx",
+              "anchor": "RouteChangeTracker and ScrollDepthTracker"
+            },
+            {
+              "path": "src/lib/analytics.js",
+              "anchor": "trackFormSubmission/sendServerEvent"
+            },
+            {
+              "path": "src/app/api/meta-conversions/route.js",
+              "anchor": "POST serverEvent and hashValue"
+            }
+          ]
+        },
+        {
+          "area": "ai_automation",
+          "fact": "Client AI tools take selected-client scope and include category updates, duplicate and transfer review. Existing policy imports, permission/audit controls and decision flows constrain write operations and preserve the review context.",
+          "sources": [
+            {
+              "path": "src/lib/client-ai-tools.js",
+              "anchor": "TOOL definitions, scoped tools and client-ai-policy imports"
+            },
+            {
+              "path": "src/lib/client-ai-policy.mjs",
+              "anchor": "write/approval policy controls"
+            }
+          ]
+        },
+        {
+          "area": "media_delivery",
+          "fact": "The admin image upload handler performs the same inspected Sharp/WebP pipeline before B2 storage. The B2 implementation separately routes private client-file keys to a private bucket, while public media can use configured CDN delivery.",
+          "sources": [
+            {
+              "path": "src/app/api/admin/upload/route.js",
+              "anchor": "POST image conversion/uploadToB2"
+            },
+            {
+              "path": "src/lib/b2-upload.js",
+              "anchor": "b2BucketFor and getDirectUploadCredentials"
+            },
+            {
+              "path": "src/lib/client-file-storage.mjs",
+              "anchor": "private client-file key rules"
+            }
+          ]
+        },
+        {
+          "area": "website_metadata",
+          "fact": "Root generateMetadata reads the active tenant's editable SEO title and description. No dedicated sitemap/robots/AI crawler implementation was found in the searched source, so do not inflate this into complete search or AI indexing work.",
+          "sources": [
+            {
+              "path": "src/app/layout.js",
+              "anchor": "generateMetadata settings.seo_title/settings.seo_description"
+            }
+          ]
+        },
+        {
+          "area": "integrations",
+          "fact": "Saved profile and prior inspected source establish Plaid bank activity, Stripe and Twilio integrations in the platform. Current Plaid webhook and Stripe Connect OAuth paths corroborate connected-service implementation without establishing personal ownership of all integrations.",
+          "sources": [
+            {
+              "path": "src/app/api/plaid/webhook/route.js",
+              "anchor": "POST webhook handling"
+            },
+            {
+              "path": "src/app/api/stripe/connect/oauth/return/route.js",
+              "anchor": "OAuth return"
+            },
+            {
+              "path": "C:/Users/Admin/Desktop/Personal Work/Portfolio/PortfolioV1/lib/profile-projects.ts",
+              "anchor": "River Taxes verified technologies and contribution"
+            }
+          ]
+        },
+        {
+          "area": "reviews_limit",
+          "fact": "A Google Places API route and GoogleReviewsSection implementation are present, but active public rendering was not established for the current River host/tenant. Do not present it as a measured or necessarily visible Google Reviews integration.",
+          "sources": [
+            {
+              "path": "src/app/api/reviews/route.js",
+              "anchor": "Google Places GET"
+            },
+            {
+              "path": "src/components/sections/GoogleReviewsSection.jsx",
+              "anchor": "GoogleReviewsSection"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Lowrie Roofing",
+      "root": "C:/Users/Admin/Desktop/Izee/lowrieroofing",
+      "confirmedContribution": "Built leads, projects, articles, admin and CMS in a two-person setup; Izee handled final touches and additional script injection.",
+      "ownershipLimits": [
+        "Source proves analytics/review/media capabilities but not personal ownership of each shared implementation.",
+        "In particular, do not attribute all final tracking/script integration to the user's work because Izee handled additional script injection."
+      ],
+      "potentialResponsibilityLabels": [
+        "Enquiries and lead administration",
+        "Project publishing",
+        "Article and CMS workflows",
+        "Administrative tools"
+      ],
+      "facts": [
+        {
+          "area": "custom_cms",
+          "fact": "Custom read and save endpoints maintain tenant-specific page sections in cms_page_content. This is a custom Supabase-backed CMS implementation; no Payload CMS configuration or imports were found in the inspected source.",
+          "sources": [
+            {
+              "path": "src/lib/supabase/queries.js",
+              "anchor": "getPageContent/getTenantPageContent"
+            },
+            {
+              "path": "src/app/api/admin/page-content/route.js",
+              "anchor": "POST update/insert by tenant, page_slug and section_key"
+            }
+          ]
+        },
+        {
+          "area": "media_delivery",
+          "fact": "The admin upload handler uses Sharp to orient, resize and encode images as WebP before uploadToB2. The B2 utility returns a configurable CDN URL; source presence does not prove the deployment's CDN configuration or measured loading performance.",
+          "sources": [
+            {
+              "path": "src/app/api/admin/upload/route.js",
+              "anchor": "POST image processing and uploadToB2"
+            },
+            {
+              "path": "src/lib/b2-upload.js",
+              "anchor": "uploadToB2 and NEXT_PUBLIC_CDN_BASE"
+            }
+          ]
+        },
+        {
+          "area": "measurement",
+          "fact": "The root layout mounts GoogleAnalytics and MetaPixel. GA route/scroll tracking and browser/server Meta lead/contact events are implemented, with common event IDs and hashed server user fields; runtime credentials and results were not inspected.",
+          "sources": [
+            {
+              "path": "src/app/layout.js",
+              "anchor": "GoogleAnalytics and MetaPixel mounts"
+            },
+            {
+              "path": "src/components/GoogleAnalytics.jsx",
+              "anchor": "RouteChangeTracker and ScrollDepthTracker"
+            },
+            {
+              "path": "src/lib/analytics.js",
+              "anchor": "trackFormSubmission/sendServerEvent"
+            },
+            {
+              "path": "src/app/api/meta-conversions/route.js",
+              "anchor": "POST serverEvent and hashValue"
+            }
+          ]
+        },
+        {
+          "area": "seo_and_structured_data",
+          "fact": "Service and location metadata describe the offering with canonical URLs. Relevant service pages emit Service and FAQ JSON-LD; article pages also emit structured content, supporting search-readable public information without a ranking claim.",
+          "sources": [
+            {
+              "path": "src/app/services/[slug]/page.js",
+              "anchor": "generateMetadata, Service and FAQPage JSON-LD"
+            },
+            {
+              "path": "src/app/locations/[slug]/page.js",
+              "anchor": "generateMetadata and structured content"
+            },
+            {
+              "path": "src/app/blog/[slug]/page.js",
+              "anchor": "generateMetadata and JSON-LD"
+            }
+          ]
+        },
+        {
+          "area": "google_reviews",
+          "fact": "The homepage mounts GoogleReviews, which fetches /api/reviews. That server route looks up the configured Google place and returns reviews and aggregate rating values, so the source supports an actual connected review-display implementation.",
+          "sources": [
+            {
+              "path": "src/app/page.js",
+              "anchor": "GoogleReviews mount"
+            },
+            {
+              "path": "src/components/GoogleReviews.jsx",
+              "anchor": "fetch /api/reviews"
+            },
+            {
+              "path": "src/app/api/reviews/route.js",
+              "anchor": "Google Places search and reviews GET"
+            }
+          ]
+        },
+        {
+          "area": "brand_cdn",
+          "fact": "The CDN asset map provides actual remote references for the logo, hero video/poster, service imagery, galleries and social image. The source identifies Backblaze-hosted assets; no measured performance comparison was inspected.",
+          "sources": [
+            {
+              "path": "src/lib/cdn.js",
+              "anchor": "CDN asset map"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Masterbuilt Roofing",
+      "root": "C:/Users/Admin/Desktop/Izee/masterbuiltroofing",
+      "confirmedContribution": "CMS, admin features and UI design in a two-person setup; Izee handled final cleanup.",
+      "ownershipLimits": [
+        "Do not claim original ownership of the estimator algorithm, payments, tracking or Google review integration merely because they are in the repository.",
+        "The inspected service page supplies title/description; no broad schema/crawl coverage should be inferred from that file."
+      ],
+      "potentialResponsibilityLabels": [
+        "CMS functionality",
+        "Administrative features",
+        "Customer-facing UI design"
+      ],
+      "facts": [
+        {
+          "area": "custom_cms",
+          "fact": "Custom read and save endpoints maintain tenant-specific page sections in cms_page_content. This is a custom Supabase-backed CMS implementation; no Payload CMS configuration or imports were found in the inspected source.",
+          "sources": [
+            {
+              "path": "src/lib/supabase/queries.js",
+              "anchor": "getPageContent/getTenantPageContent"
+            },
+            {
+              "path": "src/app/api/admin/page-content/route.js",
+              "anchor": "POST update/insert by tenant, page_slug and section_key"
+            }
+          ]
+        },
+        {
+          "area": "media_delivery",
+          "fact": "The admin upload handler uses Sharp to orient, resize and encode images as WebP before uploadToB2. The B2 utility returns a configurable CDN URL; source presence does not prove the deployment's CDN configuration or measured loading performance.",
+          "sources": [
+            {
+              "path": "src/app/api/admin/upload/route.js",
+              "anchor": "POST image processing and uploadToB2"
+            },
+            {
+              "path": "src/lib/b2-upload.js",
+              "anchor": "uploadToB2 and NEXT_PUBLIC_CDN_BASE"
+            }
+          ]
+        },
+        {
+          "area": "measurement",
+          "fact": "The root layout mounts GoogleAnalytics and MetaPixel. GA route/scroll tracking and browser/server Meta lead/contact events are implemented, with common event IDs and hashed server user fields; runtime credentials and results were not inspected.",
+          "sources": [
+            {
+              "path": "src/app/layout.js",
+              "anchor": "GoogleAnalytics and MetaPixel mounts"
+            },
+            {
+              "path": "src/components/GoogleAnalytics.jsx",
+              "anchor": "RouteChangeTracker and ScrollDepthTracker"
+            },
+            {
+              "path": "src/lib/analytics.js",
+              "anchor": "trackFormSubmission/sendServerEvent"
+            },
+            {
+              "path": "src/app/api/meta-conversions/route.js",
+              "anchor": "POST serverEvent and hashValue"
+            }
+          ]
+        },
+        {
+          "area": "estimate_pricing_controls",
+          "fact": "The estimator-pricing admin reads/writes the instant-estimate pricing CMS section. Public estimator code merges saved overrides with defaults, supporting maintainable estimator configuration as a platform capability.",
+          "sources": [
+            {
+              "path": "src/app/admin/estimator-pricing/page.jsx",
+              "anchor": "pricing CMS override editor"
+            },
+            {
+              "path": "src/app/(site)/instant-estimate/EstimatorContent.jsx",
+              "anchor": "estimate experience"
+            },
+            {
+              "path": "src/lib/estimator.js",
+              "anchor": "pricing defaults and calculations"
+            }
+          ]
+        },
+        {
+          "area": "google_reviews",
+          "fact": "ReviewsSection mounts GoogleReviews, whose server-backed review route is identical to the inspected Google Places implementation. This supports an integrated public review display, with production credentials and review values uninspected.",
+          "sources": [
+            {
+              "path": "src/components/sections/ReviewsSection.jsx",
+              "anchor": "GoogleReviews mount"
+            },
+            {
+              "path": "src/components/GoogleReviews.jsx",
+              "anchor": "review retrieval/display"
+            },
+            {
+              "path": "src/app/api/reviews/route.js",
+              "anchor": "Google Places GET"
+            }
+          ]
+        },
+        {
+          "area": "public_metadata",
+          "fact": "Individual service pages generate their own titles and descriptions, and root metadata includes social information. No ranking or AI-indexing outcome follows from these fields.",
+          "sources": [
+            {
+              "path": "src/app/(site)/services/[slug]/page.js",
+              "anchor": "generateMetadata"
+            },
+            {
+              "path": "src/app/layout.js",
+              "anchor": "metadata"
+            }
+          ]
+        },
+        {
+          "area": "brand_cdn",
+          "fact": "The CDN map contains remote brand media references and identifies Backblaze-hosted assets. This supports source-backed CDN media use, while any performance benefit remains unmeasured.",
+          "sources": [
+            {
+              "path": "src/lib/cdn.js",
+              "anchor": "CDN map"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Northforge Exteriors",
+      "root": "C:/Users/Admin/Desktop/Izee/northforgeexteriors",
+      "confirmedContribution": "No personal contribution answer has been recorded; product facts are supported by the saved profile and source.",
+      "ownershipLimits": [
+        "Use product-neutral wording and heading Project implementation; do not assign a personal role or claim we built all functions.",
+        "Google Places route remains in source, but current ReviewsClient explicitly withholds stars/counts and uses commitments until real Google reviews exist."
+      ],
+      "potentialResponsibilityLabels": [
+        "Service and location presentation",
+        "Website content administration",
+        "Customer enquiry flow"
+      ],
+      "facts": [
+        {
+          "area": "custom_cms",
+          "fact": "Custom read and save endpoints maintain tenant-specific page sections in cms_page_content. This is a custom Supabase-backed CMS implementation; no Payload CMS configuration or imports were found in the inspected source.",
+          "sources": [
+            {
+              "path": "src/lib/supabase/queries.js",
+              "anchor": "getPageContent/getTenantPageContent"
+            },
+            {
+              "path": "src/app/api/admin/page-content/route.js",
+              "anchor": "POST update/insert by tenant, page_slug and section_key"
+            }
+          ]
+        },
+        {
+          "area": "media_delivery",
+          "fact": "The admin upload handler uses Sharp to orient, resize and encode images as WebP before uploadToB2. The B2 utility returns a configurable CDN URL; source presence does not prove the deployment's CDN configuration or measured loading performance.",
+          "sources": [
+            {
+              "path": "src/app/api/admin/upload/route.js",
+              "anchor": "POST image processing and uploadToB2"
+            },
+            {
+              "path": "src/lib/b2-upload.js",
+              "anchor": "uploadToB2 and NEXT_PUBLIC_CDN_BASE"
+            }
+          ]
+        },
+        {
+          "area": "measurement",
+          "fact": "The root layout loads Google Tag Manager, and trackFormSubmission pushes nfe_lead after an accepted request. The source comments delegate GA4/Meta base tags and telephone events to GTM; container configuration and production delivery were not inspected.",
+          "sources": [
+            {
+              "path": "src/app/layout.js",
+              "anchor": "Google Tag Manager script/noscript"
+            },
+            {
+              "path": "src/lib/analytics.js",
+              "anchor": "trackFormSubmission and intentionally empty trackPhoneClick"
+            },
+            {
+              "path": "src/components/site/ContactSection.jsx",
+              "anchor": "accepted submission then trackFormSubmission"
+            }
+          ]
+        },
+        {
+          "area": "seo_and_crawl",
+          "fact": "Service pages generate canonical and social metadata and emit Service/FAQ structured data. Root LocalBusinessSchema, location pages, a sitemap and public allow rules support descriptive public search foundations.",
+          "sources": [
+            {
+              "path": "src/app/services/[slug]/page.js",
+              "anchor": "generateMetadata and Service/FAQ JSON-LD"
+            },
+            {
+              "path": "src/components/seo/LocalBusinessSchema.jsx",
+              "anchor": "LocalBusinessSchema"
+            },
+            {
+              "path": "src/app/robots.js",
+              "anchor": "robots allow and sitemap"
+            },
+            {
+              "path": "src/app/sitemap.js",
+              "anchor": "sitemap"
+            }
+          ]
+        },
+        {
+          "area": "enquiry_photos",
+          "fact": "The contact photo endpoint validates accepted image types and size, re-encodes through Sharp to strip metadata, resizes and converts to WebP, then uploads the result to B2. It supports attaching project context to enquiries.",
+          "sources": [
+            {
+              "path": "src/app/api/lead-photo/route.js",
+              "anchor": "POST validation, rotate/resize/webp and uploadToB2"
+            },
+            {
+              "path": "src/components/site/ContactSection.jsx",
+              "anchor": "contact request/photo flow"
+            }
+          ]
+        },
+        {
+          "area": "reviews_limit",
+          "fact": "A Google Places server implementation exists, but the current public reviews page deliberately displays commitments and references with no stars or counts until real Google reviews exist. A current live Google Reviews display claim is unsupported.",
+          "sources": [
+            {
+              "path": "src/app/api/reviews/route.js",
+              "anchor": "Google Places GET"
+            },
+            {
+              "path": "src/app/reviews/ReviewsClient.jsx",
+              "anchor": "reviews-section replacement comment and commitments"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

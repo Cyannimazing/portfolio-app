@@ -2,6 +2,7 @@
 
 .studio-static-navigation { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-left: var(--studio-sidebar-width); padding: 24px var(--studio-page-gutter-end) 32px var(--studio-page-gutter-start); color: var(--studio-accent); background: var(--studio-bg); }
 .studio-static-navigation a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; }
+body:has([data-project-detail]) .studio-static-navigation { margin-left: 0; }
 @media (max-width: 1023px) { .studio-static-navigation { margin-left: 0; } }
 
 :root {
@@ -89,6 +90,8 @@ body {
 html[data-page-transition="opening"] #main-content *,
 html[data-page-transition="covering"] #main-content *,
 html[data-page-transition="revealing"] #main-content * { animation-play-state: paused !important; }
+/* A returning sidebar arrives with the curtain, without replaying its first-visit entrance. */
+.studio-navigation[data-transition-arrival="true"] { --studio-reveal-name: none; --studio-text-reveal-name: none; --studio-sidebar-reveal-name: none; }
 @media (prefers-reduced-motion: no-preference) {
   html:has([data-route-transition][data-phase="opening"]) #main-content * { animation-play-state: paused !important; }
 }

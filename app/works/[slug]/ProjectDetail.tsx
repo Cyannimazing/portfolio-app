@@ -1,375 +1,158 @@
 "use client";
-import React, { useState, useEffect, useCallback, useRef } from "react";
+
+import { useState, useEffect, useCallback, useRef } from "react";
+import type { TouchEvent } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
-import ProjectPlaceholder from "@/components/ProjectPlaceholder";
 import Link from "next/link";
-import type { Project } from "@/lib/projects";
+import { IconArrowLeft, IconArrowRight, IconArrowUpRight, IconFileText, IconMaximize } from "@tabler/icons-react";
+import ProjectPlaceholder from "@/components/ProjectPlaceholder";
+import ProjectCaseContent from "@/components/ProjectCaseContent";
+import PortfolioActions from "@/components/PortfolioActions";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import { Modal, ModalBody, useModal } from "@/components/ui/animated-modal";
+import { useMotionPreference } from "@/hooks/use-motion-preference";
+import { projectDelivery } from "@/lib/project-delivery";
+import { toSlug, type Project } from "@/lib/projects";
+import { cn } from "@/lib/utils";
 import caseStudyStyles from "@/components/ProjectCaseStudy.module.css";
+import styles from "./ProjectDetail.module.css";
 
-type LightboxState = { images: { src: string; alt: string }[]; index: number } | null;
+type GalleryImage = { src: string; alt: string };
+type LightboxState = { images: GalleryImage[]; index: number } | null;
 
 export default function ProjectDetail({ project }: { project: Project }) {
-  const [lightbox, setLightbox] = useState<LightboxState>(null);
-
-  const galleryImages = (project.subImages ?? []).map((img) => ({ src: img.url, alt: img.caption }));
-
-  return (
-    <>
-      <AnimatePresence>
-        {lightbox && (
-          <ImageLightbox
-            images={lightbox.images}
-            initialIndex={lightbox.index}
-            onClose={() => setLightbox(null)}
-          />
-        )}
-      </AnimatePresence>
-
-      <main className={`${caseStudyStyles.page} relative bg-[#080808] min-h-screen`}>
-        <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.025)_1px,transparent_1px)] bg-size-[36px_36px] pointer-events-none" />
-
-        {/* Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="relative z-10"
-        >
-          {/* Hero - full bleed with title overlaid */}
-          <div
-            className={`relative h-[55vh] md:h-[65vh] rounded-xl mb-12 overflow-hidden group ${project.mainImage ? "cursor-pointer" : ""}`}
-            onClick={() => { if (project.mainImage) setLightbox({ images: [{ src: project.mainImage, alt: project.description }, ...galleryImages], index: 0 }); }}
-          >
-            {project.mainImage ? <Image
-              src={project.mainImage}
-              alt={project.title}
-              fill
-              sizes="100vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-            /> : <ProjectPlaceholder name={project.title} />}
-            {/* layered gradients */}
-            <div className="absolute inset-0 bg-black/30" />
-            <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/30 to-transparent" />
-
-            <Link
-              href="/works"
-              onClick={(event) => event.stopPropagation()}
-              className={`${caseStudyStyles.back} absolute top-4 left-4 z-20 min-h-[44px] border border-white/15 bg-[#10191e]/90 px-3 text-[#f1f7fa] backdrop-blur-sm`}
-            >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back to projects
-            </Link>
-
-            {/* overlaid title block */}
-            <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-sky-400 text-xs font-bold uppercase tracking-[0.3em]">{project.industry ?? project.type}</span>
-                <span className="text-neutral-600">·</span>
-                <span className="text-xs text-neutral-500">{project.year}</span>
-              </div>
-              <h1 className="text-4xl md:text-6xl font-black text-white mb-4 leading-tight">{project.title}</h1>
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.slice(0, 6).map((t) => (
-                  <span key={t} className="text-xs px-2.5 py-1 rounded-md bg-white/10 border border-white/15 text-neutral-200 backdrop-blur-sm">{t}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Live site + URL + credentials */}
-          {project.liveLink && (
-            <div className="flex flex-wrap items-center gap-3 mb-8">
-              <a
-                href={project.liveLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-5 py-2.5 bg-sky-500 hover:bg-sky-400 text-white text-sm font-semibold rounded-md transition-colors"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-                Live Site
-              </a>
-              <span className="text-neutral-600">|</span>
-              <span className="text-sm text-neutral-500 font-mono">{new URL(project.liveLink).hostname}</span>
-              {project.demoCredentials && (
-                <>
-                  <span className="text-neutral-700 hidden sm:block">|</span>
-                  <div className="hidden sm:flex items-center gap-2 text-xs text-neutral-500">
-                    <span className="text-neutral-600 uppercase tracking-wide font-semibold">Demo:</span>
-                    <span className="font-mono text-neutral-300">{project.demoCredentials.email}</span>
-                    <span className="text-neutral-700">/</span>
-                    <span className="font-mono text-neutral-300">{project.demoCredentials.password}</span>
-                  </div>
-                </>
-              )}
-            </div>
-          )}
-
-          <p className="text-neutral-400 text-base mb-10 leading-relaxed">{project.fullDescription}</p>
-
-          {/* Challenge / Solution case study */}
-          {project.challenge && project.solution && (
-            <div className="mb-12 grid md:grid-cols-2 gap-8 md:gap-12 border-t border-white/8 pt-10">
-              <div>
-                <h2 className="text-xs font-bold text-sky-400 uppercase tracking-widest mb-4">The Challenge</h2>
-                <p className="text-neutral-400 text-sm md:text-base leading-relaxed">{project.challenge}</p>
-              </div>
-              <div>
-                <h2 className="text-xs font-bold text-violet-400 uppercase tracking-widest mb-4">The Solution</h2>
-                <p className="text-neutral-400 text-sm md:text-base leading-relaxed">{project.solution}</p>
-              </div>
-            </div>
-          )}
-
-          {/* Tech stack - full list */}
-          <div className="mb-10">
-            <h2 className="text-xs font-bold text-sky-400 uppercase tracking-widest mb-4">Tech Stack</h2>
-            <div className="flex flex-wrap gap-2">
-              {project.technologies.map((t) => (
-                <span key={t} className="px-3 py-1.5 bg-white/4 border border-white/8 rounded-md text-sm text-neutral-300 hover:border-sky-500/40 hover:text-sky-400 transition-all">
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Contribution */}
-          {project.contribution && (
-            <div className="mb-10">
-              <h2 className="text-xs font-bold text-sky-400 uppercase tracking-widest mb-4">Contribution</h2>
-              <div className="flex flex-wrap gap-3">
-                <div className="px-4 py-3 bg-white/4 border border-white/8 rounded-md">
-                  <p className="text-xs text-neutral-600 mb-1 uppercase tracking-wide">Role</p>
-                  <p className="text-sm text-white font-semibold">{project.contribution.role}</p>
-                </div>
-                {project.contribution.team && <div className="px-4 py-3 bg-white/4 border border-white/8 rounded-md">
-                  <p className="text-xs text-neutral-600 mb-1 uppercase tracking-wide">Team</p>
-                  <p className="text-sm text-white font-semibold">{project.contribution.team}</p>
-                </div>}
-              </div>
-              {project.contribution.scope && <p className="mt-4 text-sm leading-relaxed text-neutral-300">{project.contribution.scope}</p>}
-            </div>
-          )}
-
-          {/* Gallery */}
-          {project.subImages && project.subImages.length > 0 && (
-            <div className="mb-10">
-              <h2 className="text-xs font-bold text-sky-400 uppercase tracking-widest mb-4">Gallery</h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {project.subImages.map((img, i) => (
-                  <div key={i} className="group cursor-pointer" onClick={() => setLightbox({ images: [{ src: project.mainImage, alt: project.description }, ...galleryImages], index: i + 1 })}>
-                    <div className="relative h-40 rounded-md overflow-hidden mb-2">
-                      <Image
-                        src={img.url}
-                        alt={img.caption}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                        </svg>
-                      </div>
-                    </div>
-                    <p className="text-xs text-neutral-600 group-hover:text-neutral-400 transition-colors">{img.caption}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* PDF Reports */}
-          {project.pdfReports && project.pdfReports.length > 0 && (
-            <div className="mb-10">
-              <h2 className="text-xs font-bold text-sky-400 uppercase tracking-widest mb-4">Sample Documents</h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                {project.pdfReports.map((pdf, i) => (
-                  <a key={i} href={pdf.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 bg-white/4 border border-white/8 rounded-md hover:border-sky-500/30 transition-all group cursor-pointer">
-                    <div className="w-10 h-10 bg-sky-500/10 rounded-md flex items-center justify-center shrink-0">
-                      <svg className="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-white font-semibold text-sm group-hover:text-sky-400 transition-colors">{pdf.name}</p>
-                      <p className="text-xs text-neutral-600">Click to view PDF</p>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Demo credentials + GitHub */}
-          {(project.demoCredentials || project.githubLink) && (
-            <div className="pt-6 border-t border-white/8 space-y-4">
-              {project.demoCredentials && (
-                <div>
-                  <h2 className="text-xs font-bold text-sky-400 uppercase tracking-widest mb-4">Demo Access</h2>
-                  <div className="flex flex-wrap gap-3">
-                    <div className="px-4 py-3 bg-white/4 border border-white/8 rounded-md">
-                      <p className="text-xs text-neutral-600 mb-1 uppercase tracking-wide">Email</p>
-                      <p className="text-sm text-white font-mono">{project.demoCredentials.email}</p>
-                    </div>
-                    <div className="px-4 py-3 bg-white/4 border border-white/8 rounded-md">
-                      <p className="text-xs text-neutral-600 mb-1 uppercase tracking-wide">Password</p>
-                      <p className="text-sm text-white font-mono">{project.demoCredentials.password}</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {project.githubLink && (
-                <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/8 text-white font-semibold rounded-md transition-colors text-sm">
-                  GitHub
-                </a>
-              )}
-            </div>
-          )}
-
-          {/* Book a Call CTA */}
-          <div className="mt-16 pt-12 border-t border-white/8 text-center">
-            <p className="text-sky-400 text-xs font-bold uppercase tracking-[0.3em] mb-3">Let&apos;s Work Together</p>
-            <h2 className="text-2xl md:text-3xl font-black text-white mb-6">Like what you see? Let&apos;s build yours.</h2>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-md text-sm font-semibold text-white bg-linear-to-r from-sky-500 to-cyan-400 hover:from-sky-400 hover:to-cyan-300 transition-all shadow-lg shadow-sky-500/20"
-            >
-              Book a discovery call
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-        </motion.div>
-      </main>
-    </>
-  );
+  return <Modal><ProjectDetailContent project={project} /></Modal>;
 }
 
-function ImageLightbox({
-  images,
-  initialIndex,
-  onClose,
-}: {
-  images: { src: string; alt: string }[];
-  initialIndex: number;
-  onClose: () => void;
-}) {
+function ProjectDetailContent({ project }: { project: Project }) {
+  const reduced = useMotionPreference();
+  const { setOpen } = useModal();
+  const [lightbox, setLightbox] = useState<LightboxState>(null);
+  const projectKey = `legacy-${toSlug(project.title)}`;
+  const galleryImages = (project.subImages ?? []).map(image => ({ src: image.url, alt: image.caption }));
+  const images = [
+    ...(project.mainImage ? [{ src: project.mainImage, alt: project.description }] : []),
+    ...galleryImages,
+  ];
+
+  function openGallery(index: number) {
+    setLightbox({ images, index });
+    setOpen(true);
+  }
+
+  return <>
+    <ModalBody ariaLabel={`${project.title} image gallery`} className={styles.lightbox} header={<span className={styles.lightboxTitle}>{project.title} / Gallery</span>}>
+      {lightbox && <ImageLightbox images={lightbox.images} initialIndex={lightbox.index} reduced={reduced} />}
+    </ModalBody>
+
+    <main className={caseStudyStyles.page} data-project-detail data-project-case-study data-motion={reduced ? "paused" : "running"}>
+      <section className={cn(caseStudyStyles.preview, styles.hero)} aria-label={`${project.title} preview`}>
+        <div className={styles.heroMedia}>
+          {project.mainImage ? <button type="button" className={styles.heroImageButton} onClick={() => openGallery(0)} aria-label={`Enlarge ${project.title} preview`}>
+            <Image src={project.mainImage} alt={project.title} fill sizes="100vw" priority className={styles.heroImage} />
+          </button> : <ProjectPlaceholder name={project.title} />}
+        </div>
+
+        <div className={styles.toolbar}>
+          <Link href="/works" className={cn(caseStudyStyles.back, styles.back)}><IconArrowLeft size={16} aria-hidden="true" />Back to projects</Link>
+          {project.mainImage && <HoverBorderGradient as="button" type="button" paused={reduced} onClick={() => openGallery(0)} aria-label={`Open ${project.title} image gallery`} containerClassName={styles.enlarge} className={styles.enlargeBody}><IconMaximize size={18} aria-hidden="true" /><span>View images</span></HoverBorderGradient>}
+        </div>
+
+        <div className={styles.heroContent}>
+          <header className={caseStudyStyles.intro}>
+            <div>
+              <span className={caseStudyStyles.eyebrow}>{project.industry ?? project.type}<span aria-hidden="true"> / </span>{project.year}</span>
+              <h1 tabIndex={-1}>{project.title}</h1>
+              <p>{project.description}</p>
+              {!!project.services?.length && <ul className={caseStudyStyles.tags} aria-label="Project services">{project.services.map(service => <li key={service}>{service}</li>)}</ul>}
+            </div>
+            {project.liveLink && <HoverBorderGradient as="a" href={project.liveLink} target="_blank" rel="noopener noreferrer" paused={reduced} containerClassName={caseStudyStyles.visit} className={caseStudyStyles.visitBody}>Visit live project<IconArrowUpRight size={18} aria-hidden="true" /></HoverBorderGradient>}
+          </header>
+        </div>
+      </section>
+
+      <ProjectCaseContent challenge={project.challenge ?? ""} solution={project.solution ?? ""} rationale={project.rationale ?? ""} details={projectDelivery[projectKey]} technologies={project.technologies} />
+
+      {!!project.subImages?.length && <section className={styles.resourceSection} aria-labelledby="project-gallery-heading">
+        <span className={caseStudyStyles.sectionEyebrow}>Explore the interface</span>
+        <h2 id="project-gallery-heading">Project gallery</h2>
+        <div className={styles.gallery}>
+          {project.subImages.map((image, index) => <button type="button" key={image.url} className={styles.galleryButton} onClick={() => openGallery(index + (project.mainImage ? 1 : 0))} aria-label={`Enlarge: ${image.caption}`}>
+            <span className={styles.galleryImage}>
+              <Image src={image.url} alt={image.caption} fill sizes="(max-width: 767px) 100vw, (max-width: 1199px) 50vw, 33vw" />
+              <span className={styles.galleryZoom} aria-hidden="true"><IconMaximize size={20} /></span>
+            </span>
+            <span className={styles.galleryCaption}>{image.caption}</span>
+          </button>)}
+        </div>
+      </section>}
+
+      {!!project.pdfReports?.length && <section className={styles.resourceSection} aria-labelledby="project-documents-heading">
+        <span className={caseStudyStyles.sectionEyebrow}>See the output</span>
+        <h2 id="project-documents-heading">Sample documents</h2>
+        <div className={styles.documents}>
+          {project.pdfReports.map(document => <HoverBorderGradient as="a" key={document.url} href={document.url} target="_blank" rel="noopener noreferrer" paused={reduced} containerClassName={styles.document} className={styles.documentBody}>
+            <IconFileText size={24} stroke={1.5} aria-hidden="true" />
+            <span><strong>{document.name}</strong><span>View PDF document</span></span>
+            <IconArrowUpRight size={19} aria-hidden="true" />
+          </HoverBorderGradient>)}
+        </div>
+      </section>}
+
+      {(project.demoCredentials || project.githubLink) && <section className={styles.resourceSection} aria-labelledby="project-access-heading">
+        <span className={caseStudyStyles.sectionEyebrow}>Explore the project</span>
+        <h2 id="project-access-heading">{project.demoCredentials ? "Demo access" : "Source code"}</h2>
+        {project.demoCredentials && <dl className={styles.credentials}>
+          <div><dt>Email</dt><dd>{project.demoCredentials.email}</dd></div>
+          <div><dt>Password</dt><dd>{project.demoCredentials.password}</dd></div>
+        </dl>}
+        {project.githubLink && <HoverBorderGradient as="a" href={project.githubLink} target="_blank" rel="noopener noreferrer" paused={reduced} containerClassName={styles.sourceLink} className={styles.sourceLinkBody}>View on GitHub<IconArrowUpRight size={18} aria-hidden="true" /></HoverBorderGradient>}
+      </section>}
+
+      <footer className={caseStudyStyles.footer}><p>What can we build together?</p><PortfolioActions paused={reduced} /></footer>
+    </main>
+  </>;
+}
+
+function ImageLightbox({ images, initialIndex, reduced }: { images: GalleryImage[]; initialIndex: number; reduced: boolean }) {
   const [current, setCurrent] = useState(initialIndex);
   const total = images.length;
-  const img = images[current];
-
-  const prev = useCallback(() => setCurrent((i) => (i - 1 + total) % total), [total]);
-  const next = useCallback(() => setCurrent((i) => (i + 1) % total), [total]);
+  const image = images[current];
+  const previous = useCallback(() => setCurrent(index => (index - 1 + total) % total), [total]);
+  const next = useCallback(() => setCurrent(index => (index + 1) % total), [total]);
   const touchStartX = useRef(0);
 
   useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") prev();
-      if (e.key === "ArrowRight") next();
-      if (e.key === "Escape") onClose();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowLeft") { event.preventDefault(); previous(); }
+      if (event.key === "ArrowRight") { event.preventDefault(); next(); }
     };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [prev, next, onClose]);
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [previous, next]);
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    const delta = touchStartX.current - e.changedTouches[0].clientX;
+  function handleTouchEnd(event: TouchEvent<HTMLDivElement>) {
+    const delta = touchStartX.current - event.changedTouches[0].clientX;
     if (Math.abs(delta) > 50) {
       if (delta > 0) next();
-      else prev();
+      else previous();
     }
-  };
+  }
 
-  return (
-    <motion.div
-      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      className="fixed inset-0 z-9999 flex flex-col bg-black"
-      onClick={onClose}
-    >
-      {/* Top bar */}
-      <div className="flex items-center justify-between px-6 py-4 shrink-0" onClick={(e) => e.stopPropagation()}>
-        {total > 1 ? (
-          <span className="text-xs font-semibold text-neutral-500 tabular-nums">{current + 1} / {total}</span>
-        ) : (
-          <span />
-        )}
-        <button
-          onClick={onClose}
-          className="w-9 h-9 bg-white/5 border border-white/10 rounded-md flex items-center justify-center text-neutral-400 hover:text-white cursor-pointer transition-colors"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-
-      {/* Image area */}
-      <div className="relative flex-1 flex items-center justify-center overflow-hidden">
-        {/* Left - desktop only */}
-        {total > 1 && (
-          <button
-            onClick={(e) => { e.stopPropagation(); prev(); }}
-            className="absolute left-0 top-0 bottom-0 w-16 md:w-24 hidden md:flex items-center justify-start pl-4 z-10 group cursor-pointer"
-          >
-            <div className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-neutral-500 group-hover:text-white group-hover:bg-white/10 transition-all">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </div>
-          </button>
-        )}
-
-        <div
-          className="flex-1 flex items-center justify-center md:px-24 h-full w-full"
-          onClick={(e) => e.stopPropagation()}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
-          <AnimatePresence mode="wait">
-            <motion.img
-              key={current}
-              src={img.src}
-              alt={img.alt}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.2 }}
-              className="max-h-full max-w-full object-contain select-none cursor-default"
-              draggable={false}
-            />
-          </AnimatePresence>
-        </div>
-
-        {/* Right - desktop only */}
-        {total > 1 && (
-          <button
-            onClick={(e) => { e.stopPropagation(); next(); }}
-            className="absolute right-0 top-0 bottom-0 w-16 md:w-24 hidden md:flex items-center justify-end pr-4 z-10 group cursor-pointer"
-          >
-            <div className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-neutral-500 group-hover:text-white group-hover:bg-white/10 transition-all">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </button>
-        )}
-      </div>
-
-      {/* Caption bar */}
-      {img.alt && (
-        <div className="shrink-0 px-6 py-5 border-t border-white/6 text-center" onClick={(e) => e.stopPropagation()}>
-          <p className="text-sm text-neutral-300 max-w-2xl mx-auto">{img.alt}</p>
-        </div>
-      )}
-    </motion.div>
-  );
+  return <div className={styles.lightboxContent}>
+    <div className={styles.lightboxImageArea} onTouchStart={event => { touchStartX.current = event.touches[0].clientX; }} onTouchEnd={handleTouchEnd}>
+      <AnimatePresence mode="wait">
+        <motion.img key={current} src={image.src} alt={image.alt} initial={reduced ? false : { opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={reduced ? undefined : { opacity: 0, x: -12 }} transition={{ duration: reduced ? 0 : 0.2 }} className={styles.lightboxImage} draggable={false} />
+      </AnimatePresence>
+    </div>
+    <div className={styles.lightboxFooter}>
+      <p className={styles.lightboxCaption} aria-live="polite">{image.alt}</p>
+      {total > 1 && <div className={styles.lightboxNavigation} aria-label="Gallery navigation">
+        <HoverBorderGradient as="button" type="button" paused={reduced} onClick={previous} aria-label="Previous image" containerClassName={styles.imageControl} className={styles.imageControlBody}><IconArrowLeft size={20} aria-hidden="true" /></HoverBorderGradient>
+        <span className={styles.imageCount} aria-live="polite">{current + 1} / {total}</span>
+        <HoverBorderGradient as="button" type="button" paused={reduced} onClick={next} aria-label="Next image" containerClassName={styles.imageControl} className={styles.imageControlBody}><IconArrowRight size={20} aria-hidden="true" /></HoverBorderGradient>
+      </div>}
+    </div>
+  </div>;
 }

@@ -1,0 +1,51 @@
+.hero { position: relative; isolation: isolate; background: #15242c; }
+.heroMedia { position: absolute; inset: 0; }
+.heroImageButton { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; padding: 0; background: transparent; cursor: zoom-in; }
+.heroImage { object-fit: contain; object-position: center; }
+.toolbar { position: absolute; z-index: 2; inset: 14px 16px auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.back { padding: 0 12px; border: 1px solid #3b5663; background: rgb(16 25 30 / .94); backdrop-filter: blur(12px); }
+.enlarge { flex-shrink: 0; background: #3b5663; border-radius: var(--studio-control-radius); }
+.enlargeBody { display: flex; align-items: center; justify-content: center; gap: 9px; min-width: 44px; min-height: 44px; padding: 10px 12px; color: var(--studio-text); background: #142630; font-size: 12px; }
+.heroContent { position: absolute; z-index: 1; inset: auto 0 0; padding: 96px var(--studio-panel-padding) var(--studio-panel-padding); background: linear-gradient(transparent, rgb(10 20 27 / .94) 40%, #101d25); pointer-events: none; }
+.heroContent a { pointer-events: auto; }
+.resourceSection { min-width: 0; max-width: var(--case-reading-width); margin-inline: auto; padding-block: var(--case-section-space); border-top: 1px solid var(--case-rule); }
+.resourceSection h2 { color: var(--studio-text); font-size: var(--case-heading-size); line-height: 1.2; letter-spacing: -.035em; font-weight: 600; text-wrap: balance; }
+.gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 20px; margin-top: 28px; }
+.galleryButton { display: block; min-width: 0; padding: 0; text-align: left; color: var(--studio-muted); cursor: pointer; }
+.galleryImage { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; border: 1px solid #3b5663; border-radius: var(--studio-panel-radius); background: #172630; }
+.galleryImage > img { object-fit: contain; }
+.galleryZoom { position: absolute; display: flex; align-items: center; justify-content: center; right: 10px; bottom: 10px; width: 36px; height: 36px; border: 1px solid #4d7182; border-radius: var(--studio-control-radius); background: rgb(16 25 30 / .94); color: var(--studio-accent); opacity: 0; transform: translateY(4px); transition: opacity .25s ease, transform .25s ease; }
+.galleryButton:hover .galleryZoom, .galleryButton:focus-visible .galleryZoom { opacity: 1; transform: translateY(0); }
+.galleryCaption { display: block; margin-top: 12px; font-size: 16px; line-height: 1.65; }
+.galleryButton:hover .galleryCaption { color: var(--studio-text); }
+.documents { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
+.document { min-width: 0; width: 100%; background: #3b5663; border-radius: var(--studio-panel-radius); }
+.documentBody { display: flex; align-items: center; gap: 16px; width: 100%; min-height: 100px; padding: 20px; background: #172630; border-radius: inherit; text-align: left; }
+.documentBody > svg { flex-shrink: 0; color: var(--studio-accent); }
+.documentBody > svg:last-child { margin-left: auto; }
+.documentBody > span { min-width: 0; }
+.documentBody strong { display: block; color: var(--studio-text); font-size: var(--case-subheading-size); line-height: 1.4; font-weight: 600; letter-spacing: -.02em; }
+.documentBody > span > span { display: block; margin-top: 8px; color: var(--studio-muted); font-size: var(--case-body-size); line-height: 1.6; }
+.credentials { display: flex; flex-wrap: wrap; gap: 24px 48px; margin-top: 28px; }
+.credentials > div { min-width: 0; }
+.credentials dt { color: var(--studio-text); font-size: var(--case-subheading-size); line-height: 1.4; font-weight: 600; }
+.credentials dd { margin-top: 10px; color: var(--studio-muted); font-family: var(--font-geist-mono), monospace; font-size: 14px; line-height: 1.7; overflow-wrap: anywhere; }
+.sourceLink { margin-top: 24px; border-radius: var(--studio-control-radius); background: #3b5663; }
+.sourceLinkBody { display: flex; align-items: center; gap: 16px; min-height: 48px; padding: 12px 16px; background: #172630; color: var(--studio-text); font-size: 14px; }
+.lightbox { width: 100%; max-width: 1600px; height: min(1000px, calc(100svh - 32px)); border: 1px solid #3b5663; background: #10191e; }
+.lightboxTitle { min-width: 0; color: #c1ced7; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+.lightboxContent { display: flex; flex: 1; flex-direction: column; min-height: 0; }
+.lightboxImageArea { display: flex; flex: 1; align-items: center; justify-content: center; min-height: 0; padding: 12px 24px; }
+.lightboxImage { display: block; max-width: 100%; max-height: 100%; object-fit: contain; user-select: none; }
+.lightboxFooter { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 20px; padding: 16px 24px; border-top: 1px solid #263c48; }
+.lightboxCaption { max-width: 70ch; color: #c1ced7; font-size: 16px; line-height: 1.65; }
+.lightboxNavigation { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.imageCount { min-width: 44px; color: #c1ced7; font-family: var(--font-geist-mono), monospace; font-size: 12px; text-align: center; }
+.imageControl { border-radius: var(--studio-control-radius); background: #3b5663; }
+.imageControlBody { display: flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 10px; background: #172630; color: #f1f7fa; }
+.lightbox button:focus-visible { outline: 2px solid #62dcf3; outline-offset: 4px; }
+@media (max-width: 1199px) { .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 1023px) { .hero { height: auto; min-height: 0; } .heroMedia { position: relative; height: clamp(280px, 48svh, 520px); } .heroContent { position: relative; padding: var(--studio-panel-padding); background: #14242d; pointer-events: auto; } }
+@media (max-width: 767px) { .gallery, .documents { grid-template-columns: 1fr; } .toolbar { inset: 10px 10px auto; } .lightboxFooter { flex-direction: column; align-items: stretch; gap: 12px; padding: 14px 16px; } .lightboxNavigation { justify-content: center; } .lightboxImageArea { padding: 8px; } .lightboxCaption { font-size: 14px; } }
+@media (max-width: 420px) { .enlargeBody { padding: 10px; } .enlargeBody > span { display: none; } .documentBody { gap: 12px; padding: 16px; } }
+@media (prefers-reduced-motion: reduce) { .galleryZoom { opacity: 1; transform: none; transition: none; } }

@@ -14,7 +14,7 @@ type ProductStory = {
 // the user's confirmed contribution. No results or team sizes are inferred.
 export const projectStories: Record<number, ProductStory> = {
   21: {
-    summary: "An esthetics website connecting treatment information, appointment booking, and editable content.",
+    summary: "A spa website for treatments, appointment bookings and easy content updates.",
     overview: "Beautiful & Blessed Esthetics presents the spa's treatments, team, testimonials, and business information. Visitors can start an appointment through its Boulevard booking integration or send an enquiry. CMS tools manage page sections and site settings. Service metadata, a sitemap, and local business structured data describe the offering to search engines, while Open Graph imagery supports shared-link previews.",
     audience: "Prospective spa clients and the spa team",
     features: [
@@ -24,7 +24,7 @@ export const projectStories: Record<number, ProductStory> = {
     ],
   },
   1: {
-    summary: "One workspace for business applications, team access, sales, and stock.",
+    summary: "Business apps, team access, sales and stock in one workspace.",
     overview: "Cynergy brings company operations into a shared SaaS workspace. Companies manage access to licensed applications, invite their teams, and assign permissions. Its wholesale and retail POS workflows connect sales, inventory, suppliers, cashier shifts, approvals, and reporting, alongside Client Outreach profiles and booking workflows.",
     audience: "Business owners, administrators, and store teams",
     liveUrl: "https://cynergy.cloud",
@@ -35,7 +35,7 @@ export const projectStories: Record<number, ProductStory> = {
     ],
   },
   2: {
-    summary: "Connected agency workflows, from quotations and timesheets to authentication and support.",
+    summary: "Agency tools for quotes, documents, timesheets, account access and support.",
     overview: "Obiyen connects agency operations in an enterprise SaaS platform. Teams prepare quotations and PDF documents, review timesheets, and manage helpdesk settings within their tenant. Social account connections and Microsoft authentication support access to these workflows, while translations support the platform's interface.",
     audience: "Agencies, administrators, and their employees",
     liveUrl: "https://app.obiyen.com",
@@ -46,7 +46,7 @@ export const projectStories: Record<number, ProductStory> = {
     ],
   },
   3: {
-    summary: "A point-of-sale application connecting transactions, stock, purchases, and reporting.",
+    summary: "A point-of-sale app for sales, stock, purchases and reports.",
     overview: "SPOS supports the day-to-day work of a retail business. Staff manage sales orders, customers, products, and supplier billing, while purchase orders and stock transfers connect purchasing with inventory. Cashier shifts, approvals, expenses, and revenue reports give the store team oversight of daily operations.",
     audience: "Store owners, cashiers, and inventory staff",
     features: [
@@ -66,7 +66,7 @@ export const projectStories: Record<number, ProductStory> = {
     ],
   },
   5: {
-    summary: "A jewelry shop for exploring collections, choosing product variants, and ordering online.",
+    summary: "An online jewelry shop for browsing collections, choosing options and placing orders.",
     overview: "Viviour lets customers browse jewelry collections, inspect product galleries and reviews, choose variants, and save items to a wishlist. Stripe supports checkout and promotions. Store administrators manage products, orders, payments, reviews, and promotional offers through a connected workspace.",
     audience: "Jewelry customers and store administrators",
     features: [
@@ -76,7 +76,7 @@ export const projectStories: Record<number, ProductStory> = {
     ],
   },
   6: {
-    summary: "Studio services, bookings, and content management in a connected website.",
+    summary: "A studio website for viewing services, booking studio time and updating content.",
     overview: "Martich Studios helps clients explore studio spaces and services, choose packages, and book studio time. The booking flow collects client details, agreements, and deposits. Membership, event, and portfolio pages showcase the studio's offering, with CMS and admin tools for managing its published content.",
     audience: "Studio clients and the studio team",
     features: [
@@ -86,7 +86,7 @@ export const projectStories: Record<number, ProductStory> = {
     ],
   },
   7: {
-    summary: "A coffee, matcha, and tea storefront with connected payments and promotions.",
+    summary: "An online coffee, matcha and tea shop with payments and promotions.",
     overview: "Ferma Coffee Co connects a coffee, matcha, and tea shop with the tools used to manage it. Customers browse products through the storefront, with Stripe supporting payments and promotions. Admin and CMS workflows provide the business with product-shop functionality and control over its website content.",
     audience: "Coffee customers and store administrators",
     features: [
@@ -106,7 +106,7 @@ export const projectStories: Record<number, ProductStory> = {
     ],
   },
   9: {
-    summary: "A roofing website connecting service information, project content, and customer enquiries.",
+    summary: "A roofing website for showing services and completed work, publishing articles and managing enquiries.",
     overview: "Lowrie Roofing helps prospective customers explore the company's services, locations, completed projects, and articles. Contact forms provide an enquiry path, with lead-management functionality supporting incoming requests. Admin and CMS tools let the business maintain the project and article content behind its public website.",
     audience: "Homeowners and the roofing business team",
     features: [
@@ -116,7 +116,7 @@ export const projectStories: Record<number, ProductStory> = {
     ],
   },
   10: {
-    summary: "Roofing services and instant estimates, supported by admin and content tools.",
+    summary: "A roofing website with instant estimates and pricing the team can update in admin.",
     overview: "Masterbuilt Roofing combines service information, project galleries, reviews, and local coverage with an instant estimate experience. Pricing guides help visitors understand the offering, while admin pricing controls support the estimate interface. CMS and admin features provide the business with tools to manage the website's content.",
     audience: "Homeowners and roofing administrators",
     features: [
@@ -126,17 +126,17 @@ export const projectStories: Record<number, ProductStory> = {
     ],
   },
   11: {
-    summary: "An exterior-services website with local information and manageable content.",
-    overview: "Northforge Exteriors helps property owners explore exterior services, check local coverage, and read customer reviews and articles. Contact forms let visitors enquire about work. Administrators maintain the public website through its content settings.",
+    summary: "An exterior-services website with service pages, local coverage and content editing tools.",
+    overview: "Northforge Exteriors explains its exterior services and the areas it serves. Articles provide more information, and contact forms let visitors ask about work. The team can update public website content through its admin tools.",
     audience: "Property owners and exterior-services administrators",
     features: [
       { title: "Services and locations", description: "Service pages and location information for prospective customers." },
-      { title: "Reviews and articles", description: "Customer-facing review and article content." },
+      { title: "Helpful articles", description: "Published articles give visitors more information about the business and its work." },
       { title: "Enquiries and content", description: "Contact forms and admin content settings." },
     ],
   },
   12: {
-    summary: "A leather-restoration website with commerce and administrative workflows.",
+    summary: "A leather-restoration website and online shop with tools for managing the business.",
     overview: "Luxury Leather Restoration combines a public restoration website with commerce and administration. The platform connects product information with orders, customer records, promotions, and payment management. CMS-backed content supports the public presentation, while administrative workflows support the business behind the customer experience.",
     audience: "Restoration customers and store administrators",
     features: [
@@ -146,7 +146,7 @@ export const projectStories: Record<number, ProductStory> = {
     ],
   },
   13: {
-    summary: "A custom-home website for exploring completed homes, the building process, and local service areas.",
+    summary: "A custom-home website showing completed homes, the building process and areas served.",
     overview: "Kevin Travis Homes helps prospective homeowners explore custom home projects and the areas the company serves. Building-process information and resources explain how to plan a home, while contact pages provide a path to discuss a project with the builder. CMS-backed content keeps the public website manageable for the business.",
     audience: "Prospective homeowners and the home-builder team",
     features: [
@@ -166,7 +166,7 @@ export const projectStories: Record<number, ProductStory> = {
     ],
   },
   15: {
-    summary: "A construction website presenting services, estimates, and project information.",
+    summary: "A construction website with service information, estimate tools and project-planning resources.",
     overview: "TMBTX helps property owners explore metal-building, concrete, roofing, and custom-home services and check local coverage. Estimate interfaces, articles, and financing information support visitors planning a construction project.",
     audience: "Property owners and prospective construction clients",
     features: [
@@ -176,7 +176,7 @@ export const projectStories: Record<number, ProductStory> = {
     ],
   },
   16: {
-    summary: "Water-treatment products presented through an interactive 3D experience.",
+    summary: "An interactive 3D website that explains water-treatment products.",
     overview: "WUDR presents water filtration and softening solutions through an interactive 3D experience. Product categories, water-testing information, and service pages help visitors explore the offering. Contact and lead features connect enquiries with the business, while CMS and admin tools support the website's content.",
     audience: "Water-treatment customers and the business team",
     features: [
@@ -186,17 +186,18 @@ export const projectStories: Record<number, ProductStory> = {
     ],
   },
   17: {
-    summary: "A solar and home-energy website with instant estimates for prospective customers.",
-    overview: "Zenergy Solar helps homeowners explore solar and home-energy services and request an instant estimate. Service information and resources explain the offering, while enquiry paths connect prospective customers with the business. CMS tools let administrators maintain the website's content.",
+    summary: "A home-energy website with instant estimates, editable pricing and checks for suspicious enquiries.",
+    overview: "Zenergy Solar explains its solar and home-energy services and offers instant estimates based on property details. The team can update website content, estimate rates and price multipliers in its admin tools. CAPTCHA and AI-assisted checks help review suspicious contact details before enquiries reach the normal follow-up process.",
     audience: "Homeowners and home-energy administrators",
     features: [
       { title: "Instant estimates", description: "Get an initial estimate through the website's interactive estimate flow." },
       { title: "Energy service information", description: "Explore solar and home-energy services and supporting resources." },
-      { title: "Content management", description: "Maintain service information and website content through the CMS." },
+      { title: "Content and pricing updates", description: "Update service information, website content, estimate rates and price multipliers through the admin tools." },
+      { title: "Enquiry checks", description: "Use CAPTCHA and contact-data checks, with AI review of uncertain submissions, to accept, flag or reject enquiries before forwarding." },
     ],
   },
   19: {
-    summary: "Cacao disease detection on mobile, connected with web farm management.",
+    summary: "A mobile app for cacao disease checks and a website for managing farm records.",
     overview: "CacaoCare connects a cacao disease-detection mobile application with a web platform for farm management. Farmers use the mobile and web experiences as parts of the same project, with website functionality for farm records and management workflows. The product was developed as a two-person thesis project.",
     audience: "Cacao farmers and farm administrators",
     liveUrl: "https://cacao-care.nuxt.dev/",
@@ -207,7 +208,7 @@ export const projectStories: Record<number, ProductStory> = {
     ],
   },
   20: {
-    summary: "An academic scheduling application for timetables and faculty workloads.",
+    summary: "An app for class timetables, faculty workloads and academic reports.",
     overview: "Faculty Scheduling helps academic administrators organize faculty schedules, class timetables, and academic records. Availability and conflict checks support lecturer, room, and class assignments. Staff can use the desktop application and print class and faculty reports for administrative use.",
     audience: "Academic administrators and faculty",
     features: [

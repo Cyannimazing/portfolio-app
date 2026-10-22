@@ -28,7 +28,9 @@
 .portrait { position: relative; width: 148px; height: 169px; object-fit: cover; object-position: 50% 17%; border-radius: 8px; mask-image: linear-gradient(to bottom, black 60%, transparent 99%); }
 .profileName { display: flex; justify-content: center; align-items: center; gap: 6px; font-size: 14px; font-weight: 650; letter-spacing: -.03em; }
 .profileDot { width: 5px; height: 5px; flex-shrink: 0; border-radius: 50%; background: var(--studio-accent); box-shadow: 0 0 8px rgb(70 213 241 / .3); }
-.role { margin-top: 6px; color: var(--studio-accent); font-size: 10px; }
+.role { display: grid; justify-items: center; min-width: 0; max-width: 100%; margin-top: 6px; color: var(--studio-accent); font-size: 11px; line-height: 1.6; }
+.roleWords { max-width: 100%; text-align: center; }
+.roleWords > span { min-width: 0; }
 .handle { margin-top: 5px; color: #91a2ae; font-family: var(--font-geist-mono), monospace; font-size: 9px; }
 .socials { display: flex; justify-content: center; gap: 9px; margin-top: 17px; }
 .socials a { display: flex; align-items: center; justify-content: center; width: 35px; height: 35px; border: 1px solid #32424b; border-radius: 50%; color: #c6d3db; background: linear-gradient(135deg, #263640, #1b282f); box-shadow: 0 3px 8px rgb(0 0 0 / .12), 0 1px 0 rgb(255 255 255 / .04) inset; transition: color .2s, transform .2s, border-color .2s; }
