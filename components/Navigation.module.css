@@ -10,7 +10,7 @@
 }
 .wordmark { position: relative; z-index: 20; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; flex-shrink: 0; color: var(--studio-text); font-size: 20px; font-weight: 650; letter-spacing: -.05em; }
 .brandMark { width: 32px; height: 32px; }
-.brandAccent { color: var(--studio-accent); }
+.brandAccent { color: var(--brand-accent); }
 .desktopLinks { display: flex; align-items: center; justify-content: center; min-width: 0; flex: 1; padding-inline: 16px; }
 .navItems { position: relative; inset: auto; flex: 0 1 auto; gap: 4px; }
 .navItems :global(a) { min-height: 44px; margin: 0; padding: 10px 14px; color: var(--studio-muted); border-radius: 6px; font-size: 13px; font-weight: 500; text-decoration: none; animation: navigationItemEnter .6s cubic-bezier(.16, 1, .3, 1) .14s both; }

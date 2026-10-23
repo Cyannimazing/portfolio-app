@@ -62,3 +62,30 @@
 @media (max-width: 374px) { .scrollContent { padding-inline: 16px; } .headerIdentity { gap: 7px; font-size: 12px; } .headerIcon { width: 30px; height: 30px; } .thumbnail { width: 78px; } .projectButtonBody { gap: 9px; padding: 9px; } .arrow { width: 24px; height: 24px; } .projectText strong { font-size: 14px; } .projectMeta { font-size: 10px; } .intro h2 { font-size: 26px; } }
 @media (max-height: 450px) and (min-width: 640px) { .intro { margin-bottom: 20px; } .intro h2 { font-size: 28px; } .detailLayout { grid-template-columns: 1fr 1fr; gap: 22px; } }
 @media (prefers-reduced-motion: reduce) { .modal *, .modal *::before, .modal *::after { transition: none !important; animation: none !important; } }
+
+:global(html[data-portfolio-theme^="terminal-"]) .modal.modal { border-color: var(--studio-border); background: var(--studio-panel); box-shadow: var(--studio-shadow); }
+:global(html[data-portfolio-theme^="terminal-"]) .headerIcon,
+:global(html[data-portfolio-theme^="terminal-"]) .arrow { color: var(--studio-text); background: var(--studio-inset); border-color: var(--studio-border); }
+:global(html[data-portfolio-theme^="terminal-"]) .count { border-color: var(--studio-border-strong); }
+:global(html[data-portfolio-theme^="terminal-"]) .scrollContent { scrollbar-color: var(--studio-border-strong) transparent; }
+:global(html[data-portfolio-theme^="terminal-"]) .intro h2,
+:global(html[data-portfolio-theme^="terminal-"]) .detailCopy h2 { font-family: var(--terminal-display-font); font-weight: 400; letter-spacing: .01em; }
+:global(html[data-portfolio-theme^="terminal-"]) .filterButton,
+:global(html[data-portfolio-theme^="terminal-"]) .projectButton,
+:global(html[data-portfolio-theme^="terminal-"]) .back { background: var(--studio-border); }
+:global(html[data-portfolio-theme^="terminal-"]) .filterBody,
+:global(html[data-portfolio-theme^="terminal-"]) .backBody { background: var(--studio-panel); box-shadow: none; }
+:global(html[data-portfolio-theme^="terminal-"]) .projectButtonBody { background: var(--studio-inset); box-shadow: none; }
+:global(html[data-portfolio-theme^="terminal-"]) .filterButton[aria-pressed="true"] .filterBody,
+:global(html[data-portfolio-theme^="terminal-"]) .filterButton:is(:hover, :focus-visible) .filterBody,
+:global(html[data-portfolio-theme^="terminal-"]) .back:is(:hover, :focus-visible) .backBody,
+:global(html[data-portfolio-theme^="terminal-"]) .projectButton:is(:hover, :focus-visible) .projectButtonBody { background: var(--studio-hover); }
+:global(html[data-portfolio-theme^="terminal-"]) .filterBody > span,
+:global(html[data-portfolio-theme^="terminal-"]) .resultCount,
+:global(html[data-portfolio-theme^="terminal-"]) .projectMeta,
+:global(html[data-portfolio-theme^="terminal-"]) .rowServices,
+:global(html[data-portfolio-theme^="terminal-"]) .detailCopy h3 { color: var(--studio-muted); }
+:global(html[data-portfolio-theme^="terminal-"]) .rowServices > span { background: var(--studio-panel); }
+:global(html[data-portfolio-theme^="terminal-"]) .tags > li { color: var(--studio-muted); border-color: var(--studio-border); background: var(--studio-inset); }
+:global(html[data-portfolio-theme^="terminal-"]) .visit { background: var(--studio-action-bg); }
+:global(html[data-portfolio-theme^="terminal-"]) .visitBody { color: var(--studio-action-ink); background: var(--studio-action-bg); }

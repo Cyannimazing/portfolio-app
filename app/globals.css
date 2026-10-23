@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./terminal-theme.css";
 
 .studio-static-navigation { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-left: var(--studio-sidebar-width); padding: 24px var(--studio-page-gutter-end) 32px var(--studio-page-gutter-start); color: var(--studio-accent); background: var(--studio-bg); }
 .studio-static-navigation a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; }
@@ -6,6 +7,7 @@ body:has([data-project-detail]) .studio-static-navigation { margin-left: 0; }
 @media (max-width: 1023px) { .studio-static-navigation { margin-left: 0; } }
 
 :root {
+  --brand-accent: #46d5f4;
   --background: #0a0a0a;
   --foreground: #ededed;
   --sky-500: rgb(14, 165, 233);

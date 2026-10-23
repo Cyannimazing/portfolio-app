@@ -77,3 +77,45 @@
 @media (prefers-reduced-motion: reduce) { .page *, .page *::before { animation: none !important; transform: none !important; opacity: 1 !important; } }
 .page[data-motion="paused"] * { animation: none !important; }
 .page[data-motion="paused"] .narrativeCard, .page[data-motion="paused"] .responsibilityCard, .page[data-motion="paused"] .capabilityCard { opacity: 1; transform: none; }
+
+/* Theme only the case-study chrome, leaving product imagery unchanged. */
+:global(html[data-portfolio-theme^="terminal-"]) .page {
+  --case-rule: var(--studio-line);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .intro h1 {
+  font-family: var(--terminal-display-font);
+  letter-spacing: -.015em;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .eyebrow,
+:global(html[data-portfolio-theme^="terminal-"]) .sectionEyebrow {
+  font-family: var(--font-geist-mono), monospace;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .eyebrow,
+:global(html[data-portfolio-theme^="terminal-"]) .metaHeading,
+:global(html[data-portfolio-theme^="terminal-"]) .projectNavigation span {
+  color: var(--studio-muted);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .tags li,
+:global(html[data-portfolio-theme^="terminal-"]) .stack li {
+  color: var(--studio-muted);
+  border-color: var(--terminal-border);
+  background: var(--terminal-elevated);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .visitBody {
+  color: var(--studio-action-ink);
+  background: var(--studio-action-bg);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .preview {
+  border-color: var(--terminal-border-strong);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .reasoning {
+  border-left-color: var(--terminal-border-strong);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .technicalPanel {
+  border-color: var(--terminal-border);
+  background: var(--terminal-panel);
+  box-shadow: none;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .projectNavigation strong {
+  letter-spacing: -.015em;
+}

@@ -134,6 +134,7 @@ const GlowingEffect = memo(
         />
         <div
           ref={containerRef}
+          data-portfolio-glow
           style={
             {
               "--blur": `${blur}px`,

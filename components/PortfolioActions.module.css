@@ -7,3 +7,9 @@
 .actions a:focus-visible { outline: 2px solid var(--studio-accent); outline-offset: 4px; }
 @media (max-width: 1023px) { .actions { width: 100%; max-width: 430px; gap: 8px; } .call { flex: 1; } .callBody { padding-inline: 10px; gap: 8px; } .cv { padding-inline: 10px; } }
 @media (max-width: 360px) { .callBody, .cv { font-size: 10px; gap: 6px; padding-inline: 8px; } }
+
+:global(html[data-portfolio-theme^="terminal-"]) .call { border-color: var(--studio-action-bg); background: var(--studio-action-bg); }
+:global(html[data-portfolio-theme^="terminal-"]) .callBody { color: var(--studio-action-ink); background: var(--studio-action-bg); }
+:global(html[data-portfolio-theme^="terminal-"]) .call:is(:hover, :focus-visible) .callBody { background: var(--studio-action-bg); }
+:global(html[data-portfolio-theme^="terminal-"]) .cv { border-color: var(--studio-border); color: var(--studio-text); background: var(--studio-panel); }
+:global(html[data-portfolio-theme^="terminal-"]) .cv:is(:hover, :focus-visible) { border-color: var(--studio-border-strong); background: var(--studio-hover); }

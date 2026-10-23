@@ -62,6 +62,7 @@
 .workflows { bottom: 9px; right: 0; animation-delay: -3.6s; }
 .connections { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; color: #648da0; pointer-events: none; }
 .connections > path { stroke: currentColor; stroke-width: 1; stroke-dasharray: 3 4; vector-effect: non-scaling-stroke; }
+.integrationSignals { display: none; }
 @container ai-capabilities (max-width: 190px) {
   .integrationPill > svg { display: none; }
   .integrationPill { gap: 3px; }
@@ -522,4 +523,274 @@
 @media (max-width: 1023px) {
   .headerActions { display: flex; }
   .headerActions > [data-portfolio-actions] { width: 100%; }
+}
+
+/* Optional terminal previews leave the default palette and layout intact. */
+:global(html[data-portfolio-theme^="terminal-"]) .hero {
+  --line: var(--studio-line);
+  background: var(--studio-bg);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .background::before {
+  inset: 0 0 auto auto;
+  width: min(32vw, 440px);
+  height: 180px;
+  background-image: linear-gradient(to right, var(--terminal-grid) 1px, transparent 1px), linear-gradient(to bottom, var(--terminal-grid) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: .3;
+  mask-image: radial-gradient(ellipse at top right, #000, transparent 72%);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .header h1 {
+  color: var(--studio-text);
+  font-family: var(--terminal-display-font, var(--font-geist-mono)), monospace;
+  font-weight: 400;
+  letter-spacing: .01em;
+  text-shadow: none;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .tile {
+  border-color: var(--terminal-border);
+  background: var(--terminal-panel);
+  box-shadow: none;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .tileHeading,
+:global(html[data-portfolio-theme^="terminal-"]) .projectStory h3,
+:global(html[data-portfolio-theme^="terminal-"]) .modalContent h2,
+:global(html[data-portfolio-theme^="terminal-"]) .modalContent h3,
+:global(html[data-portfolio-theme^="terminal-"]) .libraryGrid strong {
+  color: var(--studio-text);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .tileDescription,
+:global(html[data-portfolio-theme^="terminal-"]) .projectStory > p,
+:global(html[data-portfolio-theme^="terminal-"]) .modalIntro,
+:global(html[data-portfolio-theme^="terminal-"]) .projectDescription,
+:global(html[data-portfolio-theme^="terminal-"]) .serviceExample,
+:global(html[data-portfolio-theme^="terminal-"]) .servicesFootnote,
+:global(html[data-portfolio-theme^="terminal-"]) .features > li,
+:global(html[data-portfolio-theme^="terminal-"]) .educationBody span > span,
+:global(html[data-portfolio-theme^="terminal-"]) .educationBody small,
+:global(html[data-portfolio-theme^="terminal-"]) .footerActions > a,
+:global(html[data-portfolio-theme^="terminal-"]) .footerActions > button,
+:global(html[data-portfolio-theme^="terminal-"]) .libraryGrid small,
+:global(html[data-portfolio-theme^="terminal-"]) .pagination,
+:global(html[data-portfolio-theme^="terminal-"]) .pagination small {
+  color: var(--studio-muted);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .eyebrow,
+:global(html[data-portfolio-theme^="terminal-"]) .featuredCategory,
+:global(html[data-portfolio-theme^="terminal-"]) .modalEyebrow,
+:global(html[data-portfolio-theme^="terminal-"]) .modalContent .detailLabel,
+:global(html[data-portfolio-theme^="terminal-"]) .libraryGrid > button > span,
+:global(html[data-portfolio-theme^="terminal-"]) .tileCount,
+:global(html[data-portfolio-theme^="terminal-"]) .serviceBadge,
+:global(html[data-portfolio-theme^="terminal-"]) .pagination {
+  color: var(--studio-muted);
+  font-family: var(--font-geist-mono), monospace;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .tileIcon,
+:global(html[data-portfolio-theme^="terminal-"]) .serviceIcon,
+:global(html[data-portfolio-theme^="terminal-"]) .serviceDetailIcon {
+  border-color: var(--terminal-border-strong);
+  color: var(--studio-accent);
+  background: var(--terminal-elevated);
+  box-shadow: none;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .tileArrow,
+:global(html[data-portfolio-theme^="terminal-"]) .serviceGrid > button > svg,
+:global(html[data-portfolio-theme^="terminal-"]) .libraryGrid svg,
+:global(html[data-portfolio-theme^="terminal-"]) .features svg,
+:global(html[data-portfolio-theme^="terminal-"]) .toolsGrid svg,
+:global(html[data-portfolio-theme^="terminal-"]) .backButton {
+  color: var(--studio-accent);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .serviceGrid > button,
+:global(html[data-portfolio-theme^="terminal-"]) .libraryGrid > button,
+:global(html[data-portfolio-theme^="terminal-"]) .serviceProof > button,
+:global(html[data-portfolio-theme^="terminal-"]) .pagination > button,
+:global(html[data-portfolio-theme^="terminal-"]) .headerCv {
+  border-color: var(--terminal-border);
+  color: var(--studio-text);
+  background: var(--terminal-elevated);
+  box-shadow: none;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .serviceGrid > button:is(:hover, :focus-visible),
+:global(html[data-portfolio-theme^="terminal-"]) .libraryGrid > button:is(:hover, :focus-visible),
+:global(html[data-portfolio-theme^="terminal-"]) .serviceProof > button:is(:hover, :focus-visible),
+:global(html[data-portfolio-theme^="terminal-"]) .pagination > button:enabled:is(:hover, :focus-visible),
+:global(html[data-portfolio-theme^="terminal-"]) .headerCv:is(:hover, :focus-visible) {
+  border-color: var(--terminal-border-strong);
+  color: var(--studio-accent);
+  background: var(--terminal-hover);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .serviceGrid > button::after {
+  background: linear-gradient(110deg, transparent 20%, var(--terminal-glow), transparent 75%);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .serviceGrid > button:hover .serviceIcon {
+  box-shadow: none;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .tileCount,
+:global(html[data-portfolio-theme^="terminal-"]) .projectTags > span,
+:global(html[data-portfolio-theme^="terminal-"]) .technologyTags > span,
+:global(html[data-portfolio-theme^="terminal-"]) .integrationPill,
+:global(html[data-portfolio-theme^="terminal-"]) .serviceBadge,
+:global(html[data-portfolio-theme^="terminal-"]) .toolsGrid > span {
+  border-color: var(--terminal-border);
+  color: var(--studio-muted);
+  background: var(--terminal-elevated);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .medallion {
+  border-color: var(--terminal-border);
+  color: var(--studio-accent);
+  background: var(--terminal-elevated);
+  box-shadow: 0 0 0 1px var(--terminal-border-strong);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .medallion > i {
+  border-color: var(--terminal-border-strong);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .medallion > i::before,
+:global(html[data-portfolio-theme^="terminal-"]) .integrationPill > i {
+  background: var(--studio-accent);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .educationBody strong {
+  color: var(--studio-text);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .integrationHub {
+  border-color: var(--terminal-border-strong);
+  color: var(--studio-accent);
+  background: var(--terminal-elevated);
+  box-shadow: none;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .integrationVisual:is(:hover, :focus-visible) .integrationHub {
+  border-color: var(--studio-accent);
+  box-shadow: 0 0 18px var(--terminal-glow);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .integrationPill > svg {
+  color: var(--studio-accent);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .connections {
+  color: var(--terminal-border-strong);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .connections > path {
+  animation: terminalCircuitFlow 7s linear infinite;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .integrationSignals {
+  display: initial;
+  color: var(--studio-accent);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .signal {
+  fill: currentColor;
+  offset-rotate: 0deg;
+  animation: terminalSignalTravel 5.2s linear infinite;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .signalLlm {
+  offset-path: path("M48 22H104Q120 22 120 38V64Q120 80 136 80H160");
+}
+:global(html[data-portfolio-theme^="terminal-"]) .signalWebhook {
+  offset-path: path("M272 22H216Q200 22 200 38V64Q200 80 184 80H160");
+  animation-delay: -1.3s;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .signalApi {
+  offset-path: path("M48 138H104Q120 138 120 122V96Q120 80 136 80H160");
+  animation-delay: -2.6s;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .signalWorkflow {
+  offset-path: path("M272 138H216Q200 138 200 122V96Q200 80 184 80H160");
+  animation-delay: -3.9s;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .integrationHub::before {
+  position: absolute;
+  inset: -9px;
+  border: 1px solid var(--terminal-border-strong);
+  border-radius: inherit;
+  content: "";
+  opacity: .35;
+  pointer-events: none;
+  animation: terminalHubBreath 5.2s ease-in-out infinite;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .integrationPill {
+  --node-drift-x: 2px;
+  animation-name: terminalNodeDrift;
+  animation-duration: 6.4s;
+  transition: border-color .25s, background .25s, color .25s;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .webhooks,
+:global(html[data-portfolio-theme^="terminal-"]) .workflows {
+  --node-drift-x: -2px;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .integrationVisual:is(:hover, :focus-visible) .integrationPill {
+  border-color: var(--terminal-border-strong);
+  color: var(--studio-text);
+  background: var(--terminal-hover);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .integrationVisual:is(:hover, :focus-within) *,
+:global(html[data-portfolio-theme^="terminal-"]) .integrationVisual:is(:hover, :focus-within) *::before {
+  animation-play-state: paused;
+}
+@keyframes terminalCircuitFlow {
+  to { stroke-dashoffset: -49; }
+}
+@keyframes terminalSignalTravel {
+  0% { offset-distance: 0%; opacity: 0; }
+  12%, 76% { opacity: 1; }
+  94%, 100% { offset-distance: 100%; opacity: 0; }
+}
+@keyframes terminalHubBreath {
+  0%, 100% { opacity: .18; transform: scale(.94); }
+  50% { opacity: .6; transform: scale(1.09); }
+}
+@keyframes terminalNodeDrift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(var(--node-drift-x), -2px); }
+}
+:global(html[data-portfolio-theme^="terminal-"]) .featuredStage {
+  border-color: var(--terminal-border);
+  background: var(--terminal-panel);
+  box-shadow: none;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .featuredStage[data-presentation="true"] {
+  background: transparent;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .projectAction,
+:global(html[data-portfolio-theme^="terminal-"]) .headerCta {
+  background: var(--studio-accent);
+  box-shadow: none;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .projectActionInner,
+:global(html[data-portfolio-theme^="terminal-"]) .headerCtaInner,
+:global(html[data-portfolio-theme^="terminal-"]) .modalPrimary {
+  border-color: var(--studio-accent);
+  color: var(--studio-action-ink);
+  background: var(--studio-action-bg);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .projectAction:is(:hover, :active),
+:global(html[data-portfolio-theme^="terminal-"]) .headerCta:is(:hover, :active) {
+  box-shadow: none;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .detailModal {
+  border-color: var(--terminal-border-strong);
+  background: var(--terminal-panel);
+  box-shadow: 0 24px 72px var(--terminal-overlay);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .serviceDetailVisual {
+  border-color: var(--terminal-border);
+  background-color: var(--terminal-panel);
+  background-image: linear-gradient(to right, var(--terminal-grid) 1px, transparent 1px), linear-gradient(to bottom, var(--terminal-grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .serviceDetailVisual > span {
+  border-color: var(--terminal-border-strong);
+  color: var(--studio-accent);
+  background: var(--terminal-elevated);
+  box-shadow: none;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .serviceDetailVisual > i,
+:global(html[data-portfolio-theme^="terminal-"]) .serviceDetailVisual > b {
+  color: var(--terminal-border-strong);
+  border-color: var(--terminal-border-strong);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .tileContent :global(.glow)::after,
+:global(html[data-portfolio-theme^="terminal-"]) .serviceDetailVisual :global(.glow)::after {
+  background: linear-gradient(90deg, var(--studio-accent), var(--terminal-border-strong));
+}
+@media (min-width: 1440px) and (min-height: 741px) {
+  :global(html[data-portfolio-theme^="terminal-"]) .tileHeading { font-size: 14px; }
+  :global(html[data-portfolio-theme^="terminal-"]) .tileDescription { font-size: 12px; }
 }

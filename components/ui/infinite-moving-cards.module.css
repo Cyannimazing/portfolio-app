@@ -32,3 +32,7 @@
   .group > li > span, .group svg { width: 24px; height: 24px; flex-shrink: 0; }
   .group strong { font-size: 11px; white-space: normal; overflow: visible; line-height: 1.4; }
 }
+
+:global(html[data-portfolio-theme^="terminal-"]) .group > li { border-color: var(--terminal-border); background: var(--terminal-elevated); box-shadow: none; border-radius: var(--studio-control-radius); }
+:global(html[data-portfolio-theme^="terminal-"]) .group > li > span { color: var(--studio-text); }
+:global(html[data-portfolio-theme^="terminal-"]) .group strong { color: var(--studio-muted); }

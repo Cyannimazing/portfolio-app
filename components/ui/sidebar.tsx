@@ -97,7 +97,7 @@ function MobileNavigationPanel({ children, className, id, anchor, triggerRef, up
     className={cn("fixed inset-0 z-[100] flex flex-col overflow-y-auto p-7", className)}>
     <button type="button" aria-label="Close navigation" onClick={() => setOpen(false)}
       style={anchor ? { top: anchor.top, left: anchor.left, width: anchor.width, height: anchor.height } : { top: 14, right: 20 }}
-      className="absolute z-10 inline-flex h-11 min-w-20 items-center justify-end gap-3 rounded-[4px] text-[11px] font-medium tracking-[.04em] text-[#c1ced7] transition-colors hover:text-[#62dcf3]">
+      className="absolute z-10 inline-flex h-11 min-w-20 items-center justify-end gap-3 rounded-[4px] text-[11px] font-medium tracking-[.04em] text-[var(--studio-muted)] transition-colors hover:text-[var(--studio-accent)]">
       <motion.span variants={{ open: { opacity: 1 }, closed: { opacity: 0 } }} transition={{ duration: reducedMotion ? 0 : 0.15 }}>Close</motion.span><MenuGlyph />
     </button>
     {children}
@@ -119,7 +119,7 @@ export function MobileSidebar({ children, className, brand, ...props }: Componen
   return <div className="flex items-center justify-between lg:hidden" {...props}>
     {brand}
     <button ref={triggerRef} type="button" aria-label="Open navigation" aria-expanded={open} aria-controls={id}
-      className="relative z-20 inline-flex h-11 min-w-20 items-center justify-end gap-3 rounded-[4px] text-[11px] font-medium tracking-[.04em] text-[#c1ced7] transition-colors hover:text-[#62dcf3]" onClick={() => {
+      className="relative z-20 inline-flex h-11 min-w-20 items-center justify-end gap-3 rounded-[4px] text-[11px] font-medium tracking-[.04em] text-[var(--studio-muted)] transition-colors hover:text-[var(--studio-accent)]" onClick={() => {
         updateAnchor();
         setOpen(true);
       }}><span>Menu</span><MenuGlyph state={open ? "open" : "closed"} /></button>

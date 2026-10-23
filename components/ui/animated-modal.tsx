@@ -64,7 +64,7 @@ function ModalPanel({ children, className, ariaLabel, header, motionDisabled = f
       if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
     };
   }, [setOpen, triggerRef]);
-  return <motion.div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/65 p-4 backdrop-blur-xl [perspective:800px]"
+  return <motion.div data-portfolio-modal-backdrop className="fixed inset-0 z-[110] flex items-center justify-center bg-black/65 p-4 backdrop-blur-xl [perspective:800px]"
     initial={disabled ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: disabled ? 0 : 0.18 }}
     onPointerDown={event => { if (event.target === event.currentTarget) setOpen(false); }}>
     <motion.div ref={modalRef} role="dialog" aria-modal="true" aria-label={ariaLabel} className={cn("relative flex max-h-full w-full flex-col overflow-hidden rounded-[6px]", className)}

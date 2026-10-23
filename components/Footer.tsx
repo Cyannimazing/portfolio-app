@@ -36,7 +36,7 @@ export default function Footer() {
           <div className="max-w-sm">
             <Link href="/" aria-label="Cyril AI home" className="cursor-pointer inline-flex items-center gap-2 group mb-4">
               <BrandMark theme="dark" size={24} className="h-6 w-6" />
-              <span className="text-white font-semibold text-sm tracking-wide group-hover:text-sky-400 transition-colors">Cyril AI</span>
+              <span className="font-semibold text-sm tracking-wide text-[var(--studio-text)]">Cyril <span className="text-[var(--brand-accent)]">AI</span></span>
             </Link>
             <p className="text-neutral-500 text-sm leading-relaxed mb-5">
               Full Stack Developer building custom business software, websites, and mobile apps that move businesses forward.
@@ -86,7 +86,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-16 pt-6 border-t border-white/8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-neutral-600 text-xs">&copy; {year} Cyril Jian Narvasa &middot; All rights reserved.</p>
+          <p className="text-neutral-600 text-xs">&copy; {year} Cyril AI</p>
         </div>
       </div>
     </footer>

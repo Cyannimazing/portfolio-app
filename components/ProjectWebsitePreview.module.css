@@ -47,3 +47,43 @@
 @media (max-width: 420px) { .browserBar { gap: 6px; padding-inline: 8px; } .address { font-size: 8px; } .previewState { font-size: 8px; } }
 .fullWidth .screenshot { object-fit: contain; object-position: center; }
 @media (max-width: 1023px) { .fullWidth[data-preview-mode="screenshot"] .browserBody { height: auto; aspect-ratio: 1.6; flex: none; } }
+
+/* Color the browser frame and labels, never the embedded site or screenshot. */
+:global(html[data-portfolio-theme^="terminal-"]) .browser {
+  border-color: var(--terminal-border-strong);
+  background: var(--terminal-panel);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .browserBar {
+  color: var(--studio-muted);
+  background: var(--terminal-elevated);
+  font-family: var(--font-geist-mono), monospace;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .browserBar > svg,
+:global(html[data-portfolio-theme^="terminal-"]) .empty > svg {
+  color: var(--studio-accent);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .previewState {
+  color: var(--studio-muted);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .previewState i {
+  background: var(--studio-accent);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .overlay {
+  color: var(--studio-text);
+  background: linear-gradient(to bottom, var(--terminal-overlay-clear), var(--terminal-overlay) 55%);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .empty {
+  color: var(--studio-muted);
+  background: var(--terminal-panel);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .empty > span {
+  color: var(--studio-text);
+}
+@media (max-width: 1023px) {
+  :global(html[data-portfolio-theme^="terminal-"]) .overlay,
+  :global(html[data-portfolio-theme^="terminal-"]) .wide .navigation {
+    color: var(--studio-text);
+    border-color: var(--terminal-border);
+    background: var(--terminal-panel);
+  }
+}

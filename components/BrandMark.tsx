@@ -18,7 +18,7 @@ export default function BrandMark({
     <span
       aria-hidden="true"
       data-brand-mark
-      style={{ "--brand-mark-size": `${size}px`, backgroundImage: `url("/brand/cyril-ai-logo-${theme}.webp")` } as CSSProperties}
+      style={{ "--brand-mark-size": `${size}px`, backgroundImage: `var(--portfolio-brand-image, url("/brand/cyril-ai-logo-${theme}.webp"))` } as CSSProperties}
       className={cn("inline-block size-[var(--brand-mark-size)] shrink-0 bg-contain bg-center bg-no-repeat", className)}
     />
   );

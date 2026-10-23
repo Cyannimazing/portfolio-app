@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import BrandMark from "@/components/BrandMark";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
@@ -51,7 +52,7 @@ function MobileMenuContent() {
       </motion.div>)}
     </motion.nav>
     <motion.div variants={item} className={styles.menuFooter}>
-      <div className={styles.menuSocials}><a href="https://github.com/Cyannimazing" target="_blank" rel="noopener noreferrer" aria-label="Cyril on GitHub, opens in a new tab"><IconBrandGithub size={20} aria-hidden="true" /><span className="sr-only">Cyril on GitHub, opens in a new tab</span></a><a href="mailto:cyrilnarvasa589@gmail.com" aria-label="Email Cyril"><IconMail size={20} aria-hidden="true" /><span className="sr-only">Email Cyril</span></a></div>
+      <div className={styles.menuSocials}><a href="https://github.com/Cyannimazing" target="_blank" rel="noopener noreferrer" aria-label="Cyril on GitHub, opens in a new tab"><IconBrandGithub size={20} aria-hidden="true" /><span className="sr-only">Cyril on GitHub, opens in a new tab</span></a><a href="mailto:cyrilnarvasa589@gmail.com" aria-label="Email Cyril"><IconMail size={20} aria-hidden="true" /><span className="sr-only">Email Cyril</span></a><ThemeSwitcher inline /></div>
       <HoverBorderGradient as={Link} href="/contact" onClick={() => setOpen(false)} paused={reducedMotion} containerClassName={styles.menuCta} className={styles.menuCtaInner}>Book a discovery call<span className={styles.menuCtaArrow}><IconArrowUpRight size={15} aria-hidden="true" /></span></HoverBorderGradient>
     </motion.div>
   </>;
@@ -76,6 +77,7 @@ function SidebarContent() {
     <div className={styles.socials}>
       <a href="https://github.com/Cyannimazing" target="_blank" rel="noopener noreferrer" aria-label="Cyril on GitHub, opens in a new tab"><IconBrandGithub size={17} aria-hidden="true" /><span className="sr-only">Cyril on GitHub, opens in a new tab</span></a>
       <a href="mailto:cyrilnarvasa589@gmail.com" aria-label="Email Cyril"><IconMail size={17} aria-hidden="true" /><span className="sr-only">Email Cyril</span></a>
+      <ThemeSwitcher inline />
     </div>
     <div className={styles.divider} />
     <nav aria-label="Portfolio navigation" className={styles.links}>
@@ -84,7 +86,7 @@ function SidebarContent() {
     </nav>
     <div className={styles.sidebarBottom}>
       <p><IconMapPin size={13} aria-hidden="true" /> Davao, Philippines</p>
-      <span>© {new Date().getFullYear()} Cyril Jian Narvasa</span>
+      <span>© {new Date().getFullYear()} Cyril AI</span>
     </div>
   </>;
 }

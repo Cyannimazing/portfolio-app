@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type ReactNode } from "react";
+import { useState, useSyncExternalStore, type ReactNode } from "react";
 import { MotionConfig } from "motion/react";
 import { IconApi, IconArrowLeft, IconArrowRight, IconArrowUpRight, IconAward, IconBrain, IconCalendarEvent, IconCheck, IconCode, IconDatabase, IconDownload, IconFolder, IconGitBranch, IconPencil, IconSettings, IconSparkles, IconWebhook, IconWorld } from "@tabler/icons-react";
 import { Modal, ModalBody, useModal } from "@/components/ui/animated-modal";
@@ -54,13 +54,21 @@ function Heading({ icon, children, count, onClick }: { icon: ReactNode; children
 }
 function Glow({ enabled }: { enabled: boolean }) { return <GlowingEffect disabled={!enabled} spread={45} proximity={40} inactiveZone={0.15} movementDuration={0.7} borderWidth={2} />; }
 
+function subscribeToPageVisibility(onChange: () => void) {
+  document.addEventListener("visibilitychange", onChange);
+  return () => document.removeEventListener("visibilitychange", onChange);
+}
+function pageIsVisible() { return document.visibilityState !== "hidden"; }
+function serverPageIsVisible() { return true; }
+
 function HubContent() {
   const reducedMotion = useMotionPreference();
+  const pageVisible = useSyncExternalStore(subscribeToPageVisibility, pageIsVisible, serverPageIsVisible);
   const [panel, setPanel] = useState<Panel>("projects");
   const [libraryPage, setLibraryPage] = useState(0);
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const { open, setOpen } = useModal();
-  const motionEnabled = !reducedMotion && !open;
+  const motionEnabled = !reducedMotion && !open && pageVisible;
   const showPanel = (value: Panel) => { setPanel(value); setSelectedProject(null); setLibraryPage(0); setOpen(true); };
   const service = typeof panel === "number" ? services[panel] : null;
 
@@ -121,7 +129,15 @@ function HubContent() {
               <span className={`${styles.integrationPill} ${styles.webhooks}`}><IconWebhook size={12} aria-hidden="true" />Webhooks<i aria-hidden="true" /></span>
               <span className={`${styles.integrationPill} ${styles.apis}`}><IconApi size={12} aria-hidden="true" />REST APIs<i aria-hidden="true" /></span>
               <span className={`${styles.integrationPill} ${styles.workflows}`}><IconGitBranch size={12} aria-hidden="true" />Workflows<i aria-hidden="true" /></span>
-              <svg className={styles.connections} viewBox="0 0 320 160" preserveAspectRatio="none" fill="none" aria-hidden="true"><path d="M48 22H104Q120 22 120 38V64Q120 80 136 80H184Q200 80 200 64V38Q200 22 216 22H272M48 138H104Q120 138 120 122V96Q120 80 136 80M184 80Q200 80 200 96V122Q200 138 216 138H272" /></svg>
+              <svg className={styles.connections} viewBox="0 0 320 160" preserveAspectRatio="none" fill="none" aria-hidden="true">
+                <path d="M48 22H104Q120 22 120 38V64Q120 80 136 80H184Q200 80 200 64V38Q200 22 216 22H272M48 138H104Q120 138 120 122V96Q120 80 136 80M184 80Q200 80 200 96V122Q200 138 216 138H272" />
+                <g className={styles.integrationSignals}>
+                  <circle r="2.1" className={`${styles.signal} ${styles.signalLlm}`} />
+                  <circle r="2.1" className={`${styles.signal} ${styles.signalWebhook}`} />
+                  <circle r="2.1" className={`${styles.signal} ${styles.signalApi}`} />
+                  <circle r="2.1" className={`${styles.signal} ${styles.signalWorkflow}`} />
+                </g>
+              </svg>
             </button>
           </div>} />
         </BentoGrid>

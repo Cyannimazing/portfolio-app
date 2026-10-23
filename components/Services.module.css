@@ -224,3 +224,82 @@
   .eyebrow, .heading h1, .intro, .headerActions, .serviceCard { animation: none; }
   .title, .expand svg { transition: none; }
 }
+
+/* Terminal preview colors leave the Original layout and palette unchanged. */
+:global(html[data-portfolio-theme^="terminal-"]) .shell,
+:global(html[data-portfolio-theme^="terminal-"]) .page {
+  color: var(--studio-text);
+  background: var(--studio-bg);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .heading h1 {
+  font-family: var(--terminal-display-font, var(--font-geist-mono)), monospace;
+  font-weight: 400;
+  letter-spacing: .01em;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .eyebrow,
+:global(html[data-portfolio-theme^="terminal-"]) .includedLabel,
+:global(html[data-portfolio-theme^="terminal-"]) .modalEyebrow,
+:global(html[data-portfolio-theme^="terminal-"]) .expand {
+  color: var(--studio-muted);
+  font-family: var(--font-geist-mono), monospace;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .serviceCard {
+  border-color: var(--terminal-border);
+  color: var(--studio-text);
+  background: var(--terminal-panel);
+  box-shadow: none;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .business-software {
+  border-color: var(--terminal-border-strong);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .serviceCard:is(:hover, :focus-within) {
+  border-color: var(--terminal-border-strong);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .serviceIcon {
+  border-color: var(--terminal-border-strong);
+  color: var(--studio-accent);
+  background: var(--terminal-elevated);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .cardHeading button:hover .title,
+:global(html[data-portfolio-theme^="terminal-"]) .included li > svg,
+:global(html[data-portfolio-theme^="terminal-"]) .scopeExamples li::before {
+  color: var(--studio-accent);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .included li,
+:global(html[data-portfolio-theme^="terminal-"]) .detailGrid h3,
+:global(html[data-portfolio-theme^="terminal-"]) .scopeExamples h3 {
+  color: var(--studio-text);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .book {
+  border-color: var(--terminal-border-strong);
+  background: var(--terminal-elevated);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .bookBody {
+  color: var(--studio-text);
+  background: var(--terminal-elevated);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .book:is(:hover, :focus-visible) .bookBody {
+  background: var(--terminal-hover);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .scopeModal {
+  border-color: var(--terminal-border-strong);
+  color: var(--studio-text);
+  background: var(--terminal-panel);
+  box-shadow: 0 24px 72px var(--terminal-overlay);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .scopeModal [data-modal-header] {
+  border-color: var(--studio-line);
+  background: var(--terminal-elevated);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .scopeContent {
+  scrollbar-color: var(--terminal-border-strong) var(--terminal-panel);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .scopeActions > a:first-child {
+  color: var(--studio-muted);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .scopeActions > a:first-child:hover {
+  color: var(--studio-accent);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .cardBody :global(.glow)::after {
+  background: linear-gradient(90deg, var(--studio-accent), var(--terminal-border-strong));
+}

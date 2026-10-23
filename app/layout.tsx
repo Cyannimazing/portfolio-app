@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bebas_Neue, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import Navigation from "../components/Navigation";
@@ -10,6 +10,9 @@ import { siteConfig } from "@/lib/site";
 import { pageMetadata, publicPages, searchRobots, searchVerification } from "@/lib/seo";
 import { siteStructuredData } from "@/lib/structured-data";
 import StructuredData from "@/components/StructuredData";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
+import InteractiveBackground from "@/components/InteractiveBackground";
+import { defaultPortfolioTheme, themeBootstrapScript } from "@/lib/theme-preference";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,6 +21,12 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const displayFont = Bebas_Neue({
+  variable: "--font-bebas-neue",
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -53,7 +62,7 @@ export const metadata: Metadata = {
   twitter: pageMetadata(publicPages[0]).twitter,
 };
 
-export const viewport: Viewport = { themeColor: "#10191e" };
+export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#0b0d0e" }, { media: "(prefers-color-scheme: light)", color: "#eeede9" }] };
 
 export default function RootLayout({
   children,
@@ -61,16 +70,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head><link rel="describedby" href="/llms.txt" type="text/plain" /></head>
+    <html lang="en" data-portfolio-theme={defaultPortfolioTheme} suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{ __html: themeBootstrapScript }} /><link rel="describedby" href="/llms.txt" type="text/plain" /></head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${displayFont.variable} antialiased`}
       >
         <StructuredData id="site-identity" data={siteStructuredData} />
         <a href="#main-content" className="studio-skip-link">Skip to content</a>
         <PageTransition>
         <Navigation />
-        <div id="main-content" tabIndex={-1} className="focus:outline-none">{children}</div>
+        <div id="main-content" tabIndex={-1} className="focus:outline-none"><InteractiveBackground />{children}<ThemeSwitcher /></div>
         <noscript><nav className="studio-static-navigation" aria-label="Page navigation">{publicPages.map(page => <a key={page.path} href={page.path}>{page.path === "/" ? "Home" : page.title}</a>)}</nav></noscript>
         <FooterVisibility><Footer /></FooterVisibility>
         </PageTransition>

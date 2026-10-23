@@ -1,10 +1,26 @@
-.curtain { position: fixed; z-index: 100; inset: 0; pointer-events: none; visibility: hidden; }
+.curtain { position: fixed; z-index: 100; inset: 0; overflow: hidden; pointer-events: none; visibility: hidden; }
 .curtain[data-scope="content"] { left: var(--studio-sidebar-width); }
+.panelBackdrop { position: absolute; inset: 0; }
 .panels { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: auto; gap: 0; width: 100%; max-width: none; height: 100%; }
 .panel { padding: 0; border: 0; border-radius: 0; background: #12212a; box-shadow: none; transform: translateY(100%); }
 .panel:nth-child(2) { background: #172a34; }
 .panel:nth-child(3) { background: #1c3440; }
 .panel:hover { box-shadow: none; }
+.brandIntro { position: absolute; z-index: 1; inset: 0; display: flex; align-items: center; justify-content: center; padding: 32px; color: var(--studio-text); background: var(--studio-bg); pointer-events: none; }
+.brandLockup { --intro-logo-size: 160px; --intro-wordmark-width: 240px; --intro-gap: 32px; --intro-mark-shift: 136px; position: relative; display: flex; align-items: center; gap: var(--intro-gap); }
+.introMark { position: relative; display: flex; flex: 0 0 var(--intro-logo-size); align-items: center; justify-content: center; width: var(--intro-logo-size); height: var(--intro-logo-size); }
+.introSlice { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.introArc { position: absolute; inset: -32px; width: calc(100% + 64px); height: calc(100% + 64px); overflow: visible; color: var(--brand-accent); filter: drop-shadow(0 0 8px rgb(70 213 244 / .4)); pointer-events: none; }
+.lockupSweep { position: absolute; inset: 0; pointer-events: none; }
+.introLightSweep, .introWordmarkSweep { background: linear-gradient(110deg, transparent 43%, rgb(255 255 255 / .85) 52%, transparent 61%); background-size: 300% 100%; background-position: var(--intro-sweep) 0; }
+.introLightSweep { position: absolute; top: 50%; left: 0; width: var(--intro-logo-size); height: var(--intro-logo-size); transform: translateY(-50%); mask-image: var(--portfolio-brand-image, url("/brand/cyril-ai-logo-dark.webp")); mask-size: contain; mask-position: center; mask-repeat: no-repeat; }
+.introWordmark, .introWordmarkSweep { width: var(--intro-wordmark-width); font-family: var(--font-geist-sans), sans-serif; font-size: 64px; font-weight: 650; line-height: 1.1; letter-spacing: -.035em; white-space: nowrap; }
+.introWordmark > span { color: var(--brand-accent); }
+.introWordmarkSweep { position: absolute; top: 50%; left: calc(var(--intro-logo-size) + var(--intro-gap)); transform: translateY(-50%); color: transparent; background-clip: text; }
+.skipIntro { position: absolute; right: max(32px, env(safe-area-inset-right)); bottom: max(28px, env(safe-area-inset-bottom)); display: inline-flex; align-items: center; justify-content: center; gap: 18px; min-width: 112px; min-height: 44px; padding: 10px 14px; border: 1px solid transparent; color: var(--studio-muted); background: transparent; font-family: var(--font-geist-sans), sans-serif; font-size: 13px; line-height: 1.4; cursor: pointer; pointer-events: auto; transition: color .18s, border-color .18s; }
+.skipIntro:is(:hover, :focus-visible) { color: var(--studio-text); border-color: var(--studio-line); }
+.skipIntro:focus-visible { outline: 2px solid var(--studio-accent); outline-offset: 4px; }
+:global(html[data-portfolio-theme="terminal-light"]) .introLightSweep, :global(html[data-portfolio-theme="terminal-light"]) .introWordmarkSweep { background-image: linear-gradient(110deg, transparent 43%, rgb(0 0 0 / .4) 52%, transparent 61%); }
 .curtain[data-phase="opening"], .curtain[data-phase="covering"], .curtain[data-phase="revealing"] { visibility: visible; pointer-events: auto; }
 .curtain[data-phase="opening"] .panel { transform: translateY(0); }
 .curtain[data-phase="covering"] .panel { transform: translateY(0); transition: transform .32s var(--studio-ease); }
@@ -12,4 +28,20 @@
 .curtain[data-phase="covering"] .panel:nth-child(2), .curtain[data-phase="revealing"] .panel:nth-child(2) { transition-delay: .04s; }
 .curtain[data-phase="covering"] .panel:nth-child(3), .curtain[data-phase="revealing"] .panel:nth-child(3) { transition-delay: .08s; }
 @media (max-width: 1023px) { .curtain, .curtain[data-scope="content"] { left: 0; } }
-@media (prefers-reduced-motion: reduce) { .curtain { display: none; } }
+@media (max-width: 600px) { .brandLockup { --intro-logo-size: 104px; --intro-wordmark-width: 160px; --intro-gap: 18px; --intro-mark-shift: 89px; } .introMark :global([data-brand-mark]) { width: 104px; height: 104px; } .introWordmark, .introWordmarkSweep { font-size: 42px; } .introArc { inset: -20px; width: calc(100% + 40px); height: calc(100% + 40px); } .skipIntro { right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); } }
+@media (max-width: 340px) { .brandLockup { --intro-logo-size: 88px; --intro-wordmark-width: 138px; --intro-gap: 14px; --intro-mark-shift: 76px; } .introMark :global([data-brand-mark]) { width: 88px; height: 88px; } .introWordmark, .introWordmarkSweep { font-size: 36px; } }
+@media (prefers-reduced-motion: reduce) { .curtain, .brandIntro { display: none; } }
+
+/* Keep the existing curtain sequence, with neutral theme panel fills. */
+:global(html[data-portfolio-theme^="terminal-"]) .panel {
+  background: var(--studio-bg);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .panel:nth-child(2) {
+  background: var(--terminal-panel);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .panel:nth-child(3) {
+  background: var(--terminal-elevated);
+}
+.curtain[data-intro="true"] .panel:nth-child(n) {
+  background: var(--studio-bg);
+}

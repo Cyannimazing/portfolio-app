@@ -17,3 +17,10 @@
   .identity strong { font-size: 34px; }
   .identity > span:last-child { display: block; font-size: 8px; }
 }
+
+:global(html[data-portfolio-theme^="terminal-"]) .placeholder { color: var(--studio-text); background: radial-gradient(ellipse at 75% 80%, var(--terminal-glow), transparent 65%), var(--terminal-panel); }
+:global(html[data-portfolio-theme^="terminal-"]) .orbit { border-color: var(--terminal-border); box-shadow: 0 0 0 35px var(--terminal-grid), 0 0 0 70px var(--terminal-grid); }
+:global(html[data-portfolio-theme^="terminal-"]) .mark { color: var(--studio-accent); background: var(--terminal-elevated); border-color: var(--terminal-border-strong); box-shadow: none; }
+:global(html[data-portfolio-theme^="terminal-"]) .identity > span:last-child,
+:global(html[data-portfolio-theme^="terminal-"]) .placeholder > small { color: var(--studio-muted); }
+:global(html[data-portfolio-theme^="terminal-"]) .modules > span { color: var(--studio-muted); background: var(--terminal-elevated); border-color: var(--terminal-border); }

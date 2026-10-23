@@ -49,3 +49,59 @@
 @media (max-width: 767px) { .gallery, .documents { grid-template-columns: 1fr; } .toolbar { inset: 10px 10px auto; } .lightboxFooter { flex-direction: column; align-items: stretch; gap: 12px; padding: 14px 16px; } .lightboxNavigation { justify-content: center; } .lightboxImageArea { padding: 8px; } .lightboxCaption { font-size: 14px; } }
 @media (max-width: 420px) { .enlargeBody { padding: 10px; } .enlargeBody > span { display: none; } .documentBody { gap: 12px; padding: 16px; } }
 @media (prefers-reduced-motion: reduce) { .galleryZoom { opacity: 1; transform: none; transition: none; } }
+
+/* Legacy case-study controls share the optional terminal palette. */
+:global(html[data-portfolio-theme^="terminal-"]) .hero,
+:global(html[data-portfolio-theme^="terminal-"]) .galleryImage {
+  border-color: var(--terminal-border);
+  background: var(--terminal-panel);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .heroContent {
+  color: var(--studio-text);
+  background: linear-gradient(to bottom, var(--terminal-overlay-clear), var(--terminal-overlay) 45%);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .back,
+:global(html[data-portfolio-theme^="terminal-"]) .galleryZoom {
+  border-color: var(--terminal-border-strong);
+  background: var(--terminal-overlay);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .enlarge,
+:global(html[data-portfolio-theme^="terminal-"]) .document,
+:global(html[data-portfolio-theme^="terminal-"]) .sourceLink,
+:global(html[data-portfolio-theme^="terminal-"]) .imageControl {
+  background: var(--terminal-border-strong);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .enlargeBody,
+:global(html[data-portfolio-theme^="terminal-"]) .documentBody,
+:global(html[data-portfolio-theme^="terminal-"]) .sourceLinkBody,
+:global(html[data-portfolio-theme^="terminal-"]) .imageControlBody {
+  color: var(--studio-text);
+  background: var(--terminal-panel);
+  transition: background .22s var(--studio-ease), color .22s var(--studio-ease);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .enlarge:hover .enlargeBody,
+:global(html[data-portfolio-theme^="terminal-"]) .document:hover .documentBody,
+:global(html[data-portfolio-theme^="terminal-"]) .sourceLink:hover .sourceLinkBody,
+:global(html[data-portfolio-theme^="terminal-"]) .imageControl:hover .imageControlBody {
+  color: var(--studio-accent);
+  background: var(--terminal-hover);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .galleryImage {
+  transition: border-color .22s var(--studio-ease);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .galleryButton:hover .galleryImage,
+:global(html[data-portfolio-theme^="terminal-"]) .galleryButton:focus-visible .galleryImage {
+  border-color: var(--terminal-border-strong);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .lightbox {
+  border-color: var(--terminal-border-strong);
+  background: var(--studio-bg);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .lightboxTitle,
+:global(html[data-portfolio-theme^="terminal-"]) .lightboxCaption,
+:global(html[data-portfolio-theme^="terminal-"]) .imageCount {
+  color: var(--studio-muted);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .lightboxFooter {
+  border-color: var(--terminal-border);
+}

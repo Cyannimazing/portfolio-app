@@ -9,10 +9,10 @@ import { cn } from "@/lib/utils";
 type Direction = "TOP" | "LEFT" | "BOTTOM" | "RIGHT";
 const directions: Direction[] = ["TOP", "LEFT", "BOTTOM", "RIGHT"];
 const movingMap: Record<Direction, string> = {
-  TOP: "radial-gradient(20.7% 50% at 50% 0%, #b4edff 0%, transparent 100%)",
-  LEFT: "radial-gradient(16.6% 43.1% at 0% 50%, #b4edff 0%, transparent 100%)",
-  BOTTOM: "radial-gradient(20.7% 50% at 50% 100%, #b4edff 0%, transparent 100%)",
-  RIGHT: "radial-gradient(16.2% 41.2% at 100% 50%, #b4edff 0%, transparent 100%)",
+  TOP: "radial-gradient(20.7% 50% at 50% 0%, var(--studio-border-highlight, #b4edff) 0%, transparent 100%)",
+  LEFT: "radial-gradient(16.6% 43.1% at 0% 50%, var(--studio-border-highlight, #b4edff) 0%, transparent 100%)",
+  BOTTOM: "radial-gradient(20.7% 50% at 50% 100%, var(--studio-border-highlight, #b4edff) 0%, transparent 100%)",
+  RIGHT: "radial-gradient(16.2% 41.2% at 100% 50%, var(--studio-border-highlight, #b4edff) 0%, transparent 100%)",
 };
 type Props<T extends ElementType> = {
   as?: T; children: ReactNode; containerClassName?: string; className?: string;
@@ -42,7 +42,7 @@ export function HoverBorderGradient<T extends ElementType = "button">({
     onFocus: () => setHovered(true), onBlur: () => setHovered(false) }, <>
     <span className={cn("relative z-10 rounded-[inherit] px-4 py-2", className)}>{children}</span>
     <motion.span aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[inherit]"
-      initial={false} animate={{ background: hovered && moving ? "radial-gradient(75% 181% at 50% 50%, #46d5f1 0%, transparent 100%)" : borderMotion === "hover" ? "transparent" : movingMap[direction] }}
+      initial={false} animate={{ background: hovered && moving ? "radial-gradient(75% 181% at 50% 50%, var(--studio-hover-highlight, #46d5f1) 0%, transparent 100%)" : borderMotion === "hover" ? "transparent" : movingMap[direction] }}
       transition={{ duration: moving ? borderMotion === "hover" ? .35 : duration : 0, ease: borderMotion === "hover" ? [.16, 1, .3, 1] : "linear" }} />
   </>);
 }

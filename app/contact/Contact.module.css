@@ -91,3 +91,132 @@
 @media (max-width: 639px) { .cardHeading { font-size: 19px; }.fields { grid-template-columns: minmax(0,1fr); }.budgetField, .messageField { grid-column: 1; }.emailLink { font-size: 14px; }.cardBody { padding: var(--studio-panel-padding); } }
 @media (max-width: 360px) { .statement { font-size: 29px; }.cardHeading { font-size: 17px; }.formHeading h2 { font-size: 25px; }.budgetControls { gap: 6px; }.currency button { min-width: 44px; padding: 8px; }.field select { padding-left: 8px; } }
 @media (prefers-reduced-motion: reduce) { .page *, .page *::before { animation: none !important; transition: none !important; }.card[data-entered="false"] { opacity: 1; } }
+
+/* Terminal preview colors leave the Original layout and palette unchanged. */
+:global(html[data-portfolio-theme^="terminal-"]) .heading h1 {
+  font-family: var(--terminal-display-font, var(--font-geist-mono)), monospace;
+  font-weight: 400;
+  letter-spacing: .01em;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .eyebrow,
+:global(html[data-portfolio-theme^="terminal-"]) .label,
+:global(html[data-portfolio-theme^="terminal-"]) .ordinal,
+:global(html[data-portfolio-theme^="terminal-"]) .steps li > span {
+  color: var(--studio-muted);
+  font-family: var(--font-geist-mono), monospace;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .card {
+  border-color: var(--studio-border);
+  color: var(--studio-text);
+  background: var(--studio-panel);
+  box-shadow: var(--studio-shadow);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .formCard {
+  border-color: var(--studio-border);
+  background: var(--studio-panel);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .card:is(:hover, :focus-within) {
+  border-color: var(--studio-border-strong);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .icon,
+:global(html[data-portfolio-theme^="terminal-"]) .successIcon {
+  border-color: var(--studio-border);
+  color: var(--studio-accent);
+  background: var(--studio-inset);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .statement span,
+:global(html[data-portfolio-theme^="terminal-"]) .emailLink,
+:global(html[data-portfolio-theme^="terminal-"]) .formNote a {
+  color: var(--studio-accent);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .smallAction,
+:global(html[data-portfolio-theme^="terminal-"]) .smallActionBody,
+:global(html[data-portfolio-theme^="terminal-"]) .social {
+  border-color: var(--studio-border);
+  color: var(--studio-text);
+  background: var(--studio-panel);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .smallAction:is(:hover, :focus-visible) .smallActionBody,
+:global(html[data-portfolio-theme^="terminal-"]) .social:is(:hover, :focus-visible) {
+  color: var(--studio-accent);
+  background: var(--studio-hover);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .smallAction:is(:hover, :focus-visible),
+:global(html[data-portfolio-theme^="terminal-"]) .social:is(:hover, :focus-visible) {
+  border-color: var(--studio-border-strong);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .copyStatus,
+:global(html[data-portfolio-theme^="terminal-"]) .formNote,
+:global(html[data-portfolio-theme^="terminal-"]) .field label span {
+  color: var(--studio-muted);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .field label {
+  color: var(--studio-text);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .field :is(input, select, textarea),
+:global(html[data-portfolio-theme^="terminal-"]) .selectTrigger,
+:global(html[data-portfolio-theme^="terminal-"]) .currency button {
+  border-color: var(--studio-border-strong);
+  color: var(--studio-text);
+  background: var(--studio-inset);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .field :is(input, select, textarea):hover:not(:disabled),
+:global(html[data-portfolio-theme^="terminal-"]) .selectTrigger:hover:not(:disabled),
+:global(html[data-portfolio-theme^="terminal-"]) .currency button:hover:not(:disabled) {
+  border-color: var(--studio-accent);
+  background: var(--studio-hover);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .field :is(input, select, textarea):focus,
+:global(html[data-portfolio-theme^="terminal-"]) .selectTrigger:focus-visible,
+:global(html[data-portfolio-theme^="terminal-"]) .selectTrigger[aria-expanded="true"] {
+  border-color: var(--studio-accent);
+  background: var(--studio-hover);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--studio-border-strong) 24%, transparent);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .field :is(input, textarea)::placeholder {
+  color: var(--studio-muted);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .field option {
+  color: var(--studio-text);
+  background: var(--studio-inset);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .field select:has(option[value=""]:checked),
+:global(html[data-portfolio-theme^="terminal-"]) .selectTrigger > :global(.text-neutral-400),
+:global(html[data-portfolio-theme^="terminal-"]) .selectTrigger > svg,
+:global(html[data-portfolio-theme^="terminal-"]) .selectWrap > svg {
+  color: var(--studio-muted);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .selectTrigger > :global(.text-white) {
+  color: var(--studio-text);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .currency button[aria-pressed="true"],
+:global(html[data-portfolio-theme^="terminal-"]) .currency button[aria-pressed="true"]:is(:hover, :focus-visible) {
+  border-color: var(--studio-action-bg);
+  color: var(--studio-action-ink);
+  background: var(--studio-action-bg);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .field :is(input, select, textarea)[aria-invalid="true"],
+:global(html[data-portfolio-theme^="terminal-"]) .selectTrigger[aria-invalid="true"] {
+  border-color: var(--studio-accent);
+  border-style: dashed;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .fieldError,
+:global(html[data-portfolio-theme^="terminal-"]) .formError {
+  color: var(--studio-text);
+  font-weight: 500;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .submit {
+  border-color: var(--studio-action-bg);
+  background: var(--studio-action-bg);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .submitBody {
+  color: var(--studio-action-ink);
+  background: var(--studio-action-bg);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .field input:-webkit-autofill {
+  -webkit-text-fill-color: var(--studio-text);
+  box-shadow: 0 0 0 1000px var(--studio-inset) inset;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .cardBody :global(.glow)::after {
+  background: linear-gradient(90deg, var(--studio-accent), var(--studio-border-strong));
+}
