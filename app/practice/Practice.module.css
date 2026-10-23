@@ -200,7 +200,8 @@
 @media (max-width: 360px) { .cardHeading { font-size: 19px; } .eyebrow { font-size: 8px; } .principleTab { font-size: 11px; } .principleChoice svg { display: none; } .principleDetail h3 { font-size: 26px; } }
 @media (prefers-reduced-motion: reduce) { .page *, .detailModal * { animation: none !important; transition: none !important; } .card[data-entered="false"] { opacity: 1; } }
 
-/* Terminal preview colors leave the Original layout and palette unchanged. */
+/* Shared universe theme roles preserve the approach composition. */
+:global(html[data-portfolio-theme^="terminal-"]) .page { background: transparent; }
 :global(html[data-portfolio-theme^="terminal-"]) .heading h1 {
   font-family: var(--terminal-display-font, var(--font-geist-mono)), monospace;
   font-weight: 400;
@@ -215,19 +216,18 @@
   font-family: var(--font-geist-mono), monospace;
 }
 :global(html[data-portfolio-theme^="terminal-"]) .card {
-  border-color: var(--terminal-border);
+  border-color: var(--studio-border);
   color: var(--studio-text);
-  background: var(--terminal-panel);
-  box-shadow: none;
+  background: var(--studio-panel);
+  box-shadow: var(--studio-shadow);
 }
-:global(html[data-portfolio-theme^="terminal-"]) .purpose,
 :global(html[data-portfolio-theme^="terminal-"]) .card:is(:hover, :focus-within) {
-  border-color: var(--terminal-border-strong);
+  border-color: var(--studio-border-strong);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .icon {
-  border-color: var(--terminal-border-strong);
+  border-color: var(--studio-border-strong);
   color: var(--studio-accent);
-  background: var(--terminal-elevated);
+  background: var(--studio-inset);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .directionStatement span,
 :global(html[data-portfolio-theme^="terminal-"]) .cardHeading button:hover,
@@ -241,73 +241,75 @@
   color: var(--studio-muted);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .principleTab {
-  border-color: var(--terminal-border);
+  border-color: var(--studio-border);
   color: var(--studio-muted);
-  background: var(--terminal-panel);
+  background: var(--studio-panel);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .principleTab:is(:hover, :focus-visible),
 :global(html[data-portfolio-theme^="terminal-"]) .principleTab[aria-selected="true"] {
-  border-color: var(--terminal-border-strong);
+  border-color: var(--studio-border-strong);
   color: var(--studio-text);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .activePrinciple {
-  background: var(--terminal-hover);
+  background: var(--studio-hover);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .principleContent {
-  border-color: var(--terminal-border);
-  background: var(--terminal-elevated);
+  border-color: var(--studio-border);
+  background: var(--studio-inset);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .experienceList li {
-  border-color: var(--terminal-border-strong);
+  border-color: var(--studio-border-strong);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .experienceList li::before {
   background: var(--studio-accent);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .detailModal {
-  border-color: var(--terminal-border-strong);
+  border-color: var(--studio-border-strong);
   color: var(--studio-text);
-  background: var(--terminal-panel);
-  box-shadow: 0 24px 72px var(--terminal-overlay);
+  background: var(--studio-panel);
+  box-shadow: var(--studio-shadow);
+  border-radius: var(--studio-panel-radius);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .detailModal [data-modal-header] {
   border-color: var(--studio-line);
-  background: var(--terminal-elevated);
+  background: var(--studio-inset);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .detailContent {
-  scrollbar-color: var(--terminal-border-strong) var(--terminal-panel);
+  scrollbar-color: var(--studio-border-strong) var(--studio-panel);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .detailActions a {
   color: var(--studio-muted);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .detailActions a:last-child {
-  border-color: var(--terminal-border-strong);
-  color: var(--studio-text);
-  background: var(--terminal-elevated);
+  border-color: var(--studio-action-bg);
+  color: var(--studio-action-ink);
+  background: var(--studio-action-bg);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .detailActions a:is(:hover, :focus-visible) {
   color: var(--studio-accent);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .detailActions a:last-child:is(:hover, :focus-visible) {
-  background: var(--terminal-hover);
+  color: var(--studio-action-ink);
+  background: var(--studio-action-bg);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .principleItem {
   border-color: transparent;
-  border-bottom-color: var(--terminal-border);
+  border-bottom-color: var(--studio-border);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .principleItem:last-child {
   border-bottom-color: transparent;
 }
 :global(html[data-portfolio-theme^="terminal-"]) .principleItem[data-expanded="true"] {
-  border-color: var(--terminal-border-strong);
-  background: var(--terminal-elevated);
+  border-color: var(--studio-border-strong);
+  background: var(--studio-inset);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .principleTrigger {
   color: var(--studio-text);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .principleStep {
-  border-color: var(--terminal-border-strong);
+  border-color: var(--studio-border-strong);
   color: var(--studio-muted);
-  background: var(--terminal-panel);
+  background: var(--studio-panel);
   font-family: var(--font-geist-mono), monospace;
 }
 :global(html[data-portfolio-theme^="terminal-"]) .principleTrigger > svg {
@@ -317,10 +319,18 @@
   color: var(--studio-text);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .principleItem[data-expanded="true"] .principleStep {
-  border-color: var(--studio-accent);
+  border-color: var(--studio-action-bg);
   color: var(--studio-action-ink);
   background: var(--studio-action-bg);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .cardBody :global(.glow)::after {
-  background: linear-gradient(90deg, var(--studio-accent), var(--terminal-border-strong));
+  background: linear-gradient(90deg, var(--studio-accent), var(--studio-border-strong));
 }
+:global(html[data-portfolio-theme^="terminal-"]) .cardHeading button,
+:global(html[data-portfolio-theme^="terminal-"]) .principleTab,
+:global(html[data-portfolio-theme^="terminal-"]) .activePrinciple,
+:global(html[data-portfolio-theme^="terminal-"]) .principleStep,
+:global(html[data-portfolio-theme^="terminal-"]) .detailActions a { border-radius: var(--studio-control-radius); }
+:global(html[data-portfolio-theme^="terminal-"]) .principleContent,
+:global(html[data-portfolio-theme^="terminal-"]) .principleItem { border-radius: var(--studio-panel-radius); }
+:global(html[data-portfolio-theme^="terminal-"]) .detailContent > h2 { font-family: var(--terminal-display-font); font-weight: 400; letter-spacing: .01em; }

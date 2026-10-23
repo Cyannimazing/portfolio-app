@@ -92,7 +92,8 @@
 @media (max-width: 360px) { .statement { font-size: 29px; }.cardHeading { font-size: 17px; }.formHeading h2 { font-size: 25px; }.budgetControls { gap: 6px; }.currency button { min-width: 44px; padding: 8px; }.field select { padding-left: 8px; } }
 @media (prefers-reduced-motion: reduce) { .page *, .page *::before { animation: none !important; transition: none !important; }.card[data-entered="false"] { opacity: 1; } }
 
-/* Terminal preview colors leave the Original layout and palette unchanged. */
+/* Shared universe theme roles preserve the contact composition. */
+:global(html[data-portfolio-theme^="terminal-"]) .page { background: transparent; }
 :global(html[data-portfolio-theme^="terminal-"]) .heading h1 {
   font-family: var(--terminal-display-font, var(--font-geist-mono)), monospace;
   font-weight: 400;
@@ -106,6 +107,7 @@
   font-family: var(--font-geist-mono), monospace;
 }
 :global(html[data-portfolio-theme^="terminal-"]) .card {
+  border-radius: var(--studio-panel-radius);
   border-color: var(--studio-border);
   color: var(--studio-text);
   background: var(--studio-panel);
@@ -197,12 +199,13 @@
 }
 :global(html[data-portfolio-theme^="terminal-"]) .field :is(input, select, textarea)[aria-invalid="true"],
 :global(html[data-portfolio-theme^="terminal-"]) .selectTrigger[aria-invalid="true"] {
-  border-color: var(--studio-accent);
+  border-color: var(--studio-error);
   border-style: dashed;
+  background: var(--studio-error-surface);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .fieldError,
 :global(html[data-portfolio-theme^="terminal-"]) .formError {
-  color: var(--studio-text);
+  color: var(--studio-error);
   font-weight: 500;
 }
 :global(html[data-portfolio-theme^="terminal-"]) .submit {
@@ -220,3 +223,14 @@
 :global(html[data-portfolio-theme^="terminal-"]) .cardBody :global(.glow)::after {
   background: linear-gradient(90deg, var(--studio-accent), var(--studio-border-strong));
 }
+:global(html[data-portfolio-theme^="terminal-"]) .icon,
+:global(html[data-portfolio-theme^="terminal-"]) .successIcon,
+:global(html[data-portfolio-theme^="terminal-"]) .smallAction,
+:global(html[data-portfolio-theme^="terminal-"]) .social,
+:global(html[data-portfolio-theme^="terminal-"]) .field :is(input, select, textarea),
+:global(html[data-portfolio-theme^="terminal-"]) .selectTrigger,
+:global(html[data-portfolio-theme^="terminal-"]) .currency button,
+:global(html[data-portfolio-theme^="terminal-"]) .submit { border-radius: var(--studio-control-radius); }
+:global(html[data-portfolio-theme^="terminal-"]) .successIcon { border-color: var(--studio-success); color: var(--studio-success); background: var(--studio-success-surface); }
+:global(html[data-portfolio-theme^="terminal-"]) .success .label { color: var(--studio-success); }
+:global(html[data-portfolio-theme^="terminal-"]) .success h2 { font-family: var(--terminal-display-font); font-weight: 400; letter-spacing: .01em; }

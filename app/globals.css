@@ -8,15 +8,15 @@ body:has([data-project-detail]) .studio-static-navigation { margin-left: 0; }
 
 :root {
   --brand-accent: #46d5f4;
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #0b0d10;
+  --foreground: #e1e6eb;
   --sky-500: rgb(14, 165, 233);
-  --studio-bg: #10191e;
-  --studio-surface: #233642;
-  --studio-text: #f1f7fa;
-  --studio-muted: #c1ced7;
-  --studio-accent: #62dcf3;
-  --studio-line: rgba(190, 208, 218, 0.16);
+  --studio-bg: #0b0d10;
+  --studio-surface: #181d23;
+  --studio-text: #e1e6eb;
+  --studio-muted: #adb8c4;
+  --studio-accent: #46d5f4;
+  --studio-line: #35404b;
   --studio-frame-gutter: clamp(16px, 2.4vw, 40px);
   --studio-content-gutter: clamp(28px, 5vw, 80px);
   --studio-header-top: 20px;
@@ -183,21 +183,6 @@ button:disabled, [aria-disabled="true"] { cursor: not-allowed; }
 
 @media (prefers-reduced-motion: reduce) {
   .studio-home *, .studio-navigation * { animation: none !important; transition: none !important; }
-}
-
-@keyframes spotlight {
-  0% {
-    opacity: 0;
-    transform: translate(-72%, -62%) scale(0.5);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -40%) scale(1);
-  }
-}
-
-.animate-spotlight {
-  animation: spotlight 2s ease 0.75s 1 forwards;
 }
 
 @keyframes scroll {

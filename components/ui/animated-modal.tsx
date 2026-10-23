@@ -64,15 +64,15 @@ function ModalPanel({ children, className, ariaLabel, header, motionDisabled = f
       if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
     };
   }, [setOpen, triggerRef]);
-  return <motion.div data-portfolio-modal-backdrop className="fixed inset-0 z-[110] flex items-center justify-center bg-black/65 p-4 backdrop-blur-xl [perspective:800px]"
+  return <motion.div data-portfolio-modal-backdrop className="fixed inset-0 z-[110] flex items-center justify-center bg-[var(--terminal-backdrop)] p-4 backdrop-blur-xl [perspective:800px]"
     initial={disabled ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: disabled ? 0 : 0.18 }}
     onPointerDown={event => { if (event.target === event.currentTarget) setOpen(false); }}>
-    <motion.div ref={modalRef} role="dialog" aria-modal="true" aria-label={ariaLabel} className={cn("relative flex max-h-full w-full flex-col overflow-hidden rounded-[6px]", className)}
+    <motion.div ref={modalRef} role="dialog" aria-modal="true" aria-label={ariaLabel} className={cn("relative flex max-h-full w-full flex-col overflow-hidden rounded-[var(--studio-panel-radius)] border border-[var(--studio-border)] bg-[var(--studio-panel)] text-[var(--studio-text)]", className)}
       initial={disabled ? false : start} animate={visible}
       exit={disabled ? undefined : { ...start, transition: { duration: motionStyle === "slide" ? 0.18 : 0.28, ease: studioExitEase } }} transition={{ duration: disabled ? 0 : motionStyle === "slide" ? 0.32 : 0.6, ease: studioEase }}>
       {header ? <div data-modal-header className="relative z-10 flex shrink-0 items-center justify-between gap-3 px-4 py-3 sm:px-7">
-        {header}<button ref={closeRef} type="button" onClick={() => setOpen(false)} aria-label="Close portfolio details" className="inline-flex h-11 min-w-[72px] shrink-0 items-center justify-end gap-3 rounded-[4px] text-[11px] font-medium text-[#c1ced7] transition-colors hover:text-[#62dcf3]"><span>Close</span><IconX size={20} stroke={1.5} aria-hidden="true" /></button>
-      </div> : <button ref={closeRef} type="button" onClick={() => setOpen(false)} aria-label="Close portfolio details" className="absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center rounded-[4px] border border-white/20 text-cyan-100"><IconX size={18} aria-hidden="true" /></button>}
+        {header}<button ref={closeRef} type="button" onClick={() => setOpen(false)} aria-label="Close portfolio details" className="inline-flex h-11 min-w-[72px] shrink-0 items-center justify-end gap-3 rounded-[var(--studio-control-radius)] text-[11px] font-medium text-[var(--studio-muted)] transition-colors hover:text-[var(--studio-accent)]"><span>Close</span><IconX size={20} stroke={1.5} aria-hidden="true" /></button>
+      </div> : <button ref={closeRef} type="button" onClick={() => setOpen(false)} aria-label="Close portfolio details" className="absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center rounded-[var(--studio-control-radius)] border border-[var(--studio-border-strong)] text-[var(--studio-muted)] transition-colors hover:text-[var(--studio-accent)]"><IconX size={18} aria-hidden="true" /></button>}
       {children}
     </motion.div>
   </motion.div>;

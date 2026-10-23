@@ -3,7 +3,7 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
-import BrandMark from "@/components/BrandMark";
+import LogoIntro, { logoIntroDuration } from "@/components/LogoIntro";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { useMotionPreference } from "@/hooks/use-motion-preference";
 import { studioEase } from "@/lib/studio-motion";
@@ -103,7 +103,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
     } else if (phaseRef.current === "opening") {
       const isIntro = initialOpening.current && !pendingPath.current;
       if (isIntro && openingStartedAt.current === null) openingStartedAt.current = performance.now();
-      const openingDelay = isIntro ? Math.max(0, 3400 - (performance.now() - openingStartedAt.current!)) : 80;
+      const openingDelay = isIntro ? Math.max(0, logoIntroDuration - (performance.now() - openingStartedAt.current!)) : 80;
       schedule(() => {
         dismissIntro();
         changePhase("revealing");
@@ -172,29 +172,11 @@ export default function PageTransition({ children }: { children: ReactNode }) {
     <div className={styles.panelBackdrop} aria-hidden="true"><BentoGrid className={styles.panels}>{[0, 1, 2].map(index => <BentoGridItem key={index} className={styles.panel} />)}</BentoGrid></div>
     <AnimatePresence>
       {showIntro && phase === "opening" && <motion.div data-brand-intro className={styles.brandIntro} role="dialog" aria-modal="true" aria-label="Cyril AI introduction" initial={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .18, ease: studioEase }} onKeyDown={event => {
-        if (event.key === "Tab") { event.preventDefault(); event.currentTarget.querySelector("button")?.focus(); }
+        if (event.key === "Tab") { event.currentTarget.dataset.keyboardFocus = "true"; event.preventDefault(); event.currentTarget.querySelector("button")?.focus(); }
         if (event.key === "Escape") skipIntro.current?.();
       }}>
-        <div className={styles.brandLockup} aria-hidden="true">
-          <motion.div className={styles.introMark} initial={{ x: "var(--intro-mark-shift)" }} animate={{ x: 0 }} transition={{ duration: .75, delay: 1.1, ease: studioEase }}>
-            <motion.svg className={styles.introArc} viewBox="0 0 220 220" initial={{ rotate: -120 }} animate={{ rotate: 45 }} transition={{ duration: 1.45, delay: .08, ease: "easeInOut" }}>
-              <motion.circle cx="110" cy="110" r="92" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" initial={{ pathLength: 0, opacity: 0 }} animate={{ pathLength: [0, 1, 1], opacity: [0, .7, 0] }} transition={{ duration: 1.45, delay: .08, times: [0, .72, 1], ease: "easeInOut" }} />
-            </motion.svg>
-            {[
-              { clip: "polygon(0 0, 100% 0, 100% 34%, 0 34%)", x: -150, y: -100, rotate: -70 },
-              { clip: "polygon(0 33.5%, 100% 33.5%, 100% 67%, 0 67%)", x: 150, y: -25, rotate: 65 },
-              { clip: "polygon(0 66.5%, 100% 66.5%, 100% 100%, 0 100%)", x: -110, y: 100, rotate: -60 },
-            ].map((slice, index) => <motion.div key={slice.clip} className={styles.introSlice} style={{ clipPath: slice.clip }} initial={{ opacity: 0, x: slice.x, y: slice.y, rotate: slice.rotate, scale: .78, filter: "blur(8px)" }} animate={{ opacity: 1, x: 0, y: 0, rotate: 0, scale: 1, filter: "blur(0px)" }} transition={{ duration: .9, delay: .1 + index * .1, ease: studioEase }}>
-              <BrandMark theme="dark" size={160} />
-            </motion.div>)}
-          </motion.div>
-          <motion.div className={styles.introWordmark} initial={{ opacity: 0, x: -24, filter: "blur(4px)", clipPath: "inset(0 100% 0 0)" }} animate={{ opacity: 1, x: 0, filter: "blur(0px)", clipPath: "inset(0 0% 0 0)" }} transition={{ duration: .72, delay: 1.25, ease: studioEase }}>Cyril <span>AI</span></motion.div>
-          <motion.div className={styles.lockupSweep} initial={{ "--intro-sweep": "180%", opacity: 0 }} animate={{ "--intro-sweep": "-80%", opacity: [0, .65, 0] }} transition={{ duration: .6, delay: 1.9, ease: "easeInOut" }}>
-            <span className={styles.introLightSweep} />
-            <span className={styles.introWordmarkSweep}>Cyril AI</span>
-          </motion.div>
-        </div>
-        <button type="button" className={styles.skipIntro} autoFocus onClick={() => skipIntro.current?.()}>Skip intro <span aria-hidden="true">↗</span></button>
+        <LogoIntro />
+        <button type="button" className={styles.introDismiss} aria-label="Continue to portfolio" autoFocus onClick={() => skipIntro.current?.()} />
       </motion.div>}
     </AnimatePresence>
   </div><noscript><style>{'[data-route-transition] { display: none !important; } #main-content * { animation: none !important; transition: none !important; } #main-content [data-entered="false"] { opacity: 1 !important; transform: none !important; filter: none !important; }'}</style></noscript></>;

@@ -37,7 +37,7 @@ export function HoverBorderGradient<T extends ElementType = "button">({
     return () => window.clearInterval(timer);
   }, [moving, hovered, clockwise, duration, borderMotion]);
 
-  return createElement(Tag, { ...props, "data-studio-action": "", className: cn("relative isolate flex w-fit rounded-[4px] p-px", containerClassName),
+  return createElement(Tag, { ...props, "data-studio-action": "", className: cn("relative isolate flex w-fit rounded-[var(--studio-control-radius)] p-px", containerClassName),
     onMouseEnter: () => setHovered(true), onMouseLeave: () => setHovered(false),
     onFocus: () => setHovered(true), onBlur: () => setHovered(false) }, <>
     <span className={cn("relative z-10 rounded-[inherit] px-4 py-2", className)}>{children}</span>

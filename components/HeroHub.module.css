@@ -84,7 +84,7 @@
 .libraryGrid svg { position: absolute; top: 12px; right: 12px; color: #89cce1; }
 .pagination { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 19px; color: #b3cddd; font-size: 11px; }
 .pagination > button { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid #5b7e91; border-radius: 5px; color: #9fdfed; background: #2c4c60; cursor: pointer; }
-.pagination > button:disabled { opacity: .3; cursor: default; }
+.pagination > button:disabled { opacity: .3; cursor: not-allowed; }
 .pagination small { color: #8eafc4; }
 .backButton { display: inline-flex; align-items: center; gap: 7px; align-self: flex-start; min-height: 40px; margin-bottom: 8px; color: #a1e0ef; font-size: 11px; cursor: pointer; }
 .projectDescription { margin-top: 16px; color: #b8cedc; font-size: 13px; line-height: 1.85; }
@@ -433,7 +433,7 @@
   .footerActions > button > span { display: inline; }
   .footerActions > .mobileCta { display: none; }
   .detailModal { padding-top: 60px; }
-  .modalContent { overflow-y: auto; overscroll-behavior: contain; padding: 0 20px 24px; scrollbar-width: thin; scrollbar-color: #527789 transparent; }
+  .modalContent { overflow-y: auto; overscroll-behavior: contain; padding: 0 20px 24px; scrollbar-width: thin; scrollbar-color: var(--studio-border-strong) transparent; }
   .modalEyebrow { font-size: 10px; }
   .modalContent h2 { margin-top: 12px; font-size: 25px; }
   .modalIntro { margin-top: 10px; font-size: 13px; }
@@ -494,7 +494,7 @@
   .headerActions > [data-portfolio-actions] { width: 100%; }
 }
 
-/* Optional terminal previews leave the default palette and layout intact. */
+/* Shared universe theme roles preserve the Home composition. */
 :global(html[data-portfolio-theme^="terminal-"]) .hero {
   --line: var(--studio-line);
   background: var(--studio-bg);
@@ -505,6 +505,12 @@
   font-weight: 400;
   letter-spacing: .01em;
   text-shadow: none;
+}
+:global(html[data-portfolio-theme^="terminal-"]) .modalContent h2 {
+  font-family: var(--terminal-display-font);
+  font-weight: var(--studio-display-weight);
+  letter-spacing: var(--studio-display-tracking);
+  line-height: var(--studio-display-leading);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .tile {
   border-color: var(--terminal-border);
@@ -768,4 +774,28 @@
   .toolboxTile .tileCount { padding: 2px 3px; font-size: 8px; }
   .toolboxTile .tileIcon { width: 21px; height: 21px; }
   .toolboxTile .tileIcon svg { width: 15px; height: 15px; }
+}
+
+/* Every Home card gets a complete row on phones. */
+@media (max-width: 767px) {
+  .hubGrid { grid-template-columns: minmax(0, 1fr); }
+  .hubGrid > .tile { grid-column: 1 / -1; }
+  .toolboxTile, .integrationTile { min-height: 0; padding: var(--studio-panel-padding); }
+  .toolboxTile .tileHeading, .integrationTile .tileHeading { font-size: 14px; }
+  .toolboxTile .tileHeading > button, .integrationTile .tileHeading > button { gap: 9px; }
+  .toolboxTile .tileIcon, .integrationTile .tileIcon { width: 30px; height: 30px; }
+  .toolboxTile .tileIcon svg, .integrationTile .tileIcon svg { width: 18px; height: 18px; }
+  .toolboxTile .tileCount { padding: 3px 5px; font-size: 9px; }
+  .toolboxTile .tileArrow, .integrationTile .tileArrow { display: block; }
+  .toolboxTile .tileDescription, .integrationTile .tileDescription { margin-top: 12px; font-size: 13px; line-height: 1.65; }
+  .compactTools { flex: none; grid-template-rows: repeat(2, 84px); min-height: 178px; gap: 10px; margin-top: 16px; }
+  .toolboxTile .compactTools li { width: 104px; gap: 7px; padding: 8px 6px; }
+  .toolboxTile .compactTools li > span, .toolboxTile .compactTools svg { width: 24px; height: 24px; }
+  .toolboxTile .compactTools strong { font-size: 11px; line-height: 1.4; overflow: visible; text-overflow: clip; }
+  .integrationVisual { flex: none; min-height: 190px; margin-top: 18px; }
+  .integrationHub { width: 56px; height: 56px; }
+  .integrationHub > span { font-size: 9px; }
+  .integrationPill { gap: 5px; padding: 7px 8px; font-size: 10px; }
+  .aiTools, .webhooks { top: 9px; }
+  .apis, .workflows { bottom: 9px; }
 }

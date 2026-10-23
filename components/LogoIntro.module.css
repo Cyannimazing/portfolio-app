@@ -1,0 +1,46 @@
+.lockup { --logo-size: 184px; --logo-word-width: 248px; --logo-gap: 28px; --logo-mark-shift: 138px; --logo-glint: #f5fbff; position: relative; display: flex; align-items: center; gap: var(--logo-gap); }
+.markStage { position: relative; display: grid; place-items: center; flex: 0 0 var(--logo-size); width: var(--logo-size); height: var(--logo-size); }
+.mark { position: relative; z-index: 2; display: grid; place-items: center; width: 100%; height: 100%; }
+.mark [data-brand-mark] { width: var(--logo-size); height: var(--logo-size); }
+.flow { position: absolute; z-index: 1; width: calc(var(--logo-size) * 2.15); height: calc(var(--logo-size) * 2.15); overflow: visible; }
+.accentTrail, .core, .settleRing { color: var(--brand-accent); }
+.neutralTrail { color: var(--studio-text); }
+.halo { position: absolute; inset: -12%; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--brand-accent) 32%, transparent), transparent 67%); }
+.core { position: absolute; z-index: 1; width: 10px; height: 10px; border-radius: 50%; background: currentColor; box-shadow: 0 0 20px color-mix(in srgb, var(--brand-accent) 45%, transparent); }
+.settleRing { position: absolute; width: 140%; height: 140%; pointer-events: none; }
+.wordmark, .wordGlint { width: var(--logo-word-width); font-family: var(--font-geist-sans), sans-serif; font-size: 64px; font-weight: 650; line-height: 1.15; letter-spacing: -.035em; white-space: nowrap; }
+.wordmark { position: relative; z-index: 2; display: flex; align-items: center; gap: .16em; flex: 0 0 var(--logo-word-width); color: var(--studio-text); }
+.wordMask { display: inline-block; overflow: hidden; padding-bottom: .07em; margin-bottom: -.07em; }
+.wordMask > span { display: block; }
+.ai { color: var(--brand-accent); }
+.sweep { position: absolute; z-index: 3; inset: 0; pointer-events: none; filter: drop-shadow(0 0 4px color-mix(in srgb, var(--brand-accent) 35%, transparent)); }
+.markGlint, .wordGlint { background: linear-gradient(110deg, transparent 39%, var(--logo-glint) 51%, transparent 63%); background-size: 200% 100%; background-position: var(--logo-sweep) 0; }
+.markGlint { position: absolute; top: 50%; left: 0; width: var(--logo-size); height: var(--logo-size); transform: translateY(-50%); mask-image: var(--portfolio-brand-image, url("/brand/cyril-ai-logo-dark.webp")); mask-size: contain; mask-position: center; mask-repeat: no-repeat; }
+.wordGlint { position: absolute; top: 50%; left: calc(var(--logo-size) + var(--logo-gap)); display: flex; align-items: center; gap: .16em; transform: translateY(-50%); color: transparent; background-clip: text; }
+:global(html[data-portfolio-theme="terminal-light"]) .lockup { --logo-glint: var(--brand-accent); }
+:global(html[data-portfolio-theme="terminal-light"]) .markGlint,
+:global(html[data-portfolio-theme="terminal-light"]) .wordGlint {
+  background-image: linear-gradient(110deg, transparent 33%, color-mix(in srgb, var(--brand-accent) 58%, var(--studio-text)) 46%, var(--brand-accent) 52%, color-mix(in srgb, var(--brand-accent) 58%, var(--studio-text)) 58%, transparent 71%);
+}
+:global(html[data-portfolio-theme="terminal-light"]) .sweep {
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--brand-accent) 30%, transparent));
+}
+:global(html[data-portfolio-theme="terminal-dark"]) .markGlint,
+:global(html[data-portfolio-theme="terminal-dark"]) .wordGlint {
+  background-image: linear-gradient(110deg, transparent 33%, var(--brand-accent) 46%, #f5fbff 52%, var(--brand-accent) 58%, transparent 71%);
+}
+:global(html[data-portfolio-theme="terminal-dark"]) .sweep {
+  filter: drop-shadow(0 0 7px color-mix(in srgb, var(--brand-accent) 70%, transparent));
+}
+@media (max-width: 600px) {
+  .lockup { --logo-size: 116px; --logo-word-width: 166px; --logo-gap: 16px; --logo-mark-shift: 91px; }
+  .wordmark, .wordGlint { font-size: 43px; }
+}
+@media (max-height: 450px) and (min-width: 500px) {
+  .lockup { --logo-size: 112px; --logo-word-width: 166px; --logo-gap: 18px; --logo-mark-shift: 92px; }
+  .wordmark, .wordGlint { font-size: 43px; }
+}
+@media (max-width: 360px) {
+  .lockup { --logo-size: 100px; --logo-word-width: 144px; --logo-gap: 14px; --logo-mark-shift: 79px; }
+  .wordmark, .wordGlint { font-size: 37px; }
+}

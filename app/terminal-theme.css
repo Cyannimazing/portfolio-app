@@ -12,6 +12,8 @@ html[data-portfolio-theme="terminal-dark"] {
   --studio-text: #e1e6eb;
   --studio-muted: #adb8c4;
   --studio-accent: #46d5f4;
+  --studio-error: #f09a9a;
+  --studio-success: #85cdb2;
   --terminal-accent-ink: #203134;
   --terminal-grid: rgb(160 180 200 / .025);
   --terminal-glow: rgb(160 180 200 / .055);
@@ -19,11 +21,9 @@ html[data-portfolio-theme="terminal-dark"] {
   --terminal-backdrop: rgb(7 10 15 / .8);
   --studio-border-highlight: #80c7d8;
   --studio-hover-highlight: #46d5f4;
-  --studio-ambient-first: radial-gradient(68% 69% at 55% 32%, rgb(167 193 214 / .075), rgb(167 193 214 / .02) 50%, transparent 80%);
-  --studio-ambient-second: radial-gradient(50% 50% at 50% 50%, rgb(167 193 214 / .045), transparent 85%);
-  --studio-ambient-third: radial-gradient(50% 50% at 50% 50%, rgb(167 193 214 / .025), transparent 85%);
-  --studio-pointer-light: rgb(70 213 244 / .07);
-  --studio-pulse: rgb(70 213 244 / .22);
+  --studio-network-point: #91a4b8;
+  --studio-network-line: #7193aa;
+  --studio-network-opacity: 1;
   --studio-brand-glow: 0 0 12px rgb(70 213 244 / .2);
 }
 
@@ -41,6 +41,8 @@ html[data-portfolio-theme="terminal-light"] {
   --studio-text: #34383b;
   --studio-muted: #606568;
   --studio-accent: #4d595e;
+  --studio-error: #9d3d3d;
+  --studio-success: #2e7054;
   --terminal-accent-ink: #f2f0ea;
   --terminal-grid: rgb(52 56 59 / .022);
   --terminal-glow: rgb(52 56 59 / .02);
@@ -51,15 +53,16 @@ html[data-portfolio-theme="terminal-light"] {
   --theme-action-bg: #3d4448;
   --theme-action-ink: #f2f0ea;
   --portfolio-brand-image: url("/brand/cyril-ai-logo-light.webp");
-  --studio-ambient-first: radial-gradient(68% 69% at 55% 32%, rgb(125 113 93 / .055), rgb(125 113 93 / .015) 50%, transparent 80%);
-  --studio-ambient-second: radial-gradient(50% 50% at 50% 50%, rgb(125 113 93 / .035), transparent 85%);
-  --studio-ambient-third: radial-gradient(50% 50% at 50% 50%, rgb(125 113 93 / .02), transparent 85%);
-  --studio-pointer-light: rgb(107 101 90 / .075);
-  --studio-pulse: rgb(77 89 94 / .18);
+  --studio-network-point: #757d81;
+  --studio-network-line: #7d898c;
+  --studio-network-opacity: .75;
   --studio-brand-glow: 0 0 12px rgb(66 209 241 / .16);
 }
 
 html[data-portfolio-theme^="terminal-"] {
+  --studio-media-ink: #0b0d10;
+  --studio-media-text: #f1f7fa;
+  --studio-media-muted: #c1ced7;
   --background: var(--studio-canvas);
   --foreground: var(--studio-text);
   --studio-bg: var(--studio-canvas);
@@ -74,6 +77,8 @@ html[data-portfolio-theme^="terminal-"] {
   --terminal-overlay: var(--studio-canvas);
   --studio-action-bg: var(--theme-action-bg, var(--brand-accent));
   --studio-action-ink: var(--theme-action-ink, #17333c);
+  --studio-error-surface: color-mix(in srgb, var(--studio-error) 9%, var(--studio-inset));
+  --studio-success-surface: color-mix(in srgb, var(--studio-success) 9%, var(--studio-inset));
   --studio-display-tracking: .01em;
   --studio-display-weight: 400;
   --studio-control-radius: 2px;
@@ -105,7 +110,7 @@ html[data-portfolio-theme^="terminal-"] [data-portfolio-select] > span { color: 
 html[data-portfolio-theme^="terminal-"] [data-portfolio-select][data-empty="true"] > span,
 html[data-portfolio-theme^="terminal-"] [data-portfolio-select] > svg { color: var(--studio-muted); }
 html[data-portfolio-theme^="terminal-"] [data-portfolio-select][aria-expanded="true"] { border-color: var(--studio-accent); }
-html[data-portfolio-theme^="terminal-"] [data-portfolio-select][aria-invalid="true"] { border-color: #dc6d6d; }
+html[data-portfolio-theme^="terminal-"] [data-portfolio-select][aria-invalid="true"] { border-color: var(--studio-error); }
 html[data-portfolio-theme^="terminal-"] [data-portfolio-options] { background: var(--terminal-panel); border-color: var(--terminal-border-strong); box-shadow: 0 12px 40px var(--terminal-backdrop); }
 html[data-portfolio-theme^="terminal-"] [data-portfolio-options] [role="option"] { color: var(--studio-muted); }
 html[data-portfolio-theme^="terminal-"] [data-portfolio-options] [role="option"][aria-selected="true"] { color: var(--studio-text); background: var(--terminal-elevated); }

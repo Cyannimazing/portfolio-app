@@ -201,8 +201,10 @@
   .bookBody { font-size: 12px; }
   .expand { flex-direction: column; gap: 5px; }
 }
-@media (max-width: 639px) {
+@media (max-width: 767px) {
   .serviceGrid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 639px) {
   .title { font-size: 20px; }
   .business-software .title { font-size: 23px; }
   .expand { flex-direction: row; }
@@ -225,11 +227,11 @@
   .title, .expand svg { transition: none; }
 }
 
-/* Terminal preview colors leave the Original layout and palette unchanged. */
+/* Shared universe theme roles preserve the service composition. */
 :global(html[data-portfolio-theme^="terminal-"]) .shell,
 :global(html[data-portfolio-theme^="terminal-"]) .page {
   color: var(--studio-text);
-  background: var(--studio-bg);
+  background: transparent;
 }
 :global(html[data-portfolio-theme^="terminal-"]) .heading h1 {
   font-family: var(--terminal-display-font, var(--font-geist-mono)), monospace;
@@ -244,21 +246,22 @@
   font-family: var(--font-geist-mono), monospace;
 }
 :global(html[data-portfolio-theme^="terminal-"]) .serviceCard {
-  border-color: var(--terminal-border);
+  border-color: var(--studio-border);
   color: var(--studio-text);
-  background: var(--terminal-panel);
-  box-shadow: none;
+  background: var(--studio-panel);
+  box-shadow: var(--studio-shadow);
+  border-radius: var(--studio-panel-radius);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .business-software {
-  border-color: var(--terminal-border-strong);
+  border-color: var(--studio-border);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .serviceCard:is(:hover, :focus-within) {
-  border-color: var(--terminal-border-strong);
+  border-color: var(--studio-border-strong);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .serviceIcon {
-  border-color: var(--terminal-border-strong);
+  border-color: var(--studio-border-strong);
   color: var(--studio-accent);
-  background: var(--terminal-elevated);
+  background: var(--studio-inset);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .cardHeading button:hover .title,
 :global(html[data-portfolio-theme^="terminal-"]) .included li > svg,
@@ -271,28 +274,29 @@
   color: var(--studio-text);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .book {
-  border-color: var(--terminal-border-strong);
-  background: var(--terminal-elevated);
+  border-color: var(--studio-action-bg);
+  background: var(--studio-action-bg);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .bookBody {
-  color: var(--studio-text);
-  background: var(--terminal-elevated);
+  color: var(--studio-action-ink);
+  background: var(--studio-action-bg);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .book:is(:hover, :focus-visible) .bookBody {
-  background: var(--terminal-hover);
+  background: var(--studio-action-bg);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .scopeModal {
-  border-color: var(--terminal-border-strong);
+  border-color: var(--studio-border-strong);
   color: var(--studio-text);
-  background: var(--terminal-panel);
-  box-shadow: 0 24px 72px var(--terminal-overlay);
+  background: var(--studio-panel);
+  box-shadow: var(--studio-shadow);
+  border-radius: var(--studio-panel-radius);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .scopeModal [data-modal-header] {
   border-color: var(--studio-line);
-  background: var(--terminal-elevated);
+  background: var(--studio-inset);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .scopeContent {
-  scrollbar-color: var(--terminal-border-strong) var(--terminal-panel);
+  scrollbar-color: var(--studio-border-strong) var(--studio-panel);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .scopeActions > a:first-child {
   color: var(--studio-muted);
@@ -301,5 +305,8 @@
   color: var(--studio-accent);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .cardBody :global(.glow)::after {
-  background: linear-gradient(90deg, var(--studio-accent), var(--terminal-border-strong));
+  background: linear-gradient(90deg, var(--studio-accent), var(--studio-border-strong));
 }
+:global(html[data-portfolio-theme^="terminal-"]) .cardHeading button,
+:global(html[data-portfolio-theme^="terminal-"]) .serviceIcon { border-radius: var(--studio-control-radius); }
+:global(html[data-portfolio-theme^="terminal-"]) .scopeContent > h2 { font-family: var(--terminal-display-font); font-weight: 400; letter-spacing: .01em; }

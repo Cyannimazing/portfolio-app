@@ -228,7 +228,10 @@
 }
 :global(html[data-portfolio-theme^="terminal-"]) .menuIntro h2 {
   color: var(--studio-text);
-  letter-spacing: -.055em;
+  font-family: var(--terminal-display-font);
+  font-weight: var(--studio-display-weight);
+  letter-spacing: var(--studio-display-tracking);
+  line-height: var(--studio-display-leading);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .menuLink {
   color: var(--studio-text);
