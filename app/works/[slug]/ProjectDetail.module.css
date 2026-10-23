@@ -43,7 +43,7 @@
 .imageCount { min-width: 44px; color: #c1ced7; font-family: var(--font-geist-mono), monospace; font-size: 12px; text-align: center; }
 .imageControl { border-radius: var(--studio-control-radius); background: #3b5663; }
 .imageControlBody { display: flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 10px; background: #172630; color: #f1f7fa; }
-.lightbox button:focus-visible { outline: 2px solid #62dcf3; outline-offset: 4px; }
+.lightbox button:focus-visible { outline: 2px solid var(--studio-accent); outline-offset: 4px; }
 @media (max-width: 1199px) { .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 1023px) { .hero { height: auto; min-height: 0; } .heroMedia { position: relative; height: clamp(280px, 48svh, 520px); } .heroContent { position: relative; padding: var(--studio-panel-padding); background: #14242d; pointer-events: auto; } }
 @media (max-width: 767px) { .gallery, .documents { grid-template-columns: 1fr; } .toolbar { inset: 10px 10px auto; } .lightboxFooter { flex-direction: column; align-items: stretch; gap: 12px; padding: 14px 16px; } .lightboxNavigation { justify-content: center; } .lightboxImageArea { padding: 8px; } .lightboxCaption { font-size: 14px; } }
@@ -53,8 +53,8 @@
 /* Legacy case-study controls share the optional terminal palette. */
 :global(html[data-portfolio-theme^="terminal-"]) .hero,
 :global(html[data-portfolio-theme^="terminal-"]) .galleryImage {
-  border-color: var(--terminal-border);
-  background: var(--terminal-panel);
+  border-color: var(--studio-border);
+  background: var(--studio-panel);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .heroContent {
   color: var(--studio-text);
@@ -62,21 +62,21 @@
 }
 :global(html[data-portfolio-theme^="terminal-"]) .back,
 :global(html[data-portfolio-theme^="terminal-"]) .galleryZoom {
-  border-color: var(--terminal-border-strong);
+  border-color: var(--studio-border-strong);
   background: var(--terminal-overlay);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .enlarge,
 :global(html[data-portfolio-theme^="terminal-"]) .document,
 :global(html[data-portfolio-theme^="terminal-"]) .sourceLink,
 :global(html[data-portfolio-theme^="terminal-"]) .imageControl {
-  background: var(--terminal-border-strong);
+  background: var(--studio-border-strong);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .enlargeBody,
 :global(html[data-portfolio-theme^="terminal-"]) .documentBody,
 :global(html[data-portfolio-theme^="terminal-"]) .sourceLinkBody,
 :global(html[data-portfolio-theme^="terminal-"]) .imageControlBody {
   color: var(--studio-text);
-  background: var(--terminal-panel);
+  background: var(--studio-panel);
   transition: background .22s var(--studio-ease), color .22s var(--studio-ease);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .enlarge:hover .enlargeBody,
@@ -84,18 +84,19 @@
 :global(html[data-portfolio-theme^="terminal-"]) .sourceLink:hover .sourceLinkBody,
 :global(html[data-portfolio-theme^="terminal-"]) .imageControl:hover .imageControlBody {
   color: var(--studio-accent);
-  background: var(--terminal-hover);
+  background: var(--studio-hover);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .galleryImage {
   transition: border-color .22s var(--studio-ease);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .galleryButton:hover .galleryImage,
 :global(html[data-portfolio-theme^="terminal-"]) .galleryButton:focus-visible .galleryImage {
-  border-color: var(--terminal-border-strong);
+  border-color: var(--studio-border-strong);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .lightbox {
-  border-color: var(--terminal-border-strong);
-  background: var(--studio-bg);
+  border-color: var(--studio-border-strong);
+  background: var(--studio-canvas);
+  box-shadow: var(--studio-shadow);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .lightboxTitle,
 :global(html[data-portfolio-theme^="terminal-"]) .lightboxCaption,
@@ -103,5 +104,5 @@
   color: var(--studio-muted);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .lightboxFooter {
-  border-color: var(--terminal-border);
+  border-color: var(--studio-border);
 }

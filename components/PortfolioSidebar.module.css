@@ -144,14 +144,15 @@
 :global(html[data-portfolio-theme^="terminal-"]) .sidebar {
   color: var(--studio-text);
   border-color: var(--studio-line);
-  background: var(--studio-sidebar-bg, var(--studio-bg));
+  background: var(--studio-sidebar);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .desktop {
   border-color: var(--studio-line);
-  background: var(--studio-sidebar-bg, var(--studio-bg));
+  background: var(--studio-sidebar);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .portraitWrap::before {
-  background: radial-gradient(ellipse, var(--terminal-glow), transparent 70%);
+  content: none;
+  background: none;
 }
 :global(html[data-portfolio-theme^="terminal-"]) .profileDot {
   background: var(--studio-accent);
@@ -172,16 +173,16 @@
 }
 :global(html[data-portfolio-theme^="terminal-"]) .socials a,
 :global(html[data-portfolio-theme^="terminal-"]) .menuSocials > a {
-  border-color: var(--terminal-border);
+  border-color: var(--studio-border);
   color: var(--studio-muted);
-  background: var(--terminal-panel);
+  background: var(--studio-panel);
   box-shadow: none;
 }
 :global(html[data-portfolio-theme^="terminal-"]) .socials a:is(:hover, :focus-visible),
 :global(html[data-portfolio-theme^="terminal-"]) .menuSocials > a:is(:hover, :focus-visible) {
-  border-color: var(--terminal-border-strong);
+  border-color: var(--studio-border-strong);
   color: var(--studio-accent);
-  background: var(--terminal-hover);
+  background: var(--studio-hover);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .divider {
   background: var(--studio-line);
@@ -193,14 +194,14 @@
   color: var(--studio-muted);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .navLink:is(:hover, :focus-visible) {
-  border-color: var(--terminal-border);
+  border-color: var(--studio-border);
   color: var(--studio-text);
-  background: var(--terminal-hover);
+  background: var(--studio-hover);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .navLink[aria-current="page"] {
-  border-color: var(--terminal-border-strong);
+  border-color: var(--studio-border-strong);
   color: var(--studio-text);
-  background: var(--terminal-elevated);
+  background: var(--studio-inset);
   box-shadow: inset 2px 0 0 var(--studio-accent);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .navLink[aria-current="page"] svg,
@@ -214,16 +215,16 @@
   color: var(--studio-accent);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .mobileMonogram {
-  border-color: var(--terminal-border-strong);
+  border-color: var(--studio-border-strong);
   color: var(--studio-accent);
-  background: var(--terminal-elevated);
+  background: var(--studio-inset);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .mobilePortrait {
-  border-color: var(--terminal-border);
+  border-color: var(--studio-border);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .mobilePanel {
   color: var(--studio-text);
-  background: var(--studio-sidebar-bg, var(--studio-bg));
+  background: var(--studio-sidebar);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .menuIntro h2 {
   color: var(--studio-text);
@@ -231,23 +232,23 @@
 }
 :global(html[data-portfolio-theme^="terminal-"]) .menuLink {
   color: var(--studio-text);
-  background: var(--terminal-border);
+  background: var(--studio-border);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .menuLinkBody {
-  background: var(--terminal-panel);
+  background: var(--studio-panel);
   box-shadow: none;
 }
 :global(html[data-portfolio-theme^="terminal-"]) .menuRouteIcon,
 :global(html[data-portfolio-theme^="terminal-"]) .menuArrow {
-  border-color: var(--terminal-border-strong);
+  border-color: var(--studio-border-strong);
   color: var(--studio-accent);
-  background: var(--terminal-elevated);
+  background: var(--studio-inset);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .menuLink[aria-current="page"] {
   background: var(--studio-accent);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .menuLink[aria-current="page"] .menuLinkBody {
-  background: var(--terminal-elevated);
+  background: var(--studio-inset);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .menuLink[aria-current="page"] .menuRouteIcon {
   border-color: var(--studio-accent);
@@ -258,20 +259,20 @@
   color: var(--studio-accent);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .menuLink:is(:hover, :focus-visible) .menuLinkBody {
-  background: var(--terminal-hover);
+  background: var(--studio-hover);
   box-shadow: none;
 }
 :global(html[data-portfolio-theme^="terminal-"]) .menuLink:is(:hover, :focus-visible) .menuRouteIcon {
   border-color: var(--studio-accent);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .menuCta {
-  background: var(--studio-accent);
+  background: var(--studio-action-bg);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .menuCtaInner {
   color: var(--studio-action-ink);
   background: var(--studio-action-bg);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .menuCtaArrow {
-  color: var(--terminal-accent-ink);
-  background: color-mix(in srgb, var(--terminal-accent-ink) 10%, transparent);
+  color: var(--studio-action-ink);
+  background: color-mix(in srgb, var(--studio-action-ink) 10%, transparent);
 }

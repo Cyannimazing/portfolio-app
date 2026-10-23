@@ -41,6 +41,14 @@ Stack: **Next.js 16 (App Router)**, **React 19**, **Tailwind CSS v4**, **Motion 
 
 These instructions record the user's final direction from the portfolio redesign conversation. Later explicit corrections take precedence over earlier references and experiments.
 
+### Current direction, October 23 (supersedes conflicting older design notes)
+
+- Keep only Dark and Light themes. Dark uses near-black surfaces, soft text and the logo cyan for primary actions. Light uses warm neutral surfaces, a darker sidebar and dark gray actions. Preserve the real cyan logo and matching AI wordmark in both themes. Use the semantic canvas, sidebar, panel, inset, hover, border and action tokens in `app/terminal-theme.css` across pages, controls, previews and dialogs.
+- The shared background uses the official Aceternity Motion Spotlight with a soft pointer response and click pulse. Do not restore the page grid or floating polygon background. Pause background motion during transitions, dialogs and hidden tabs, and respect reduced motion. Keep project imagery and embedded website colors intact.
+- The theme button belongs beside the sidebar GitHub and email controls, using the same 44px frame. On mobile it belongs in the navigation menu. Keep it visible and stationary during navigation between shared-sidebar pages.
+- Home uses a wide GitHub contributions card in the former toolbox position. Move My toolbox into the former Foundation slot with two compact moving icon rows. Remove the Foundation card and education modal from Home. Keep the complete toolbox modal. GitHub activity must use real, dated public data from `lib/github-activity.json` and link to the actual public profile and repositories. Do not imply that the snapshot updates live.
+- Keep the existing logo introduction and its settled hold, skip control and reduced-motion behavior. Body text uses Geist, supporting labels use Geist Mono, and condensed display headings use Bebas Neue with consistent tracking.
+
 ### Current direction, October 9 (supersedes older presentation notes below)
 
 - Izee, Inc. employment ended in October 2026: display June–October 2026 in the portfolio and CV, overriding the saved profile's earlier “present” date. Keep the saved profile Markdown unchanged. Describe responsibilities and client benefits (custom CMS/admin, optimized media/CDN delivery, CRM lead capture, payments/tracking, and AI automation), rather than listing project names or claiming ownership of a reusable/injectable platform. Keep the CV's five Izee bullets in strong verb, responsibility, result order.

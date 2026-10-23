@@ -64,6 +64,7 @@
 @media (prefers-reduced-motion: reduce) { .modal *, .modal *::before, .modal *::after { transition: none !important; animation: none !important; } }
 
 :global(html[data-portfolio-theme^="terminal-"]) .modal.modal { border-color: var(--studio-border); background: var(--studio-panel); box-shadow: var(--studio-shadow); }
+:global(html[data-portfolio-theme^="terminal-"]) .cover { background: var(--studio-inset); }
 :global(html[data-portfolio-theme^="terminal-"]) .headerIcon,
 :global(html[data-portfolio-theme^="terminal-"]) .arrow { color: var(--studio-text); background: var(--studio-inset); border-color: var(--studio-border); }
 :global(html[data-portfolio-theme^="terminal-"]) .count { border-color: var(--studio-border-strong); }

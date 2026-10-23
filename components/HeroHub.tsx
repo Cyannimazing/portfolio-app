@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useSyncExternalStore, type ReactNode } from "react";
 import { MotionConfig } from "motion/react";
-import { IconApi, IconArrowLeft, IconArrowRight, IconArrowUpRight, IconAward, IconBrain, IconCalendarEvent, IconCheck, IconCode, IconDatabase, IconDownload, IconFolder, IconGitBranch, IconPencil, IconSettings, IconSparkles, IconWebhook, IconWorld } from "@tabler/icons-react";
+import { IconApi, IconArrowLeft, IconArrowRight, IconArrowUpRight, IconBrain, IconCalendarEvent, IconCheck, IconCode, IconDatabase, IconFolder, IconGitBranch, IconPencil, IconSettings, IconSparkles, IconWebhook, IconWorld } from "@tabler/icons-react";
 import { Modal, ModalBody, useModal } from "@/components/ui/animated-modal";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
@@ -11,12 +11,15 @@ import Carousel from "@/components/ui/carousel";
 import { FlipWords } from "@/components/ui/flip-words";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
+import GitHubContributions from "@/components/GitHubContributions";
+import { githubActivity } from "@/lib/github-activity";
 import { profileProjects } from "@/lib/profile-projects";
 import { type ServiceId } from "@/lib/service-categories";
 import { getProjectPath, projectStories } from "@/lib/project-stories";
 import { projectPresentations } from "@/lib/project-presentations";
 import { toolbox } from "@/lib/toolbox";
-import ToolboxCarousel, { ToolIcon } from "@/components/ToolboxCarousel";
+import { ToolIcon } from "@/components/ToolboxCarousel";
 import ProjectWebsitePreview from "@/components/ProjectWebsitePreview";
 import PortfolioActions from "@/components/PortfolioActions";
 import { useMotionPreference } from "@/hooks/use-motion-preference";
@@ -34,7 +37,9 @@ const services = [
   { name: "Other Solutions", short: "Other solutions", icon: IconSettings, heading: "More ways to help your product.", description: "Android and connected web work, plus fixes, maintenance, and feature improvements for existing products. This includes CacaoCare's website and mobile fixes, alongside ongoing full-stack improvements across client projects.", features: ["Mobile app improvements", "Bug fixes & maintenance", "Ongoing feature development"], stack: "Java · Android Studio · Laravel · Next.js" },
 ];
 const specialties = ["business websites", "SaaS & internal tools", "mobile applications"];
-type Panel = "projects" | "toolbox" | "education" | number;
+type Panel = "projects" | "toolbox" | number;
+const toolRows = [toolbox.slice(0, Math.ceil(toolbox.length / 2)), toolbox.slice(Math.ceil(toolbox.length / 2))]
+  .map(row => row.map(name => ({ name, icon: <ToolIcon name={name} /> })));
 const serviceGroups: ServiceId[][] = [["business-software"], ["websites"], ["cms"], ["booking"], ["automation"], ["mobile-apps", "support"]];
 const serviceProof = serviceGroups.map(ids => {
   const matched = profileProjects.map((project, index) => ({ project, index }))
@@ -106,17 +111,16 @@ function HubContent() {
             <p className={styles.servicesFootnote}>One developer. The whole stack.</p>
           </div>} />
 
-          <BentoGridItem reveal className={`${styles.tile} ${styles.experienceTile}`} header={<div className={styles.tileContent}>
+          <BentoGridItem reveal className={`${styles.tile} ${styles.githubTile}`} header={<div className={styles.tileContent}>
             <Glow enabled={motionEnabled} />
-            <Heading icon={<IconCode size={18} aria-hidden="true" />} count={String(toolbox.length)} onClick={() => showPanel("toolbox")}>My toolbox</Heading>
-            <p className={styles.tileDescription}>Frameworks, databases, integrations, and the tools behind the work.</p>
-            <ToolboxCarousel paused={!motionEnabled} />
+            <GitHubContributions activity={githubActivity} />
           </div>} />
 
-          <BentoGridItem reveal className={`${styles.tile} ${styles.educationTile}`} header={<div className={styles.tileContent}>
+          <BentoGridItem reveal className={`${styles.tile} ${styles.toolboxTile}`} header={<div className={styles.tileContent}>
             <Glow enabled={motionEnabled} />
-            <Heading icon={<IconAward size={18} aria-hidden="true" />} onClick={() => showPanel("education")}>The foundation</Heading>
-            <button type="button" className={styles.educationBody} onClick={() => showPanel("education")} aria-label="View education and qualifications"><span className={styles.medallion}><IconAward size={37} stroke={1.4} aria-hidden="true" /><i aria-hidden="true" /></span><span><strong>Cum Laude</strong><span>BS Information Technology</span><small>STI College Davao · 2026</small></span></button>
+            <Heading icon={<IconCode size={18} aria-hidden="true" />} count={String(toolbox.length)} onClick={() => showPanel("toolbox")}>My toolbox</Heading>
+            <p className={styles.tileDescription}>The tools behind the work.</p>
+            <div className={styles.compactTools}>{toolRows.map((items, index) => <InfiniteMovingCards key={index} items={items} direction={index === 0 ? "left" : "right"} paused={!motionEnabled} />)}</div>
           </div>} />
 
           <BentoGridItem reveal className={`${styles.tile} ${styles.integrationTile}`} header={<div className={styles.tileContent}>
@@ -145,11 +149,10 @@ function HubContent() {
       </div>
     </section>
 
-    <ModalBody className={`${styles.detailModal} ${service ? styles.serviceModal : ""} ${panel === "projects" ? projectMenuStyles.modal : ""}`} header={panel === "projects" ? <ProjectMenuHeader /> : undefined} motionDisabled={reducedMotion} ariaLabel={panel === "projects" ? "Project collection" : service?.name ?? (panel === "education" ? "Education and qualifications" : "Complete toolbox")}>
+    <ModalBody className={`${styles.detailModal} ${service ? styles.serviceModal : ""} ${panel === "projects" ? projectMenuStyles.modal : ""}`} header={panel === "projects" ? <ProjectMenuHeader /> : undefined} motionDisabled={reducedMotion} ariaLabel={panel === "projects" ? "Project collection" : service?.name ?? "Complete toolbox"}>
       {panel === "projects" ? <ProjectMenu selectedIndex={selectedProject} onSelect={setSelectedProject} paused={reducedMotion} /> : <div className={styles.modalContent}>
         {service && <div className={styles.serviceDetailLayout}><div><span className={styles.serviceBadge}><service.icon size={15} aria-hidden="true" />{service.heading}</span><h2>{service.name}</h2><p className={styles.projectDescription}>{service.description}</p><h3 className={styles.detailLabel}>WHAT YOU GET</h3><ul className={styles.features}>{service.features.map(feature => <li key={feature}><IconCheck size={15} aria-hidden="true" />{feature}</li>)}</ul><h3 className={styles.detailLabel}>TECH STACK</h3><div className={styles.technologyTags}>{service.stack.split(" · ").map(tag => <span key={tag}>{tag}</span>)}</div><h3 className={styles.detailLabel}>BUILT IN THESE PROJECTS</h3><div className={styles.serviceProof}>{serviceProof[Number(panel)].projects.map(index => <button key={index} type="button" onClick={() => { setPanel("projects"); setSelectedProject(index); }}>{profileProjects[index].name}<IconArrowUpRight size={12} aria-hidden="true" /></button>)}</div><HoverBorderGradient as={Link} href="/contact" containerClassName={styles.projectAction} className={styles.projectActionInner}>Book a discovery call <IconArrowUpRight size={15} aria-hidden="true" /></HoverBorderGradient></div><div className={styles.serviceDetailVisual} aria-hidden="true"><GlowingEffect spread={40} proximity={80} borderWidth={1} disabled={reducedMotion} /><span><service.icon size={48} stroke={1.3} /></span><i /><b /></div></div>}
         {panel === "toolbox" && <><span className={styles.modalEyebrow}>THE TOOLS BEHIND THE WORK</span><h2>My full toolbox.</h2><div className={styles.toolsGrid}>{toolbox.slice(libraryPage * 12, libraryPage * 12 + 12).map(name => <span key={name}><ToolIcon name={name} />{name}</span>)}</div><div className={styles.pagination}><button type="button" disabled={libraryPage === 0} onClick={() => setLibraryPage(value => value - 1)} aria-label="Previous tools"><IconArrowLeft size={17} aria-hidden="true" /></button><span>Page {libraryPage + 1} of {Math.ceil(toolbox.length / 12)} · {toolbox.length} tools & skills</span><button type="button" disabled={libraryPage === Math.ceil(toolbox.length / 12) - 1} onClick={() => setLibraryPage(value => value + 1)} aria-label="Next tools"><IconArrowRight size={17} aria-hidden="true" /></button></div></>}
-        {panel === "education" && <><span className={styles.modalEyebrow}>EDUCATION & QUALIFICATIONS</span><span className={styles.serviceDetailIcon}><IconAward size={30} aria-hidden="true" /></span><h2>Bachelor of Science in Information Technology</h2><h3>STI College Davao · 2022–2026</h3><p className={styles.projectDescription}>Graduated Cum Laude with a GWA of 1.39.</p><div className={styles.technologyTags}><span>Full Stack Developer</span><span>34 saved professional skills</span></div><a href="/cv.pdf" download="Cyril-Jian-Narvasa-CV.pdf" className={styles.modalPrimary}>Download CV <IconDownload size={17} aria-hidden="true" /></a></>}
       </div>}
     </ModalBody>
   </MotionConfig>;

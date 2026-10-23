@@ -9,7 +9,7 @@
 .previewState { display: flex; align-items: center; gap: 6px; flex-shrink: 0; margin-left: auto; color: #a5dccd; font-size: 9px; }
 .previewState i { width: 5px; height: 5px; border-radius: 50%; background: #80d8ba; }
 .browserBody { position: relative; width: 100%; aspect-ratio: var(--preview-ratio, 1.6); overflow: hidden; pointer-events: none; user-select: none; }
-.browserBody iframe { position: absolute; z-index: 1; left: 0; top: 0; display: block; width: 1440px; height: 900px; border: 0; transform-origin: top left; pointer-events: none; background: #10191e; }
+.browserBody iframe { position: absolute; z-index: 1; left: 0; top: 0; display: block; width: 1440px; height: 900px; border: 0; transform-origin: top left; pointer-events: none; background: var(--studio-inset, var(--studio-bg)); }
 .screenshot { object-fit: contain; object-position: center; pointer-events: none; }
 .overlay { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; padding: 70px var(--studio-panel-padding) var(--studio-panel-padding); background: linear-gradient(transparent, rgb(10 20 27 / .91) 50%, #0e1c25); pointer-events: none; }
 .overlay button, .overlay a { pointer-events: auto; }
@@ -50,12 +50,12 @@
 
 /* Color the browser frame and labels, never the embedded site or screenshot. */
 :global(html[data-portfolio-theme^="terminal-"]) .browser {
-  border-color: var(--terminal-border-strong);
-  background: var(--terminal-panel);
+  border-color: var(--studio-border-strong);
+  background: var(--studio-panel);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .browserBar {
   color: var(--studio-muted);
-  background: var(--terminal-elevated);
+  background: var(--studio-inset);
   font-family: var(--font-geist-mono), monospace;
 }
 :global(html[data-portfolio-theme^="terminal-"]) .browserBar > svg,
@@ -74,7 +74,7 @@
 }
 :global(html[data-portfolio-theme^="terminal-"]) .empty {
   color: var(--studio-muted);
-  background: var(--terminal-panel);
+  background: var(--studio-panel);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .empty > span {
   color: var(--studio-text);
@@ -83,7 +83,7 @@
   :global(html[data-portfolio-theme^="terminal-"]) .overlay,
   :global(html[data-portfolio-theme^="terminal-"]) .wide .navigation {
     color: var(--studio-text);
-    border-color: var(--terminal-border);
-    background: var(--terminal-panel);
+    border-color: var(--studio-border);
+    background: var(--studio-panel);
   }
 }

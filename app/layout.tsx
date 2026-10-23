@@ -62,7 +62,7 @@ export const metadata: Metadata = {
   twitter: pageMetadata(publicPages[0]).twitter,
 };
 
-export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#0b0d0e" }, { media: "(prefers-color-scheme: light)", color: "#eeede9" }] };
+export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#0b0d10" }, { media: "(prefers-color-scheme: light)", color: "#efede8" }] };
 
 export default function RootLayout({
   children,

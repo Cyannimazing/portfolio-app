@@ -84,7 +84,8 @@
 }
 :global(html[data-portfolio-theme^="terminal-"]) .intro h1 {
   font-family: var(--terminal-display-font);
-  letter-spacing: -.015em;
+  font-weight: 400;
+  letter-spacing: .01em;
 }
 :global(html[data-portfolio-theme^="terminal-"]) .eyebrow,
 :global(html[data-portfolio-theme^="terminal-"]) .sectionEyebrow {
@@ -98,22 +99,25 @@
 :global(html[data-portfolio-theme^="terminal-"]) .tags li,
 :global(html[data-portfolio-theme^="terminal-"]) .stack li {
   color: var(--studio-muted);
-  border-color: var(--terminal-border);
-  background: var(--terminal-elevated);
+  border-color: var(--studio-border);
+  background: var(--studio-inset);
+}
+:global(html[data-portfolio-theme^="terminal-"]) .visit {
+  background: var(--studio-action-bg);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .visitBody {
   color: var(--studio-action-ink);
   background: var(--studio-action-bg);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .preview {
-  border-color: var(--terminal-border-strong);
+  border-color: var(--studio-border-strong);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .reasoning {
-  border-left-color: var(--terminal-border-strong);
+  border-left-color: var(--studio-border-strong);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .technicalPanel {
-  border-color: var(--terminal-border);
-  background: var(--terminal-panel);
+  border-color: var(--studio-border);
+  background: var(--studio-panel);
   box-shadow: none;
 }
 :global(html[data-portfolio-theme^="terminal-"]) .projectNavigation strong {

@@ -10,7 +10,7 @@
 .brandLockup { --intro-logo-size: 160px; --intro-wordmark-width: 240px; --intro-gap: 32px; --intro-mark-shift: 136px; position: relative; display: flex; align-items: center; gap: var(--intro-gap); }
 .introMark { position: relative; display: flex; flex: 0 0 var(--intro-logo-size); align-items: center; justify-content: center; width: var(--intro-logo-size); height: var(--intro-logo-size); }
 .introSlice { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
-.introArc { position: absolute; inset: -32px; width: calc(100% + 64px); height: calc(100% + 64px); overflow: visible; color: var(--brand-accent); filter: drop-shadow(0 0 8px rgb(70 213 244 / .4)); pointer-events: none; }
+.introArc { position: absolute; inset: -32px; width: calc(100% + 64px); height: calc(100% + 64px); overflow: visible; color: var(--brand-accent); filter: drop-shadow(0 0 8px color-mix(in srgb, var(--brand-accent) 40%, transparent)); pointer-events: none; }
 .lockupSweep { position: absolute; inset: 0; pointer-events: none; }
 .introLightSweep, .introWordmarkSweep { background: linear-gradient(110deg, transparent 43%, rgb(255 255 255 / .85) 52%, transparent 61%); background-size: 300% 100%; background-position: var(--intro-sweep) 0; }
 .introLightSweep { position: absolute; top: 50%; left: 0; width: var(--intro-logo-size); height: var(--intro-logo-size); transform: translateY(-50%); mask-image: var(--portfolio-brand-image, url("/brand/cyril-ai-logo-dark.webp")); mask-size: contain; mask-position: center; mask-repeat: no-repeat; }
@@ -37,10 +37,10 @@
   background: var(--studio-bg);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .panel:nth-child(2) {
-  background: var(--terminal-panel);
+  background: var(--studio-panel);
 }
 :global(html[data-portfolio-theme^="terminal-"]) .panel:nth-child(3) {
-  background: var(--terminal-elevated);
+  background: var(--studio-inset);
 }
 .curtain[data-intro="true"] .panel:nth-child(n) {
   background: var(--studio-bg);

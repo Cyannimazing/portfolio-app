@@ -45,3 +45,13 @@
 @media (prefers-reduced-motion: reduce) {
   .header, .header *, .header *::before, .header *::after { animation: none !important; transition: none !important; }
 }
+
+:global(html[data-portfolio-theme^="terminal-"]) .desktopBar,
+:global(html[data-portfolio-theme^="terminal-"]) .mobileBar,
+:global(html[data-portfolio-theme^="terminal-"]) .mobileMenu { background: var(--studio-panel); border-color: var(--studio-border); box-shadow: var(--studio-shadow); }
+:global(html[data-portfolio-theme^="terminal-"]) .navItems :global(a[data-active="true"]),
+:global(html[data-portfolio-theme^="terminal-"]) .mobileLink[aria-current="page"] { color: var(--studio-text); background: var(--studio-inset); }
+:global(html[data-portfolio-theme^="terminal-"]) .toggle:hover,
+:global(html[data-portfolio-theme^="terminal-"]) .mobileLink:hover { background: var(--studio-hover); }
+:global(html[data-portfolio-theme^="terminal-"]) .discussLink,
+:global(html[data-portfolio-theme^="terminal-"]) .discussLink:is(:hover, :active) { color: var(--studio-action-ink); background: var(--studio-action-bg); }

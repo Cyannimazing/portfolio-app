@@ -1,107 +1,71 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
-import { BackgroundRippleEffect, type RippleCell } from "@/components/ui/background-ripple-effect";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { AnimatePresence, motion, useMotionValue, useSpring } from "motion/react";
+import { Spotlight } from "@/components/ui/spotlight-new";
 import { useMotionPreference } from "@/hooks/use-motion-preference";
+import { studioEase } from "@/lib/studio-motion";
 import styles from "./InteractiveBackground.module.css";
 
-function subscribeToViewport(onChange: () => void) {
-  window.addEventListener("resize", onChange, { passive: true });
-  return () => window.removeEventListener("resize", onChange);
-}
-function viewportSnapshot() { return `${window.innerWidth}:${window.innerHeight}`; }
-function serverViewportSnapshot() { return "0:0"; }
-
-function fieldGeometry(viewport: string) {
-  const [width, height] = viewport.split(":").map(Number);
-  const limit = width < 768 ? 90 : 240;
-  let cellSize = width < 768 ? 76 : 96;
-  let cols = Math.ceil(width / cellSize);
-  let rows = Math.ceil(height / cellSize);
-  while (cols * rows > limit) {
-    cellSize += 8;
-    cols = Math.ceil(width / cellSize);
-    rows = Math.ceil(height / cellSize);
-  }
-  return { width, height, rows, cols, cellSize, offsetX: (width - cols * cellSize) / 2 };
+function subscribe(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, { attributes: true, childList: true, subtree: true, attributeFilter: ["data-page-transition", "data-phase", "aria-modal", "inert"] });
+  document.addEventListener("visibilitychange", onChange);
+  return () => { observer.disconnect(); document.removeEventListener("visibilitychange", onChange); };
 }
 
-type FieldStyle = CSSProperties & { "--field-cell-size": string; "--field-offset-x": string };
+function backgroundIsActive() {
+  return !document.hidden && document.documentElement.dataset.pageTransition === "idle"
+    && !document.getElementById("main-content")?.inert
+    && !document.querySelector('[aria-modal="true"]');
+}
 
 export default function InteractiveBackground() {
-  const viewport = useSyncExternalStore(subscribeToViewport, viewportSnapshot, serverViewportSnapshot);
-  const geometry = useMemo(() => fieldGeometry(viewport), [viewport]);
-  const reducedMotion = useMotionPreference();
-  const backgroundRef = useRef<HTMLDivElement>(null);
-  const [ripple, setRipple] = useState<{ cell: RippleCell | null; key: number }>({ cell: null, key: 0 });
+  const active = useSyncExternalStore(subscribe, backgroundIsActive, () => false);
+  const reduced = useMotionPreference();
+  const running = active && !reduced;
+  const pointerX = useMotionValue(-1000), pointerY = useMotionValue(-1000);
+  const x = useSpring(pointerX, { stiffness: 180, damping: 30, mass: .7 });
+  const y = useSpring(pointerY, { stiffness: 180, damping: 30, mass: .7 });
+  const pointerOpacity = useMotionValue(0);
+  const [pulse, setPulse] = useState<{ x: number; y: number; id: number } | null>(null);
+  const lastPulse = useRef(0);
 
   useEffect(() => {
-    const background = backgroundRef.current;
-    if (!background || !geometry.width) return;
-    let paused = true;
-    let pointerFrame = 0;
-    let pointerX = 0;
-    let pointerY = 0;
-    let lastRipple = -Infinity;
-
-    const hidePointer = () => { background.dataset.pointer = "false"; };
-    const checkPause = () => {
-      paused = reducedMotion || document.visibilityState === "hidden"
-        || Boolean(document.querySelector('[aria-modal="true"]'))
-        || Boolean(document.querySelector('[data-route-transition]:not([data-phase="idle"])'))
-        || ["opening", "covering", "revealing"].includes(document.documentElement.dataset.pageTransition ?? "");
-      background.dataset.paused = String(paused);
-      if (paused) {
-        hidePointer();
-        cancelAnimationFrame(pointerFrame);
-        pointerFrame = 0;
-      }
+    if (!running) return;
+    let pointerEntered = false;
+    const move = (event: PointerEvent) => {
+      if (event.pointerType === "touch") return;
+      pointerX.set(event.clientX); pointerY.set(event.clientY); pointerOpacity.set(1);
+      if (!pointerEntered) { x.jump(event.clientX); y.jump(event.clientY); pointerEntered = true; }
     };
-    const pointerMove = (event: PointerEvent) => {
-      if (paused || event.pointerType === "touch") return;
-      pointerX = event.clientX;
-      pointerY = event.clientY;
-      if (pointerFrame) return;
-      pointerFrame = requestAnimationFrame(() => {
-        background.style.setProperty("--pointer-x", `${pointerX}px`);
-        background.style.setProperty("--pointer-y", `${pointerY}px`);
-        background.dataset.pointer = "true";
-        pointerFrame = 0;
-      });
-    };
-    const pointerDown = (event: PointerEvent) => {
-      if (paused || !event.isPrimary || event.button !== 0) return;
+    const leave = () => { pointerOpacity.set(0); pointerEntered = false; };
+    const out = (event: PointerEvent) => { if (!event.relatedTarget) leave(); };
+    const press = (event: PointerEvent) => {
+      if (!event.isPrimary || event.button !== 0 || (event.target instanceof Element && event.target.closest('input, textarea, select, [role="combobox"]'))) return;
       const now = performance.now();
-      if (now - lastRipple < 180) return;
-      lastRipple = now;
-      const row = Math.min(geometry.rows - 1, Math.max(0, Math.floor(event.clientY / geometry.cellSize)));
-      const col = Math.min(geometry.cols - 1, Math.max(0, Math.floor((event.clientX - geometry.offsetX) / geometry.cellSize)));
-      setRipple(previous => ({ cell: { row, col }, key: previous.key + 1 }));
+      if (now - lastPulse.current < 250) return;
+      lastPulse.current = now;
+      setPulse({ x: event.clientX, y: event.clientY, id: now });
     };
-    const pointerOut = (event: PointerEvent) => { if (!event.relatedTarget) hidePointer(); };
-    const observer = new MutationObserver(checkPause);
-    observer.observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ["data-page-transition", "data-phase", "aria-modal"] });
-    checkPause();
-    window.addEventListener("pointermove", pointerMove, { passive: true });
-    window.addEventListener("pointerdown", pointerDown, { passive: true });
-    window.addEventListener("pointerout", pointerOut, { passive: true });
-    window.addEventListener("blur", hidePointer);
-    document.addEventListener("visibilitychange", checkPause);
+    window.addEventListener("pointermove", move, { passive: true });
+    window.addEventListener("pointerdown", press, { passive: true });
+    window.addEventListener("pointerout", out, { passive: true });
+    window.addEventListener("blur", leave);
     return () => {
-      cancelAnimationFrame(pointerFrame);
-      observer.disconnect();
-      window.removeEventListener("pointermove", pointerMove);
-      window.removeEventListener("pointerdown", pointerDown);
-      window.removeEventListener("pointerout", pointerOut);
-      window.removeEventListener("blur", hidePointer);
-      document.removeEventListener("visibilitychange", checkPause);
+      pointerOpacity.set(0);
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerdown", press);
+      window.removeEventListener("pointerout", out);
+      window.removeEventListener("blur", leave);
     };
-  }, [geometry, reducedMotion]);
+  }, [running, pointerX, pointerY, pointerOpacity, x, y]);
 
-  const style: FieldStyle = { "--field-cell-size": `${geometry.cellSize}px`, "--field-offset-x": `${geometry.offsetX}px` };
-  return <div ref={backgroundRef} className={styles.background} style={style} data-interactive-background data-paused="true" data-pointer="false" aria-hidden="true">
-    {geometry.width > 0 && <BackgroundRippleEffect rows={geometry.rows} cols={geometry.cols} cellSize={geometry.cellSize}
-      clickedCell={ripple.cell} rippleKey={ripple.key} className={styles.grid} cellClassName={styles.cell} />}
-    <div className={styles.pointerGrid} />
+  return <div className={styles.background} data-interactive-background data-paused={!running} aria-hidden="true">
+    <Spotlight paused={!running} gradientFirst="var(--studio-ambient-first)" gradientSecond="var(--studio-ambient-second)" gradientThird="var(--studio-ambient-third)" duration={18} xOffset={70} width={780} height={1500} smallWidth={180} translateY={-500} />
+    <motion.div className={styles.pointerLight} data-background-pointer style={{ x, y, opacity: pointerOpacity }} />
+    <AnimatePresence>
+      {running && pulse && <motion.span key={pulse.id} className={styles.pulse} data-background-pulse style={{ left: pulse.x, top: pulse.y }} initial={{ scale: .4, opacity: .7 }} animate={{ scale: 18, opacity: 0 }} exit={{ opacity: 0, transition: { duration: reduced ? 0 : .18 } }} transition={{ duration: 1.1, ease: studioEase }} />}
+    </AnimatePresence>
   </div>;
 }
