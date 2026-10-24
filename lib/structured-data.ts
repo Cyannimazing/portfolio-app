@@ -54,7 +54,7 @@ export function servicesStructuredData(description: string) {
 }
 
 export function aboutStructuredData(description: string) {
-  return pageStructuredData("/practice", "Behind the work", description, "ProfilePage", person);
+  return pageStructuredData("/practice", "About me", description, "ProfilePage", person);
 }
 
 export function contactStructuredData(description: string) {

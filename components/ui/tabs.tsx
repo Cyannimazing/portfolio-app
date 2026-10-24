@@ -4,7 +4,8 @@
 // https://ui.aceternity.com/registry/tabs.json
 // Adds tab semantics, keyboard focus, optional hover activation and reduced motion.
 import { useId, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { useMotionPreference } from "@/hooks/use-motion-preference";
 import { cn } from "@/lib/utils";
 
 type Tab = { title: ReactNode; value: string; content?: ReactNode };
@@ -31,7 +32,7 @@ export const Tabs = ({
   activationMode?: "click" | "hover";
 }) => {
   const id = useId();
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useMotionPreference();
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const initialTab = propTabs.find((tab) => tab.value === defaultValue) ?? propTabs[0];
   const [active, setActive] = useState<Tab | undefined>(initialTab);
@@ -110,7 +111,7 @@ export const FadeInDiv = ({ className, tabs, active, idPrefix, hovering, reveal 
 }) => {
   const fallbackId = useId();
   const panelId = idPrefix ?? fallbackId;
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useMotionPreference();
   return (
     <div className={cn("relative w-full", className)} data-hovering={hovering || undefined}>
       {tabs.map((tab) => (

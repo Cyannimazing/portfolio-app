@@ -5,7 +5,7 @@ export const publicPages = [
   { path: "/", title: siteConfig.title, description: siteConfig.description },
   { path: "/works", title: "Projects", description: "Explore Cyril Jian Narvasa’s project case studies: business websites, SaaS platforms, internal tools, booking systems, and mobile applications." },
   { path: "/services", title: "Services", description: "Custom business software, websites, CMS, online bookings, mobile app improvements, coded automation, and ongoing support from Cyril AI in Davao, Philippines." },
-  { path: "/practice", title: "Behind the work", description: "Meet Cyril Jian Narvasa, a full stack developer in Davao, Philippines. Explore his development approach, working principles, and professional experience." },
+  { path: "/practice", title: "About me", description: "Meet Cyril Jian Narvasa, a full stack developer in Davao, Philippines. Explore his experience, working principles, and work in web apps and AI automation." },
   { path: "/contact", title: "Contact", description: "Discuss your website, business software, CMS, booking system, or automation project with Cyril Jian Narvasa. Book a discovery call with Cyril AI." },
 ] as const;
 

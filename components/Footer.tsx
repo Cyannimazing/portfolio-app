@@ -4,7 +4,7 @@ import BrandMark from "./BrandMark";
 const NAV = [
   { name: "Home", href: "/" },
   { name: "Services", href: "/services" },
-  { name: "My approach", href: "/practice" },
+  { name: "About me", href: "/practice" },
   { name: "Works", href: "/works" },
   { name: "Contact", href: "/contact" },
 ];

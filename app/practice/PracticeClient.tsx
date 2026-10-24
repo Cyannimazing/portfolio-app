@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useId, useState, useSyncExternalStore } from "react";
+import { Fragment, useId, useState, useSyncExternalStore } from "react";
 import {
-  IconArrowRight, IconArrowUpRight, IconBriefcase, IconCompass, IconHeartHandshake, IconPlus,
+  IconArrowRight, IconArrowUpRight, IconBriefcase, IconCompass, IconHeartHandshake, IconMapPin, IconPlus, IconSchool, IconUserCircle,
 } from "@tabler/icons-react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
@@ -22,8 +22,15 @@ const values = [
 ];
 
 const principleLayoutQuery = "(min-width: 640px) and (max-width: 1023px), (min-width: 1440px) and (min-height: 900px)";
+const compactOverviewQuery = "(min-width: 1024px) and (max-width: 1279px), (min-width: 1024px) and (max-height: 719px)";
 function subscribeToLayout(onChange: () => void) {
   const query = window.matchMedia(principleLayoutQuery);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+
+function subscribeToOverview(onChange: () => void) {
+  const query = window.matchMedia(compactOverviewQuery);
   query.addEventListener("change", onChange);
   return () => query.removeEventListener("change", onChange);
 }
@@ -61,53 +68,70 @@ const experience = [
 
 function PracticeContent() {
   const reduced = useMotionPreference();
+  const compact = useSyncExternalStore(subscribeToOverview, () => window.matchMedia(compactOverviewQuery).matches, () => false);
   const { setOpen } = useModal();
   const glow = <GlowingEffect disabled={reduced} spread={35} proximity={0} inactiveZone={.2} borderWidth={1} />;
-
-  return <>
-    <main className={styles.page} data-practice>
-      <header className={styles.heading}>
-        <div className={styles.headingCopy}>
-          <p className={styles.eyebrow}>Purpose, principles & experience</p>
-          <h1>Behind the work.</h1>
-          <p className={styles.intro}>Clear communication. Thoughtful development. Software built with purpose.</p>
-        </div>
-        <div className={styles.headerActions}><PortfolioActions paused={reduced} /></div>
-      </header>
-
-      <BentoGrid className={styles.grid}>
-        <BentoGridItem reveal className={`${styles.card} ${styles.purpose}`} header={
+  const sections = [
+    { value: "profile", title: "Who I am", content: <BentoGridItem reveal className={styles.card} header={
+          <section className={styles.cardBody} data-practice-card="profile">
+            {glow}
+            <h2 className={styles.cardHeading}><span className={styles.icon}><IconUserCircle size={21} stroke={1.5} aria-hidden="true" /></span>Who I am<span className={styles.index} aria-hidden="true">01</span></h2>
+            <div className={styles.profileCopy}>
+              <h3>Hi, I’m Cyril.</h3>
+              <ul className={styles.profileRoles} aria-label="Professional titles"><li>Full Stack Developer</li><li>Next.js Developer</li><li>AI Automation Engineer</li></ul>
+              <p>I turn your business needs into practical websites, applications and connected tools, with a focus on Next.js, AI and automation.</p>
+              <p>I work across the interface, data and integrations. Whether you need a new product or help with an existing system, I solve technical problems and keep you informed.</p>
+            </div>
+            <dl className={styles.profileFacts}>
+              <div><dt><IconMapPin size={14} aria-hidden="true" />Based in</dt><dd>Davao City, Philippines</dd></div>
+              <div><dt><IconSchool size={14} aria-hidden="true" />Education</dt><dd>BS Information Technology<span>STI College Davao · Cum Laude, 2026</span></dd></div>
+            </dl>
+          </section>
+        } /> },
+    { value: "direction", title: "My direction", content: <BentoGridItem reveal className={styles.card} header={
           <section className={styles.cardBody} data-practice-card="purpose">
             {glow}
-            <h2 className={styles.cardHeading}><span className={styles.icon}><IconCompass size={21} stroke={1.5} aria-hidden="true" /></span>My direction<span className={styles.index} aria-hidden="true">01</span></h2>
+            <h2 className={styles.cardHeading}><span className={styles.icon}><IconCompass size={21} stroke={1.5} aria-hidden="true" /></span>My direction<span className={styles.index} aria-hidden="true">02</span></h2>
             <p className={styles.directionStatement}>Built with purpose.<br /><span>Made for people.</span></p>
             <div className={styles.directionGrid}>
               <section><h3 className={styles.label}>Mission</h3><p>I build useful software around your business and the people who use it.</p></section>
               <section><h3 className={styles.label}>Vision</h3><p>I aim to become a development partner your business can grow with.</p></section>
             </div>
           </section>
-        } />
-
-        <BentoGridItem reveal className={`${styles.card} ${styles.values}`} header={
+        } /> },
+    { value: "principles", title: "How I work", content: <BentoGridItem reveal className={styles.card} header={
           <section className={styles.cardBody} data-practice-card="values">
             {glow}
-            <h2 className={styles.cardHeading}><span className={styles.icon}><IconHeartHandshake size={21} stroke={1.5} aria-hidden="true" /></span>How I work<span className={styles.index} aria-hidden="true">02</span></h2>
+            <h2 className={styles.cardHeading}><span className={styles.icon}><IconHeartHandshake size={21} stroke={1.5} aria-hidden="true" /></span>How I work<span className={styles.index} aria-hidden="true">03</span></h2>
             <Principles />
           </section>
-        } />
-
-        <BentoGridItem reveal className={`${styles.card} ${styles.experience}`} header={
+        } /> },
+    { value: "experience", title: "Experience", content: <BentoGridItem reveal className={styles.card} header={
           <section className={styles.cardBody} data-practice-card="experience">
             {glow}
             <h2 className={styles.cardHeading}><button type="button" onClick={() => setOpen(true)} aria-haspopup="dialog" aria-label="View experience"><span className={styles.icon}><IconBriefcase size={21} stroke={1.5} aria-hidden="true" /></span>Experience<span className={styles.expand} aria-hidden="true"><IconPlus size={16} /></span></button></h2>
-            <ol className={styles.experienceList}>{experience.map(job => <li key={job.company}><div className={styles.jobHeading}><h3>{job.company}</h3><span>{job.compactPeriod}</span></div><p className={styles.role}>{job.role}</p><p className={styles.jobDescription}>{job.description}</p></li>)}</ol>
+            <ol className={styles.experienceList}>{experience.map(job => <li key={job.company}><div className={styles.jobHeading}><h3>{job.company}</h3><span>{job.compactPeriod}</span></div><p className={styles.role}>{job.role}</p><p className={styles.jobSummary}>{job.summary}</p><p className={styles.jobDescription}>{job.description}</p></li>)}</ol>
           </section>
-        } />
+        } /> },
+  ];
 
-      </BentoGrid>
+  return <>
+    <main className={styles.page} data-practice>
+      <header className={styles.heading}>
+        <div className={styles.headingCopy}>
+          <p className={styles.eyebrow}>The person behind the work</p>
+          <h1>About me.</h1>
+          <p className={styles.intro}>Clear communication. Thoughtful development. Software built with purpose.</p>
+        </div>
+        <div className={styles.headerActions}><PortfolioActions paused={reduced} /></div>
+      </header>
+
+      {compact ? <div className={styles.compactOverview}>
+        <Tabs tabs={sections} ariaLabel="About me sections" containerClassName={styles.sectionTabs} tabClassName={styles.sectionTab} activeTabClassName={styles.activePrinciple} contentClassName={styles.sectionContent} />
+      </div> : <BentoGrid className={styles.grid}>{sections.map(section => <Fragment key={section.value}>{section.content}</Fragment>)}</BentoGrid>}
     </main>
 
-    <ModalBody ariaLabel="Experience" className={styles.detailModal} motionDisabled={reduced} header={<span className={styles.eyebrow}>Behind the work / Experience</span>}>
+    <ModalBody ariaLabel="Experience" className={styles.detailModal} motionDisabled={reduced} header={<span className={styles.eyebrow}>About me / Experience</span>}>
       <div className={styles.detailContent}>
         <h2>Experience.</h2>
         <div className={styles.fullExperience}>

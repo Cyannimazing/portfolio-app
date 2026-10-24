@@ -7,7 +7,7 @@ import ThemeSwitcher from "@/components/ThemeSwitcher";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
-import { IconArrowUpRight, IconBrandGithub, IconCompass, IconFolder, IconHome, IconMail, IconMapPin, IconWorld } from "@tabler/icons-react";
+import { IconArrowUpRight, IconBrandGithub, IconFolder, IconHome, IconMail, IconMapPin, IconUserCircle, IconWorld } from "@tabler/icons-react";
 import { DesktopSidebar, MobileSidebar, Sidebar, SidebarLink, useSidebar } from "@/components/ui/sidebar";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { FlipWords } from "@/components/ui/flip-words";
@@ -19,12 +19,12 @@ const links = [
   { label: "Home", href: "/", icon: IconHome },
   { label: "Projects", href: "/works", icon: IconFolder },
   { label: "Services", href: "/services", icon: IconWorld },
-  { label: "My approach", href: "/practice", icon: IconCompass },
+  { label: "About me", href: "/practice", icon: IconUserCircle },
   { label: "Contact", href: "/contact", icon: IconMail },
 ];
 
 const isCurrentPath = (pathname: string, href: string) => pathname === href || (href !== "/" && pathname.startsWith(href + "/"));
-const professionalTitles = ["Full Stack Developer", "AI Engineer", "AI Automation Specialist"];
+const professionalTitles = ["Full Stack Developer", "Next.js Developer", "AI Automation Engineer"];
 
 function MobileMenuContent() {
   const { setOpen } = useSidebar();
@@ -66,7 +66,7 @@ function SidebarContent() {
   const [profileFocused, setProfileFocused] = useState(false);
   return <>
     <Link href="/" className={styles.wordmark} aria-label="Cyril AI home"><BrandMark theme="dark" size={34} /><span>Cyril <span>AI</span></span></Link>
-    <Link href="/" className={styles.profile} aria-label="Cyril Jian B. Narvasa, Full Stack Developer, AI Engineer and AI Automation Specialist. Home."
+    <Link href="/" className={styles.profile} aria-label="Cyril Jian B. Narvasa, Full Stack Developer, Next.js Developer and AI Automation Engineer. Home."
       onMouseEnter={() => setProfileHovered(true)} onMouseLeave={() => setProfileHovered(false)}
       onFocus={() => setProfileFocused(true)} onBlur={() => setProfileFocused(false)}>
       <div className={styles.portraitWrap}><Image src="/images/cyril-editorial-v2.webp" width={160} height={196} priority sizes="160px" className={styles.portrait} alt="Cyril Jian B. Narvasa" /></div>
