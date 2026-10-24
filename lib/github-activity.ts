@@ -1,5 +1,3 @@
-import snapshot from "./github-activity.json";
-
 export type GitHubActivity = {
   total: number;
   from: string;
@@ -10,5 +8,5 @@ export type GitHubActivity = {
   updatedAt: string;
 };
 
-// A dated snapshot of the public GitHub profile, without a runtime API token.
-export const githubActivity: GitHubActivity = snapshot;
+export const githubProfileUrl = "https://github.com/Cyannimazing";
+export const githubActivityRefreshMs = 15 * 60 * 1000;

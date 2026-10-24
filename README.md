@@ -20,6 +20,12 @@ Header presence alone is not a pass/fail security assessment. `X-Powered-By` sho
 
 Run `npm ci`, then `npm run dev`. Run `npm run build` for the production build. Public profile Markdown and permanent project UUIDs must be preserved; do not regenerate them during maintenance.
 
+## Automatic GitHub activity
+
+The Home contribution card reads GitHub's public calendar on the server, including anonymized private contribution counts when enabled under **GitHub profile → Contribution settings → Private contributions**. Private repository names and code are never fetched or exposed. The repository link uses GitHub's unauthenticated public repository API.
+
+Calendar requests revalidate every 15 minutes and repository requests every hour through Next.js's data cache. The card refreshes on load, every 15 minutes while visible, and when the page regains focus. No API token, scheduled deployment or rebuild is needed. The displayed update date comes from GitHub's response timestamp. Failed refreshes retain the last successfully loaded data. If no data is available, the card links to the GitHub profile without displaying fabricated activity. `lib/github-activity.json` is retained as a historical record and is not imported by the application.
+
 ## Search and AI crawler setup
 
 The public domain currently defaults to the candidate `https://cyril.ai`. Set `NEXT_PUBLIC_SITE_URL` to the final connected domain at build time. [.env.example](.env.example) lists the supported settings. All canonicals, Open Graph URLs, structured-data identifiers, sitemap entries and AI-readable links use this same origin.

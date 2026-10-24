@@ -13,7 +13,7 @@ import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import GitHubContributions from "@/components/GitHubContributions";
-import { githubActivity } from "@/lib/github-activity";
+import type { GitHubActivity } from "@/lib/github-activity";
 import { profileProjects } from "@/lib/profile-projects";
 import { type ServiceId } from "@/lib/service-categories";
 import { getProjectPath, projectStories } from "@/lib/project-stories";
@@ -66,7 +66,7 @@ function subscribeToPageVisibility(onChange: () => void) {
 function pageIsVisible() { return document.visibilityState !== "hidden"; }
 function serverPageIsVisible() { return true; }
 
-function HubContent() {
+function HubContent({ githubActivity }: { githubActivity: GitHubActivity | null }) {
   const reducedMotion = useMotionPreference();
   const pageVisible = useSyncExternalStore(subscribeToPageVisibility, pageIsVisible, serverPageIsVisible);
   const [panel, setPanel] = useState<Panel>("projects");
@@ -113,7 +113,7 @@ function HubContent() {
 
           <BentoGridItem reveal className={`${styles.tile} ${styles.githubTile}`} header={<div className={styles.tileContent}>
             <Glow enabled={motionEnabled} />
-            <GitHubContributions activity={githubActivity} />
+            <GitHubContributions initialActivity={githubActivity} />
           </div>} />
 
           <BentoGridItem reveal className={`${styles.tile} ${styles.toolboxTile}`} header={<div className={styles.tileContent}>
@@ -157,4 +157,4 @@ function HubContent() {
     </ModalBody>
   </MotionConfig>;
 }
-export default function HeroHub() { return <Modal><HubContent /></Modal>; }
+export default function HeroHub({ githubActivity }: { githubActivity: GitHubActivity | null }) { return <Modal><HubContent githubActivity={githubActivity} /></Modal>; }

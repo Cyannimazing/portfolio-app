@@ -1,6 +1,8 @@
-import type { CSSProperties } from "react";
+"use client";
+
+import { useEffect, useState, type CSSProperties } from "react";
 import { IconArrowUpRight, IconBrandGithub, IconGitBranch } from "@tabler/icons-react";
-import type { GitHubActivity } from "@/lib/github-activity";
+import { githubActivityRefreshMs, githubProfileUrl, type GitHubActivity } from "@/lib/github-activity";
 import styles from "./GitHubContributions.module.css";
 
 const dayLength = 86_400_000;
@@ -9,7 +11,52 @@ function formatDate(date: string, options: Intl.DateTimeFormatOptions) {
   return new Intl.DateTimeFormat("en-US", { ...options, timeZone: "UTC" }).format(dateValue(date));
 }
 
-export default function GitHubContributions({ activity }: { activity: GitHubActivity }) {
+export default function GitHubContributions({ initialActivity }: { initialActivity: GitHubActivity | null }) {
+  const [activity, setActivity] = useState(initialActivity);
+  const [refreshFailed, setRefreshFailed] = useState(false);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    let inFlight = false;
+    let lastAttempt = 0;
+    async function refresh() {
+      if (document.visibilityState === "hidden" || inFlight || Date.now() - lastAttempt < 60_000) return;
+      inFlight = true;
+      lastAttempt = Date.now();
+      try {
+        const response = await fetch("/api/github-activity", {
+          cache: "no-store",
+          signal: AbortSignal.any([controller.signal, AbortSignal.timeout(12_000)]),
+        });
+        if (!response.ok) throw new Error("GitHub refresh failed.");
+        const latest: GitHubActivity = await response.json();
+        if (!controller.signal.aborted) {
+          setActivity(latest);
+          setRefreshFailed(false);
+        }
+      } catch {
+        if (!controller.signal.aborted) setRefreshFailed(true);
+      } finally {
+        inFlight = false;
+      }
+    }
+    void refresh();
+    const timer = window.setInterval(refresh, githubActivityRefreshMs);
+    window.addEventListener("focus", refresh);
+    document.addEventListener("visibilitychange", refresh);
+    return () => {
+      controller.abort();
+      window.clearInterval(timer);
+      window.removeEventListener("focus", refresh);
+      document.removeEventListener("visibilitychange", refresh);
+    };
+  }, []);
+
+  if (!activity) return <div className={styles.activity} data-github-activity>
+    <header className={styles.header}><a className={styles.profileLink} href={githubProfileUrl} target="_blank" rel="noopener noreferrer"><span className={styles.icon}><IconBrandGithub size={19} aria-hidden="true" /></span><h2>GitHub contributions</h2><IconArrowUpRight className={styles.arrow} size={14} aria-hidden="true" /><span className="sr-only">, opens in a new tab</span></a></header>
+    <div className={styles.unavailable} role="status"><p>GitHub activity is temporarily unavailable.</p><a href={githubProfileUrl} target="_blank" rel="noopener noreferrer">View my activity on GitHub <IconArrowUpRight size={14} aria-hidden="true" /><span className="sr-only">, opens in a new tab</span></a></div>
+  </div>;
+
   const first = dateValue(activity.from);
   const start = first.getTime() - first.getUTCDay() * dayLength;
   const end = dateValue(activity.to).getTime();
@@ -32,7 +79,7 @@ export default function GitHubContributions({ activity }: { activity: GitHubActi
         <div><h2>GitHub contributions</h2><p><strong>{activity.total.toLocaleString("en-US")}</strong> contributions</p></div>
         <IconArrowUpRight className={styles.arrow} size={14} aria-hidden="true" />
       </a>
-      <time className={styles.updated} dateTime={activity.updatedAt} title={`Public GitHub snapshot updated ${formatDate(activity.updatedAt, { month: "long", day: "numeric", year: "numeric" })}`}>Updated {formatDate(activity.updatedAt, { month: "short", day: "numeric" })}</time>
+      <span className={styles.updated} role="status"><time dateTime={activity.updatedAt} title={`Refreshes automatically every 15 minutes. Last retrieved from GitHub: ${new Intl.DateTimeFormat("en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Taipei" }).format(new Date(activity.updatedAt))} (UTC+8).`}>{refreshFailed ? "Refresh delayed" : `Updated ${formatDate(activity.updatedAt, { month: "short", day: "numeric" })}`}</time></span>
     </header>
 
     <figure className={styles.calendar} style={{ "--calendar-weeks": weeks.length } as CSSProperties} aria-label={`GitHub contribution calendar from ${range}`}>
