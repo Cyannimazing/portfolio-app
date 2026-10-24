@@ -1,12 +1,13 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import LogoIntro, { logoIntroDuration } from "@/components/LogoIntro";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { useMotionPreference } from "@/hooks/use-motion-preference";
 import { studioEase } from "@/lib/studio-motion";
+import { scheduleVisibleTimeout } from "@/lib/visible-timeout";
 import styles from "./PageTransition.module.css";
 
 type Phase = "opening" | "idle" | "covering" | "revealing";
@@ -26,8 +27,8 @@ export default function PageTransition({ children }: { children: ReactNode }) {
   const [scope, setScope] = useState<CurtainScope>("page");
   const [showIntro, setShowIntro] = useState(true);
   const [introBackdrop, setIntroBackdrop] = useState(true);
+  const [introPrepared, setIntroPrepared] = useState(false);
   const initialOpening = useRef(true);
-  const openingStartedAt = useRef<number | null>(null);
   const skipIntro = useRef<(() => void) | null>(null);
   const scopeRef = useRef(scope);
   const phaseRef = useRef<Phase>("opening");
@@ -35,11 +36,25 @@ export default function PageTransition({ children }: { children: ReactNode }) {
   const pendingDestination = useRef<string | null>(null);
   const previousPath = useRef(pathname);
   const timers = useRef<number[]>([]);
+  const prepareIntro = useCallback(() => {
+    if (initialOpening.current && phaseRef.current === "opening") setIntroPrepared(true);
+  }, []);
+  const completeBrandIntro = useCallback(() => skipIntro.current?.(), []);
 
   useLayoutEffect(() => {
     const main = document.getElementById("main-content");
-    const clearTimers = () => { timers.current.forEach(window.clearTimeout); timers.current = []; };
+    const openingDeadlines = new Set<() => void>();
+    const clearTimers = () => {
+      timers.current.forEach(window.clearTimeout);
+      timers.current = [];
+      openingDeadlines.forEach(cancel => cancel());
+      openingDeadlines.clear();
+    };
     const schedule = (callback: () => void, delay: number) => { timers.current.push(window.setTimeout(callback, delay)); };
+    const scheduleOpening = (callback: () => void, delay: number) => {
+      const cancel = scheduleVisibleTimeout(() => { openingDeadlines.delete(cancel); callback(); }, delay);
+      openingDeadlines.add(cancel);
+    };
     const changeScope = (next: CurtainScope) => { scopeRef.current = next; setScope(next); };
     const dismissIntro = () => { initialOpening.current = false; setShowIntro(false); };
     const completeIntro = () => { dismissIntro(); setIntroBackdrop(false); };
@@ -102,13 +117,21 @@ export default function PageTransition({ children }: { children: ReactNode }) {
       }
     } else if (phaseRef.current === "opening") {
       const isIntro = initialOpening.current && !pendingPath.current;
-      if (isIntro && openingStartedAt.current === null) openingStartedAt.current = performance.now();
-      const openingDelay = isIntro ? Math.max(0, logoIntroDuration - (performance.now() - openingStartedAt.current!)) : 80;
-      schedule(() => {
-        dismissIntro();
-        changePhase("revealing");
-        schedule(() => finish(isIntro || Boolean(pendingPath.current), isIntro), 520);
-      }, openingDelay);
+      if (isIntro && !introPrepared) {
+        // Start the brand sequence after its first rendered frame, with a
+        // bounded loading fallback so the portfolio can never stay covered.
+        scheduleOpening(prepareIntro, 3500);
+      } else {
+        // The film's ended event normally opens the page. This longer deadline
+        // is only a safety net for a player or browser failure.
+        const reveal = () => {
+          dismissIntro();
+          changePhase("revealing");
+          schedule(() => finish(isIntro || Boolean(pendingPath.current), isIntro), 520);
+        };
+        if (isIntro) scheduleOpening(reveal, logoIntroDuration + 6000);
+        else schedule(reveal, 80);
+      }
     } else if (phaseRef.current === "revealing") {
       schedule(() => finish(Boolean(pendingPath.current)), 520);
     // This effect runs after the new route's DOM is committed.
@@ -166,7 +189,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
       document.querySelectorAll<HTMLElement>(".studio-navigation").forEach(navigation => { navigation.inert = false; });
       delete document.documentElement.dataset.pageTransition;
     };
-  }, [pathname, reduced, router]);
+  }, [pathname, reduced, router, introPrepared, prepareIntro]);
 
   return <>{children}<div className={styles.curtain} data-route-transition data-phase={phase} data-scope={scope} data-intro={introBackdrop}>
     <div className={styles.panelBackdrop} aria-hidden="true"><BentoGrid className={styles.panels}>{[0, 1, 2].map(index => <BentoGridItem key={index} className={styles.panel} />)}</BentoGrid></div>
@@ -175,7 +198,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
         if (event.key === "Tab") { event.currentTarget.dataset.keyboardFocus = "true"; event.preventDefault(); event.currentTarget.querySelector("button")?.focus(); }
         if (event.key === "Escape") skipIntro.current?.();
       }}>
-        <LogoIntro />
+        <LogoIntro onReady={prepareIntro} onComplete={completeBrandIntro} />
         <button type="button" className={styles.introDismiss} aria-label="Continue to portfolio" autoFocus onClick={() => skipIntro.current?.()} />
       </motion.div>}
     </AnimatePresence>
