@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useSyncExternalStore, type ReactNode } from "react";
+import { useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { MotionConfig } from "motion/react";
 import { IconApi, IconArrowLeft, IconArrowRight, IconArrowUpRight, IconBrain, IconCalendarEvent, IconCheck, IconCode, IconDatabase, IconFolder, IconGitBranch, IconPencil, IconSettings, IconSparkles, IconWebhook, IconWorld } from "@tabler/icons-react";
 import { Modal, ModalBody, useModal } from "@/components/ui/animated-modal";
@@ -13,6 +13,7 @@ import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import GitHubContributions from "@/components/GitHubContributions";
+import { useIntegrationConnections } from "@/hooks/use-integration-connections";
 import type { GitHubActivity } from "@/lib/github-activity";
 import { profileProjects } from "@/lib/profile-projects";
 import { type ServiceId } from "@/lib/service-categories";
@@ -74,6 +75,8 @@ function HubContent({ githubActivity }: { githubActivity: GitHubActivity | null 
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const { open, setOpen } = useModal();
   const motionEnabled = !reducedMotion && !open && pageVisible;
+  const integrationRef = useRef<HTMLButtonElement>(null);
+  const connections = useIntegrationConnections(integrationRef);
   const showPanel = (value: Panel) => { setPanel(value); setSelectedProject(null); setLibraryPage(0); setOpen(true); };
   const service = typeof panel === "number" ? services[panel] : null;
 
@@ -127,21 +130,17 @@ function HubContent({ githubActivity }: { githubActivity: GitHubActivity | null 
             <Glow enabled={motionEnabled} />
             <Heading icon={<IconBrain size={18} aria-hidden="true" />} onClick={() => showPanel(4)}>AI & automation</Heading>
             <p className={styles.tileDescription}>LLM workflows, webhooks, and API integrations.</p>
-            <button type="button" className={styles.integrationVisual} onClick={() => showPanel(4)} aria-label="Explore LLM integrations, webhooks, API integrations, and workflow automation">
-              <span className={styles.integrationHub} aria-hidden="true"><IconBrain size={25} stroke={1.5} /><span>AI</span></span>
-              <span className={`${styles.integrationPill} ${styles.aiTools}`}><IconSparkles size={12} aria-hidden="true" /><span className={styles.llmLabel}>LLM integrations</span><span className={styles.llmShortLabel} aria-hidden="true">LLMs</span><i aria-hidden="true" /></span>
-              <span className={`${styles.integrationPill} ${styles.webhooks}`}><IconWebhook size={12} aria-hidden="true" />Webhooks<i aria-hidden="true" /></span>
-              <span className={`${styles.integrationPill} ${styles.apis}`}><IconApi size={12} aria-hidden="true" />REST APIs<i aria-hidden="true" /></span>
-              <span className={`${styles.integrationPill} ${styles.workflows}`}><IconGitBranch size={12} aria-hidden="true" />Workflows<i aria-hidden="true" /></span>
-              <svg className={styles.connections} viewBox="0 0 320 160" preserveAspectRatio="none" fill="none" aria-hidden="true">
-                <path className={styles.desktopConnections} d="M48 22H104Q120 22 120 38V64Q120 80 136 80H184Q200 80 200 64V38Q200 22 216 22H272M48 138H104Q120 138 120 122V96Q120 80 136 80M184 80Q200 80 200 96V122Q200 138 216 138H272" />
-                <path className={styles.mobileConnections} d="M60 22L160 80L260 22M60 138L160 80L260 138" />
-                <g className={styles.integrationSignals}>
-                  <circle r="2.1" className={`${styles.signal} ${styles.signalLlm}`} />
-                  <circle r="2.1" className={`${styles.signal} ${styles.signalWebhook}`} />
-                  <circle r="2.1" className={`${styles.signal} ${styles.signalApi}`} />
-                  <circle r="2.1" className={`${styles.signal} ${styles.signalWorkflow}`} />
-                </g>
+            <button type="button" ref={integrationRef} className={styles.integrationVisual} onClick={() => showPanel(4)} aria-label="Explore LLM integrations, webhooks, API integrations, and workflow automation">
+              <span className={styles.integrationHub} data-integration-hub aria-hidden="true"><IconBrain size={25} stroke={1.5} /><span>AI</span></span>
+              <span className={`${styles.integrationPill} ${styles.aiTools}`} data-integration-node="llm"><IconSparkles size={12} aria-hidden="true" /><span className={styles.llmLabel}>LLM integrations</span><span className={styles.llmShortLabel} aria-hidden="true">LLMs</span><i aria-hidden="true" /></span>
+              <span className={`${styles.integrationPill} ${styles.webhooks}`} data-integration-node="webhook"><IconWebhook size={12} aria-hidden="true" />Webhooks<i aria-hidden="true" /></span>
+              <span className={`${styles.integrationPill} ${styles.apis}`} data-integration-node="api"><IconApi size={12} aria-hidden="true" />REST APIs<i aria-hidden="true" /></span>
+              <span className={`${styles.integrationPill} ${styles.workflows}`} data-integration-node="workflow"><IconGitBranch size={12} aria-hidden="true" />Workflows<i aria-hidden="true" /></span>
+              <svg className={styles.connections} viewBox={`0 0 ${connections.width || 1} ${connections.height || 1}`} fill="none" aria-hidden="true">
+                {connections.paths.map(({ id, path }) => <path key={id} data-integration-connection={id} d={path} />)}
+                {motionEnabled && <g className={styles.integrationSignals}>
+                  {connections.paths.map(({ id, path }, index) => <circle key={id} r="2.1" className={styles.signal} style={{ offsetPath: `path("${path}")`, animationDelay: `${-index * 1.3}s` }} />)}
+                </g>}
               </svg>
             </button>
           </div>} />

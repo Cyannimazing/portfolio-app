@@ -11,8 +11,10 @@
 .updated { flex-shrink: 0; color: var(--studio-muted); font-family: var(--font-geist-mono), monospace; font-size: 9px; white-space: nowrap; }
 .unavailable { display: flex; flex: 1; flex-direction: column; justify-content: center; gap: 12px; min-height: 100px; color: var(--studio-muted); font-size: 13px; line-height: 1.6; }
 .unavailable a { display: inline-flex; align-items: center; align-self: flex-start; gap: 8px; min-height: 44px; color: var(--studio-accent); }
-.calendar { display: flex; flex: 1; flex-direction: column; justify-content: center; gap: 6px; min-width: 0; min-height: 0; margin: 8px 0; }
-.months { display: grid; grid-template-columns: repeat(var(--calendar-weeks), minmax(0, 1fr)); margin-left: 25px; color: var(--studio-muted); font-size: 9px; line-height: 1.4; }
+.calendar { container-type: size; display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-width: 0; min-height: 68px; margin: 8px 0; }
+.calendarContent, .legend { width: min(100cqi, calc(max(28px, 100cqb - 40px) * var(--calendar-weeks) / 7 + 25px)); }
+.calendarContent { display: flex; flex: none; flex-direction: column; gap: 6px; min-width: 0; }
+.months { flex-shrink: 0; display: grid; grid-template-columns: repeat(var(--calendar-weeks), minmax(0, 1fr)); margin-left: 25px; color: var(--studio-muted); font-size: 9px; line-height: 1.4; }
 .months > span { white-space: nowrap; }
 .plot { display: grid; grid-template-columns: 19px minmax(0, 1fr); gap: 6px; }
 .dayLabels { display: grid; grid-template-rows: repeat(7, minmax(0, 1fr)); align-items: center; color: var(--studio-muted); font-size: 8px; line-height: 1; }
@@ -23,7 +25,7 @@
 .cell[data-level="3"] { border-color: transparent; background: color-mix(in srgb, var(--studio-accent) 76%, var(--studio-inset)); }
 .cell[data-level="4"] { border-color: transparent; background: var(--studio-accent); }
 .cell[data-empty="true"] { visibility: hidden; }
-.legend { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--studio-muted); font-size: 9px; line-height: 1.4; }
+.legend { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--studio-muted); font-size: 9px; line-height: 1.4; }
 .key { display: inline-flex; align-items: center; gap: 3px; }
 .key > i { width: 7px; height: 7px; }
 .footer { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 10px; min-height: 44px; border-top: 1px solid var(--studio-border); }
@@ -38,7 +40,6 @@
 .repositoriesLink:is(:hover, :focus-visible) svg { transform: translate(2px, -2px); }
 .activity a:focus-visible { outline: 2px solid var(--studio-accent); outline-offset: 3px; }
 @media (min-width: 1024px) and (max-width: 1279px) { .header { gap: 6px; } .profileLink { gap: 7px; } .profileLink h2 { font-size: 12px; } .profileLink p { font-size: 10px; } .icon { width: 25px; height: 25px; } .updated { font-size: 8px; } .repository, .repositoriesLink { font-size: 10px; } .repository small { display: none; } .cells { gap: 2px; } }
-@media (min-width: 1024px) and (max-height: 580px) { .calendar { margin: 0; gap: 0; } .months, .legend, .dayLabels { display: none; } .plot { display: block; } .cells { gap: 2px; height: 35px; aspect-ratio: auto; } .profileLink h2 { font-size: 11px; } .profileLink p { font-size: 10px; } }
 @media (max-width: 1023px) { .activity { min-height: 210px; } .profileLink h2 { font-size: 14px; } .calendar { margin-block: 12px; } .cells { gap: 2px; } .repository > span { flex-direction: column; align-items: flex-start; gap: 3px; } }
 @media (max-width: 420px) { .header { gap: 7px; } .profileLink { gap: 7px; } .profileLink h2 { font-size: 12px; } .profileLink p { font-size: 10px; } .updated { font-size: 8px; } .icon { width: 25px; height: 25px; } .arrow { display: none; } .repository, .repositoriesLink { font-size: 10px; } .repository { gap: 5px; } .repository small { font-size: 8px; } .legend { font-size: 8px; } }
 @media (max-width: 350px) { .months { font-size: 8px; margin-left: 0; } .dayLabels { display: none; } .plot { display: block; } .cells { gap: 1px; } .repository small { display: none; } }

@@ -83,6 +83,7 @@ export default function GitHubContributions({ initialActivity }: { initialActivi
     </header>
 
     <figure className={styles.calendar} style={{ "--calendar-weeks": weeks.length } as CSSProperties} aria-label={`GitHub contribution calendar from ${range}`}>
+      <div className={styles.calendarContent}>
       <div className={styles.months} aria-hidden="true">{visibleMonths.map(month => <span key={month.column} style={{ gridColumn: month.column }}>{month.name}</span>)}</div>
       <div className={styles.plot}>
         <div className={styles.dayLabels} aria-hidden="true">{["", "Mon", "", "Wed", "", "Fri", ""].map((label, index) => <span key={index}>{label}</span>)}</div>
@@ -90,6 +91,7 @@ export default function GitHubContributions({ initialActivity }: { initialActivi
           const label = day ? `${day.count} ${day.count === 1 ? "contribution" : "contributions"} on ${formatDate(day.date, { month: "long", day: "numeric", year: "numeric" })}` : undefined;
           return <span key={day?.date ?? `padding-${index}`} className={styles.cell} data-level={day ? Math.min(4, Math.max(0, day.level)) : undefined} data-empty={!day} role={day ? "listitem" : undefined} aria-label={label} aria-hidden={day ? undefined : true} title={label} />;
         })}</div>
+      </div>
       </div>
       <figcaption className={styles.legend}><span>{range}</span><span className={styles.key} aria-label="Contribution intensity from less to more">Less{[0, 1, 2, 3, 4].map(level => <i key={level} className={styles.cell} data-level={level} aria-hidden="true" />)}More</span></figcaption>
     </figure>
