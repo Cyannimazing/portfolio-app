@@ -134,7 +134,8 @@ function HubContent({ githubActivity }: { githubActivity: GitHubActivity | null 
               <span className={`${styles.integrationPill} ${styles.apis}`}><IconApi size={12} aria-hidden="true" />REST APIs<i aria-hidden="true" /></span>
               <span className={`${styles.integrationPill} ${styles.workflows}`}><IconGitBranch size={12} aria-hidden="true" />Workflows<i aria-hidden="true" /></span>
               <svg className={styles.connections} viewBox="0 0 320 160" preserveAspectRatio="none" fill="none" aria-hidden="true">
-                <path d="M48 22H104Q120 22 120 38V64Q120 80 136 80H184Q200 80 200 64V38Q200 22 216 22H272M48 138H104Q120 138 120 122V96Q120 80 136 80M184 80Q200 80 200 96V122Q200 138 216 138H272" />
+                <path className={styles.desktopConnections} d="M48 22H104Q120 22 120 38V64Q120 80 136 80H184Q200 80 200 64V38Q200 22 216 22H272M48 138H104Q120 138 120 122V96Q120 80 136 80M184 80Q200 80 200 96V122Q200 138 216 138H272" />
+                <path className={styles.mobileConnections} d="M60 22L160 80L260 22M60 138L160 80L260 138" />
                 <g className={styles.integrationSignals}>
                   <circle r="2.1" className={`${styles.signal} ${styles.signalLlm}`} />
                   <circle r="2.1" className={`${styles.signal} ${styles.signalWebhook}`} />

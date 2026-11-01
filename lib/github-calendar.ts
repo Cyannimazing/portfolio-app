@@ -44,7 +44,9 @@ export function parseGitHubCalendar(html: string): Pick<GitHubActivity, "total" 
   const heading = [...html.matchAll(/<h2\b[^>]*>([\s\S]*?)<\/h2>/gi)]
     .map(match => /([\d,]+) contributions? in the last year/i.exec(textContent(match[1]))?.[1]).find(Boolean);
   const total = heading ? Number(heading.replaceAll(",", "")) : NaN;
-  if (!Number.isSafeInteger(total) || total !== days.reduce((sum, day) => sum + day.count, 0)) {
+  // GitHub's yearly summary and rendered day window can differ at the boundary.
+  // Keep the published total, while validating every displayed day independently.
+  if (!Number.isSafeInteger(total) || total < 0) {
     throw new Error("GitHub contribution totals could not be verified.");
   }
   return { total, from: days[0].date, to: days[days.length - 1].date, days };

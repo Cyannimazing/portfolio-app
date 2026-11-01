@@ -54,6 +54,7 @@
 .workflows { bottom: 9px; right: 0; animation-delay: -3.6s; }
 .connections { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; color: #648da0; pointer-events: none; }
 .connections > path { stroke: currentColor; stroke-width: 1; stroke-dasharray: 3 4; vector-effect: non-scaling-stroke; }
+.mobileConnections { display: none; }
 .integrationSignals { display: none; }
 @container ai-capabilities (max-width: 190px) {
   .integrationPill > svg { display: none; }
@@ -792,10 +793,18 @@
   .toolboxTile .compactTools li { width: 104px; gap: 7px; padding: 8px 6px; }
   .toolboxTile .compactTools li > span, .toolboxTile .compactTools svg { width: 24px; height: 24px; }
   .toolboxTile .compactTools strong { font-size: 11px; line-height: 1.4; overflow: visible; text-overflow: clip; }
-  .integrationVisual { flex: none; min-height: 190px; margin-top: 18px; }
-  .integrationHub { width: 56px; height: 56px; }
+  .integrationVisual { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto 76px auto; gap: 12px; align-items: center; flex: none; min-height: 0; margin-top: 18px; padding-block: 8px; }
+  .integrationHub { position: relative; inset: auto; grid-area: 2 / 1 / 3 / -1; justify-self: center; width: 56px; height: 56px; transform: none; }
   .integrationHub > span { font-size: 9px; }
-  .integrationPill { gap: 5px; padding: 7px 8px; font-size: 10px; }
-  .aiTools, .webhooks { top: 9px; }
-  .apis, .workflows { bottom: 9px; }
+  .integrationPill { position: relative; inset: auto; justify-self: start; width: min(100%, 144px); max-width: none; gap: 4px; padding: 7px 6px; font-size: 10px; }
+  .aiTools { grid-area: 1 / 1; }
+  .webhooks { grid-area: 1 / 2; justify-self: end; }
+  .apis { grid-area: 3 / 1; }
+  .workflows { grid-area: 3 / 2; justify-self: end; }
+  .desktopConnections { display: none; }
+  .mobileConnections { display: initial; }
+  :global(html[data-portfolio-theme^="terminal-"]) .signalLlm { offset-path: path("M60 22L160 80"); }
+  :global(html[data-portfolio-theme^="terminal-"]) .signalWebhook { offset-path: path("M260 22L160 80"); }
+  :global(html[data-portfolio-theme^="terminal-"]) .signalApi { offset-path: path("M60 138L160 80"); }
+  :global(html[data-portfolio-theme^="terminal-"]) .signalWorkflow { offset-path: path("M260 138L160 80"); }
 }
