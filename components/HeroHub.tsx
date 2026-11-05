@@ -48,7 +48,7 @@ const serviceProof = serviceGroups.map(ids => {
   return { names: matched.slice(0, 3).map(({ project }) => project.name).join(" · "), projects: matched.map(({ index }) => index) };
 });
 
-const featuredProjects = [8, 9, 12, 13].map(id => {
+const featuredProjects = [22, 8, 9, 12, 13].map(id => {
   const index = profileProjects.findIndex(project => project.id === id);
   const project = profileProjects[index];
   return { project, index, name: project.name, category: projectPresentations[id].category, description: projectStories[id].summary, stack: project.technologies.slice(0, 3).join(" · ") };

@@ -1,5 +1,7 @@
 // Browsing stays on /works. Selection is a session preference, never a route.
-let selectedId = 1;
+import { profileProjects } from "./profile-projects";
+
+let selectedId: number = profileProjects[0].id;
 export const projectSelectionEvent = "portfolio-project-selection";
 export function subscribeProjectSelection(onChange: () => void) {
   window.addEventListener(projectSelectionEvent, onChange);
