@@ -1,0 +1,48 @@
+{
+  "id": 22,
+  "url": "https://www.traceengine.tech/",
+  "title": "TraceForge Engine | Crypto Token & Holder Analysis",
+  "capturedAt": "2026-11-05T08:56:49.331Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "source": "Real public website capture, no generated artwork or sample investigation",
+  "poster": "/projects/previews/traceengine-poster.webp",
+  "embedding": {
+    "xFrameOptions": null,
+    "contentSecurityPolicy": null
+  },
+  "name": "TraceEngine",
+  "slug": "79241a61-f5f9-49ee-ad58-568f0eb8289b",
+  "posterBytes": 46748,
+  "previewMode": "Live iframe using the existing portfolio preview component. Screenshot is only fallback and social metadata.",
+  "contributionBasis": "User confirms creating the project. Features checked against local TraceforgeToken source and the live public homepage.",
+  "sourceEvidence": [
+    {
+      "file": "TraceforgeToken/package.json",
+      "supports": "Next.js, React, TypeScript, Viem and D3 dependencies"
+    },
+    {
+      "file": "TraceforgeToken/README.md",
+      "supports": "Multi-chain investigations, background progress, reports, watchlists, SQLite and exports"
+    },
+    {
+      "file": "TraceforgeToken/src/lib/analysis.ts",
+      "supports": "Supported networks, address validation and provider contract check fields"
+    },
+    {
+      "file": "TraceforgeToken/src/lib/evm-control-probes.ts",
+      "supports": "Read-only ERC-20 calls, owner observations, ERC-1967 slots and transfer simulations"
+    },
+    {
+      "file": "TraceforgeToken/src/lib/pool-launch.ts",
+      "supports": "ABI event decoding and historical event retrieval"
+    },
+    {
+      "file": "TraceforgeToken/src/lib/features.ts",
+      "supports": "LLM review disabled, so no active AI review claim is included"
+    }
+  ],
+  "scope": "No claims of authored Solidity contracts, contract deployment, security audits, guaranteed token safety or predictive accuracy."
+}

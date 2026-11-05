@@ -1,5 +1,6 @@
 // Categories follow the saved profile. Preview assets live in project-previews.
 export const projectPresentations: Record<number, { category: string }> = {
+  22: { category: "Web3 & blockchain analytics" },
   21: { category: "Esthetics & appointments" },
   1: { category: "Business software" },
   2: { category: "Enterprise SaaS" },

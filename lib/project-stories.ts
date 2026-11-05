@@ -13,6 +13,17 @@ type ProductStory = {
 // These describe the product; personal ownership is shown separately using
 // the user's confirmed contribution. No results or team sizes are inferred.
 export const projectStories: Record<number, ProductStory> = {
+  22: {
+    summary: "Trace token holders, wallet funding and contract risks across multiple blockchains.",
+    overview: "TraceEngine brings public blockchain records into one investigation workspace. Users can inspect tokens on Ethereum, Base, BNB Chain and Solana, review holders and transfer history, and follow documented wallet connections in an interactive map. Reports show their sources and coverage limits. The application reads public data without requesting a wallet connection, signing transactions or executing trades.",
+    audience: "People researching crypto tokens, wallet activity and contract controls",
+    features: [
+      { title: "Multi-chain investigation", description: "Review token holders, supply shares, market activity and transfer history across supported EVM networks and Solana." },
+      { title: "Wallet funding and connections", description: "Follow funding transfers and documented wallet relationships through interactive holder maps and linked transaction evidence." },
+      { title: "Contract observations", description: "Read ERC-20 data, inspect conventional owner and proxy controls, and combine those observations with provider contract checks." },
+      { title: "Reports and watchlists", description: "Follow investigation progress, return to cached reports, save watchlists and export evidence, with missing data kept explicit." },
+    ],
+  },
   21: {
     summary: "A spa website for treatments, appointment bookings and easy content updates.",
     overview: "Beautiful & Blessed Esthetics presents the spa's treatments, team, testimonials, and business information. Visitors can start an appointment through its Boulevard booking integration or send an enquiry. CMS tools manage page sections and site settings. Service metadata, a sitemap, and local business structured data describe the offering to search engines, while Open Graph imagery supports shared-link previews.",

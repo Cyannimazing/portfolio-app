@@ -3,6 +3,7 @@
 // actual captured interface, never a generated mockup or invented recording.
 export type ProjectPreview = { url?: string; label: string };
 export const projectPreviews: Record<number, ProjectPreview> = {
+  22: { url: "https://www.traceengine.tech/", label: "traceengine.tech" },
   21: { url: "https://www.beautifulblessedesthetics.com/", label: "beautifulblessedesthetics.com" },
   1: { url: "https://cynergy.cloud/", label: "cynergy.cloud" },
   8: { url: "https://www.rivertaxes.com/", label: "rivertaxes.com" },
@@ -27,6 +28,7 @@ export const projectPreviews: Record<number, ProjectPreview> = {
 
 // Every fallback is a real website/app screenshot saved as WebP.
 export const projectPreviewPosters: Partial<Record<number, string>> = {
+  22: "/projects/previews/traceengine-poster.webp",
   21: "/projects/previews/beautiful-blessed-poster.webp",
   1: "/projects/previews/cynergy-poster.webp",
   8: "/projects/previews/river-taxes-poster.webp",

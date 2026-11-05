@@ -8,6 +8,11 @@ export type ProjectCaseStudyContent = {
 // These explanations describe the work and its purpose without claiming measured results.
 // Product descriptions stay neutral where personal ownership is not confirmed.
 export const projectCaseStudies: Record<number, ProjectCaseStudyContent> = {
+  22: {
+    challenge: "Token research often requires switching between explorers, market tools and contract-checking services. Holder balances alone do not explain how wallets were funded or connected. The application needed to bring those records together while showing where historical access or provider coverage was incomplete.",
+    solution: "We built a workspace that gathers public blockchain and market data, reconstructs available transfer history, and presents holders, wallet connections and contract observations together. Background investigations report their progress. Interactive maps and linked evidence let users inspect the records behind a finding.",
+    rationale: "A useful investigation needs traceable records and clear limits. Keeping transaction evidence beside each finding helps users check the reasoning. Unknown data remains visible rather than becoming a clean result, and read-only access lets people research a token without connecting a wallet or signing a transaction.",
+  },
   21: {
     challenge: "Beautiful & Blessed Esthetics needed its existing website to show the same spa branding in browser tabs and shared links. The work focused on the small browser icon, the image shown when someone shares a link, and the business details displayed with that image.",
     solution: "We updated the favicons, which are the small icons shown in browser tabs. We also updated the Open Graph images and link details so supported messaging and social platforms can show the spa's branding when someone shares its website.",

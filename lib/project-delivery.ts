@@ -4,6 +4,23 @@ import { projectDeliveryWebB } from "./project-delivery-web-b";
 import type { ProjectDelivery } from "./project-delivery-types";
 
 export const projectDelivery: Record<string, ProjectDelivery> = {
+  "profile-22": {
+    role: "Full Stack Developer",
+    summary: "We built TraceEngine from the interface through the blockchain data services. The work covers multi-chain integrations, historical transfer retrieval, contract reads, wallet relationship analysis, interactive maps, background investigations and report presentation.",
+    responsibilities: [
+      { title: "Full-stack Web3 application", description: "We built the Next.js, React and TypeScript application, including token search, report pages, holder tables, discovery and watchlists." },
+      { title: "Blockchain and provider integrations", description: "We connected EVM and Solana RPC data with Alchemy, DEX Screener, GoPlus and supported explorer services. Viem handles ABI encoding and event decoding for EVM contract interactions." },
+      { title: "History and wallet relationships", description: "We built transfer-history retrieval, pagination, checkpoints and duplicate-event handling. Wallet maps use documented transfers and source evidence rather than assuming that connected wallets share an owner." },
+      { title: "Read-only contract checks", description: "We implemented ERC-20 reads, owner observations, ERC-1967 proxy-slot checks and limited transfer simulations through RPC calls. The application does not sign or broadcast transactions." },
+      { title: "Investigation progress and stored reports", description: "We built background jobs, streamed progress, cached reports, resumable history retrieval and evidence exports, with SQLite-backed local persistence." },
+    ],
+    capabilities: [
+      { title: "Ethereum and EVM integrations", description: "Ethereum, Base and BNB Chain investigations combine contract calls, event logs, balances and transaction history. Solana uses its own account and transaction adapters." },
+      { title: "Interactive holder maps", description: "D3-based layouts connect holder tables with a visual map of documented wallet relationships and expandable evidence." },
+      { title: "Source-backed contract observations", description: "Contract and wallet findings retain their sources, block context and coverage limits. Provider failures and missing history remain explicit." },
+      { title: "Background processing and recovery", description: "Bounded provider requests, history checkpoints and resumable jobs support longer investigations while the interface shows progress." },
+    ],
+  },
   ...projectDeliveryBusiness,
   ...projectDeliveryWebA,
   ...projectDeliveryWebB,

@@ -445,5 +445,33 @@ export const profileProjects = [
     "technologies": ["Next.js", "React", "Supabase", "PostgreSQL", "Tailwind CSS", "Boulevard", "Zod", "Backblaze B2"],
     "href": "https://www.beautifulblessedesthetics.com/",
     "slug": "c0f3580e-4ff4-4357-a28c-e0264ec6e60d"
+  },
+  {
+    "id": 22,
+    "name": "TraceEngine",
+    "contribution": {
+      "role": "Full Stack Developer",
+      "scope": "We built the full application, including the interface, blockchain integrations, investigation workflows, wallet maps and source-backed reports."
+    },
+    "services": [
+      "business-software",
+      "websites",
+      "automation"
+    ],
+    "description": "Built a Web3 investigation app for Ethereum, Base, BNB Chain and Solana. It connects token holders, wallet funding, transfer history and contract checks with source evidence, interactive maps and background investigations.",
+    "technologies": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Viem",
+      "Node.js",
+      "SQLite",
+      "D3.js",
+      "Ethereum",
+      "EVM",
+      "Solana"
+    ],
+    "href": "https://www.traceengine.tech/",
+    "slug": "79241a61-f5f9-49ee-ad58-568f0eb8289b"
   }
 ] as const;

@@ -4,6 +4,11 @@ type ClientCapability = { category: string; title: string; description: string }
 // Evidence: design-assets/project-capability-audit.json and
 // design-assets/project-capability-evidence.md. Contributions remain separate.
 export const projectStrengths: Record<number, ClientCapability[]> = {
+  22: [
+    { category: "Blockchain data", title: "One investigation workspace", description: "Inspect market activity, holders, funding history and contract observations together across supported blockchains." },
+    { category: "Evidence", title: "Trace the records behind a finding", description: "Explore interactive wallet maps and transaction references, with unavailable history and provider limits kept visible." },
+    { category: "Workflow", title: "Research without wallet access", description: "Run read-only investigations, follow progress, return to reports and maintain a watchlist without connecting a wallet." },
+  ],
   1: [
     { category: "Access", title: "One company workspace", description: "Keep application licenses, team invitations, and role permissions together, with access scoped to each company." },
     { category: "Operations", title: "Connected sales and stock", description: "Manage sales, suppliers, inventory, shifts, and approvals through the wholesale and retail POS." },
